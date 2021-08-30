@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sequence Docs
 
 ### Dev
@@ -23,3 +24,7 @@ Here are some tips and examples on how to write docs. First run `yarn start` the
 * [Introduction](http://localhost:3000/misc/writing-docs/introduction)
 * [File Structure](http://localhost:3000/misc/writing-docs/file-structure)
 * [MDX Syntax Features/Examples](http://localhost:3000/misc/writing-docs/markdown-features)
+=======
+# docs
+Sequence Docs
+>>>>>>> 615c1d2 (Initial commit)
