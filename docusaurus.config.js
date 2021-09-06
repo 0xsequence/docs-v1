@@ -13,7 +13,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   favicon: 'img/favicon.ico',
   organizationName: 'horizon', // Usually your GitHub org/user name.
   projectName: 'sequence-documentation', // Usually your repo name.
-
+  
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -34,7 +34,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    (
+      {
       navbar: {
         title: 'Sequence',
         logo: {
@@ -96,6 +97,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-      },
+        },
+        colorMode: {
+          defaultMode: 'dark',
+        }
     }),
 });
