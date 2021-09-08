@@ -31,75 +31,84 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       }),
     ],
   ],
-
+  plugins: [
+    [require.resolve("@easyops-cn/docusaurus-search-local"), {
+      indexDocs: true,
+      docsRouteBasePath: '/',
+    }],
+  ],
+  
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
-      navbar: {
-        title: 'Sequence',
-        logo: {
-          alt: 'logo',
-          src: 'img/logo.svg',
+        navbar: {
+          title: 'Sequence',
+          logo: {
+            alt: 'logo',
+            src: 'img/logo.svg',
+          },
+         
+          items: [
+            {
+              type: 'doc',
+              docId: 'introduction',
+              position: 'left',
+              label: 'Docs',
+            },
+            {
+              href: 'https://github.com/0xsequence',
+              label: 'GitHub',
+              position: 'right',
+            },
+          ],
         },
-        items: [
-          {
-            type: 'doc',
-            docId: 'introduction',
-            position: 'left',
-            label: 'Docs',
-          },
-          {
-            href: 'https://github.com/0xsequence',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Intro',
-                to: '/',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              
-              {
-                label: 'Discord',
-                href: 'https://chat.sequence.build',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/0xsequence',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/0xsequence',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Horizon Blockchain Games Inc`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        footer: {
+          style: 'dark',
+          links: [
+            {
+              title: 'Docs',
+              items: [
+                {
+                  label: 'Intro',
+                  to: '/',
+                },
+              ],
+            },
+            {
+              title: 'Community',
+              items: [
+                
+                {
+                  label: 'Discord',
+                  href: 'https://chat.sequence.build',
+                },
+                {
+                  label: 'Twitter',
+                  href: 'https://twitter.com/0xsequence',
+                },
+              ],
+            },
+            {
+              title: 'More',
+              items: [
+                {
+                  label: 'GitHub',
+                  href: 'https://github.com/0xsequence',
+                },
+              ],
+            },
+          ],
+          copyright: `Copyright © ${new Date().getFullYear()} Horizon Blockchain Games Inc`,
+        },
+        prism: {
+          theme: lightCodeTheme,
+          darkTheme: darkCodeTheme,
+          additionalLanguages: ['typescript','go'],
         },
         colorMode: {
           defaultMode: 'dark',
-        }
-    }),
+        },
+      }
+    ),
 });
