@@ -26,3 +26,20 @@ Under the hood, the Sequence Wallet contract is a weighted multisig threshold wa
 3. Sequence wallet's support meta-transactions as a standard feature, which makes sending transactions much easier. You may fire and forget, not worry about gas prices, or nonces, you can even batch multiple transactions into a single request, execute transactions in parallel
 
 4. Sequence meta-transactions allow a user to pay gas fees in a variety of tokens such as ETH, USDC, DAI and others. For example, for EOA wallets like Metamask and Coinbase, users on the Polygon network must have MATIC tokens in their wallets to send any transactions. But with Sequence Wallet, users don't have to have any MATIC tokens at all, instead they "sign" and "relay" their transactions through the Sequence Relayer service which will pay the MATIC gas on the user's behalf, and the user's relay transaction will automatically substitute the MATIC gas fee for one of ETH, USDC, or DAI (a users choice). This works like this across all networks, so a user only ever needs USDC and can pay for fees across all networks... a single gas token for any network. Keep your ETH, spend your USDC
+
+
+#### **Checking Language Support**
+```typescript
+let message: string = 'Hello, World!';
+console.log(message);
+```
+
+```go
+package main
+
+import "fmt"
+
+func main(){
+    fmt.Println("Hello World")
+}
+```
