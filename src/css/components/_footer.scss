@@ -2,14 +2,16 @@
   background-image: url('/img/image52.svg');
   position: relative;
   padding: 0;
+  background-repeat: no-repeat;
   overflow: hidden;
-  background-color: $primary-black;
+  margin-right: 0px;
+  background-color: rgba(0, 0, 0, 0);
 
   .container {
     position: relative;
     padding-top: 50px;
     padding-bottom: 38px;
-
+    background-color:  rgba(0, 255, 255, 0);
     @include mobile {
       padding-top: 47px;
       padding-bottom: 44px;
