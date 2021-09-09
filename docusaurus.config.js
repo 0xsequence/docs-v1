@@ -26,7 +26,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           editUrl: 'https://github.com/0xsequence/docs/edit/master/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/css/custom.scss'),
         },
       }),
     ],
@@ -36,12 +36,18 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       indexDocs: true,
       docsRouteBasePath: '/',
     }],
+   'docusaurus-plugin-sass'
   ],
+
   
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
+        announcementBar: {
+          id: 'announcementBar', // Increment on change
+          content: `❤️ If you like Sequence, follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/0xsequence" >Twitter</a>`,
+        },
         navbar: {
           title: 'Sequence',
           logo: {
@@ -64,6 +70,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           ],
         },
         footer: {
+          logo: {
+            alt: "Horizon Blockchain Games Logo",
+            src: "/img/horizon-logo.png",
+            href: "https://horizon.io"
+          },
           style: 'dark',
           links: [
             {
@@ -73,12 +84,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
                   label: 'Intro',
                   to: '/',
                 },
+                {
+                  label: "Getting Started",
+                  to: '/getting-started/using_sequence',
+                }
               ],
             },
             {
-              title: 'Community',
-              items: [
-                
+              title: 'Socials',
+              items: [ 
                 {
                   label: 'Discord',
                   href: 'https://chat.sequence.build',
@@ -87,18 +101,27 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
                   label: 'Twitter',
                   href: 'https://twitter.com/0xsequence',
                 },
-              ],
-            },
-            {
-              title: 'More',
-              items: [
                 {
                   label: 'GitHub',
                   href: 'https://github.com/0xsequence',
                 },
               ],
             },
+            {
+              title: 'Contact',
+              items: [
+                {
+                  label: 'Email',
+                  href: 'mailto: hello@sequence.build',
+                },
+                {
+                  label: 'Support',
+                  href: 'https://sequence.build/#contact'
+                }
+              ],
+            }
           ],
+
           copyright: `Copyright © ${new Date().getFullYear()} Horizon Blockchain Games Inc`,
         },
         prism: {
