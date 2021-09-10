@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'Sequence',
   tagline: '',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://docs-111111.sequence.info/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -49,10 +49,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           content: `❤️ If you like Sequence, follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/0xsequence" >Twitter</a>`,
         },
         navbar: {
-          title: 'Sequence',
+          title: '',
           logo: {
             alt: 'logo',
-            src: 'img/logo.svg',
+            src: 'img/logo-light.svg',
+            srcDark: 'img/logo-dark.svg',
           },
          
           items: [
@@ -60,11 +61,16 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               type: 'doc',
               docId: 'introduction',
               position: 'left',
-              label: 'Docs',
+              label: 'Introduction',
             },
             {
               href: 'https://github.com/0xsequence',
-              label: 'GitHub',
+              className: 'navbar-item-github',
+              position: 'right',
+            },
+            {
+              href: 'https://twitter.com/0xsequence',
+              className: 'navbar-item-twitter',
               position: 'right',
             },
           ],
