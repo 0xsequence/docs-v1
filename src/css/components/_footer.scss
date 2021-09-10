@@ -1,17 +1,16 @@
 .footer {
-  background-image: url('/img/image52.svg');
+  // background-image: url('/img/image52.svg');
   position: relative;
   padding: 0;
-  background-repeat: no-repeat;
+  // background-repeat: no-repeat;
+  background-color: white ;
   overflow: hidden;
   margin-right: 0px;
-  background-color: rgba(0, 0, 0, 0);
-
   .container {
     position: relative;
     padding-top: 50px;
     padding-bottom: 38px;
-    background-color:  rgba(0, 255, 255, 0);
+    // background-color:  rgba(0, 255, 255, 0);
     @include mobile {
       padding-top: 47px;
       padding-bottom: 44px;
@@ -50,7 +49,7 @@
 
   &__logo-ctr { margin-top: -3px; }
 
-  &__logo-tagline { font-family: $roboto; font-weight: 1000; margin-left: 5px; }
+  &__logo-tagline { font-family: $roboto; font-weight: 1000; margin-left: 11px; color: $primary-black}
 
   &__logo {
     display: block;
@@ -65,6 +64,7 @@
     line-height: 1.25;
     font-size: 14.5px;
     font-weight: 600;
+    color: $primary-black;
 
     @include tablet-mobile {
       margin-bottom: 22px;
@@ -111,11 +111,11 @@
     text-decoration: none;
     line-height: 1.1;
     font-size: 14.5px;
-    color: $white;
+    color: $primary-black;
     transition: color .2s ease-in-out;
 
     &:hover {
-      color: $white;
+      color: $primary-black;
     }
   }
 
@@ -130,6 +130,27 @@
 
     @include tablet-mobile {
       margin-top: 42px;
+    }
+  }
+}
+
+html[data-theme="dark"] {
+  .footer {
+    background-color: $primary-black;
+
+    &__link-item {
+      color: $white; 
+      
+      &:hover {
+        color: $white;
+      }
+    }
+    &__logo-tagline {
+      color: $white;
+    }
+
+    &__title {
+      color: $white;
     }
   }
 }
