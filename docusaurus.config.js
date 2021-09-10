@@ -72,8 +72,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         footer: {
           logo: {
             alt: "Horizon Blockchain Games Logo",
-            src: "/img/horizon-logo.png",
-            href: "https://horizon.io"
+            src: "/img/horizon-light-mode.svg",
+            href: "https://horizon.io",
+            srcDark: "/img/horizon-dark-mode.svg",
           },
           style: 'dark',
           links: [

@@ -42,8 +42,8 @@ function FooterLink({to, href, label, prependBaseUrlToHref, ...props}) {
   );
 }
 
-const FooterLogo = ({url, alt}) => (
-  <img loading="lazy" className="footer__logo" alt={alt} src={url} />
+const FooterLogo = ({sources, alt}) => (
+  <ThemedImage className="footer__logo" alt={alt} sources={sources} />
 );
 
 function Footer() {
@@ -67,16 +67,17 @@ function Footer() {
       
       <div className="container">
         
-        {/* can somone give me a wider image? */}
-        {/* <img src={useBaseUrl('/img/image52.svg')} className="footer-background" alt="" /> */}
-
         <div className="row">
         
           <div className="col col--3">
                 <span className="footer__logo-tagline">Made with &lt;/&gt; by</span>
-                {logo.href ? <a href={logo.href} target="_blank" rel="noopener" className={styles.footerLogoLink}>
-                    <FooterLogo alt={logo.alt} url={logoUrl} />
-                  </a> : <FooterLogo alt={logo.alt} url={logoUrl} />}
+            {logo.href ? (
+              <Link href={logo.href} className={styles.footerLogoLink}>
+                    <FooterLogo alt={logo.alt} sources={sources} />
+              </Link>
+            ) : (
+              <FooterLogo alt={logo.alt} sources={sources} />
+            )}
           </div>
         
           <div className="col col--9">
