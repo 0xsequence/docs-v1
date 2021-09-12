@@ -13,7 +13,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   favicon: 'img/favicon.ico',
   organizationName: 'horizon', // Usually your GitHub org/user name.
   projectName: 'sequence-documentation', // Usually your repo name.
-  
+ 
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -24,6 +24,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           // Please change this to your repo.
           routeBasePath: '/',
           editUrl: 'https://github.com/0xsequence/docs/edit/master/',
+          // showLastUpdateAuthor: true,
+          // showLastUpdateTime: true,
+          
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
@@ -134,7 +137,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
-          additionalLanguages: ['typescript','go'],
+          additionalLanguages: ['typescript', 'go',
+            'markdown', 'json',
+            'jsx', 'python'],
         },
         colorMode: {
           defaultMode: 'dark',

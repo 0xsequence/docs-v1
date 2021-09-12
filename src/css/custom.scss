@@ -21,6 +21,13 @@
   --ifm-color-primary-lighter: #4d76e6;
   --ifm-color-primary-lightest: #5c7fdf;
   --ifm-code-font-size: 95%;
+  --custom-shadow-lw: 0 3px 5px 0px rgba(0, 0, 0, 0.1);
+  --custom-shadow-md: 0 3px 5px 0px rgba(0, 0, 0, 0.1);
+  --custom-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --custom-shadow-xl: 0 30px 60px 0 rgba(0, 0, 0, 0.1);
+  --ifm-global-shadow-lw: var(--custom-shadow-lw);
+  --ifm-global-shadow-md: var(--custom-shadow-md);
+  --ifm-global-shadow-tl: var(--custom-shadow-tl);
 }
 
 :focus {
@@ -66,7 +73,7 @@
 
 
 html[data-theme="dark"] {
-  --ifm-background-color: #0C0E10; 
+  --ifm-background-color: #1f1f1f;
 }
 
 html[data-theme='dark'] .navbar-item-github:before {
@@ -119,4 +126,22 @@ html[data-theme='dark'] .navbar-item-twitter:before {
 
 .home-main {
   overflow: hidden;
+}
+
+a.card {
+  text-decoration: none !important;
+  color: var(--ifm-color-content);
+  box-shadow: none;
+  border: 1px solid #333;
+  display: flex;
+  /* background-color: var(--ifm-background-color); */
+}
+a.card .card__body {
+  flex: 1;
+  flex-grow: 1;
+}
+a.card:hover {
+  transition: all 0.2s ease;
+  border: 1px solid var(--ifm-color-primary);
+  box-shadow: var(--custom-shadow-xl), 0 0 0 1px var(--ifm-color-primary) !important;
 }
