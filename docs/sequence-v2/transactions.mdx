@@ -1,0 +1,42 @@
+---
+sidebar_position: 4
+---
+
+# Transactions
+
+When a wallet client tries to send a transaction, it has to construct a signature that reconstructs the same imageHash that exists on the wallet contract.
+
+This imageHash may or may not be up to date; if the imageHash is not up to date, it can still be used as long as the user has enough signing power to construct a valid signature for the current imageHash.
+
+If the wallet client requires the usage of any signers that are only present on the lazy imageHash, it must first bundle the update imageHash pre-signed transaction before executing the intended initial transaction.
+
+### 1 - Loading current imageHash
+
+The wallet client must retrieve the current imageHash of the wallet; this value can be obtained by directly querying the contract on the network for which the transaction is intended.
+
+If this value is not present, it means the wallet is still in a purely counterfactual mode, or the wallet may not even be deployed. In this case, the Wallet client must obtain the counterfactual configuration by re-computing the hash of all known possible initial configurations.
+
+If no valid counterfactual configuration is found, the Wallet Client must prompt the user to upload a backup file or QR; failing to do so would render the transaction attempt failed.
+
+### 2 - Loading all lazy transaction updates
+
+The wallet client must query all known sources for pre-signed configuration update transactions; of all known configuration updates, only the one with the highest nonce is considered must be considered valid.
+
+### 3 - Prompt the user to sign the transaction
+
+Using the information of all available signers provided by the latest lazy config update (or the current imageHash), the wallet client should prompt the user to sign the transaction with these signers as options.
+
+Suppose the user only uses signers defined in the original imageHash, and the lazy update transaction doesn't remove any sessions. In that case, the transaction can be signed and executed without bundling any configuration updates.
+
+If the user signs the transaction using at least one signer defined by the lazy update transaction, then such signature can only be accepted as valid by the smart contract wallet if the update takes place first.
+
+For this scenario, the wallet client must bundle the original transaction after the lazy update transaction.
+
+#### Missing pre-signed transaction
+
+The sign transaction screen must include an "I don't see my other devices/signers" option; in this scenario, it may be possible that the known sources have lost a pre-signed transaction, and thus some of the devices aren't available. This flow must lead the user to upload a recovery backup file or QR.
+
+## Complete transaction flow
+
+[![Sequence v2 - Transaction Flow](/img/v2/tx-flow.svg)](/img/v2/tx-flow.svg) 
+[Expand](/img/v2/tx-flow.svg) 

@@ -1,0 +1,45 @@
+---
+sidebar_position: 2
+---
+
+# Wallet Creation
+
+## Old Implementation
+
+Sequence v1 deploys all wallet creations into a predefined blockchain known as the authChain; during this process, the wallet configuration is published with the objective of it being used to retrieve the login information for the aperture of subsequent sessions.
+
+To maintain feature parity with Sequence v1, Sequence v2 must keep the following features:
+
+- A new session should be able to determine if a wallet exists for a given user.
+- A new session should be able to find the wallet address for a given user.
+- The initial wallet configuration must be available.
+
+## New Implementation - Lazy wallet creation
+
+Upon the first login (wallet creation), the wallet client must generate or retrieve a new set of keys, this set of keys should contain at least one unique recoverable key (Torus, Password, Mnemonic, etc.). This initial set of keys is utilized to derivate the initial wallet config and thus the initial wallet address.
+
+After the Sequence wallet address is obtained, the wallet client must generate a signed message with the following information:
+
+- The entire configuration of the wallet
+- The timestamp of the wallet creation
+- The minimal context of the wallet (Factory + MainModule)
+
+All available signers must sign this message, and it must be signed by at least one unique recoverable key. The signed payload must later be archived; for this archival to be decentralized and secure, it cannot be done using a single API. The client must use multiple APIs, and a recovery process must exist if none of the APIs are available.
+
+### Sequence APIs
+
+The initial wallet configuration may be stored using Sequence APIs or other backends, as long as such backends follow these requirements:
+
+- The backend must not accept payloads with a future timestamp.
+- The backend must validate that the payload is signed by at least one signer of the configuration.
+- Multiple backends exist, ideally hosted using independent servers.
+
+The wallet client uses the payload signature to validate the integrity of the initial wallet configuration. The signature protects the wallet client from a compromised API providing corrupt information.
+
+### Unavailable API fallback
+
+The wallet client must store this information in alternative mediums to protect the user if the APIs become unavailable. The following described mechanisms must be in place:
+
+- The wallet client must save all known initial configurations using IndexedDB, and this information must persist across logins.
+- The wallet client must generate a QR code with all this information and prompt the user to take a picture or screenshot it.
+- The wallet client must prompt the user to download a "recovery file", this recovery file must contain all available recovery information of the wallet client.
