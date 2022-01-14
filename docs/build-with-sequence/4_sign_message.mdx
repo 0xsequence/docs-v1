@@ -4,4 +4,23 @@ sidebar_position: 4
 
 # Signing & Verifying Messages
 
-hi
+## Signing Messages
+
+Sequence wallets are able to sign arbitrary messages because they conform to a standard defined by EIP-1271.
+
+To request a user's signature:
+
+```
+const signer = wallet.getSigner()
+const message = 'Hello World!'
+
+const signature = await signer.signMessage(message)
+console.log(signature)
+```
+
+## Verifying messages
+
+Given a message and signature, you can check if a particular wallet signed that message:
+
+```
+```

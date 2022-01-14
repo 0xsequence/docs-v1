@@ -4,4 +4,54 @@ sidebar_position: 8
 
 # Sending an ERC-20 Token
 
-hi
+You can ask the wallet to send a single ERC-20 token transfer:
+
+```
+const erc20Interface = new ethers.utils.Interface(['function transfer(address _to, uint256 _value)'])
+
+// Encode an ERC-20 token transfer to toAddress of the specified amount
+const data = erc20Interface.encodeFunctionData('transfer', [toAddress, amount])
+
+const transaction = {
+  to: daiContractAddress,
+  data,
+  value: 0,
+  gasLimit: 0,
+  delegateCall: false,
+  revertOnError: false
+}
+
+const response = await wallet.sendTransaction(transaction)
+console.log(response)
+```
+
+Again, with batching functionality, you can send multiple token transfers in a single native transaction:
+
+```
+const erc20Interface = new ethers.utils.Interface(['function transfer(address _to, uint256 _value)'])
+
+// Encode two different ERC-20 token transfers
+const data1 = erc20Interface.encodeFunctionData('transfer', [toAddress1, amount1])
+const data2 = erc20Interface.encodeFunctionData('transfer', [toAddress2, amount2])
+
+const transaction1 = {
+  to: daiContractAddress,
+  data: data1,
+  value: 0,
+  gasLimit: 0,
+  delegateCall: false,
+  revertOnError: false
+}
+
+const transaction2 = {
+  to: daiContractAddress,
+  data: data2,
+  value: 0,
+  gasLimit: 0,
+  delegateCall: false,
+  revertOnError: false
+}
+
+const response = await wallet.sendTransactionBatch([transaction1, transaction2])
+console.log(response)
+```

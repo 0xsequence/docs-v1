@@ -4,4 +4,19 @@ sidebar_position: 6
 
 # Sending a Transaction
 
-hi
+Signing a transaction will only retrieve the signed payload.
+If you want the wallet to actually dispatch the transaction to the network as well, that requires only a small modification to the previous example (note the change from `signTransactions` to `sendTransaction`):
+
+```
+const transaction = {
+  to: daiContractAddress,
+  value: 1000000000000000000,
+  data: '0x',
+  gasLimit: 0,
+  delegateCall: false,
+  revertOnError: false
+}
+
+const response = await wallet.sendTransaction(transaction)
+console.log(response)
+```

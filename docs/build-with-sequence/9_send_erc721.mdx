@@ -4,4 +4,25 @@ sidebar_position: 9
 
 # Sending an ERC-721 (NFT) Token
 
-hi
+Sending an ERC-721 NFT is similar to sending an ERC-20 token.
+The only notable difference is in the contract standard itself:
+
+```
+const erc721Interface = new ethers.utils.Interface(['function safeTransferFrom(address _from, address _to, uint256 _tokenId)'])
+
+// Encode the transfer of the NFT tokenId to toAddress
+const address = await wallet.getAddress()
+const data = erc721Interface.encodeFunctionData('safeTransferFrom', [address, toAddress, tokenId])
+
+const transaction = {
+  to: tokenAddress,
+  data,
+  value: 0,
+  gasLimit: 0,
+  delegateCall: false,
+  revertOnError: false
+}
+
+const response = await wallet.sendTransaction(transaction)
+console.log(response)
+```
