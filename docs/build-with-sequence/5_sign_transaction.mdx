@@ -24,16 +24,6 @@ console.log(signature)
 If you want to override the default network, you can also customize that as well:
 
 ```ts
-const transaction = {
-  to: toAddress,
-  data: '0x',
-  value: '1000000000000000000',
-  gasLimit: 0,
-  delegateCall: false,
-  revertOnError: false
-}
-
-const signer = await wallet.getSigner()
 const signature = await signer.signTransactions([transaction], 137 /* Polygon */)
 console.log(signature)
 ```
