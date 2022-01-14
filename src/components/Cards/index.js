@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import styles from './styles.module.css';
 
 function Cards(props) {
     const cards = props.cards;
@@ -21,6 +20,5 @@ function Cards(props) {
         </div>
     );
 }
-
 
 export default Cards;
