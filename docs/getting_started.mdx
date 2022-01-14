@@ -24,7 +24,7 @@ npm install 0xsequence
 You can find the source of the `0xsequence` package on [Github](https://github.com/0xsequence/sequence.js).
 
 
-## Connect Your Wallet
+## Connect your wallet
 
 **Connecting to Ethereum Mainnet:**
 
@@ -41,7 +41,7 @@ import { sequence } from '0xsequence'
 const wallet = new sequence.Wallet('polygon')
 ```
 
-## Get Wallet Address
+## Get the wallet address
 
 ```ts
 const walletAddress = await wallet.getAddress()
@@ -50,7 +50,7 @@ console.log(walletAddress)
 // # => '0xabcd....'
 ```
 
-## Open the Wallet from your Dapp
+## Open the wallet from your dapp
 
 ```ts
 wallet.openWallet()
@@ -72,7 +72,7 @@ console.log('signer.getChainId()', await signer.getChainId())
 ```
 
 
-## Sign & Verify a Message
+## Sign & verify a message
 
 ```ts
 // Get the wallet signer instance
@@ -98,7 +98,7 @@ if (!isValid) throw new Error('signature is invalid')
 ```
 
 
-## Sending an ERC-20 Token
+## Sending an ERC-20 token
 
 Let's now send some USDC tokens to another wallet address on the network.
 
