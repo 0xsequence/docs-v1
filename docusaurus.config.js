@@ -12,7 +12,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'horizon', // Usually your GitHub org/user name.
-  projectName: 'sequence-documentation', // Usually your repo name.
+  projectName: 'sequence-docs', // Usually your repo name.
  
   presets: [
     [
@@ -62,9 +62,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           items: [
             {
               type: 'doc',
-              docId: 'introduction',
+              docId: 'introduction/overview',
               position: 'left',
-              label: 'Introduction',
+              label: 'Overview',
             },
             {
               href: 'https://github.com/0xsequence',
@@ -96,7 +96,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
                 },
                 {
                   label: "Getting Started",
-                  to: '/getting-started/using_sequence',
+                  to: '/getting-started',
                 }
               ],
             },
