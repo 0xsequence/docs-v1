@@ -23,4 +23,9 @@ console.log(signature)
 Given a message and signature, you can check if a particular wallet signed that message:
 
 ```ts
+const address = await wallet.getAddress()
+const chainId = await wallet.getChainId()
+
+const isValid = await wallet.commands.isValidMessageSignature(address, message, signature, chainId)
+console.log(isValid)
 ```
