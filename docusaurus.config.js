@@ -12,8 +12,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   staticDirectories: ['static'],
-  organizationName: 'horizon', // Usually your GitHub org/user name.
-  projectName: 'sequence-docs', // Usually your repo name.
+  organizationName: '0xsequence', // Usually your GitHub org/user name.
+  projectName: 'docs', // Usually your repo name.
  
   presets: [
     [
