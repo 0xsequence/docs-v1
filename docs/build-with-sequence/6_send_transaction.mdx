@@ -9,12 +9,8 @@ If you want the wallet to actually dispatch the transaction to the network as we
 
 ```ts
 const transaction = {
-  to: daiContractAddress,
-  value: 1000000000000000000,
-  data: '0x',
-  gasLimit: 0,
-  delegateCall: false,
-  revertOnError: false
+  to: recipientAddress,
+  value: 1000000000000000000
 }
 
 const response = await wallet.sendTransaction(transaction)

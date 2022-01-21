@@ -10,17 +10,13 @@ The only notable difference is in the contract standard itself:
 ```ts
 const erc721Interface = new ethers.utils.Interface(['function safeTransferFrom(address _from, address _to, uint256 _tokenId)'])
 
-// Encode the transfer of the NFT tokenId to toAddress
+// Encode the transfer of the NFT tokenId to recipient
 const address = await wallet.getAddress()
-const data = erc721Interface.encodeFunctionData('safeTransferFrom', [address, toAddress, tokenId])
+const data = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipientAddress, tokenId])
 
 const transaction = {
-  to: tokenAddress,
-  data,
-  value: 0,
-  gasLimit: 0,
-  delegateCall: false,
-  revertOnError: false
+  to: erc721TokenAddress,
+  data
 }
 
 const response = await wallet.sendTransaction(transaction)

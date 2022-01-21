@@ -8,12 +8,8 @@ You can ask the wallet to sign either a single transaction or multiple ones:
 
 ```ts
 const transaction = {
-  to: toAddress,
-  data: '0x',
-  value: '1000000000000000000',
-  gasLimit: 0,
-  delegateCall: false,
-  revertOnError: false
+  to: recipientAddress,
+  value: '1000000000000000000'
 }
 
 const signer = await wallet.getSigner()
