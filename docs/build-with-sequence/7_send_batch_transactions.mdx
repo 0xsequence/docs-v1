@@ -8,21 +8,13 @@ Likewise, bundling multiple transactions to be send in a single native transacti
 
 ```ts
 const transaction1 = {
-  to: toAddress1,
-  value: 1000000000000000000,
-  data: '0x',
-  gasLimit: 0,
-  delegateCall: false,
-  revertOnError: false
+  to: recipient1Address,
+  value: 1000000000000000000
 }
 
 const transaction2 = {
-  to: toAddress2,
-  value: 1000000000000000000,
-  data: '0x',
-  gasLimit: 0,
-  delegateCall: false,
-  revertOnError: false
+  to: recipient2Address,
+  value: 1000000000000000000
 }
 
 const response = await wallet.sendTransactionBatch([transaction1, transaction2])

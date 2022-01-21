@@ -137,7 +137,7 @@ const ERC_20_ABI = [
 const signer = wallet.getSigner()
 
 // Sending to a random address
-const toAddress = ethers.Wallet.createRandom().address
+const recipientAddress = ethers.Wallet.createRandom().address
 
 // Sending 1.50 USDC, note USDC has 6 decimal places
 const amount = ethers.utils.parseUnits('1.50', 6)
@@ -148,7 +148,7 @@ const usdcContractAddress = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
 
 const tx: sequence.transactions.Transaction = {
   to: usdcContractAddress,
-  data: new ethers.utils.Interface(ERC_20_ABI).encodeFunctionData('transfer', [toAddress, amount.toHexString()])
+  data: new ethers.utils.Interface(ERC_20_ABI).encodeFunctionData('transfer', [recipientAddress, amount.toHexString()])
 }
 
 // Send the transaction to the blockchain :D
