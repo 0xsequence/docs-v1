@@ -12,7 +12,9 @@ const erc20Interface = new ethers.utils.Interface([
 ])
 
 // Encode an ERC-20 token transfer to recipient of the specified amount
-const data = erc20Interface.encodeFunctionData('transfer', [recipientAddress, amount])
+const data = erc20Interface.encodeFunctionData(
+  'transfer', [recipientAddress, amount]
+)
 
 const transaction = {
   to: daiContractAddress,
@@ -31,8 +33,12 @@ const erc20Interface = new ethers.utils.Interface([
 ])
 
 // Encode two different ERC-20 token transfers
-const data1 = erc20Interface.encodeFunctionData('transfer', [recipient1Address, amount1])
-const data2 = erc20Interface.encodeFunctionData('transfer', [recipient2Address, amount2])
+const data1 = erc20Interface.encodeFunctionData(
+  'transfer', [recipient1Address, amount1]
+)
+const data2 = erc20Interface.encodeFunctionData(
+  'transfer', [recipient2Address, amount2]
+)
 
 const transaction1 = {
   to: daiContractAddress,

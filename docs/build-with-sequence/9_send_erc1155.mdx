@@ -14,13 +14,9 @@ const erc1155Interface = new ethers.utils.Interface([
 
 // Encode the transfer of the collectible to recipient
 const address = await wallet.getAddress()
-const data = erc1155Interface.encodeFunctionData('safeTransferFrom', [
-  address,
-  recipientAddress,
-  tokenId,
-  amount,
-  '0x'
-])
+const data = erc1155Interface.encodeFunctionData(
+  'safeTransferFrom', [address, recipientAddress, tokenId, amount, '0x']
+)
 
 const transaction = {
   to: erc1155TokenAddress,
@@ -39,12 +35,12 @@ const erc1155Interface = new ethers.utils.Interface([
 ])
 
 // Encode two different ERC-1155 token transfers
-const data1 = erc1155Interface.encodeFunctionData('safeTransferFrom', [
-  address, recipient1Address, token1Id, amount1, '0x'
-])
-const data2 = erc1155Interface.encodeFunctionData('safeTransferFrom', [
-  address, recipient2Address, token2Id, amount2, '0x'
-])
+const data1 = erc1155Interface.encodeFunctionData(
+  'safeTransferFrom', [address, recipient1Address, token1Id, amount1, '0x']
+)
+const data2 = erc1155Interface.encodeFunctionData(
+  'safeTransferFrom', [address, recipient2Address, token2Id, amount2, '0x']
+)
 
 const transaction1 = {
   to: erc1155ContractAddress,

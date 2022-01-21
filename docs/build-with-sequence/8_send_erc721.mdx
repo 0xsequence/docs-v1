@@ -14,7 +14,9 @@ const erc721Interface = new ethers.utils.Interface([
 
 // Encode the transfer of the NFT tokenId to recipient
 const address = await wallet.getAddress()
-const data = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipientAddress, tokenId])
+const data = erc721Interface.encodeFunctionData(
+  'safeTransferFrom', [address, recipientAddress, tokenId]
+)
 
 const transaction = {
   to: erc721TokenAddress,
@@ -33,8 +35,12 @@ const erc721Interface = new ethers.utils.Interface([
 ])
 
 // Encode two different ERC-721 token transfers
-const data1 = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipient1Address, amount1])
-const data2 = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipient2Address, amount2])
+const data1 = erc721Interface.encodeFunctionData(
+  'safeTransferFrom', [address, recipient1Address, amount1]
+)
+const data2 = erc721Interface.encodeFunctionData(
+  'safeTransferFrom', [address, recipient2Address, amount2]
+)
 
 const transaction1 = {
   to: erc721ContractAddress,
