@@ -20,14 +20,14 @@ Sequence Wallets are created using the [Factory](https://github.com/0xsequence/w
 Creates a child MinimalUpgradeableProxy using [CREATE2](https://eips.ethereum.org/EIPS/eip-1014), the proxy initially points to the provided `_mainModule`.
 No initialize code is executed.
 
-Parameters:
+#### Parameters:
 
 | Name        | Type    | Description                                                                                                                                                                   |
 |-------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | _mainModule | address | Initial implementation for the new proxy contract, expected to point to a valid Sequence wallet implementation with support for counter-factual initialization.               |
 | _salt       | bytes32 | Arbitrary value to be used as `create2` salt. Sequence's `mainModule` uses the salt to obtain a hash with the initial configuration for the wallet (See [ImageHash](#)).      |
 
-Return Values:
+#### Return Values:
 
 | Name      | Type    | Description                            |
 |-----------|---------|----------------------------------------|
