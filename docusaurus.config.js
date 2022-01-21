@@ -6,11 +6,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'Sequence',
   tagline: '',
-  url: 'https://docs-111111.sequence.info/',
+  url: 'https://docs.sequence.build/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  staticDirectories: ['static'],
   organizationName: 'horizon', // Usually your GitHub org/user name.
   projectName: 'sequence-docs', // Usually your repo name.
  
@@ -80,7 +81,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         },
         footer: {
           logo: {
-            alt: "Horizon Blockchain Games Logo",
+            alt: "Horizon Blockchain Games",
             src: "/img/horizon-light-mode.svg",
             href: "https://horizon.io",
             srcDark: "/img/horizon-dark-mode.svg",

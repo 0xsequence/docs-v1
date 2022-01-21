@@ -22,7 +22,7 @@ jobs:
       run: yarn run build
 
     - name: Touch CNAME
-      run: echo "docs-111111.sequence.info" > build/CNAME
+      run: echo "docs.sequence.build" > build/CNAME
       
     - name: Push
       uses: s0/git-publish-subdir-action@develop
