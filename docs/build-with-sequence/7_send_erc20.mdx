@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 7
 ---
 
 # Sending an ERC-20 Token
@@ -21,7 +21,7 @@ const response = await wallet.sendTransaction(transaction)
 console.log(response)
 ```
 
-Again, with batching functionality, you can send multiple token transfers in a single native transaction:
+With batching functionality, you can send multiple token transfers in a single native transaction:
 
 ```ts
 const erc20Interface = new ethers.utils.Interface(['function transfer(address _to, uint256 _value)'])
