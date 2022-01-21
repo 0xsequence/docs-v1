@@ -7,7 +7,9 @@ sidebar_position: 7
 You can ask the wallet to send a single ERC-20 token transfer:
 
 ```ts
-const erc20Interface = new ethers.utils.Interface(['function transfer(address _to, uint256 _value)'])
+const erc20Interface = new ethers.utils.Interface([
+  'function transfer(address _to, uint256 _value)'
+])
 
 // Encode an ERC-20 token transfer to recipient of the specified amount
 const data = erc20Interface.encodeFunctionData('transfer', [recipientAddress, amount])
@@ -24,7 +26,9 @@ console.log(response)
 With batching functionality, you can send multiple token transfers in a single native transaction:
 
 ```ts
-const erc20Interface = new ethers.utils.Interface(['function transfer(address _to, uint256 _value)'])
+const erc20Interface = new ethers.utils.Interface([
+  'function transfer(address _to, uint256 _value)'
+])
 
 // Encode two different ERC-20 token transfers
 const data1 = erc20Interface.encodeFunctionData('transfer', [recipient1Address, amount1])

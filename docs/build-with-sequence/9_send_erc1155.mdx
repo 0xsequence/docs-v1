@@ -8,11 +8,19 @@ Sending an ERC-1155 collectible is similar to sending an ERC-20 token.
 The only notable difference is in the contract standard itself:
 
 ```ts
-const erc1155Interface = new ethers.utils.Interface(['function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data)'])
+const erc1155Interface = new ethers.utils.Interface([
+  'function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data)'
+])
 
 // Encode the transfer of the collectible to recipient
 const address = await wallet.getAddress()
-const data = erc1155Interface.encodeFunctionData('safeTransferFrom', [address, recipientAddress, tokenId, 1, '0x'])
+const data = erc1155Interface.encodeFunctionData('safeTransferFrom', [
+  address,
+  recipientAddress,
+  tokenId,
+  amount,
+  '0x'
+])
 
 const transaction = {
   to: erc1155TokenAddress,
@@ -20,5 +28,33 @@ const transaction = {
 }
 
 const response = await wallet.sendTransaction(transaction)
+console.log(response)
+```
+
+With batching functionality, you can send multiple token transfers in a single native transaction:
+
+```ts
+const erc1155Interface = new ethers.utils.Interface([
+  'function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data)'
+])
+
+// Encode two different ERC-1155 token transfers
+const data1 = erc1155Interface.encodeFunctionData('safeTransferFrom', [
+  address, recipient1Address, token1Id, amount1, '0x'
+])
+const data2 = erc1155Interface.encodeFunctionData('safeTransferFrom', [
+  address, recipient2Address, token2Id, amount2, '0x'
+])
+
+const transaction1 = {
+  to: erc1155ContractAddress,
+  data: data1
+}
+const transaction2 = {
+  to: erc1155ContractAddress,
+  data: data2
+}
+
+const response = await wallet.sendTransactionBatch([transaction1, transaction2])
 console.log(response)
 ```

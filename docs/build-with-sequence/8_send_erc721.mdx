@@ -8,7 +8,9 @@ Sending an ERC-721 NFT is similar to sending an ERC-20 token.
 The only notable difference is in the contract standard itself:
 
 ```ts
-const erc721Interface = new ethers.utils.Interface(['function safeTransferFrom(address _from, address _to, uint256 _tokenId)'])
+const erc721Interface = new ethers.utils.Interface([
+  'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
+])
 
 // Encode the transfer of the NFT tokenId to recipient
 const address = await wallet.getAddress()
@@ -20,5 +22,30 @@ const transaction = {
 }
 
 const response = await wallet.sendTransaction(transaction)
+console.log(response)
+```
+
+With batching functionality, you can send multiple token transfers in a single native transaction:
+
+```ts
+const erc721Interface = new ethers.utils.Interface([
+  'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
+])
+
+// Encode two different ERC-721 token transfers
+const data1 = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipient1Address, amount1])
+const data2 = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipient2Address, amount2])
+
+const transaction1 = {
+  to: erc721ContractAddress,
+  data: data1
+}
+
+const transaction2 = {
+  to: erc721ContractAddress,
+  data: data2
+}
+
+const response = await wallet.sendTransactionBatch([transaction1, transaction2])
 console.log(response)
 ```
