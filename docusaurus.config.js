@@ -105,7 +105,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               items: [ 
                 {
                   label: 'Discord',
-                  href: 'https://chat.sequence.build',
+                  href: 'https://discord.gg/Sequence',
                 },
                 {
                   label: 'Twitter',
