@@ -1,2 +1,5 @@
 *.png filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
 *.[pP][nN][gG] filter=lfs diff=lfs merge=lfs -text
+=======
+>>>>>>> 615c1d2 (Initial commit)
