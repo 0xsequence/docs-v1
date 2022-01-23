@@ -32,6 +32,9 @@ You can find the source of the `0xsequence` package on [Github](https://github.c
 import { sequence } from '0xsequence'
 
 const wallet = new sequence.Wallet('mainnet')
+const connectDetails = await wallet.connect()
+
+console.log('=> connected?', connectDetails.connected)
 ```
 
 **Connecting to Polygon:**
@@ -39,6 +42,9 @@ const wallet = new sequence.Wallet('mainnet')
 import { sequence } from '0xsequence'
 
 const wallet = new sequence.Wallet('polygon')
+const connectDetails = await wallet.connect()
+
+console.log('=> connected?', connectDetails.connected)
 ```
 
 ## Get the wallet address
@@ -104,54 +110,35 @@ Let's now send some USDC tokens to another wallet address on the network.
 
 ```ts
 // Part of the ERC20 ABI, so we can encode a `transfer` call
-const ERC_20_ABI = [
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'recipient',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256'
-      }
-    ],
-    name: 'transfer',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function'
-  }
-]
+const erc20Interface = new ethers.utils.Interface([
+  'function transfer(address _to, uint256 _value)'
+])
 
 // Get the wallet signer interface
 const signer = wallet.getSigner()
 
-// Sending to a random address
-const recipientAddress = ethers.Wallet.createRandom().address
+// USDC contract address on Polygon network
+const usdcContractAddress = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
+
+// Sending to a recipient address
+const recipientAddress = '0x8b4de256180cfec54c436a470af50f9ee2813dbb'
 
 // Sending 1.50 USDC, note USDC has 6 decimal places
 const amount = ethers.utils.parseUnits('1.50', 6)
 
-// Make the smart contract call to the USDC contract. Below is the USDC smart contract address
-// on the Polygon network.
-const usdcContractAddress = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
+// Encode an ERC-20 token transfer to recipient of the specified amount
+const data = erc20Interface.encodeFunctionData(
+  'transfer', [recipientAddress, amount]
+)
 
+// Prepare Transaction object
 const tx: sequence.transactions.Transaction = {
   to: usdcContractAddress,
-  data: new ethers.utils.Interface(ERC_20_ABI).encodeFunctionData('transfer', [recipientAddress, amount.toHexString()])
+  data: data
 }
 
-// Send the transaction to the blockchain :D
+// Send the transaction via the signer to the blockchain :D The signer will prompt the user
+// sign+send the transaction, and once the user confirms it will be transmitted.
 const txnResp = await signer.sendTransaction(tx)
 
 // Wait for the transaction to be mined by the network

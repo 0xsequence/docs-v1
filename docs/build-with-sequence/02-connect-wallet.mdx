@@ -1,0 +1,117 @@
+# Connect Wallet
+
+Sequence is a very flexible wallet which allow users multiple ways to connect / access their wallet. This includes:
+
+1. **On-demand Ethereum web wallet for new users** via [0xsequence](https://www.npmjs.com/package/0xsequence) npm package + https://sequence.app -- this option allows
+developers to offer users an on-demand Web3 wallet. No user install required -- any browser will *just work*, and users
+can on-boarding with a familiar Web2 experience. Think of it like *Paypal / Stripe but for Web3*. 
+
+2. **Surf all of Web3** via [Sequence Wallet Chrome Extension](https://chrome.google.com/webstore/detail/sequence-wallet/ocmccklecaalljlflmclidjeclpcpdim?hl=en) -- users
+who have the Sequence Wallet Chrome Extension installed are able to access any Ethereum-compatible Dapp on the Web :) Just like how MetaMask works,
+but of course with a bunch of the [benefits of Sequence](/introduction/benefits-of-sequence).
+
+3. **Mobile phone access** via [WalletConnect](https://walletconnect.com/) support within Sequence Wallet -- users are able to communicate with their wallets remotely
+via the awesome Wallet Connect protocol. This is an excellent option if using Sequence Wallet from your mobile phone and want to connect
+your wallet to a desktop dapp.
+
+Sequence Wallet is built on Web Browser (W3C) and Ethereum Web3 standards -- and is available everywhere that a modern browser is able to run.
+We've carefully designed the wallet for simple on-boarding, while maintaining security for users, and allowing users to progressively
+increase the level of their security through additional keys and measures.
+
+This means, that if you've developed a dapp to work with MetaMask, then Sequence will work too without any changes. If you're
+using web3.js or ethers.js, Sequence will just work too. This is the beauty of interoperability on web3 :D 
+
+
+## Connecting your dapp with `0xsequence`
+
+Your dapp can connect to your user's wallet by first instantiating the Wallet provider:
+
+```ts
+import { sequence } from '0xsequence'
+
+// This assumes your dapp runs on Ethereum mainnet
+const wallet = new sequence.Wallet()
+
+// If your dapp runs on a different EVM-compatible blockchain, you can specify its name as the argument
+// const wallet = new sequence.Wallet('polygon')
+```
+
+Once you have the instance, you can connect to the wallet:
+
+```ts
+const connectDetails = await wallet.connect({
+  app: 'Your Dapp name',
+  authorize: true
+})
+
+console.log('user accepted connect?', connectDetails.connected)
+console.log('users signed connect proof to valid their account address:', connectDetails.proof)
+```
+
+![Sequence on-demand sign in](/img/build/sign-in-fresh.png)
+
+![Sequence on-demand sign in, connect](/img/build/sign-in-connect.png)
+
+
+## Connecting your dapp with `web3.js` or `ethers.js`
+
+This requires users to use the Sequence Chrome Extension or Wallet Connect. This is identical to connecting with MetaMask.
+
+NOTE: to offer the on-demand / no-install Web Wallet to your users, please see section above on connecting with `0xsequence` npm package.
+Also note, that you can use Sequence 0xsequence in combination with Metamask and web3.js and ethers.js.
+
+Finally, just FYI, 0xsequence is actually built on ethers.js :)
+
+---
+
+Sequence Chrome Extension: [Install](https://chrome.google.com/webstore/detail/sequence-wallet/ocmccklecaalljlflmclidjeclpcpdim?hl=en)
+
+![Sequence Chrome Extension](/img/build/seq-chrome-store.png)
+
+![Sequence Chrome Extension](/img/build/seq-chrome-ext-uniswap.png)
+
+
+## Connecting via `WalletConnect`
+
+Sequence already supports connecting to dapps via [WalletConnect](https://walletconnect.com).
+If your dapp already supports WalletConnect, and you don't need Sequence-specific functionality, nothing more needs to be done.
+From the user's perspective, the WalletConnect flow behaves as follows.
+
+Taking [Uniswap](https://app.uniswap.org) as an example, the user is prompted to connect their wallet using one of multiple possible protocols.
+
+<img src="/img/walletconnect/connect-wallet.png" />
+
+The user selects the WalletConnect option.
+
+<img src="/img/walletconnect/select-walletconnect.png" />
+
+A QR code is displayed, which can be scanned by Sequence.
+Alternatively, the user can also choose to copy the connection details via their OS clipboard.
+
+<img src="/img/walletconnect/qr-code.png" />
+
+Back in the Sequence interface, the user chooses "Scan".
+
+<img src="/img/walletconnect/scan.png" />
+
+The QR code from the dapp is scanned.
+Alternatively, the code is pasted from the OS clipboard if the user chose that previously.
+
+<img src="/img/walletconnect/scan-qr-code.png" />
+
+The user confirms the connection request.
+
+<img src="/img/walletconnect/confirm.png" />
+
+The connection succeeded, and the dapp is updated to reflect that.
+
+<img src="/img/walletconnect/success.png" />
+
+While connected, the dapp is able to make signing requests to Sequence.
+Sequence will always prompt for confirmation from the user for any activity initiated by the dapp.
+
+<img src="/img/walletconnect/activity.png" />
+
+Once the user has finished using the dapp, they can disconnect the wallet via the session menu.
+
+<img src="/img/walletconnect/disconnect.png" />
