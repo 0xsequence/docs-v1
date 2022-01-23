@@ -1,8 +1,5 @@
----
-sidebar_position: 2
----
-
 # Social Login Wallets
+
 Sequence Wallet created with social logins are currently secured using three private keys: Session keys, a Guard key and a Torus key. The Session key and Torus key are both generated for the first time when a user creates their Sequence Wallet via social login or email authentication.
 At least two of the three keys are needed to unlock an account. This means that if one of the three keys is lost or compromised, a user can use the two remaining keys to replace the lost/compromised key. For example, if a user lost their device containing their Session Key, they can unlock their Sequence Wallet account by email or social login for the Torus key combined with the Guard key. Once done, another session key is auto-generated and the user is back in their account with all 3 keys accessible again.
 
