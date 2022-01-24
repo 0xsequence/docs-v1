@@ -54,7 +54,7 @@ console.log(implementation)
 ## Wallet configuration validation
 
 :::info Fixed configuration
-Signer's configuration on wallets using `MainModule` can't be changed. The only way to change the set of signers or thershold is by updating the module of the wallet.
+Signer's configuration on wallets using `MainModule` can't be changed. The only way to change the set of signers or threshold is by updating the module of the wallet.
 :::
 
 All sequence modules must implement the `ModuleAuth` interface, this interface allows the rest of the module to validate signatures for the wallet. In the case of `MainModule` this interface is implemented as a counter-factual validation of hash passed to the factory during the contract wallet creation.
@@ -69,7 +69,7 @@ All sequence modules must implement the `ModuleAuth` interface, this interface a
 
 Validates if the provided `imageHash` corresponds to the one configured in the wallet. This function is called internally to validate transaction and message signatures.
 
-The `imageHash` is a hash of the wallet configuration, which contains the wallet's thershold, signers and weights.
+The `imageHash` is a hash of the wallet configuration, which contains the wallet's threshold, signers and weights.
 
 #### Parameters:
 
@@ -89,7 +89,7 @@ The `imageHash` is a hash of the wallet configuration, which contains the wallet
 
 ### `updateImageHash`
 
-Updates the wallet `imageHash`, this is the hash that defines the wallet configuration (signers, weights, thershold).
+Updates the wallet `imageHash`, this is the hash that defines the wallet configuration (signers, weights, threshold).
 
 ```solidity
   function updateImageHash(
@@ -106,7 +106,7 @@ Updates the wallet `imageHash`, this is the hash that defines the wallet configu
 :::caution Unsanitized input
 The `imageHash` is not validated, it is the responsibility of the caller to ensure that the hash is correct. Reasons for incorrect hashes include:
 
-  * The combined weight of the signers is below the thershold.
+  * The combined weight of the signers is below the threshold.
   * The signers are not valid addresses.
   * The signers are smart contract wallets without proper support for EIP-1271.
   * The `imageHash` doesn't correspond to any wallet configuration (may be a random string).
@@ -215,47 +215,4 @@ This is also the case for non-deployed wallets.
 
 To find the `imageHash` of a non-deployed or non-updated wallet, a candidate known `imageHash` needs to be compared against the wallet address.
 
-```js
-  // The code of the wallet proxy contract
-  const WalletProxyBytecode = "0x603a600e3d39601a805130553df3363d3d373d3d3d363d30545af43d82803e903d91601857fd5bf3"
-
-  // These values are defined by the wallet context
-  // they must be known in order to validate the counter-factual wallet imageHash
-  const factory = "0xf9D09D634Fb818b05149329C1dcCFAeA53639d96"
-  const mainModule = "0xd01F11855bCcb95f88D7A48492F66410d4637313"
-
-  // Append the `mainModule` to the `WalletProxyBytecode`
-  // this completed the creation code of the proxy contract
-  // used for computing the wallet address as defined by the CREATE2 opcode
-  const codeHash = ethers.utils.keccak256(
-    ethers.utils.solidityPack(
-      [
-        'bytes',
-        'bytes32'
-      ],
-      [
-        WalletContractBytecode,
-        ethers.utils.hexZeroPad(mainModule, 32)
-      ]
-    )
-  )
-
-  // Compute the wallet address
-  const hash = ethers.utils.keccak256(
-    ethers.utils.solidityPack(
-      [
-        'bytes1',
-        'address',
-        'bytes32',
-        'bytes32'
-      ], [
-        '0xff',
-        context.factory,
-        salt,
-        codeHash
-      ]
-    )
-  )
-
-  const address = ethers.utils.getAddress(ethers.utils.hexDataSlice(hash, 12))
-```
+See [Compute wallet address](/wallet-contracts/wallet-configuration#compute-wallet-address).
