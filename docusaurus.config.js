@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'Sequence',
   tagline: '',
-  url: 'https://docs.sequence.build/',
+  url: 'https://docs.sequence.build',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -48,6 +48,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
+        image: 'img/sequence-banner.jpg',
         announcementBar: {
           id: 'announcementBar', // Increment on change
           content: `❤️ To follow Sequence product updates, follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/0xsequence" >Twitter</a>`,
