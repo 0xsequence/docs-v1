@@ -24,6 +24,11 @@ using web3.js or ethers.js, Sequence will just work too. This is the beauty of i
 
 ## Connecting your dapp with `0xsequence`
 
+:::caution Avoid Browsers Blocking Sequence Popup
+Most browsers will block popups if they are called outside of user-triggered event handlers like `onclick`, or when it takes too long to process between the user action and the actual window open.
+Read more about browser popup-blocking [here](https://javascript.info/popup-windows#popup-blocking).
+:::
+
 Your dapp can connect to your user's wallet by first instantiating the Wallet provider:
 
 ```ts
@@ -35,6 +40,8 @@ const wallet = new sequence.Wallet()
 // If your dapp runs on a different EVM-compatible blockchain, you can specify its name as the argument
 // const wallet = new sequence.Wallet('polygon')
 ```
+
+
 
 Once you have the instance, you can connect to the wallet:
 
