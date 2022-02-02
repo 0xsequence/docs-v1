@@ -24,8 +24,9 @@ using web3.js or ethers.js, Sequence will just work too. This is the beauty of i
 
 ## Connecting your dapp with `0xsequence`
 
-:::tip Check out some example Dapp source code
-For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/demo-dapp) and [Demo-Dapp-Web3Modal](https://github.com/0xsequence/demo-dapp-web3modal).
+:::info A delightful wallet without requiring your users to install anything :)
+By integrating `0xsequence`, users may access your dapp without having to install any special extensions,
+and the wallet also works on mobile browsers!
 :::
 
 
@@ -42,7 +43,6 @@ const wallet = new sequence.Wallet()
 ```
 
 
-
 Once you have the instance, you can connect to the wallet:
 
 ```ts
@@ -54,6 +54,11 @@ const connectDetails = await wallet.connect({
 console.log('user accepted connect?', connectDetails.connected)
 console.log('users signed connect proof to valid their account address:', connectDetails.proof)
 ```
+
+:::tip Check out some example Dapp source code
+For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/demo-dapp) and [Demo-Dapp-Web3Modal](https://github.com/0xsequence/demo-dapp-web3modal).
+:::
+
 
 :::caution Avoid Browsers Blocking Sequence Popup
 Most browsers will block popups if they are called outside of user-triggered event handlers like `onclick`, or when it takes too long to process between the user action and the actual window open.
@@ -71,13 +76,13 @@ Read more about browser popup-blocking [here](https://javascript.info/popup-wind
 For a full example of a dapp which supports Sequence (on-demand + chrome extension), Metamask, and WalletConnect
 please see the [Demo-Dapp-Web3Modal repo](https://github.com/0xsequence/demo-dapp-web3modal).
 
----
+![Sequence Web3Modal Integration](/img/web3modal.png)
+
+## Connecting to any Ethereum dapp with the Sequence Wallet Chrome Extension
 
 Sequence Chrome Extension: [Install](https://chrome.google.com/webstore/detail/sequence-wallet/ocmccklecaalljlflmclidjeclpcpdim?hl=en)
 
 ![Sequence Chrome Extension](/img/build/seq-chrome-store.png)
-
-![Sequence Chrome Extension](/img/build/seq-chrome-ext-uniswap.png)
 
 
 ## Connecting via `WalletConnect`
