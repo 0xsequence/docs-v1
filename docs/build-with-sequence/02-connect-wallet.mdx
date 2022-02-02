@@ -24,11 +24,10 @@ using web3.js or ethers.js, Sequence will just work too. This is the beauty of i
 
 ## Connecting your dapp with `0xsequence`
 
-:::caution Avoid Browsers Blocking Sequence Popup
-Most browsers will block popups if they are called outside of user-triggered event handlers like `onclick`, or when it takes too long to process between the user action and the actual window open.
-
-Read more about browser popup-blocking [here](https://javascript.info/popup-windows#popup-blocking).
+:::tip Check out some example Dapp source code
+For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/demo-dapp) and [Demo-Dapp-Web3Modal](https://github.com/0xsequence/demo-dapp-web3modal).
 :::
+
 
 Your dapp can connect to your user's wallet by first instantiating the Wallet provider:
 
@@ -56,6 +55,12 @@ console.log('user accepted connect?', connectDetails.connected)
 console.log('users signed connect proof to valid their account address:', connectDetails.proof)
 ```
 
+:::caution Avoid Browsers Blocking Sequence Popup
+Most browsers will block popups if they are called outside of user-triggered event handlers like `onclick`, or when it takes too long to process between the user action and the actual window open.
+
+Read more about browser popup-blocking [here](https://javascript.info/popup-windows#popup-blocking).
+:::
+
 ![Sequence on-demand sign in](/img/build/sign-in-fresh.png)
 
 ![Sequence on-demand sign in, connect](/img/build/sign-in-connect.png)
@@ -63,12 +68,8 @@ console.log('users signed connect proof to valid their account address:', connec
 
 ## Connecting your dapp with `web3.js` or `ethers.js`
 
-This requires users to use the Sequence Chrome Extension or Wallet Connect. This is identical to connecting with MetaMask.
-
-NOTE: to offer the on-demand / no-install Web Wallet to your users, please see section above on connecting with `0xsequence` npm package.
-Also note, that you can use Sequence 0xsequence in combination with Metamask and web3.js and ethers.js.
-
-Finally, just FYI, 0xsequence is actually built on ethers.js :)
+For a full example of a dapp which supports Sequence (on-demand + chrome extension), Metamask, and WalletConnect
+please see the [Demo-Dapp-Web3Modal repo](https://github.com/0xsequence/demo-dapp-web3modal).
 
 ---
 

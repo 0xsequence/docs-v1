@@ -17,8 +17,11 @@ const transaction = {
   data
 }
 
-const response = await wallet.sendTransaction(transaction)
-console.log(response)
+const txnResponse = await wallet.sendTransaction(transaction)
+console.log(txnResponse)
+
+// wait for the transaction to be mined
+await txnResponse.wait()
 ```
 
 With batching functionality, you can send multiple token transfers in a single native transaction:
@@ -46,6 +49,10 @@ const transaction2 = {
   data: data2
 }
 
-const response = await wallet.sendTransactionBatch([transaction1, transaction2])
-console.log(response)
+// Send a multiple transactions as a single bundle which is executed as one transaction on chain.
+const txnResponse = await wallet.sendTransactionBatch([transaction1, transaction2])
+console.log(txnResponse)
+
+// Wait for the batched transaction to be mined
+await txnResponse.wait()
 ```

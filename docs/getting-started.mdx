@@ -81,22 +81,24 @@ console.log('signer.getChainId()', await signer.getChainId())
 ## Sign & verify a message
 
 ```ts
-// Get the wallet signer instance
+// Get the wallet provider and signer instances
+const provider = wallet.getProvider()
 const signer = wallet.getSigner()
 
 // Prepare the message string
 const message = `I've been to Web3 & back again :D`
 
 // Sign the message
-const signedMessage = await signer.signMessage(message)
-console.log('message signature:', signedMessage)
+const signature = await signer.signMessage(message)
+console.log('message signature:', signature)
 
-// Validate the signed message
-const isValid = await wallet.commands.isValidMessageSignature(
+// Validate the signed message. The sequence utils `isValidMessageSignature` method
+// supports validating both EOA and Smart Wallet (EIP1271) signatures with this simple call.
+const isValid = await sequence.utils.isValidMessageSignature(
   await wallet.getAddress(),
   message,
-  signedMessage,
-  await signer.getChainId()
+  signature,
+  provider
 )
 
 console.log('isValid?', isValid)
