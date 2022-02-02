@@ -14,20 +14,25 @@ const signature = await signer.signMessage(message)
 console.log(signature)
 ```
 
-## Verifying Messages
+## Verifying Message Signatures
+
+:::info Sequence is a Smart Contract based account
+As a Smart Contract-based account, Sequence signatures must be validated with the standard
+EIP1271 method, see https://eips.ethereum.org/EIPS/eip-1271
+:::
 
 Given a message and signature, you can check if a particular wallet signed that message:
 
 ```ts
 const provider = wallet.getProvider()
 
-const address = await wallet.getAddress()
+const walletAddress = await wallet.getAddress()
 const chainId = await wallet.getChainId()
 
 // The sequence utils `isValidMessageSignature` method supports validating both 
 // EOA and Smart Wallet (EIP1271) signatures with this simple call.
 const isValid = await sequence.utils.isValidMessageSignature(
-  address,
+  walletAddress,
   message,
   signature,
   provider,
@@ -36,3 +41,46 @@ const isValid = await sequence.utils.isValidMessageSignature(
 
 console.log(isValid)
 ```
+
+### Notes on Signature Validation with EIP1271
+
+Smart Contract-based wallets like Sequence rely on the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) standard for signature validation.
+
+The EIP1271 is a single function on a contract defined as:
+
+```solidity
+function isValidSignature(
+  bytes32 _hash, 
+  bytes memory _signature
+) public view returns (bytes4 magicValue)
+```
+
+The first `_hash` argument accepts the hash of the message digest, and the second argument `_signature`
+is the signed payload returned by the wallet upon signing. 
+
+For Javascript/Typescript signature verification, you can use `0xsequence` utility functions like so:
+
+```ts
+import { 0xsequence } from '0xsequence'
+
+const isValid = await sequence.utils.isValidSignature(
+  walletAddress,
+  digest,
+  signature,
+  provider,
+  chainId
+)
+
+console.log(isValid) // returns true/false
+```
+
+Alternatively you can also use `sequence.utils.isValidMessageSignature` or `sequence.utils.isValidTypedDataSignature`
+which are just syntactic sugar for `sequence.utils.isValidSignature`.
+
+All of the methods above are designed to work in a Web Browser or nodejs. As well, for convenience
+the signature validation fucntions above support verifying EOA or Smart Wallet signatures. This allows you
+to use a single code path in your Dapp to verify any kind of signature and support multiple wallets at the same
+time, like Metamask, Sequence, WalletConnect, Argent, Rainbow, etc. -- all Ethereum compatible wallets, EOA
+or Smart Wallets, will *just work*.
+
+For Go support see [go-sequence](https://github.com/0xsequence/go-sequence).
