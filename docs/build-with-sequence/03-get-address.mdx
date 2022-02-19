@@ -45,6 +45,7 @@ but if you'd like to authenticate the Sequence authorization proof on your serve
 
 ```ts
 const ethAuth = new ETHAuth()
+await ethAuth.configJsonRpcProvider('https://polygon-rpc.com')
 
 try {
   const decodedProof = await ethAuth.decodeProof(connectDetails.proof.proofString)
