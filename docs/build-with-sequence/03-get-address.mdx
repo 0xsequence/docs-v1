@@ -45,7 +45,7 @@ but if you'd like to authenticate the Sequence authorization proof on your serve
 
 ```ts
 const ethAuth = new ETHAuth()
-await ethAuth.configJsonRpcProvider('https://polygon-rpc.com')
+await ethAuth.configJsonRpcProvider('https://polygon-mainnet.infura.io/v3/<your infura key here>')
 
 try {
   const decodedProof = await ethAuth.decodeProof(connectDetails.proof.proofString)
