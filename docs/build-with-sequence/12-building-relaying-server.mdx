@@ -1,0 +1,47 @@
+# Building Relaying Server with Sequence
+With Sequence, you can create a smart contract wallet your server can use to dispatch transactions for your users without you having to be worried about transaction speed, throughput and re-orgs.
+
+:::info Parallel Transactions
+By default, Sequence transactions will be executable in parallel. 
+:::
+
+
+### Nodejs Server
+Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server side Sequence wallet which will be used to dispatch transactions.
+This Sequence wallet should have the correct ownership at your contract level, not the EOA.
+
+```ts
+import { RpcRelayer } from '@0xsequence/relayer'
+
+// Create your server EOA
+const wallet_EOA = new ethers.Wallet(serverPrivateKey, provider)
+
+// Create your rpc relayer instance with relayer node you want to use
+const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app'})
+
+// Create your Sequence server wallet, controlled by your server EOA, and connect it to the relayer
+const wallet = (await Wallet.singleOwner(serverPrivateKey)).connect(provider, relayer)
+
+// Craft your transaction
+const erc721Interface = new ethers.utils.Interface([
+  'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
+])
+
+const txn = erc721Interface.encodeFunctionData(
+  'safeTransferFrom', [senderAddress, recipientAddress, id]
+)
+
+// Send your transaction, which will be relayed by relayer
+const txnResponse = await wallet.sendTransaction(txn)
+
+// Wait for transaction to be mined
+const txnReceipt = await txnResponse.wait()
+
+// Check if transaction was successful 
+if (txnReceipt.status != 1) {
+  console.log(`Unexpected status: ${txnReceipt.status}`)
+}
+
+```
+
+You can also send transactions in batches using `await wallet.sendTransactionBatch(txns)`. You can read more about batch transactions in [Sending Batched Transactions](/build-with-sequence/send-batch-transactions).
