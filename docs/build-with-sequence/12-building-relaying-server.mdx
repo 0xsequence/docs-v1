@@ -12,6 +12,8 @@ This Sequence wallet should have the correct ownership at your contract level, n
 
 ```ts
 import { RpcRelayer } from '@0xsequence/relayer'
+import { Wallet } from '@0xsequence/wallet'
+import { ethers } from 'ethers'
 
 // Create your server EOA
 const wallet_EOA = new ethers.Wallet(serverPrivateKey, provider)
