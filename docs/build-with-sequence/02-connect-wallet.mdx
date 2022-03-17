@@ -49,10 +49,41 @@ Once you have the instance, you can connect to the wallet:
 const connectDetails = await wallet.connect({
   app: 'Your Dapp name',
   authorize: true
+  // And pass settings if you would like to customize further
+  settings: {
+    theme: { name: "goldDark", setAsDefault: false },
+    includedPaymentProviders: ["moonpay", "ramp"],
+    defaultFundingCurrency: "eth",
+    lockFundingCurrencyToDefault: false,
+  }
 })
 
 console.log('user accepted connect?', connectDetails.connected)
 console.log('users signed connect proof to valid their account address:', connectDetails.proof)
+```
+
+After you connect, you can use `wallet.open` to open the wallet:
+
+```ts
+wallet.openWallet();
+```
+
+You can also optionally pass a path, and use `openWithOptions` intent to pass ConnectOptions when you open the wallet:
+```ts
+const settings: Settings = {
+  theme: { name: "goldDark", setAsDefault: false },
+  includedPaymentProviders: ["moonpay", "ramp"],
+  defaultFundingCurrency: "eth",
+  lockFundingCurrencyToDefault: false,
+};
+const intent: OpenWalletIntent = {
+  type: "openWithOptions",
+  options: {
+    settings: settings,
+  },
+};
+const path = "wallet/add-funds";
+wallet.openWallet(path, intent);
 ```
 
 :::tip Check out some example Dapp source code
