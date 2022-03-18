@@ -51,9 +51,9 @@ const connectDetails = await wallet.connect({
   authorize: true
   // And pass settings if you would like to customize further
   settings: {
-    theme: { name: "goldDark", setAsDefault: false },
+    theme: "light",
     includedPaymentProviders: ["moonpay", "ramp"],
-    defaultFundingCurrency: "eth",
+    defaultFundingCurrency: "matic",
     lockFundingCurrencyToDefault: false,
   }
 })
@@ -71,7 +71,7 @@ wallet.openWallet();
 You can also optionally pass a path, and use `openWithOptions` intent to pass ConnectOptions when you open the wallet:
 ```ts
 const settings: Settings = {
-  theme: { name: "goldDark", setAsDefault: false },
+  theme: "goldDark",
   includedPaymentProviders: ["moonpay", "ramp"],
   defaultFundingCurrency: "eth",
   lockFundingCurrencyToDefault: false,
