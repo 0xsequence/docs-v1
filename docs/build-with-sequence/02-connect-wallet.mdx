@@ -49,10 +49,41 @@ Once you have the instance, you can connect to the wallet:
 const connectDetails = await wallet.connect({
   app: 'Your Dapp name',
   authorize: true
+  // And pass settings if you would like to customize further
+  settings: {
+    theme: "light",
+    includedPaymentProviders: ["moonpay", "ramp"],
+    defaultFundingCurrency: "matic",
+    lockFundingCurrencyToDefault: false,
+  }
 })
 
 console.log('user accepted connect?', connectDetails.connected)
 console.log('users signed connect proof to valid their account address:', connectDetails.proof)
+```
+
+After you connect, you can use `wallet.openWallet()` to open the wallet:
+
+```ts
+wallet.openWallet();
+```
+
+You can also optionally pass a path, and use `openWithOptions` intent to pass settings when you open the wallet:
+```ts
+const settings: Settings = {
+  theme: "goldDark",
+  includedPaymentProviders: ["moonpay", "ramp"],
+  defaultFundingCurrency: "eth",
+  lockFundingCurrencyToDefault: false,
+};
+const intent: OpenWalletIntent = {
+  type: "openWithOptions",
+  options: {
+    settings: settings,
+  },
+};
+const path = "wallet/add-funds";
+wallet.openWallet(path, intent);
 ```
 
 :::tip Check out some example Dapp source code
@@ -61,7 +92,8 @@ For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/demo-dapp
 
 
 :::caution Avoid Browsers Blocking Sequence Popup
-Most browsers will block popups if they are called outside of user-triggered event handlers like `onclick`, or when it takes too long to process between the user action and the actual window open.
+Most browsers will block popups if they are called outside of user-triggered event handlers like `onclick`, or when it takes too long to process between the user action and the actual window 
+
 
 Read more about browser popup-blocking [here](https://javascript.info/popup-windows#popup-blocking).
 :::
