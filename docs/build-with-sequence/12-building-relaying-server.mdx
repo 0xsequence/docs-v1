@@ -1,8 +1,8 @@
 # Building Relaying Server with Sequence
 With Sequence, you can create a smart contract wallet your server can use to dispatch transactions for your users without you having to be worried about transaction speed, throughput and re-orgs.
 
-:::info Parallel Transactions
-By default, Sequence transactions will be executable in parallel. 
+:::info Sequentual Transactions
+By default, Sequence transactions will be executable sequentially. 
 :::
 
 
@@ -44,6 +44,38 @@ if (txnReceipt.status != 1) {
   console.log(`Unexpected status: ${txnReceipt.status}`)
 }
 
+```
+
+## Parallel Transactions
+You can enforce that transactions can be executed in parallel by using a random nonce space, as follow; 
+
+```js
+// Import sequence nonce encoding function
+import { encodeNonce } from '@0xsequence/transactions';
+
+// Generate random nonce spaces with ~0% probability of collision
+const randomNonceSpace1 = ethers.BigNumber.from(ethers.utils.hexlify(ethers.utils.randomBytes(20)))
+const randomNonceSpace2 = ethers.BigNumber.from(ethers.utils.hexlify(ethers.utils.randomBytes(20)))
+
+// Generate transactions
+const txn1 = {
+        to: tokenContract.address,
+        data: erc20Interface.encodeFunctionData(
+          'transfer', [recipient1, amount1]
+        ),
+        nonce: encodeNonce(randomNonceSpace1, 0)
+      }
+
+const txn2 = {
+        to: tokenContract.address,
+        data: erc20Interface.encodeFunctionData(
+          'transfer', [recipient2, amount2]
+        ),
+        nonce: encodeNonce(randomNonceSpace2, 0)
+      }
+
+// Dispatch transactions, which can now be executed in parallel
+const txnResponse = await wallet.sendTransactionBatch([txn1, txn2])
 ```
 
 You can also send transactions in batches using `await wallet.sendTransactionBatch(txns)`. You can read more about batch transactions in [Sending Batched Transactions](/build-with-sequence/send-batch-transactions).
