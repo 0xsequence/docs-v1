@@ -16,22 +16,27 @@ import { Wallet } from '@0xsequence/wallet'
 import { ethers } from 'ethers'
 
 // Create your server EOA
-const wallet_EOA = new ethers.Wallet(serverPrivateKey, provider)
+const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 
 // Create your rpc relayer instance with relayer node you want to use
 const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app'})
 
 // Create your Sequence server wallet, controlled by your server EOA, and connect it to the relayer
-const wallet = (await Wallet.singleOwner(serverPrivateKey)).connect(provider, relayer)
+const wallet = (await Wallet.singleOwner(walletEOA)).connect(provider, relayer)
 
 // Craft your transaction
 const erc721Interface = new ethers.utils.Interface([
   'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
 ])
 
-const txn = erc721Interface.encodeFunctionData(
+const data = erc721Interface.encodeFunctionData(
   'safeTransferFrom', [senderAddress, recipientAddress, id]
 )
+
+const txn = {
+  to: erc721TokenAddress,
+  data
+}
 
 // Send your transaction, which will be relayed by relayer
 const txnResponse = await wallet.sendTransaction(txn)
