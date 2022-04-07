@@ -9,6 +9,7 @@ By default, Sequence transactions will be executable sequentially.
 ### Nodejs Server
 Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server side Sequence wallet which will be used to dispatch transactions.
 This Sequence wallet should have the correct ownership at your contract level, not the EOA.
+Also, the Sequence wallet should be sufficiently funded in order to pay the fee needed by the relayer to dispatch your transactions.
 
 ```ts
 import { RpcRelayer } from '@0xsequence/relayer'
@@ -38,8 +39,53 @@ const txn = {
   data
 }
 
-// Send your transaction, which will be relayed by relayer
-const txnResponse = await wallet.sendTransaction(txn)
+// Request the possible fee options the relayer will accept for this transaction
+const [config, context] = await Promise.all([wallet.getWalletConfig(), wallet.getWalletContext()])
+const { options, quote } = await relayer.getFeeOptions(config, context, txn)
+
+
+
+// Choose a fee from the list of options returned by the relayer
+// MATIC is native to Polygon and needs to be handled differently than other ERC-20 tokens like USDC
+
+// === vvv To pay the fee in native MATIC: vvv ===
+const option = options.find(option => option.token.symbol === 'MATIC')
+if (!option) {
+  throw Error(`relayer doesn't support MATIC fees`)
+}
+
+// Craft the MATIC fee payment transaction
+const feeTxn = {
+  to: option.to,
+  value: option.value,
+  gasLimit: option.gasLimit
+}
+// === ^^^ MATIC fee ^^^ ===
+
+
+
+// === vvv To pay the fee in USDC: vvv ===
+const option = options.find(option => option.token.symbol === 'USDC')
+if (!option) {
+  throw Error(`relayer doesn't support USDC fees`)
+}
+
+const erc20Interface = new ethers.utils.Interface([
+  'function transfer(address _to, uint256 _value)'
+])
+
+// Craft the USDC fee payment transaction
+const feeTxn = {
+  to: option.token.contractAddress,
+  gasLimit: option.gasLimit,
+  data: erc20Interface.encodeFunctionData('transfer', [option.to, option.value])
+}
+// === ^^^ USDC fee ^^^ ===
+
+
+
+// Send your transaction with the fee and quote to the relayer for dispatch
+const txnResponse = await wallet.sendTransaction([txn, feeTxn], undefined, undefined, quote)
 
 // Wait for transaction to be mined
 const txnReceipt = await txnResponse.wait()
