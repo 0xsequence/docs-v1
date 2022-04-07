@@ -41,7 +41,7 @@ const txn = {
 
 // Request the possible fee options the relayer will accept for this transaction
 const [config, context] = await Promise.all([wallet.getWalletConfig(), wallet.getWalletContext()])
-const { options, quote } = await relayer.getFeeOptions(config, context, txn)
+const { options, quote } = await relayer.getFeeOptions(config, context, txn /* , txn2, txn3, etc... */)
 
 
 
