@@ -49,7 +49,7 @@ const connectDetails = await wallet.connect({
   // And pass settings if you would like to customize further
   settings: {
     theme: "light",
-    bannerUrl: "https://yoursite.com/banner-image.png",  // 2:3 aspect ratio, 1200x800 works best
+    bannerUrl: "https://yoursite.com/banner-image.png",  // 3:1 aspect ratio, 1200x400 works best
     includedPaymentProviders: ["moonpay", "ramp"],
     defaultFundingCurrency: "matic",
     lockFundingCurrencyToDefault: false,
@@ -71,7 +71,7 @@ You can also optionally pass a path, and use `openWithOptions` intent to pass se
 ```ts
 const settings: Settings = {
   theme: "goldDark",
-  bannerUrl: "https://yoursite.com/banner-image.png", // 2:3 aspect ratio, 1200x800 works best
+  bannerUrl: "https://yoursite.com/banner-image.png", // 3:1 aspect ratio, 1200x400 works best
   includedPaymentProviders: ["moonpay", "ramp"],
   defaultFundingCurrency: "eth",
   lockFundingCurrencyToDefault: false,
