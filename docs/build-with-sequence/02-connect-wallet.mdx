@@ -1,4 +1,4 @@
-git@github.com:0xsequence/docs.git# Connect Wallet
+# Connect Wallet
 
 Sequence is a very flexible wallet which allow users multiple ways to connect / access their wallet. This includes:
 
@@ -76,12 +76,14 @@ const settings: Settings = {
   defaultFundingCurrency: "eth",
   lockFundingCurrencyToDefault: false,
 };
+
 const intent: OpenWalletIntent = {
   type: "openWithOptions",
   options: {
     settings: settings,
   },
 };
+
 const path = "wallet/add-funds";
 wallet.openWallet(path, intent);
 ```
@@ -99,6 +101,35 @@ Read more about browser popup-blocking [here](https://javascript.info/popup-wind
 ![Sequence on-demand sign in](/img/build/sign-in-fresh.png)
 
 ![Sequence on-demand sign in, connect](/img/build/sign-in-connect.png)
+
+## Wallet Login and Connect Options
+Dapps with direct sequence integration can specify the following settings:
+
+#### **theme**
+Name of one of the available theme provided by sequence the sequence wallet will be rendered with. 
+
+Example: `settings: {theme: "light"}`
+
+#### **bannerUrl**
+URL of a banner image users will see when connecting or loging into your dapp.The banner image should follow a 3:1 aspect ration where 1200x400 works best.
+
+Example: `settings: {bannerUrl: "https://yoursite.com/banner-image.png"}`
+
+#### **includedPaymentProviders**
+List of payment providers users will be able to access. By default, users can access all payment providers integrated in Sequence.
+
+Example: `settings: {includedPaymentProviders: ["moonpay", "ramp"]}`
+
+#### **defaultFundingCurrency**
+The tag of the default currency to show when users open the payment provider page. The currency has to be supported by the payment providers integrated in sequence.
+
+Example:  `settings: {defaultFundingCurrency: "usdc"}`
+
+
+#### **lockFundingCurrencyToDefault**
+Whether to only allow users to purchase the default currency specified by the `defaultFundingCurrency` option. If set to false, users will also be able to purchase other tokens. locking the default funding currency can be useful to prevent users from purchasing the wrong currency or the currency on the wrong chain.
+
+Example: `settings: {defaultFundingCurrency: true}`
 
 ## Connecting your dapp with `web3.js` or `ethers.js`
 
