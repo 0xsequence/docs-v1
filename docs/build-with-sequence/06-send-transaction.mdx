@@ -9,7 +9,8 @@ const transaction = {
   value: 1000000000000000000
 }
 
-const txnResponse = await wallet.sendTransaction(transaction)
+const signer = await wallet.getSigner()
+const txnResponse = await signer.sendTransaction(transaction)
 console.log(txnResponse)
 
 // wait for the transaction to be mined
