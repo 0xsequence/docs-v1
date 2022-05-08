@@ -8,7 +8,7 @@ const transaction = {
   value: '1000000000000000000'
 }
 
-const signer = await wallet.getSigner()
+const signer = wallet.getSigner()
 const signature = await signer.signTransactions([transaction])
 console.log(signature)
 ```

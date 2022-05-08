@@ -9,7 +9,7 @@ const transaction = {
   value: 1000000000000000000
 }
 
-const signer = await wallet.getSigner()
+const signer = wallet.getSigner()
 const txnResponse = await signer.sendTransaction(transaction)
 console.log(txnResponse)
 

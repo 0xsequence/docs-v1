@@ -13,7 +13,8 @@ const transaction2 = {
   value: 1000000000000000000
 }
 
-const response = await wallet.sendTransactionBatch([transaction1, transaction2])
+const signer = wallet.getSigner()
+const response = await signer.sendTransactionBatch([transaction1, transaction2])
 console.log(response)
 ```
 
@@ -48,6 +49,7 @@ const transactions = [
   { to: erc1155ContractAddress, data: erc1155Data }
 ]
 
-const response = await wallet.sendTransactionBatch(transactions)
+const signer = wallet.getSigner()
+const response = await signer.sendTransactionBatch(transactions)
 console.log(response)
 ```

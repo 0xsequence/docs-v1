@@ -17,7 +17,8 @@ const transaction = {
   data
 }
 
-const txnResponse = await wallet.sendTransaction(transaction)
+const signer = wallet.getSigner()
+const txnResponse = await signer.sendTransaction(transaction)
 console.log(txnResponse)
 
 // wait for the transaction to be mined
@@ -50,7 +51,8 @@ const transaction2 = {
 }
 
 // Send a multiple transactions as a single bundle which is executed as one transaction on chain.
-const txnResponse = await wallet.sendTransactionBatch([transaction1, transaction2])
+const signer = wallet.getSigner()
+const txnResponse = await signer.sendTransactionBatch([transaction1, transaction2])
 console.log(txnResponse)
 
 // Wait for the batched transaction to be mined
