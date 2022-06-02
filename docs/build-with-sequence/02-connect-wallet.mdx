@@ -125,6 +125,11 @@ The tag of the default currency to show when users open the payment provider pag
 
 Example:  `settings: {defaultFundingCurrency: "usdc"}`
 
+#### **defaultPurchaseAmount**
+Use to specify a default purchase amount, as an integer, for prefilling the funding amount. If not specified, the default is 100.
+
+Example:  `settings: {defaultPurchaseAmount: 200}`
+
 
 #### **lockFundingCurrencyToDefault**
 Whether to only allow users to purchase the default currency specified by the `defaultFundingCurrency` option. If set to false, users will also be able to purchase other tokens. locking the default funding currency can be useful to prevent users from purchasing the wrong currency or the currency on the wrong chain.
