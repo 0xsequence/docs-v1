@@ -103,7 +103,11 @@ if (txnReceipt.status != 1) {
 ```
 
 ## Parallel Transactions
-You can enforce that transactions can be executed in parallel by using a random nonce space, as follow; 
+
+If you want to send multiple independent transactions without needing to batch them, you can also send them in distinct nonce spaces.
+Using distinct nonce spaces for your transactions signals to the relayer that there's no dependency between them and that they can be executed on-chain in any order.
+This allows the transactions to be dispatched immediately in an unbuffered way without having to wait for a full batch.
+Here is an example of how to do that:
 
 ```js
 // Import sequence nonce encoding function
