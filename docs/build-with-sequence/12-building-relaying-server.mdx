@@ -115,20 +115,20 @@ const randomNonceSpace2 = ethers.BigNumber.from(ethers.utils.hexlify(ethers.util
 
 // Generate transactions
 const txn1 = {
-        to: tokenContract.address,
-        data: erc20Interface.encodeFunctionData(
-          'transfer', [recipient1, amount1]
-        ),
-        nonce: encodeNonce(randomNonceSpace1, 0)
-      }
+  to: tokenContract.address,
+  data: erc20Interface.encodeFunctionData(
+    'transfer', [recipient1, amount1]
+  ),
+  nonce: encodeNonce(randomNonceSpace1, 0)
+}
 
 const txn2 = {
-        to: tokenContract.address,
-        data: erc20Interface.encodeFunctionData(
-          'transfer', [recipient2, amount2]
-        ),
-        nonce: encodeNonce(randomNonceSpace2, 0)
-      }
+  to: tokenContract.address,
+  data: erc20Interface.encodeFunctionData(
+    'transfer', [recipient2, amount2]
+  ),
+  nonce: encodeNonce(randomNonceSpace2, 0)
+}
 
 // Dispatch transactions, which can now be executed in parallel
 const signer = wallet.getSigner()
