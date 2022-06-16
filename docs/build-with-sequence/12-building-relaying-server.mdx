@@ -2,14 +2,14 @@
 With Sequence, you can create a smart contract wallet your server can use to dispatch transactions for your users without you having to be worried about transaction speed, throughput and re-orgs.
 
 :::info Sequentual Transactions
-By default, Sequence transactions will be executable sequentially. 
+By default, Sequence transactions will be executed sequentially. 
 :::
 
 
 ### Nodejs Server
-Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server side Sequence wallet which will be used to dispatch transactions.
+Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server-side Sequence wallet which will be used to dispatch transactions.
 This Sequence wallet should have the correct ownership at your contract level, not the EOA.
-Also, the Sequence wallet should be sufficiently funded in order to pay the fee needed by the relayer to dispatch your transactions.
+Also, the Sequence wallet should be sufficiently funded in order to pay fees needed by the relayer to dispatch your transactions.
 
 ```ts
 import { RpcRelayer } from '@0xsequence/relayer'
@@ -139,4 +139,5 @@ const signer = wallet.getSigner()
 const txnResponse = await signer.sendTransactionBatch([txn1, txn2])
 ```
 
-You can also send transactions in batches using `await signer.sendTransactionBatch(txns)`. You can read more about batch transactions in [Sending Batched Transactions](/build-with-sequence/send-batch-transactions).
+If batching transactions is not a problem for your use-case, you can call `await signer.sendTransactionBatch(txns)`.
+You can read more about batch transactions in [Sending Batched Transactions](/build-with-sequence/send-batch-transactions).
