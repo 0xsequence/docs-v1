@@ -55,10 +55,12 @@ if (!option) {
 }
 
 // Craft the MATIC fee payment transaction
+// revertOnError: true is required for fee payments
 const feeTxn = {
   to: option.to,
   value: option.value,
-  gasLimit: option.gasLimit
+  gasLimit: option.gasLimit,
+  revertOnError: true
 }
 // === ^^^ MATIC fee ^^^ ===
 
@@ -75,10 +77,12 @@ const erc20Interface = new ethers.utils.Interface([
 ])
 
 // Craft the USDC fee payment transaction
+// revertOnError: true is required for fee payments
 const feeTxn = {
   to: option.token.contractAddress,
   gasLimit: option.gasLimit,
-  data: erc20Interface.encodeFunctionData('transfer', [option.to, option.value])
+  data: erc20Interface.encodeFunctionData('transfer', [option.to, option.value]),
+  revertOnError: true
 }
 // === ^^^ USDC fee ^^^ ===
 
