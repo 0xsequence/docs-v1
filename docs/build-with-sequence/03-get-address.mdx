@@ -5,6 +5,7 @@
 To get the user's Sequence wallet address:
 
 ```ts
+const wallet = sequence.getWallet()
 const address = await wallet.getAddress()
 console.log(address)
 ```
@@ -21,7 +22,7 @@ more seamless, with less confusion and clicks -- it's a subtle thing, but makes 
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = new sequence.Wallet()
+const wallet = sequence.getWallet()
 
 const connectDetails = await wallet.connect({
   app: 'Your Dapp name',

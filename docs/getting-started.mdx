@@ -31,7 +31,7 @@ You can find the source of the `0xsequence` package on [Github](https://github.c
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = new sequence.Wallet('mainnet')
+const wallet = sequence.initWallet('mainnet')
 const connectDetails = await wallet.connect()
 
 console.log('=> connected?', connectDetails.connected)
@@ -41,7 +41,7 @@ console.log('=> connected?', connectDetails.connected)
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = new sequence.Wallet('polygon')
+const wallet = sequence.initWallet('polygon')
 const connectDetails = await wallet.connect()
 
 console.log('=> connected?', connectDetails.connected)
@@ -50,6 +50,7 @@ console.log('=> connected?', connectDetails.connected)
 ## Get the wallet address
 
 ```ts
+const wallet = sequence.getWallet()
 const walletAddress = await wallet.getAddress()
 
 console.log(walletAddress)
@@ -59,6 +60,7 @@ console.log(walletAddress)
 ## Open the wallet from your dapp
 
 ```ts
+const wallet = sequence.getWallet()
 wallet.openWallet()
 ```
 
@@ -68,6 +70,8 @@ You can use a variety of methods to query the chain ID which the wallet is prese
 connected to.
 
 ```ts
+const wallet = sequence.getWallet()
+
 console.log('chainId:', await wallet.getChainId())
 
 const provider = wallet.getProvider()
@@ -82,6 +86,7 @@ console.log('signer.getChainId()', await signer.getChainId())
 
 ```ts
 // Get the wallet provider and signer instances
+const wallet = sequence.getWallet()
 const provider = wallet.getProvider()
 const signer = wallet.getSigner()
 
@@ -117,6 +122,7 @@ const erc20Interface = new ethers.utils.Interface([
 ])
 
 // Get the wallet signer interface
+const wallet = sequence.getWallet()
 const signer = wallet.getSigner()
 
 // USDC contract address on Polygon network
