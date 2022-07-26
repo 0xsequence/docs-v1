@@ -38,8 +38,8 @@ module.exports = {
     [
       'docusaurus-plugin-typedoc',
       {
-        entryPoints: ['./tmp-sequence-js/packages/0xsequence/src/index.ts'],
-        tsconfig: './tmp-sequence-js/tsconfig.json',
+        entryPoints: ['./sequence.js/packages/0xsequence/src/index.ts'],
+        tsconfig: './sequence.js/tsconfig.json',
         sidebar: {
           categoryLabel: 'API Reference',
           position: 100

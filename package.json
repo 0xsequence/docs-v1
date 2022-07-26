@@ -13,7 +13,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "update-sequence-js": "((git -C tmp-sequence-js fetch origin master && git -C tmp-sequence-js reset --hard FETCH_HEAD && git -C tmp-sequence-js clean -df) || git clone https://github.com/0xsequence/sequence.js.git tmp-sequence-js) && cd tmp-sequence-js && yarn"
+    "update-sequence-js": "((git -C sequence.js fetch origin master && git -C sequence.js reset --hard FETCH_HEAD && git -C sequence.js clean -df) || git clone https://github.com/0xsequence/sequence.js.git sequence.js) && cd sequence.js && yarn"
   },
   "dependencies": {
     "@cmfcmf/docusaurus-search-local": "^0.11.0",
