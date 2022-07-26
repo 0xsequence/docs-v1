@@ -36,6 +36,17 @@ module.exports = {
   ],
   plugins: [
     [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['./tmp-sequence-js/packages/0xsequence/src/index.ts'],
+        tsconfig: './tmp-sequence-js/tsconfig.json',
+        sidebar: {
+          categoryLabel: 'API Reference',
+          position: 100
+        }
+      }
+    ],
+    [
       '@easyops-cn/docusaurus-search-local',
       {
         indexDocs: true,

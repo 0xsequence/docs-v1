@@ -4,15 +4,16 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
+    "start": "yarn run update-sequence-js && docusaurus start",
+    "build": "yarn run update-sequence-js && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "update-sequence-js": "((git -C tmp-sequence-js fetch origin master && git -C tmp-sequence-js reset --hard FETCH_HEAD && git -C tmp-sequence-js clean -df) || git clone https://github.com/0xsequence/sequence.js.git tmp-sequence-js) && cd tmp-sequence-js && yarn"
   },
   "dependencies": {
     "@cmfcmf/docusaurus-search-local": "^0.11.0",
@@ -37,6 +38,9 @@
     "@types/react": "^17.0.14",
     "@types/react-helmet": "^6.1.2",
     "@types/react-router-dom": "^5.3.3",
+    "docusaurus-plugin-typedoc": "^0.17.5",
+    "typedoc": "^0.23.9",
+    "typedoc-plugin-markdown": "^3.13.4",
     "typescript": "^4.5.5"
   },
   "browserslist": {
