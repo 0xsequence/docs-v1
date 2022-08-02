@@ -1193,10 +1193,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@cmfcmf/docusaurus-search-local@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@cmfcmf/docusaurus-search-local/-/docusaurus-search-local-0.10.0.tgz#0a77847641ec490f4663666e5eee07416f5a0c63"
-  integrity sha512-X6xabJvvbbgrqgkYUUHSER5kswonKRZatNDJmZTsNiCxFKCephbDL1Kui6QLN6jmorPNWSupj7aMSP3HObHnUg==
+"@cmfcmf/docusaurus-search-local@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@cmfcmf/docusaurus-search-local/-/docusaurus-search-local-0.11.0.tgz#95ebb004a51c3e09b9ec76a39b8062510920e1ac"
+  integrity sha512-UzJ0G7JfrhuXJ9h79vforQZs05C5rWhXqrK7C5ie1ImHLTC4RPW7FHagIpZULhcA2PbDkc4ewnWVIufLKq+KzA==
   dependencies:
     "@algolia/autocomplete-js" "^1.5.1"
     "@algolia/autocomplete-theme-classic" "^1.5.1"
@@ -1381,7 +1381,7 @@
     utility-types "^3.10.0"
     webpack "^5.73.0"
 
-"@docusaurus/plugin-content-docs@2.0.1":
+"@docusaurus/plugin-content-docs@2.0.1", "@docusaurus/plugin-content-docs@^2.0.0-rc.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-content-docs/-/plugin-content-docs-2.0.1.tgz#4059591b4bff617e744e856ca680674b27c0b98a"
   integrity sha512-2qeBWRy1EjgnXdwAO6/csDIS1UVNmhmtk/bQ2s9jqjpwM8YVgZ8QVdkxFAMWXgZWDQdwWwdP1rnmoEelE4HknQ==
@@ -1563,7 +1563,7 @@
     tslib "^2.4.0"
     utility-types "^3.10.0"
 
-"@docusaurus/theme-translations@2.0.1":
+"@docusaurus/theme-translations@2.0.1", "@docusaurus/theme-translations@^2.0.0-rc.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/theme-translations/-/theme-translations-2.0.1.tgz#955a687c974265a811bfc743d98ef3eab0379100"
   integrity sha512-v1MYYlbsdX+rtKnXFcIAn9ar0Z6K0yjqnCYS0p/KLCLrfJwfJ8A3oRJw2HiaIb8jQfk1WMY2h5Qi1p4vHOekQw==
@@ -1585,14 +1585,14 @@
     webpack "^5.73.0"
     webpack-merge "^5.8.0"
 
-"@docusaurus/utils-common@2.0.1":
+"@docusaurus/utils-common@2.0.1", "@docusaurus/utils-common@^2.0.0-rc.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/utils-common/-/utils-common-2.0.1.tgz#b6f2b029547f739e1431ec84abd16974edf495e0"
   integrity sha512-kajCCDCXRd1HFH5EUW31MPaQcsyNlGakpkDoTBtBvpa4EIPvWaSKy7TIqYKHrZjX4tnJ0YbEJvaXfjjgdq5xSg==
   dependencies:
     tslib "^2.4.0"
 
-"@docusaurus/utils-validation@2.0.1", "@docusaurus/utils-validation@^2.0.0-beta.4":
+"@docusaurus/utils-validation@2.0.1", "@docusaurus/utils-validation@^2.0.0-rc.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/utils-validation/-/utils-validation-2.0.1.tgz#69f7d4944288d71f00fdba6dde10f05008f04308"
   integrity sha512-f14AnwFBy4/1A19zWthK+Ii80YDz+4qt8oPpK3julywXsheSxPBqgsND3LVBBvB2p3rJHvbo2m3HyB9Tco1JRw==
@@ -1603,7 +1603,7 @@
     js-yaml "^4.1.0"
     tslib "^2.4.0"
 
-"@docusaurus/utils@2.0.1", "@docusaurus/utils@^2.0.0-beta.4":
+"@docusaurus/utils@2.0.1", "@docusaurus/utils@^2.0.0-rc.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/utils/-/utils-2.0.1.tgz#37b4b42e29175e5d2d811fcbf9f93bffeca7c353"
   integrity sha512-u2Vdl/eoVwMfUjDCkg7FjxoiwFs/XhVVtNxQEw8cvB+qaw6QWyT73m96VZzWtUb1fDOefHoZ+bZ0ObFeKk9lMQ==
@@ -1632,23 +1632,27 @@
     cssesc "^3.0.0"
     immediate "^3.2.3"
 
-"@easyops-cn/docusaurus-search-local@^0.21.4":
-  version "0.21.4"
-  resolved "https://registry.yarnpkg.com/@easyops-cn/docusaurus-search-local/-/docusaurus-search-local-0.21.4.tgz#d5df409e5f80503bcd62def991dbd230e58ee3c5"
-  integrity sha512-sUYxRKLfN/rInn1awf3Z6M5lefk9gSsrQp/6nKUTgaJI/NUmvZY8Hk3nRk0BPIHK8jjjzm+gWOhz8O0SBq8ihw==
+"@easyops-cn/docusaurus-search-local@^0.30.2":
+  version "0.30.2"
+  resolved "https://registry.yarnpkg.com/@easyops-cn/docusaurus-search-local/-/docusaurus-search-local-0.30.2.tgz#41d0813ff4ece58fe38d8ace35f0187036c95d92"
+  integrity sha512-q2tYUuNjUbsSxv3vB04ItP/jp0teWswXtsLxNF6JgaDOHkNXEjQFmbaOoBLyIcPCawefxC0m/iZibzr1JAVGew==
   dependencies:
-    "@docusaurus/utils" "^2.0.0-beta.4"
-    "@docusaurus/utils-validation" "^2.0.0-beta.4"
+    "@docusaurus/plugin-content-docs" "^2.0.0-rc.1"
+    "@docusaurus/theme-translations" "^2.0.0-rc.1"
+    "@docusaurus/utils" "^2.0.0-rc.1"
+    "@docusaurus/utils-common" "^2.0.0-rc.1"
+    "@docusaurus/utils-validation" "^2.0.0-rc.1"
     "@easyops-cn/autocomplete.js" "^0.38.1"
+    "@node-rs/jieba" "^1.6.0"
     cheerio "^1.0.0-rc.3"
     clsx "^1.1.1"
     debug "^4.2.0"
-    fs-extra "^9.0.1"
+    fs-extra "^10.0.0"
     klaw-sync "^6.0.0"
     lunr "^2.3.9"
     lunr-languages "^1.4.0"
     mark.js "^8.11.1"
-    tslib "^2.2.0"
+    tslib "^2.4.0"
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
@@ -1749,6 +1753,90 @@
   version "1.6.22"
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
+
+"@node-rs/jieba-android-arm-eabi@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-android-arm-eabi/-/jieba-android-arm-eabi-1.6.1.tgz#196f1052a564d2608e46c87114aa78232453b798"
+  integrity sha512-R1YQfsPr7sK3Tq1sM0//6lNAGJK9RnMT0ShITT+7EJYr5OufUBb38lf/mRhrLxR0NF1pycEsMjdCAwrWrHd8rA==
+
+"@node-rs/jieba-android-arm64@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-android-arm64/-/jieba-android-arm64-1.6.1.tgz#cb4db38d9fcb877ac06659281a2dc5f50fe7be52"
+  integrity sha512-hBRbj2uLmRFYDw2lWppTAPoyjeXkBKUT84h4fHUQj7CMU94Gc1IWkE4ocCqhvUhbaUXlCpocS9mB0/fc2641bw==
+
+"@node-rs/jieba-darwin-arm64@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-darwin-arm64/-/jieba-darwin-arm64-1.6.1.tgz#83ad4bddd9368556ccd46555a508abbf9007fa4b"
+  integrity sha512-GeoDe7XVTF6z8JUtD98QvwudsMaHV5EBXs5uO43SobeIkShH3Nujq5gLMD5kWoJXTxDrTgJe4wT42EwUaBEH2Q==
+
+"@node-rs/jieba-darwin-x64@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-darwin-x64/-/jieba-darwin-x64-1.6.1.tgz#ddd964b7874c208b964897898c5826ef195efcad"
+  integrity sha512-ENHYIS8b8JdMaUXEm0f8Y3+sHXu2UdukG1D/XGUNx+q5cn07HbwIg6L0tlGhE8dw4AhqoWHsExVaZ241Igh4iA==
+
+"@node-rs/jieba-freebsd-x64@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-freebsd-x64/-/jieba-freebsd-x64-1.6.1.tgz#8e8be576d471c0837dcf4a6130ab055cca588e80"
+  integrity sha512-chwB/9edtxqS8Jm3j4RMaJjH9AlXmijUgKv02oMw36e77HKpko+tENUN25Vrn/9GKsKGqIPeXpmCjeXCN1HVQA==
+
+"@node-rs/jieba-linux-arm-gnueabihf@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-linux-arm-gnueabihf/-/jieba-linux-arm-gnueabihf-1.6.1.tgz#be1c7205f0ecf03f8f9065ad60b58bb4f7615d71"
+  integrity sha512-tsb5fMGj4p8bHGfkf7bJ+HE2jxaixLTp3YnGg5D+kp8+HQRq8cp3ScG5cn8cq0phnJS/zfAp8rVfWInDagzKKQ==
+
+"@node-rs/jieba-linux-arm64-gnu@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-linux-arm64-gnu/-/jieba-linux-arm64-gnu-1.6.1.tgz#43608a4506f6b47bec3349312a18c1a51b6f3822"
+  integrity sha512-bSInORkJFfeZNR+i4rFoSZGbwkQtQlnZ0XfT/noTK9JUBDYErqQZPFjoaYAU45NWTk7p6Zkg30SuV1NTdWLaPw==
+
+"@node-rs/jieba-linux-arm64-musl@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-linux-arm64-musl/-/jieba-linux-arm64-musl-1.6.1.tgz#aef63ab32d3caa4ab7cc0f717dd7a6e774083b9b"
+  integrity sha512-qphL6xM7owfU8Hsh7GX73SDr/iApbnc+35mSLxbibAfCQnY89+WcBeWUUOSGM/Ov3VFaq4pyVlDFj0YjR01W2w==
+
+"@node-rs/jieba-linux-x64-gnu@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-linux-x64-gnu/-/jieba-linux-x64-gnu-1.6.1.tgz#8e09bb2c57fc546acc9cf8e1c879dcdf01e79717"
+  integrity sha512-f6hhlrbi2wel0xZG7m3Wvksimt9MSu1f3aYO2Kwavf4qjMRZqJzLz9HlCJAal6AXB9Qgg+685P+gftsWve47qw==
+
+"@node-rs/jieba-linux-x64-musl@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-linux-x64-musl/-/jieba-linux-x64-musl-1.6.1.tgz#f698db4b49cfd367b5c3f6b4352d5092ab3620e2"
+  integrity sha512-cTVcdR6zWqpnmdEUyWEII9zfE5lTeWN53TbiOPx8TCA+291/31Vqd7GA8YEPndUO8qgCx5uShSDFStBAEIhYNQ==
+
+"@node-rs/jieba-win32-arm64-msvc@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-win32-arm64-msvc/-/jieba-win32-arm64-msvc-1.6.1.tgz#43a20ca596eac90659a64721f0ad2130b2be199e"
+  integrity sha512-YuOTrjHazDraXcGXRHgPQ53nyJuH8QtTCngYKjAzxsdt8uN+txb1AY69OLMLBBZqLTOwY9dgcW70vGiLQMCTeg==
+
+"@node-rs/jieba-win32-ia32-msvc@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-win32-ia32-msvc/-/jieba-win32-ia32-msvc-1.6.1.tgz#eec9062cdc5dd951f7177576993bbc32fa405416"
+  integrity sha512-4+E843ImGpVlZ+LlT9E/13NHmmUg3UHQx419D6fFMorJUUQuK4cZJfE1z4tCgcrbV8S5Wew5LIFywlJeJLu0LQ==
+
+"@node-rs/jieba-win32-x64-msvc@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba-win32-x64-msvc/-/jieba-win32-x64-msvc-1.6.1.tgz#3df4853afc175e4dd43794b08a71e8d25d00e807"
+  integrity sha512-veXNwm2VlseOzl7vaC7A/nZ4okp5/6edN7/Atj6mXnUbze/m/my5Rv5zUcW3U1D9VElnQ3srCHCa5vXljJuk6g==
+
+"@node-rs/jieba@^1.6.0":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@node-rs/jieba/-/jieba-1.6.1.tgz#221aa586aa671cb029687256a4c86c86bfecbef9"
+  integrity sha512-pISKu8NIYKRvZp7mhYZYA8VCjJMqTsCe+mQcFFnAi3GNJsijGjef2peMFeDcvP72X8MsnNeYeg3rHkAybtefyQ==
+  optionalDependencies:
+    "@node-rs/jieba-android-arm-eabi" "1.6.1"
+    "@node-rs/jieba-android-arm64" "1.6.1"
+    "@node-rs/jieba-darwin-arm64" "1.6.1"
+    "@node-rs/jieba-darwin-x64" "1.6.1"
+    "@node-rs/jieba-freebsd-x64" "1.6.1"
+    "@node-rs/jieba-linux-arm-gnueabihf" "1.6.1"
+    "@node-rs/jieba-linux-arm64-gnu" "1.6.1"
+    "@node-rs/jieba-linux-arm64-musl" "1.6.1"
+    "@node-rs/jieba-linux-x64-gnu" "1.6.1"
+    "@node-rs/jieba-linux-x64-musl" "1.6.1"
+    "@node-rs/jieba-win32-arm64-msvc" "1.6.1"
+    "@node-rs/jieba-win32-ia32-msvc" "1.6.1"
+    "@node-rs/jieba-win32-x64-msvc" "1.6.1"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3932,7 +4020,7 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==
 
-fs-extra@^10.1.0:
+fs-extra@^10.0.0, fs-extra@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
   integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
@@ -3941,7 +4029,7 @@ fs-extra@^10.1.0:
     jsonfile "^6.0.1"
     universalify "^2.0.0"
 
-fs-extra@^9.0.0, fs-extra@^9.0.1:
+fs-extra@^9.0.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.1.0.tgz#5954460c764a8da2094ba3554bf839e6b9a7c86d"
   integrity sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
@@ -7054,7 +7142,7 @@ trough@^1.0.0:
   resolved "https://registry.yarnpkg.com/trough/-/trough-1.0.5.tgz#b8b639cefad7d0bb2abd37d433ff8293efa5f406"
   integrity sha512-rvuRbTarPXmMb79SmzEp8aqXNKcK+y0XaB298IXueQ8I2PsrATcPBCSPyK/dDNa2iWOhKlfNnOjdAOTBU/nkFA==
 
-tslib@^2.0.3, tslib@^2.1.0, tslib@^2.2.0, tslib@^2.4.0:
+tslib@^2.0.3, tslib@^2.1.0, tslib@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
