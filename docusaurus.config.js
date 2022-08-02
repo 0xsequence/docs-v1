@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'Sequence',
   tagline: '',
-  url: 'https://docs.sequence.build',
+  url: 'https://docs.sequence.xyz',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -124,11 +124,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               items: [
                 {
                   label: 'Email',
-                  href: 'mailto: hello@sequence.build',
+                  href: 'mailto: hello@horizon.io',
                 },
                 {
                   label: 'Support',
-                  href: 'https://sequence.build/#contact'
+                  href: 'https://support.sequence.xyz'
                 }
               ],
             }
