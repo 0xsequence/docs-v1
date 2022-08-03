@@ -92,12 +92,15 @@
   }
 
   &__items {
+    list-style: none;
+    padding-left: 0;
     @include desktop {
       max-width: 168px;
     }
   }
 
   &__item {
+    list-style-type: none;
     &:not(:first-child) {
       margin-top: 3px;
 
