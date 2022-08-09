@@ -2,9 +2,9 @@
 
 ## Signing Messages
 
-Sequence wallets are able to sign arbitrary messages because they conform to a standard defined by EIP-1271.
+Sequence wallets are able to sign arbitrary messages. 
 
-To request a user's signature:
+**To request a user's signature of a simple message:**
 
 ```ts
 const signer = wallet.getSigner()
@@ -14,38 +14,175 @@ const signature = await signer.signMessage(message)
 console.log(signature)
 ```
 
+
+**To request a user's signature of a typed-data ([EIP712](https://eips.ethereum.org/EIPS/eip-712)) message:**
+
+```ts
+const typedData: sequence.utils.TypedData = {
+  domain: {
+    name: 'Ether Mail',
+    version: '1',
+    chainId: await wallet.getChainId(),
+    verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC'
+  },
+  types: {
+    Person: [
+      { name: 'name', type: 'string' },
+      { name: 'wallet', type: 'address' }
+    ]
+  },
+  message: {
+    name: 'Bob',
+    wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB'
+  }
+}
+
+const signer = wallet.getSigner()
+
+const signature = await signer.signTypedData(typedData.domain, typedData.types, typedData.message)
+console.log(signature)
+```
+
+
 ## Verifying Message Signatures
 
-:::info Sequence is a Smart Contract based account
-As a Smart Contract-based account, Sequence signatures must be validated with the standard
-EIP1271 method, see https://eips.ethereum.org/EIPS/eip-1271
-:::
+Once you have a signature, you'll often want to verify the validity of the data
+either from your app or from your server. The Sequence SDKs make this easy to do
+from either your frontend or backend.
 
 Given a message and signature, you can check if a particular wallet signed that message:
 
 ```ts
+// Here we fetch the different parameters, but in practice you may have these values
+// encoded and passed separately.
 const wallet = sequence.getWallet()
 const provider = wallet.getProvider()
-
 const walletAddress = await wallet.getAddress()
 const chainId = await wallet.getChainId()
 
-// The sequence utils `isValidMessageSignature` method supports validating both 
-// EOA and Smart Wallet (EIP1271) signatures with this simple call.
+// The sequence utils `isValidMessageSignature` method can validate signatures
+// from any kind of wallet (ie. EOA or Smart Wallet) which includes Metamask, Coinbase,
+// and Sequence.
 const isValid = await sequence.utils.isValidMessageSignature(
   walletAddress,
   message,
   signature,
   provider,
-  chainId
+  chainId // optional, as it will use the chain id from the provider
 )
 
 console.log(isValid)
 ```
 
+:::info Sequence is a Smart Contract based account
+As a Smart Contract-based account, Sequence signatures must be validated with the standard
+EIP1271 method, see https://eips.ethereum.org/EIPS/eip-1271.
+
+The `sequence.utils.isValidMessageSignature`
+utility function is an easy way to validate any kind of message signature from any wallet.
+:::
+
+
+## Verifying Message Signatures (via Sequence API)
+
+The Sequence API also offers the convenience to verify any wallet message signature
+by making a simple call remote API call.
+
+The Sequence API (https://api.sequence.app) supports the following RPC methods:
+
+* `/rpc/API/IsValidMessageSignature` -- verifying a simple text message signature
+* `/rpc/API/IsValidTypedDataSignature` -- verifying a EIP712 typed data object
+* `/rpc/API/IsValidSignature` -- verifying an arbitrary message digest
+* `/rpc/API/IsValidETHAuthProof` -- verifying an [ETHAuth](https://github.com/0xsequence/ethauth.js) proof
+
+
+The most common methods are `IsValidMessageSignature` and `IsValidETHAuthProof`. 
+
+
+### Verifying message signature from any kind of wallet (ie. Metamask or Sequence)
+
+*Sequence API `IsValidMessageSignature` Method:*
+
+* URL: https://api.sequence.app/rpc/API/IsValidMessageSignature
+* Content-Type: application/json
+* Body (in JSON):
+  * `chainId` (string) -- the chain id of the signature, ie. "1" or "mainnet", or "137" or "polygon", etc
+  * `walletAddress` (string) -- the wallet address
+  * `message` (string) -- the message in utf8 text encoding
+  * `signature` (string) -- the signature in hex encoding
+
+
+*Request:*
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://api.sequence.app/rpc/API/IsValidMessageSignature -d '{ "chainId": "polygon", "walletAddress": "0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1", "message": "Hi, please sign this message", "signature": "0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d0001000183d971056b1eca1bcc7289b9a6926677c5b07db4197925346367f61f2d09c732760719a91722acee0b24826f412cb69bd2125e48f231705a5be33d1f5523f9291c020101c50adeadb7fe15bee45dcb820610cdedcd314eb0030002f19915df00d669708608502d3011a09948b32674d6e443202a2ba884a4dcd26c2624ff33a8ee9836cc3ca2fbb8d3aa43382047b73d21646cb66cc2916076c1331c02" }'
+```
+
+*Response:*
+```bash
+{"isValid":true}
+```
+
+The above example shows the raw HTTPS request/response to the Sequence API, but you may also utilize [`sequence.js`](https://github.com/0xsequence/sequence.js) or
+[`go-sequence`](https://github.com/0xsequence/go-sequence) SDKs which provide a full Sequence client.
+
+```ts
+// Using the 0xsequence npm package from either a Webapp (browser) or Node.js:
+import { sequence } from '0xsequence'
+
+const chainId = 'polygon'
+const walletAddress = '0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1'
+const message = 'Hi, please sign this message'
+const signature = '0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d0001000183d971056b1eca1bcc7289b9a6926677c5b07db4197925346367f61f2d09c732760719a91722acee0b24826f412cb69bd2125e48f231705a5be33d1f5523f9291c020101c50adeadb7fe15bee45dcb820610cdedcd314eb0030002f19915df00d669708608502d3011a09948b32674d6e443202a2ba884a4dcd26c2624ff33a8ee9836cc3ca2fbb8d3aa43382047b73d21646cb66cc2916076c1331c02'
+
+const api = new sequence.api.SequenceAPIClient('https://api.sequence.app')
+const { isValid } = await api.isValidMessageSignature({
+  chainId, walletAddress, message, signature
+})
+console.log(isValid) // true
+```
+
+<br />
+
+### Verifying ETHAuth proof upon connecting a Sequence Wallet
+
+*Request:*
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://api.sequence.app/rpc/API/IsValidETHAuthProof -d '{"chainId":"polygon", "walletAddress":"0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1","ethAuthProof": "eth.0x2fa0b551fdfa31a4471c1c52206fdb448ad997d1.eyJhcHAiOiJEZW1vIERhcHAiLCJpYXQiOjAsImV4cCI6MTY2MDIzMTAyOCwidiI6IjEiLCJvZ24iOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d00010001f7dad5ade840bb961cbab889d731bbc080bb4c36fc090435e82fe78e3c152b671505ad544adb562cc25a5933cd06c9108e239a52a82ba797c3d3522645c69cd81b020101c50adeadb7fe15bee45dcb820610cdedcd314eb003000274164fb33c93b4384582c54c30d9a1e2ef219063d03084005edc1da853af2f1f2e67275dbb6ef945d04600b6dd83cfd997cc9ae4173ea61b0c5cc0808fb196681b02"}' 
+```
+
+*Response:*
+```bash
+{"isValid":true}
+```
+
+```ts
+// Using the 0xsequence npm package from either a Webapp (browser) or Node.js:
+import { sequence } from '0xsequence'
+
+const chainId = 'polygon'
+const walletAddress = '0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1'
+const ethAuthProof = 'eth.0x2fa0b551fdfa31a4471c1c52206fdb448ad997d1.eyJhcHAiOiJEZW1vIERhcHAiLCJpYXQiOjAsImV4cCI6MTY2MDIzMTAyOCwidiI6IjEiLCJvZ24iOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d00010001f7dad5ade840bb961cbab889d731bbc080bb4c36fc090435e82fe78e3c152b671505ad544adb562cc25a5933cd06c9108e239a52a82ba797c3d3522645c69cd81b020101c50adeadb7fe15bee45dcb820610cdedcd314eb003000274164fb33c93b4384582c54c30d9a1e2ef219063d03084005edc1da853af2f1f2e67275dbb6ef945d04600b6dd83cfd997cc9ae4173ea61b0c5cc0808fb196681b02'
+
+const api = new sequence.api.SequenceAPIClient('https://api.sequence.app')
+const { isValid } = await api.isValidETHAuthProof({
+  chainId, walletAddress, ethAuthProof
+})
+console.log(isValid) // true
+```
+
+
+<br />
+
+---
+
+
+## How does it work?
+
 ### Notes on Signature Validation with EIP1271
 
-Smart Contract-based wallets like Sequence rely on the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) standard for signature validation.
+Smart Wallets like Sequence rely on the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) standard for signature validation.
 
 The EIP1271 is a single function on a contract defined as:
 
@@ -75,13 +212,10 @@ const isValid = await sequence.utils.isValidSignature(
 console.log(isValid) // returns true/false
 ```
 
-Alternatively you can also use `sequence.utils.isValidMessageSignature` or `sequence.utils.isValidTypedDataSignature`
+Additionally you can also use `sequence.utils.isValidMessageSignature` or `sequence.utils.isValidTypedDataSignature`
 which are just syntactic sugar for `sequence.utils.isValidSignature`.
 
-All of the methods above are designed to work in a Web Browser or nodejs. As well, for convenience
-the signature validation fucntions above support verifying EOA or Smart Wallet signatures. This allows you
-to use a single code path in your Dapp to verify any kind of signature and support multiple wallets at the same
-time, like Metamask, Sequence, WalletConnect, Argent, Rainbow, etc. -- all Ethereum compatible wallets, EOA
+As well, for convenience the signature validation fucntions above support verifying EOA or Smart Wallet signatures.
+This allows you to use a single code path in your Dapp to verify any kind of signature and support multiple wallets at
+the same time, like Metamask, Coinbase, Sequence, WalletConnect, Argent, Rainbow, etc. -- all Ethereum compatible wallets, EOA
 or Smart Wallets, will *just work*.
-
-For Go support see [go-sequence](https://github.com/0xsequence/go-sequence).

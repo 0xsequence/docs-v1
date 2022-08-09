@@ -1,5 +1,7 @@
 # Building Relaying Server with Sequence
-With Sequence, you can create a smart contract wallet your server can use to dispatch transactions for your users without you having to be worried about transaction speed, throughput and re-orgs.
+
+With Sequence, you can create a smart contract wallet your server can use to dispatch transactions for your users
+without you having to be worried about transaction speed, throughput and re-orgs.
 
 :::info Sequentual Transactions
 By default, Sequence transactions will be executed sequentially. 
@@ -7,7 +9,10 @@ By default, Sequence transactions will be executed sequentially.
 
 
 ### Nodejs Server
-Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server-side Sequence wallet which will be used to dispatch transactions.
+
+Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server-side Sequence
+wallet which will be used to dispatch transactions.
+
 This Sequence wallet should have the correct ownership at your contract level, not the EOA.
 Also, the Sequence wallet should be sufficiently funded in order to pay fees needed by the relayer to dispatch your transactions.
 
@@ -105,7 +110,9 @@ if (txnReceipt.status != 1) {
 ## Parallel Transactions
 
 If you want to send multiple independent transactions without needing to batch them, you can also send them in distinct nonce spaces.
-Using distinct nonce spaces for your transactions signals to the relayer that there's no dependency between them and that they can be executed on-chain in any order.
+Using distinct nonce spaces for your transactions signals to the relayer that there's no dependency between them and that
+they can be executed on-chain in any order.
+
 This allows the transactions to be dispatched immediately in an unbuffered way without having to wait for a full batch.
 Here is an example of how to do that:
 
