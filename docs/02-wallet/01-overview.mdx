@@ -1,0 +1,70 @@
+---
+slug: /wallet
+---
+
+# Wallet
+
+Sequence Wallet gives you a friendly, non-custodial wallet for your users with multi-chain support and seamless integration.
+
+<div class="text--center">
+  <img src="/img/wallet-screen.png" />
+</div>
+
+Most wallets for Ethereum have a single private key that has full control over a wallet, i.e. an Externally Owned Account (EOAs).
+However, a Sequence wallet is a Smart Contract that is deployed on the blockchain and which can be controlled by multiple private keys.
+These keys are meant to be controlled by the wallet owner and provide added security since more than one of these keys would need to be
+compromised for the wallet to be compromised.
+
+import Cards from '/src/components/Cards'
+const MyItems = [
+  {
+    title: '👤 Social/email login',
+    description: 'Easily sign in via email, Google, Facebook or other socials. No blockchain knowledge required'
+  },
+  {
+    title: '⛓️ Multi Network support',
+    description: 'Sequence can support all EVM compatible chains. Currently, it supports Ethereum, Polygon and BNB Smart Chain'
+  },
+  {
+    title: '💳 On-Ramps Integration',
+    description: 'Sequence allows users to purchase cryptocurrencies directly from their wallet, using payment providers like Wyre, Moonpay and Ramp'
+  },
+  {
+    title: '🦄 Web3 compatible',
+    description: 'Sequence can be used with any dapp on the supported networks'
+  },
+  {
+    title: '📱 Browser, app & extension',
+    description: 'Users can access their sequence wallet via https://sequence.app, the Sequence browser extension or the Sequence Mobile apps'
+  },
+  {
+    title: '🔑 Non-custodial',
+    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.'
+  },
+  {
+    title: '🔁 Swap in-wallet',
+    description: 'Your users can easily swap between tokens directly inside their wallets. Perfect in case your dapp requires a specific token.'
+  },
+  {
+    title: '🌉 Built-in bridges',
+    description: 'With Sequence, your users can easily bridge assets from one network to another, directly from inside their wallets.'
+  },
+  {
+    title: '🐱 NFT support',
+    description: 'In addition to ERC-20 tokens like USDC, Sequence has first class support for NFTs, for both ERC-721 and ERC-1155 tokens.'
+  },
+  {
+    title: '⚡ No install required',
+    description: 'Applications can integrate Sequence natively, allowing users to access their sequence wallet without any install required on their end. '
+  },
+  {
+    title: '⛽ Fee Abstraction',
+    description: "Users can pay transaction fees in various currencies, not only the native currency of the network used."
+  },
+  {
+    title: '🤖 Transaction Relaying',
+    description: "Users don't need to worry about gas prices, gas limits or stuck transactions."
+  },
+]
+
+<Cards cards={MyItems} />

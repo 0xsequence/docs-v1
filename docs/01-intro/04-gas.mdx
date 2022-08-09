@@ -1,0 +1,31 @@
+# Gas and Transaction Fees
+
+Due to the smart contract nature of Sequence, transaction fees can be abstracted away from users. This allows users to pay the transaction fees in multiple currencies or even have their fees paid by a third party. In addition, users don't have to worry about gas limits or gas price since our relayer system automatically reprice transactions to ensure prompt execution.
+
+## Transaction Fee Payment Options 
+Currently users can pay their gas fees with the following currencies:
+- ETH & WETH
+- Matic
+- USDC
+- DAI
+
+Users are shown a fixed fee at the time of transaction confirmation, which is used to reimburse the relayers that will execute the transaction. This fee will not increase even if the transaction is repriced by the relayer. This is a cost the relayers will bear and hence will optimize for.
+
+<div class="text--center">
+  <img src="/img/sequence_fee_options.png" />
+</div>
+
+## How to pay transaction fees for your users
+It is possible for third parties to sponsor the transaction fees of their users in a non-custodial way. We currently haven't integrated this functionality in our SDK, but you can contact us on [discord](https://discord.gg/sequence) so we can whitelist your contracts.
+
+<div class="text--center">
+  <img src="/img/sequence_free_fee.png" />
+</div>
+
+## Relaying Transaction
+Since Sequence wallets are smart contracts, they can't execute transactions on their own. As a result, users transactions must be *relayed* by a third party. Technically, anyone can relay these transctions, but the current wallet interface does not allow users to change which relayer they want to use. In the future, we plan on offering more freedom on that front.
+Sequence Relayers reprice their transaction every 2 or 3 blocks to ensure fast inclusion. This means users will never encounter stuck transactions and will not have to worry about managing gas prices. We plan on integrating an "instant" option for advanced users, but this is not yet available.
+
+
+Connect Wallet section
+extension add isSequence
