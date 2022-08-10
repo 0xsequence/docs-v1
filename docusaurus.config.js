@@ -130,7 +130,7 @@ module.exports = {
               },
               {
                 label: 'Getting Started',
-                to: '/getting-started'
+                to: '/intro/getting-started'
               }
             ]
           },
