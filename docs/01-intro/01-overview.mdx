@@ -4,13 +4,13 @@ slug: /
 
 # Sequence Wallet & Web3 Stack
 
-Sequence is your gateway to Web3.
-
 Sequence provides users with a seamless Web3 Wallet to access Ethereum-compatible networks, and a powerful Web3 infrastructure stack
 for developers that makes it easy to build Web3 apps and games.
 
-
-............ Sequence is a modular Web3 stack.... interop .. focus on standards, compatiblility, etc........
+Sequence is designed as a modular Web3 system focused on open standards, compatibility and interoperability with Ethereum-compatible networks
+and developer tools. With Sequence, you can use just one of the modules, or the entire stack. As well, feel free to combine
+Sequence with your favorite [developer tools](/other-tools). This is one of the beautiful aspects of "Web3" -- open standards and
+compatibility :)
 
 Thanks for browsing our documentation below which will take you through our Wallet, Infrastructure stack and SDKs. If you have
 any questions, feel free to visit us on our [Discord](https://discord.gg/sequence) to speak with our development and partnership teams.
@@ -18,58 +18,69 @@ any questions, feel free to visit us on our [Discord](https://discord.gg/sequenc
 Finally, be sure to check out the [Sequence Github](https://github.com/0xsequence) page to view source of our SDKs and example projects.
 
 
-## 
+## The Sequence Web3 Stack
 
 import Cards from '/src/components/Cards'
 const MyItems = [
   {
     title: '👤 Wallet',
     description: 'Easily sign in via email, Google, Facebook or other socials. No blockchain knowledge required',
-    route: '/wallet/overview'
+    route: '/wallet'
   },
   {
-    title: '👤 Indexer',
-    description: 'Easily sign in via email, Google, Facebook or other socials. No blockchain knowledge required'
+    title: '⛓️ Indexer',
+    description: 'Easily sign in via email, Google, Facebook or other socials. No blockchain knowledge required',
+    route: '/indexer'
   },
   {
-    title: '⛓️ Metadata',
-    description: 'Sequence can support all EVM compatible chains. Currently, it supports Ethereum, Polygon and BNB Smart Chain'
+    title: '🦄 Metadata',
+    description: 'Sequence can support all EVM compatible chains. Currently, it supports Ethereum, Polygon and BNB Smart Chain',
+    route: '/metadata'
   },
   {
-    title: '💳 Minter',
-    description: 'Sequence allows users to purchase cryptocurrencies directly from their wallet, using payment providers like Wyre, Moonpay and Ramp'
+    title: '⛽ Relayer',
+    description: 'Sequence allows users to purchase cryptocurrencies directly from their wallet, using payment providers like Wyre, Moonpay and Ramp',
+    route: '/relayer'
   },
   {
-    title: '💳 Relayer',
-    description: 'Sequence allows users to purchase cryptocurrencies directly from their wallet, using payment providers like Wyre, Moonpay and Ramp'
-  },
-  {
-    title: '🦄 Web SDK',
-    description: 'Sequence can be used with any dapp on the supported networks'
+    title: '🌎 Web SDK',
+    description: 'Sequence can be used with any dapp on the supported networks',
+    route: '/web-sdk'
   },
   {
     title: '📱 Mobile SDK',
-    description: 'Users can access their sequence wallet via https://sequence.app, the Sequence browser extension or the Sequence Mobile apps'
+    description: 'Users can access their sequence wallet via https://sequence.app, the Sequence browser extension or the Sequence Mobile apps',
+    route: '/mobile-sdk'
   },
   {
-    title: '🔑 Games SDK',
-    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.'
+    title: '🕹 Unity SDK',
+    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.',
+    route: '/unity-sdk'
   },
   {
-    title: '🔑 Server SDK',
-    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.'
+    title: '🎮 Unreal SDK',
+    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.',
+    route: '/unreal-sdk'
   },
   {
-    title: '🔁 Payment Ramps',
-    description: 'Your users can easily swap between tokens directly inside their wallets. Perfect in case your dapp requires a specific token.'
+    title: '🖥 Server SDK',
+    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.',
+    route: '/server-sdk'
+  },
+  {
+    title: '🌠 Niftyswap',
+    description: 'With Sequence, users are in full control of their wallet with no third party being able to access these funds other than them.',
+    route: '/niftyswap'
+  },
+  {
+    title: '💳 On Ramps',
+    description: 'Sequence allows users to purchase cryptocurrencies directly from their wallet, using payment providers like Wyre, Moonpay and Ramp.',
+    route: '/onramps'
   },
   {
     title: '🌉 Node-Gateway',
-    description: 'With Sequence, your users can easily bridge assets from one network to another, directly from inside their wallets.'
-  },
-  {
-    title: '🌉 Support',
-    description: 'With Sequence, your users can easily bridge assets from one network to another, directly from inside their wallets.'
+    description: 'With Sequence, your users can easily bridge assets from one network to another, directly from inside their wallets.',
+    route: '/node-gateway'
   }
 ]
 
