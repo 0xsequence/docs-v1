@@ -1,0 +1,105 @@
+---
+sidebar_label: API Usage
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Indexer API Reference & Usage
+
+Welcome.......
+
+## Getting Started
+
+... ie.. from web / node / Go .. / other ........
+
+## Fetch blah blah
+
+blah to fetch etc.............
+
+*Sequence Indexer `GetTokenBalances` Method:*
+
+* Request: POST /rpc/API/GetTokenBalances
+* Content-Type: application/json
+* Body (in JSON):
+  * `chainId` (string) -- the chain id of the signature, ie. "1" or "mainnet", or "137" or "polygon", etc
+  * `walletAddress` (string) -- the wallet address
+  * `message` (string) -- the message in utf8 text encoding
+  * `signature` (string) -- the signature in hex encoding
+
+<br />
+
+**Example: `GetTokenBalances` of wallet `0xabc` on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://api.sequence.app/rpc/API/IsValidMessageSignature -d '{ "chainId": "polygon", "walletAddress": "0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1", "message": "Hi, please sign this message", "signature": "0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d0001000183d971056b1eca1bcc7289b9a6926677c5b07db4197925346367f61f2d09c732760719a91722acee0b24826f412cb69bd2125e48f231705a5be33d1f5523f9291c020101c50adeadb7fe15bee45dcb820610cdedcd314eb0030002f19915df00d669708608502d3011a09948b32674d6e443202a2ba884a4dcd26c2624ff33a8ee9836cc3ca2fbb8d3aa43382047b73d21646cb66cc2916076c1331c02" }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { sequence } from '0xsequence'
+
+const chainId = 'polygon'
+const walletAddress = '0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1'
+const message = 'Hi, please sign this message'
+const signature = '0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d0001000183d971056b1eca1bcc7289b9a6926677c5b07db4197925346367f61f2d09c732760719a91722acee0b24826f412cb69bd2125e48f231705a5be33d1f5523f9291c020101c50adeadb7fe15bee45dcb820610cdedcd314eb0030002f19915df00d669708608502d3011a09948b32674d6e443202a2ba884a4dcd26c2624ff33a8ee9836cc3ca2fbb8d3aa43382047b73d21646cb66cc2916076c1331c02'
+
+const api = new sequence.api.SequenceAPIClient('https://api.sequence.app')
+const { isValid } = await api.isValidMessageSignature({
+  chainId, walletAddress, message, signature
+})
+console.log(isValid) // true
+```
+
+</TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/0xsequence/go-sequence/api"
+)
+
+func ValidateMessageSignature() {
+	seqAPI := api.NewAPIClient("https://api.sequence.app", http.DefaultClient)
+
+	chainID := "polygon"
+	walletAddress := "0x2fa0b551fdFa31a4471c1C52206fdb448ad997d1"
+
+	// NOTE: you can also pass the message in EIP191 format as well. If you do not pass
+	// the EIP191 prefix, it will automatically be added at the time of validation.
+	// message := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
+	message := "Hi, please sign this message"
+
+	signature := "0x000501032a44625bec3b842df681db00a92a74dda5e42bcf0203596af90cecdbf9a768886e771178fd5561dd27ab005d0001000183d971056b1eca1bcc7289b9a6926677c5b07db4197925346367f61f2d09c732760719a91722acee0b24826f412cb69bd2125e48f231705a5be33d1f5523f9291c020101c50adeadb7fe15bee45dcb820610cdedcd314eb0030002f19915df00d669708608502d3011a09948b32674d6e443202a2ba884a4dcd26c2624ff33a8ee9836cc3ca2fbb8d3aa43382047b73d21646cb66cc2916076c1331c02"
+
+	isValid, err := seqAPI.IsValidMessageSignature(context.Background(), chainID, walletAddress, message, signature)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("isValid?", isValid)
+}
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+<br />
+
+
+## Fetch something else .......
