@@ -108,7 +108,7 @@ const imageHash = tmp
 
 ## Initial wallet configuration
 
-The initial wallet configuration determines the address of the wallet, subsequent updates dons't change the address.
+The initial wallet configuration determines the address of the wallet, subsequent updates don't change the address.
 
 The wallet address can be computed using the `imageHash`, the `factory` and `mainModule` of the wallet.
 
@@ -149,7 +149,7 @@ const hash = ethers.utils.keccak256(
       'bytes32'
     ], [
       '0xff',
-      context.factory,
+      factory,
       salt,
       codeHash
     ]
