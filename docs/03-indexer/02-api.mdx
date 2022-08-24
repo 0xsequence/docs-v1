@@ -85,7 +85,30 @@ The Sequence Indexer is integrated directly inside of the respective [Sequence W
 <br />
 
 
-## Fetch all tokens for any wallet address
+## Sequence Indexer Hosts
+
+- **Ethereum** - https://mainnet-indexer.sequence.app
+- **Polygon** - https://polygon-indexer.sequence.app
+- **BSC** - https://bsc-indexer.sequence.app
+- **Arbitrum One** - https://arbitrum-indexer.sequence.app
+- **Arbitrum Nova** - https://arbitrum-nova-indexer.sequence.app
+- **Optimism** - https://optimism-indexer.sequence.app
+- **Avalanche** - https://avalanche-indexer.sequence.app
+- **Gnosis** - https://gnosis-indexer.sequence.app
+
+
+Testnet Support:
+
+- **Rinkeby** - https://rinkeby-indexer.sequence.app
+- **Mumbai** - https://mumbai-indexer.sequence.app
+- **BSC Testnet** - https://bsc-testnet-indexer.sequence.app
+
+<br />
+
+
+## Fetch all tokens in any wallet
+
+**Fetches all ERC20, ERC7721 and ERC11555 token balances and metadata in any wallet.**
 
 *Sequence Indexer `GetTokenBalances` Method:*
 
@@ -165,6 +188,9 @@ Please [contact our team](/support) for assistance with integrations to another 
 
 ## Fetch the transaction history for any wallet address
 
+**Fetches the transaction / token history for any wallet address of any ERC20, ERC721 and ERC1155 token.
+The response includes decoded transaction details for easy consumption / rendering.**
+
 *Sequence Indexer `GetTransactionHistory` Method:*
 
 * Request: POST /rpc/Indexer/GetTransactionHistory
@@ -172,6 +198,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 * Body (in JSON):
 	* `filter` (object)
   	* `accountAddress` (string) -- the wallet account address
+		* `contractAddress` (string) -- optionally specify a contract address to filter
   * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
 
 <br />
@@ -245,7 +272,183 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
-## Fetch native network balance (aka ETH on Ethereum, MATIC on Polygon)
+## Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies
+
+**Fetches token supplies and metadata for any ERC20, ERC721, ERC1155 contract.**
+
+This query is helpful to render all tokens in a token contract, or to query the total token supplies.
+In this example, we use the Skyweaver token contract address 0x631998e91476DA5B870D741192fc5Cbc55F5a52E
+on the Polygon network. You may query any contract address on any of the supported networks (but make
+sure to query the indexer of the corresponding network).
+
+
+*Sequence Indexer `GetTokenSupplies` Method:*
+
+* Request: POST /rpc/Indexer/GetTokenSupplies
+* Content-Type: application/json
+* Body (in JSON):
+	* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+
+<br />
+
+**Example: `GetTokenSupplies` of Skyweaver contract on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenSupplies -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "includeMetadata": true }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceIndexerClient } from '@0xsequence/indexer'
+
+const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+
+// here we query the Skyweaver contract address, but you can use any
+const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
+
+// query Sequence Indexer for all token details / supplies
+const tokenDetails = await indexer.getTokenSupplies({
+	contractAddress: contractAddress,
+	includeMetadata: true
+})
+console.log('token details of contract:', tokenDetails)
+```
+
+</TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/0xsequence/go-sequence/indexer"
+)
+
+func GetTokenSupplies(contractAddress string) {
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+
+	filter := &indexer.TransactionHistoryFilter{
+		ContractAddress: &contractAddress,
+	}
+	includeMetadata := true
+
+	_, tokenDetails, err := seqIndexer.GetTokenSupplies(context.Background(), filter, nil, &includeMetadata)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("token details:", tokenDetails)
+}
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+<br />
+
+
+## Fetch the transaction history for any token contract address
+
+**Fetch / listen to the transaction history for any ERC20, ERC721, ERC1155 contract.**
+
+This query is helpful to track transaction history of a particular token contract.
+In this example, we use the Skyweaver token contract address 0x631998e91476DA5B870D741192fc5Cbc55F5a52E
+on the Polygon network. You may query any contract address on any of the supported networks (but make
+sure to query the indexer of the corresponding network).
+
+
+*Sequence Indexer `GetBalanceUpdates` Method:*
+
+* Request: POST /rpc/Indexer/GetBalanceUpdates
+* Content-Type: application/json
+* Body (in JSON):
+	* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
+
+<br />
+
+**Example: `GetBalanceUpdates` of Skyweaver contract on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetBalanceUpdates -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E" }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceIndexerClient } from '@0xsequence/indexer'
+
+const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+
+// here we query the Skyweaver contract address, but you can use any
+const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
+
+// query Sequence Indexer for all token details / supplies
+// NOTE: you can also pass the page object for paginated results. As well, pass the lastUpdateID
+// to query since the last update.
+const history = await indexer.getBalanceUpdates({
+	contractAddress: contractAddress
+})
+console.log('token history of contract:', history)
+```
+
+</TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/0xsequence/go-sequence/indexer"
+)
+
+func GetBalanceUpdates(contractAddress string) {
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+
+	// NOTE: you can also pass the page object for paginated results. As well, pass the lastUpdateID
+	// to query since the last update.
+	_, history, err := seqIndexer.GetBalanceUpdates(context.Background(), contractAddress, 0, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("token token of contract:", history)
+}
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+<br />
+
+
+
+## Fetch native network balance (aka ETH on Ethereum, MATIC on Polygon, AVAX on Avalanche, BNB on BSC, etc.)
 
 *Sequence Indexer `GetEtherBalance` Method:*
 
