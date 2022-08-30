@@ -6,36 +6,14 @@ slug: /indexer
 
 The Sequence Indexer is a modular Web3 service that makes it easy to query blockchain token
 and NFT data from Ethereum-compatible networks. The Indexer **automatically indexes every
-ERC20, ERC721 and ERC1155 token** from all Ethereum-compatible chains. The Indexer is
-very fast, and tracks transactions in real-time.
+ERC20, ERC721 and ERC1155 token** from Ethereum-compatible chains. 
 
 In fact, the Sequence Wallet uses the Indexer behind the scenes so it can seamlessly
 render all token information in any wallet. But of course, the Indexer is a modular piece
-of infrastructure, and you may use it with any wallet, from your dapp, game, or even from
+of infrastructure, and you may use it directly from your dapp, game, or even from
 a server.
 
-<br/>
-
-**Example Blockchain Queries:**
-
-Here are a few of the queries you can make to a blockchain from your dapp, game, or wallet: 
-
-* [Fetch all tokens in any wallet including all metadata](/indexer/api#fetch-all-tokens-in-any-wallet)
-* [Fetch the transaction history for any wallet address](/indexer/api#fetch-the-transaction-history-for-any-wallet-address)
-* [Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies](/indexer/api#fetch-all-unique-tokens-in-a-particular-erc207211155-contract-including-total-supplies)
-* [What is the total token supply of an ERC20 token? What is the total token supply of
-all the ERC1155 tokens in a particular contract ?](/indexer/api#fetch-all-unique-tokens-in-a-particular-erc207211155-contract-including-total-supplies)
-* [Fetch the transaction history for any token contract address](/indexer/api#fetch-the-transaction-history-for-any-token-contract-address)
-
-<br/>
-
 **Features:**
-
-The Indexer is specialy designed and has been iterated over the last few years during
-the development of Skyweaver.net and Sequence.xyz, designed for Ethereum multi-chains,
-and as a result has a number of unique features compared to other blockchain indexing
-products in the market:
-
 * Super-fast API to query all token balances, history, metadata and NFTs with multi-chain support
 * Real-time indexing of ERC20, ERC721 and ERC1155 transactions across EVM-compatible chains
 * Automatically detects all tokens on the chain, without the need for a contract registry
@@ -45,7 +23,46 @@ products in the market:
 * High uptime and availability
 
 
+## Supported Networks & Endpoints
+
+**Status:** https://status.sequence.info
+
+import SequenceServiceList from '/src/components/SequenceServiceList'
+const serviceList = [
+  { network: 'Ethereum', logo: '/img/networks/1.png', endpoint: 'https://mainnet-indexer.sequence.app' },
+  { network: 'Polygon', logo: '/img/networks/137.png', endpoint: 'https://polygon-indexer.sequence.app' },
+  { network: 'Arbitrum Nova', logo: '/img/networks/42170.png', endpoint: 'https://arbitrum-nova-indexer.sequence.app' },
+  { network: 'Optimism', logo: '/img/networks/10.png', endpoint: 'https://optimism-indexer.sequence.app' },
+  { network: 'Avalanche', logo: '/img/networks/43114.png', endpoint: 'https://avalanche-indexer.sequence.app' },
+  { network: 'BSC (BNB Smart Chain)', logo: '/img/networks/56.png', endpoint: 'https://bsc-indexer.sequence.app' },
+  { network: 'Gnosis', logo: '/img/networks/64.png', endpoint: 'https://gnosis-indexer.sequence.app' }
+]
+const testServiceList = [
+  { network: 'Rinkeby', logo: '/img/networks/1.png', endpoint: 'https://mainnet-indexer.sequence.app' },
+  { network: 'Mumbai', logo: '/img/networks/137.png', endpoint: 'https://polygon-indexer.sequence.app' },
+  { network: 'BSC Testnet', logo: '/img/networks/56.png', endpoint: 'https://bsc-indexer.sequence.app' }
+]
+
+**Mainnet networks:**
+
+<SequenceServiceList serviceName="Indexer" serviceList={serviceList} />
+
+<br />
+
+**Test networks:**
+<SequenceServiceList serviceName="Indexer" serviceList={testServiceList} />
+
+
 ## Getting Started
+
+Here are a few example queries you can make to a blockchain from your dapp, game, or wallet: 
+
+* [Fetch all tokens in any wallet including all metadata](/indexer/api#fetch-all-tokens-in-any-wallet)
+* [Fetch the transaction history for any wallet address](/indexer/api#fetch-the-transaction-history-for-any-wallet-address)
+* [Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies](/indexer/api#fetch-all-unique-tokens-in-a-particular-erc207211155-contract-including-total-supplies)
+* [What is the total token supply of an ERC20 token? What is the total token supply of
+all the ERC1155 tokens in a particular contract ?](/indexer/api#fetch-all-unique-tokens-in-a-particular-erc207211155-contract-including-total-supplies)
+* [Fetch the transaction history for any token contract address](/indexer/api#fetch-the-transaction-history-for-any-token-contract-address)
 
 To get started, please see the [Indexer API Reference & Usage](/indexer/api) section.
 
@@ -53,5 +70,5 @@ To get started, please see the [Indexer API Reference & Usage](/indexer/api) sec
 ## Pricing & Usage
 
 The Sequence Indexer is available for free with moderate request limits, but if your project
-requires higher limits, please contact the [Sequence Pro](https://sequence.xyz/pro) team.
+requires higher limits, please contact the [Sequence Pro](https://pro.sequence.xyz) team.
 

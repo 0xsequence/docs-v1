@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem'
 
 # Indexer API Reference & Usage
 
-Sequence Indexer is a powerful API to query any blockchain token and NFT data. Below are instructions
+Sequence Indexer is a simple API to query any blockchain token and NFT data. Below are instructions
 on how to integrate the Sequence Indexer API into your Webapps, Games, and backends. In case you missed
 it, please also see the [Indexer Overview](/indexer).
 
@@ -19,11 +19,17 @@ from your Webapp, Game or server backend. Below you'll find information on the R
 schema with sample curl commands, along with examples in both Javascript/Typescript and Go.
 
 We provide SDKs for [Web / node.js](https://github.com/0xsequence/sequence.js) and [Go](https://github.com/0xsequence/go-sequence).
-
-If you'd like to integrate the Indexer with another language target, simply follow the API reference below
+Or if you'd like to integrate the Indexer with another language target, simply follow the API reference below
 to implement the HTTP requests. Additionally, read the Typescript client source code as [reference
 implementation of the Indexer API client](https://github.com/0xsequence/sequence.js/blob/master/packages/indexer/src/indexer.gen.ts) as well.
 
+:::info Sequence Indexer endpoints
+Sequence Indexer offers the same API across a variety of EVM networks. Make sure to check the Indexer endpoints
+and use the corresponding host for your dapp/game. For example, the Etheruem mainnet the Sequence Indexer endpoint is
+https://mainnet-indexer.sequence.app and Polygon is https://polygon-indexer.sequence.app.
+
+🌄 [View the full list of supported networks and Indexer endpoints here](/indexer#supported-networks--endpoints)
+:::
 
 <br />
 
@@ -80,28 +86,7 @@ tokenBalances, err := seqIndexer.GetTokenBalances(...)
 
 ### Unity or Unreal Installation
 
-The Sequence Indexer is integrated directly inside of the respective [Sequence Web3 Unity](/games-sdk/unity) and [Sequence Web3 Unreal](/games-sdk/unreal) SDKs.
-
-<br />
-
-
-## Sequence Indexer Hosts
-
-- **Ethereum** - https://mainnet-indexer.sequence.app
-- **Polygon** - https://polygon-indexer.sequence.app
-- **BSC** - https://bsc-indexer.sequence.app
-- **Arbitrum One** - https://arbitrum-indexer.sequence.app
-- **Arbitrum Nova** - https://arbitrum-nova-indexer.sequence.app
-- **Optimism** - https://optimism-indexer.sequence.app
-- **Avalanche** - https://avalanche-indexer.sequence.app
-- **Gnosis** - https://gnosis-indexer.sequence.app
-
-
-Testnet Support:
-
-- **Rinkeby** - https://rinkeby-indexer.sequence.app
-- **Mumbai** - https://mumbai-indexer.sequence.app
-- **BSC Testnet** - https://bsc-testnet-indexer.sequence.app
+The Sequence Indexer is integrated directly inside of the respective [Sequence Web3 Unity](/games-sdk) and [Sequence Web3 Unreal](/games-sdk) SDKs.
 
 <br />
 
@@ -130,7 +115,7 @@ curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence
 ```
 
 </TabItem>
-<TabItem value="js" label="Javascript">
+<TabItem value="js" label="Javascript / Typescript">
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
@@ -213,7 +198,7 @@ curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence
 ```
 
 </TabItem>
-<TabItem value="js" label="Javascript">
+<TabItem value="js" label="Javascript / Typescript">
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
@@ -302,7 +287,7 @@ curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence
 ```
 
 </TabItem>
-<TabItem value="js" label="Javascript">
+<TabItem value="js" label="Javascript / Typescript">
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
@@ -390,7 +375,7 @@ curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence
 ```
 
 </TabItem>
-<TabItem value="js" label="Javascript">
+<TabItem value="js" label="Javascript / Typescript">
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
@@ -469,7 +454,7 @@ curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence
 ```
 
 </TabItem>
-<TabItem value="js" label="Javascript">
+<TabItem value="js" label="Javascript / Typescript">
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
@@ -542,7 +527,7 @@ curl -X POST -H"Content-Type: application/json" https://mainnet-indexer.sequence
 ```
 
 </TabItem>
-<TabItem value="js" label="Javascript">
+<TabItem value="js" label="Javascript / Typescript">
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
