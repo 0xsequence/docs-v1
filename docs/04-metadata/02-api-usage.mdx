@@ -7,8 +7,8 @@ sidebar_label: API Usage
 The Sequence Metadata API service offers a simple and fast API to query token & NFT metadata
 for Ethereum-compatible chains.
 
-Quite simply, the Metadata API allows you to query the metadata of any ERC20, ERC721 or ERC1155
-token on a [number of supported Ethereum chains](/multi-chain-support).
+Quite simply, the Metadata API allows you to query the token metadata of any ERC20, ERC721 or ERC1155
+contract on a [number of supported Ethereum chains](/multi-chain-support).
 
 Please note, for your dev convenience, the Sequence Metadata service is automatically integrated in the [Sequence Indexer](/indexer). 
 But as we demonstrate below, it's also useful to be able to query the token/contract metadata directly too :)
@@ -81,19 +81,213 @@ and see result:
 }
 ```
 
+<br />
 
 ## Usage
 
-The Metadata API service is accessible either with a simple REST interface, or a RPC client.
-For the RPC client, we offer Web browser, node and Go clients.
+The Metadata API service is accessible either with a simple [REST interface](#rest-endpoints), or a [RPC client](#rpc-client).
+For the RPC client, we offer Web browser, node and Go clients. We recommend the RPC client for most integrations, but
+make the REST interface available for convenience.
 
-As mentioned in the [example](#example) above.
+<br />
 
+## REST endpoints
 
-token / contract metadata, etc..
-
-For format of the REST endpoint is:
+As mentioned in the [example](#example) above. The general format of the REST endpoint is:
 
 ```
 GET https://metadata.sequence.app/tokens/<network>/<contractAddress>[/<tokenID>]
 ```
+
+Where `<network>` must be one of the `Chain ID` or `Chain Handle` of [the supported networks](/multi-chain-support#networks).
+
+<br />
+
+**Fetch contract-level metadata:**
+
+```
+GET https://metadata.sequence.app/tokens/<network>/<contractAddress>
+```
+
+Example: https://metadata.sequence.app/tokens/polygon/0x631998e91476DA5B870D741192fc5Cbc55F5a52E
+
+<br />
+
+
+**Fetch token-level metadata:**
+
+```
+GET https://metadata.sequence.app/tokens/<network>/<contractAddress>/<tokenID>[,<tokenID>,...]
+```
+
+Examples:
+* https://metadata.sequence.app/tokens/polygon/0x631998e91476DA5B870D741192fc5Cbc55F5a52E/20
+* https://metadata.sequence.app/tokens/polygon/0x631998e91476DA5B870D741192fc5Cbc55F5a52E/20,21
+
+<br />
+
+
+## RPC Client
+
+The Metadata RPC interface offers the full capabilities of the Metadata service.
+
+We provide SDKs for [Web / node.js](https://github.com/0xsequence/sequence.js) and [Go](https://github.com/0xsequence/go-sequence).
+Or if you'd like to integrate the Metadata service with another language target, simply follow the API reference below
+to implement the HTTP requests. Additionally, read the Typescript client source code as [reference
+implementation of the Metadata RPC client](https://github.com/0xsequence/sequence.js/blob/master/packages/metadata/src/metadata.gen.ts) as well.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+### Web / node.js Installation
+
+```bash
+npm install 0xsequence
+```
+or
+```bash
+npm install @0xsequence/metadata
+```
+
+then in your app,
+
+```ts
+import { SequenceMetadataClient } from '@0xsequence/metadata'
+
+// TODO: review ..
+const metadata = new SequenceMetadataClient()
+
+// see examples below for the kinds of queries you can make
+const tokenBalances = await indexer.getTokenBalances(...)
+```
+
+**NOTE:** if you're using `@0xsequence/metadata` from node.js, we recommend using node v18.x or newer.
+
+<br />
+
+### Go Installation
+
+```bash
+go get -u github.com/0xsequence/go-sequence@latest
+```
+
+then in your app,
+
+```go
+import (
+	"github.com/0xsequence/go-sequence/metadata"
+)
+
+seqMetadata := metadata.NewMetadataClient("https://metadata.sequence.app", http.DefaultClient)
+
+// TODO: review ...
+// see examples below for the kinds of queries you can make
+tokenBalances, err := seqIndexer.GetTokenBalances(...)
+```
+
+<br />
+
+### Unity or Unreal Installation
+
+The Sequence Metadata is integrated directly inside of the respective [Sequence Web3 Unity](/games-sdk) and [Sequence Web3 Unreal](/games-sdk) SDKs.
+
+<br />
+
+## Metadata RPC Methods
+
+**Metadata API endpoint:** https://metadata.sequence.app
+
+**Metadata RPC methods:**
+
+* `GetTokenMetadata` - fetch token metadata of an ERC721 or ERC1155 token ID
+* `GetTokenMetadataBatch` - fetch token metadata of a batch of ERC721 or ERC1155 token IDs 
+* `GetContractInfo` - fetch contract metadata of an ERC20, ERC721 or ERC1155 contract address
+* `GetContractInfoBatch` - fetch contract metadata of a batch of ERC20, ERC721 or ERC1155 contract addresses
+
+
+## Fetch token metadata of any ERC721 or ERC1155 token ID
+
+^^^ TODO: ................ update this for the common Metadata queries..
+lets review, etc............
+
+* 
+
+**Fetches all ERC20, ERC7721 and ERC11555 token balances and metadata in any wallet.**
+
+*Sequence Indexer `GetTokenBalances` Method:*
+
+* Request: POST /rpc/Indexer/GetTokenBalances
+* Content-Type: application/json
+* Body (in JSON):
+  * `accountAddress` (string) -- the wallet account address
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+
+<br />
+
+**Example: `GetTokenBalances` of a wallet account address on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceIndexerClient } from '@0xsequence/indexer'
+
+const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+
+// try any account address you'd like :)
+const accountAddress = '0xabc...'
+
+// query Sequence Indexer for all token balances of the account on Polygon
+const tokenBalances = await indexer.getTokenBalances({
+	accountAddress: accountAddress,
+	includeMetadata: true
+})
+console.log('tokens in your account:', tokenBalances)
+```
+
+</TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/0xsequence/go-sequence/indexer"
+)
+
+func GetTokenBalances(accountAddress string) {
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+
+	includeMetadata := true
+
+	tokenBalances, _, err := seqIndexer.GetTokenBalances(context.Background(), &accountAddress, nil, &includeMetadata, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("tokenBalances:", tokenBalances)
+}
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+<br />
+
+
+## Fetch contract metadata of any ERC20, ERC721 or ERC1155 contract address

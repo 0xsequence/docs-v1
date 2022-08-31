@@ -9,7 +9,7 @@ function ChainList(props) {
       <table>
         <thead>
           <th align="left">Network</th>
-          <th align="left">Chain #</th>
+          <th align="left">Chain ID</th>
           <th align="left">Chain Handle</th>
         </thead>
         <tbody>
