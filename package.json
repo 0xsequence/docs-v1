@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@cmfcmf/docusaurus-search-local": "^0.11.0",
-    "@docusaurus/core": "^2.0.0-beta.15",
-    "@docusaurus/preset-classic": "^2.0.0-beta.15",
-    "@docusaurus/theme-search-algolia": "^2.0.0-beta.15",
+    "@docusaurus/core": "^2.1.0",
+    "@docusaurus/preset-classic": "^2.1.0",
+    "@docusaurus/theme-search-algolia": "^2.1.0",
     "@easyops-cn/docusaurus-search-local": "^0.30.2",
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^6.2.1",
@@ -33,7 +33,7 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.15",
+    "@docusaurus/module-type-aliases": "^2.1.0",
     "@tsconfig/docusaurus": "^1.0.4",
     "@types/react": "^17.0.14",
     "@types/react-helmet": "^6.1.2",
