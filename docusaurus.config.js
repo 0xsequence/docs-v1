@@ -24,7 +24,8 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           routeBasePath: '/',
-          editUrl: 'https://github.com/0xsequence/docs/edit/master/'
+          editUrl: 'https://github.com/0xsequence/docs/edit/master/',
+          exclude: ['docs-todo/**']
           // showLastUpdateAuthor: true,
           // showLastUpdateTime: true,
         },
@@ -130,7 +131,7 @@ module.exports = {
               },
               {
                 label: 'Getting Started',
-                to: '/intro/getting-started'
+                to: '/getting-started'
               }
             ]
           },
