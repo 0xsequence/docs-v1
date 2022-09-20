@@ -1,0 +1,115 @@
+# Token Metadata
+
+..... TODO.. review / elaborate, etc.....
+
+## Metadata Standards
+
+### ERC20
+
+ERC20's do not really have metadata standards, but we can infer information
+from the methodso on the contract such as `name` and `decimals`. Additionally, OpenSea added something called `contractURI` (https://docs.opensea.io/docs/contract-level-metadata).
+
+
+### ERC721
+
+ERC721 token contracts contain a method on the contract called `tokenURI(uint256) string`. When querying the `tokenURI` method on the contract, it will return a URI which contains additional metadata for that asset.
+
+See EIP for specific details: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
+
+Here is an example Bored Ape (token id 9):
+https://metadata.sequence.app/tokens/mainnet/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/9
+
+response:
+
+```json
+{
+  "tokenId": "9",
+  "contractAddress": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+  "name": "",
+  "description": "",
+  "image": "https://ipfs.sequence.info/ipfs/QmUQgKka8EW7exiUHnMwZ4UoXA11wV7NFjHAogVAbasSYy",
+  "decimals": 0,
+  "properties": null,
+  "attributes": [
+    {
+      "trait_type": "Earring",
+      "value": "Silver Stud"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Sleepy"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Small Grin"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Seaman's Hat"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Stunt Jacket"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Purple"
+    }
+  ]
+}
+```
+
+In the case of this Bored Ape, it appears there is no name or description set,
+but they do have "attributes" as an array of `{ "trait_type": string, "value: string }`.
+
+Additionally, see OpenSea for more information: https://docs.opensea.io/docs/metadata-standards
+
+However note that OpenSea technically breaks the ERC1155 standard by suggesting to use "attributes", where in fact, the ERC1155 calls uses the field name "properties" instead of "attributes", see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md#erc-1155-metadata-uri-json-schema (read section below). On Sequence Metadata, we support both structures for token contracts which use either format for their properties/attributes.
+
+Another example is from Neon District: https://metadata.sequence.app/tokens/polygon/0x7227e371540CF7b8e512544Ba6871472031F3335/158456331411102687640546264635
+
+
+### ERC1155
+
+ERC1155 token contracts contain a method on the contract called `uri(uint256) string`. When querying the `uri` method on the contract, it will return a URI which contains additional metadata for that asset.
+
+See EIP for specific details: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md#erc-1155-metadata-uri-json-schema
+
+Here is an example Skyweaver card (token id 65548):
+https://metadata.sequence.app/tokens/polygon/0x27A11C1563a5dDa238379B95c91B3AbBaD9C0cf6/65548
+
+```json
+{
+  "tokenId": "65548",
+  "contractAddress": "0x27a11c1563a5dda238379b95c91b3abbad9c0cf6",
+  "name": "Weighted Die (Silver)",
+  "description": "Give +1/+1, armor, and guard to a random ally unit, six times.\n\n\"I will not bow to fate. If the dice fall against me, I'll cut off the hand that cast them.\"\n -Horik",
+  "image": "https://assets.skyweaver.net/LV7xNcQh/webapp/cards/full-cards/6x/12-silver.png",
+  "decimals": 2,
+  "properties": {
+    "artists": {
+      "name": "Artist",
+      "value": [
+        {
+          "id": "xavi",
+          "name": "Henrique Xavier",
+          "url": "https://www.artstation.com/kitexavier"
+        }
+      ]
+    },
+    "baseCardId": 12,
+    "cardType": "Spell",
+    "element": "Metal",
+    "mana": 8,
+    "prism": "Strength",
+    "type": "Silver"
+  },
+  "attributes": null
+}
+```
+
+As you can see, Skyweaver an ERC1155 token's metadata uses the `properties` object, which is an object/dictionary type of arbitrary data.

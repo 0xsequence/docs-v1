@@ -145,3 +145,14 @@ a.card:hover {
   border: 1px solid var(--ifm-color-primary);
   box-shadow: var(--custom-shadow-xl), 0 0 0 1px var(--ifm-color-primary) !important;
 }
+
+.wrap pre code {
+  white-space: pre-wrap;
+  width: 600px;
+}
+
+.tabs-container {
+  border: 2px solid #666;
+  padding: 5px;
+  border-radius: 5px;
+}

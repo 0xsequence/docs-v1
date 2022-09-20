@@ -35,17 +35,17 @@ module.exports = {
     ]
   ],
   plugins: [
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        entryPoints: ['./sequence.js/packages/0xsequence/src/index.ts'],
-        tsconfig: './sequence.js/tsconfig.json',
-        sidebar: {
-          categoryLabel: 'API Reference',
-          position: 100
-        }
-      }
-    ],
+    // [
+    //   'docusaurus-plugin-typedoc',
+    //   {
+    //     entryPoints: ['./sequence.js/packages/0xsequence/src/index.ts'],
+    //     tsconfig: './sequence.js/tsconfig.json',
+    //     sidebar: {
+    //       categoryLabel: 'API Reference',
+    //       position: 100
+    //     }
+    //   }
+    // ],
     [
       '@easyops-cn/docusaurus-search-local',
       {
@@ -73,17 +73,38 @@ module.exports = {
         },
 
         items: [
-          {
-            type: 'doc',
-            docId: 'introduction/overview',
-            position: 'left',
-            label: 'Overview'
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'intro/overview',
+          //   position: 'left',
+          //   label: 'Overview'
+          // },
           {
             href: 'https://github.com/0xsequence',
-            className: 'navbar-item-github',
-            position: 'right'
+            position: 'left',
+            label: 'Github'
           },
+          {
+            href: 'https://discord.gg/sequence',
+            position: 'left',
+            label: 'Discord'
+          },
+          // {
+          //   href: 'https://blog.sequence.xyz',
+          //   position: 'left',
+          //   label: 'Blog & Guides'
+          // },
+          {
+            type: 'doc',
+            docId: 'support/contact',
+            position: 'right',
+            label: 'Support'
+          },
+          // {
+          //   href: 'https://github.com/0xsequence',
+          //   className: 'navbar-item-github',
+          //   position: 'right'
+          // },
           {
             href: 'https://twitter.com/0xsequence',
             className: 'navbar-item-twitter',
@@ -109,7 +130,7 @@ module.exports = {
               },
               {
                 label: 'Getting Started',
-                to: '/getting-started'
+                to: '/intro/getting-started'
               }
             ]
           },
@@ -118,7 +139,7 @@ module.exports = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://discord.gg/Sequence'
+                href: 'https://discord.gg/sequence'
               },
               {
                 label: 'Twitter',
@@ -135,11 +156,11 @@ module.exports = {
             items: [
               {
                 label: 'Email',
-                href: 'mailto: hello@sequence.build'
+                href: 'mailto: hello@horizon.io'
               },
               {
                 label: 'Support',
-                href: 'https://sequence.build/#contact'
+                href: 'https://support.sequence.xyz'
               }
             ]
           }
