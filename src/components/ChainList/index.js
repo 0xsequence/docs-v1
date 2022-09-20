@@ -4,12 +4,16 @@ import styles from './styles.module.css'
 
 function ChainList(props) {
   const chainList = props.chainList
+  const showChainId = props.showChainId
+
   return (
     <div className={styles.chainList}>
       <table>
         <thead>
           <th align="left">Network</th>
-          <th align="left">Chain ID</th>
+          {showChainId &&
+            <th align="left">Chain ID</th>
+          }
           <th align="left">Chain Handle</th>
         </thead>
         <tbody>
@@ -22,7 +26,9 @@ function ChainList(props) {
                   <span>{chain.network}</span>
                 </div>
               </td>
-              <td align="left">{chain.chainId}</td>
+              {showChainId &&
+                <td align="left">{chain.chainId}</td>
+              }
               <td align="left">{chain.chainHandle}</td>
             </tr>
           )

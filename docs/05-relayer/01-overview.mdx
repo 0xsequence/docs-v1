@@ -4,33 +4,27 @@ slug: /relayer
 
 # Relayer
 
-* meta-txns, etc..
-* review the google doc, etc..
+The Sequence Relayer service offers a simple interface for dispatching meta-transactions on Ethereum-compatible
+networks.
 
-....... TODO....... update..
-
-Onboard more users and let them spend faster.
-
-No gas fees for your users combined with environmentally-friendly transaction relaying.
-
-The Sequence Relayer lets you sponsor transactions, so that your users won’t pay gas, enabling a better user
-experience, especially helpful for folks new to crypto.
-
-The Relayer lets you batch transactions and even send batches of transactions in parallel, enabling higher throughput
-while simultaneously saving you fees, time, and reducing your carbon footprint. Your users can batch as well, which means
-they can send multiple asset types—coins (ERC20s), NFTs (ERC721s), and collectibles (ERC1155s)—all in a single transaction, saving them time and fees.
-
-Sequence makes transacting easy for your users by displaying all transactions in a human-readable format, so your users
-have confidence in the actions they’re performing.
-
-Your users don’t need to worry about setting gas prices, gas limits, or stuck transactions. Sequence guarantees all
-transactions are mined and confirmed in a reasonable timeframe.
-
-* Relayer is a powerful transaction infrastructure layer built on Ethereum-compatible networks
-* Easily build backend servers which can send transactions in batches and in parallel – allow many transactions to be mined simultaneously
-* Easily build minting / token reward applications which are 10x faster and cheaper then sending transactions directly to a blockchain
-* Quickly and cost-effectively airdrop tokens to your communities
-* Sponsor transactions so your users don’t need to pay gas fees (better onboarding)
-* Allows you to execute txns without worrying about gas prices, gas limits, or stuck txns
-* Fire and forget transactions 
+Meta-transactions are the idea of a transaction inside of a transaction. The benefits of Sequence meta-transactions are 
+that they allow:
+* Gas abstraction -- whereby users can pay for network gas in a variety of tokens (ie. USDC, DAI, etc.)
+* Sponsored gas -- projects may sponsor the gas of specific contracts to allow free gas for their users
+* Batched transactions -- group a bunch of independent transactions and allow them to be mined as a single transaction
+* Parallel transactions -- parallelize the dispatch of transactions in some cases
+* Fire + forget model -- easily send transactions to the relayer, which will ensure fast delivery
+* Optimal gas pricing for transactions
 * Free to use / Sequence Pro gives you more reporting
+
+The best part: transactions with Sequence Relayer are compatible with *any* existing/deployed Ethereum
+contract, and thus, integrating the Sequence Relayer doesn't require any changes to your contracts or dapp.
+
+The Sequence Relayer is usable by frontend dapps, or even in your backends.
+
+
+## Pricing & Usage
+
+The Sequence Relayer is available for free, but if your project requires higher concurrency,
+please contact the [Sequence Pro](https://pro.sequence.xyz) team.
+

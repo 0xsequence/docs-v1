@@ -199,38 +199,32 @@ The Sequence Metadata is integrated directly inside of the respective [Sequence 
 
 **Metadata RPC methods:**
 
-* `GetTokenMetadata` - fetch token metadata of an ERC721 or ERC1155 token ID
-* `GetTokenMetadataBatch` - fetch token metadata of a batch of ERC721 or ERC1155 token IDs 
+* `GetTokenMetadata` - fetch token metadata of ERC721 or ERC1155 tokens from a single contract 
+* `GetTokenMetadataBatch` - fetch token metadata of ERC721 or ERC1155 token from a batch of contracts 
 * `GetContractInfo` - fetch contract metadata of an ERC20, ERC721 or ERC1155 contract address
 * `GetContractInfoBatch` - fetch contract metadata of a batch of ERC20, ERC721 or ERC1155 contract addresses
 
 
-## Fetch token metadata of any ERC721 or ERC1155 token ID
+## Fetch token metadata of any ERC721 or ERC1155 contract
 
-^^^ TODO: ................ update this for the common Metadata queries..
-lets review, etc............
+*Sequence Metadata `GetTokenMetadata` Method:*
 
-* 
-
-**Fetches all ERC20, ERC7721 and ERC11555 token balances and metadata in any wallet.**
-
-*Sequence Indexer `GetTokenBalances` Method:*
-
-* Request: POST /rpc/Indexer/GetTokenBalances
+* Request: POST /rpc/Metadata/GetTokenMetadata
 * Content-Type: application/json
 * Body (in JSON):
-  * `accountAddress` (string) -- the wallet account address
-  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+  * `chainID` (string) -- the chain id, as a name or number (ie. "1" or "mainnet", "137" or "polygon", etc.)
+  * `contractAddress` (string) -- the contract address
+  * `tokenIDs` (array of strings) -- array of strings containing token ids to fetch metadata
 
 <br />
 
-**Example: `GetTokenBalances` of a wallet account address on Polygon**
+**Example: `GetTokenMetadata` of some Skyweaver tokens on Polygon**
 
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+curl -X POST -H"Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetTokenMetadata -d '{ "chainID": "polygon", "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["65537", "65538", "65539"] }'
 ```
 
 </TabItem>
@@ -238,45 +232,17 @@ curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
-import { SequenceIndexerClient } from '@0xsequence/indexer'
+import { SequenceMetadataClient } from '@0xsequence/metadata'
 
-const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+const metadataClient = new SequenceMetadataClient()
 
-// try any account address you'd like :)
-const accountAddress = '0xabc...'
-
-// query Sequence Indexer for all token balances of the account on Polygon
-const tokenBalances = await indexer.getTokenBalances({
-	accountAddress: accountAddress,
-	includeMetadata: true
+const tokenMetadata = await metadataClient.getTokenMetadata({
+  chainID: 'polygon',
+  contractAddress: '0x631998e91476DA5B870D741192fc5Cbc55F5a52E',
+  tokenIDs: ['65537', '65538', '65539']
 })
-console.log('tokens in your account:', tokenBalances)
-```
 
-</TabItem>
-<TabItem value="golang" label="Go">
-
-```go
-import (
-	"context"
-	"fmt"
-	"log"
-	"net/http"
-
-	"github.com/0xsequence/go-sequence/indexer"
-)
-
-func GetTokenBalances(accountAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
-
-	includeMetadata := true
-
-	tokenBalances, _, err := seqIndexer.GetTokenBalances(context.Background(), &accountAddress, nil, &includeMetadata, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("tokenBalances:", tokenBalances)
-}
+console.log('Skyweaver metadata for some tokens:', tokenMetadata)
 ```
 
 </TabItem>
@@ -290,4 +256,60 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
+
 ## Fetch contract metadata of any ERC20, ERC721 or ERC1155 contract address
+
+*Sequence Metadata `GetContractInfoBatch` Method:*
+
+* Request: POST /rpc/Metadata/GetContractInfoBatch
+* Content-Type: application/json
+* Body (in JSON):
+  * `chainID` (string) -- the chain id, as a name or number (ie. "1" or "mainnet", "137" or "polygon", etc.)
+  * `contractAddresses` (string of strings) -- array of contract addresses
+
+<br />
+
+**Example: `GetContractInfoBatch` of some contracts on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetContractInfoBatch -d '{ "chainID": "polygon", "contractAddresses": ["0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "0x17b66009af459dc8ebf37acf8a8b355379be2fe5", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174", "0x2953399124f0cbb46d2cbacd8a89cf0599974963", "0x7227e371540cf7b8e512544ba6871472031f3335", "0x7c0ebabfc394ec6d926e801fe0e69a1f15a7fe4d", "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063", "0xa1c57f48f0deb89f569dfbe6e2b7f46d33606fd4"] }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceMetadataClient } from '@0xsequence/metadata'
+
+const metadataClient = new SequenceMetadataClient()
+
+const contractMetadata = await metadataClient.getContractInfoBatch({
+  chainID: 'polygon',
+  contractAddresses: [
+    '0x631998e91476DA5B870D741192fc5Cbc55F5a52E',
+    '0x17b66009af459dc8ebf37acf8a8b355379be2fe5',
+    '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+    '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
+    '0x7227e371540cf7b8e512544ba6871472031f3335',
+    '0x7c0ebabfc394ec6d926e801fe0e69a1f15a7fe4d',
+    '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
+    '0xa1c57f48f0deb89f569dfbe6e2b7f46d33606fd4'
+  ]
+})
+
+console.log('Contract info for above addresses:', contractMetadata)
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+<br />
