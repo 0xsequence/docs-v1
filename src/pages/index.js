@@ -20,13 +20,13 @@ const actions = [
   {
     title: 'Multichain support',
     href: '#',
-    to: './protocol/reference/smart-contracts',
+    to: '/',
     text: `Find out which chains are supported by the developer platform`,
   },
   {
     title: 'Gas fees',
     href: '#',
-    to: './sdk/introduction',
+    to: '/',
     text: `Learn how to minimize, bundle, and remove gas fees for your users with Sequence`,
   },
 ]
@@ -54,22 +54,22 @@ const Guides = [
   {
     title: 'Quickstart',
     text: 'Get started building using the JavaScript SDK',
-    to: './sdk/guides/quick-start',
+    to: '/',
   },
   {
     title: 'Connect wallet',
     text: 'Integrate the smart contract wallet into your app',
-    to: './protocol/guides/swaps/single-swaps',
+    to: '/',
   },
   {
     title: 'Verifying messages',
     text: 'Signing transactions',
-    to: './sdk/widgets/swap-widget',
+    to: '/',
   },
   {
     title: 'Send an ERC-20 token',
     text: 'Learn about transfers on Sequence',
-    to: './protocol/guides/providing-liquidity/setting-up',
+    to: '/',
   },
 ]
 
