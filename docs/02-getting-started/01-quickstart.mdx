@@ -1,0 +1,81 @@
+---
+slug: /quickstart
+---
+
+# Quick Start
+
+Get started with Sequence with just a few lines of code, follow along below.
+ 
+## Install
+
+First, install the [0xsequence](https://www.npmjs.com/package/0xsequence) package from NPM:
+
+```shell
+yarn add 0xsequence
+```
+
+or
+
+```shell
+npm install 0xsequence
+```
+
+You can find the source of the `0xsequence` package on [Github](https://github.com/0xsequence/sequence.js).
+
+
+## Connect your wallet
+
+**Connecting to Ethereum Mainnet:**
+
+```ts
+import { sequence } from '0xsequence'
+
+const wallet = sequence.initWallet('mainnet')
+const connectDetails = await wallet.connect()
+
+console.log('=> connected?', connectDetails.connected)
+```
+
+**Connecting to Polygon:**
+```ts
+import { sequence } from '0xsequence'
+
+const wallet = sequence.initWallet('polygon')
+const connectDetails = await wallet.connect()
+
+console.log('=> connected?', connectDetails.connected)
+```
+
+## Get the wallet address
+
+```ts
+const wallet = sequence.getWallet()
+const walletAddress = await wallet.getAddress()
+
+console.log(walletAddress)
+// # => '0xabcd....'
+```
+
+## Open the wallet from your dapp
+
+```ts
+const wallet = sequence.getWallet()
+wallet.openWallet()
+```
+
+## Get the blockchain network ID
+
+You can use a variety of methods to query the chain ID which the wallet is presently
+connected to.
+
+```ts
+const wallet = sequence.getWallet()
+
+console.log('chainId:', await wallet.getChainId())
+
+const provider = wallet.getProvider()
+console.log('provider.getChainId()', await provider.getChainId())
+
+const signer = wallet.getSigner()
+console.log('signer.getChainId()', await signer.getChainId())
+```

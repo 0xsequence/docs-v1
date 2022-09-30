@@ -1,0 +1,59 @@
+---
+sidebar_label: Installation
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+### Web / node.js Installation
+
+```bash
+npm install 0xsequence
+```
+or
+```bash
+npm install @0xsequence/metadata
+```
+
+then in your app,
+
+```ts
+import { SequenceMetadataClient } from '@0xsequence/metadata'
+
+// TODO: review ..
+const metadata = new SequenceMetadataClient()
+
+# Metadata API Installation
+
+**NOTE:** if you're using `@0xsequence/metadata` from node.js, we recommend using node v18.x or newer.
+
+<br />
+```
+
+### Go Installation
+
+```bash
+go get -u github.com/0xsequence/go-sequence@latest
+```
+
+then in your app,
+
+```go
+import (
+	"github.com/0xsequence/go-sequence/metadata"
+)
+
+seqMetadata := metadata.NewMetadataClient("https://metadata.sequence.app", http.DefaultClient)
+
+// TODO: review ...
+// see examples below for the kinds of queries you can make
+tokenBalances, err := seqIndexer.GetTokenBalances(...)
+```
+
+<br />
+
+### Unity or Unreal Installation
+
+The Sequence Metadata is integrated directly inside of the respective [Sequence Web3 Unity](/games-sdk) and [Sequence Web3 Unreal](/games-sdk) SDKs.
+
+<br />
