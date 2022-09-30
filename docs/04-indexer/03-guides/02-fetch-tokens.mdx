@@ -6,9 +6,9 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 
-## Fetch all tokens in any wallet
+## Fetch all tokens & NFTs in any wallet
 
-**Fetches all ERC20, ERC7721 and ERC11555 token balances and metadata in any wallet.**
+**Fetches all ERC20, ERC721 and ERC1155 token balances and metadata in any wallet.**
 
 *Sequence Indexer `GetTokenBalances` Method:*
 
@@ -72,6 +72,87 @@ func GetTokenBalances(accountAddress string) {
 		log.Fatal(err)
 	}
 	fmt.Println("tokenBalances:", tokenBalances)
+}
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+<br />
+
+
+**Query ownership and balances of ERC721 and ERC1155 collections.**
+
+*Sequence Indexer `GetTokenBalances` Method:*
+
+* Request: POST /rpc/Indexer/GetTokenBalances
+* Content-Type: application/json
+* Body (in JSON):
+  * `accountAddress` (string) -- the wallet account address
+  * `contractAddress` (string) -- the contract address of the ERC721 / ERC1155 collection
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+
+<br />
+
+**Example: `GetTokenBalances` of a contract + account address on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceIndexerClient } from '@0xsequence/indexer'
+
+const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+
+// try any contract and account address you'd like :)
+const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
+const accountAddress = '0xabc...'
+
+// query Sequence Indexer for all nft balances of the account on Polygon
+const nftBalances = await indexer.getTokenBalances({
+	contractAddress: contractAddress,
+	accountAddress: accountAddress,
+	includeMetadata: true
+})
+console.log('collcetion of items:', nftBalances)
+```
+
+</TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/0xsequence/go-sequence/indexer"
+)
+
+func GetTokenBalances(contractAddress, accountAddress string) {
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+
+	includeMetadata := true
+
+	nftBalances, _, err := seqIndexer.GetTokenBalances(context.Background(), &accountAddress, &contractAddress, &includeMetadata, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("nftBalances:", nftBalances)
 }
 ```
 
