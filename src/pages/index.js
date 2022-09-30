@@ -318,7 +318,7 @@ export default function Home() {
             margin: '0 auto 4rem auto',
             width: '100%',
           }}
-          href={'mailto:cat@hype.partners'}
+          href={'/support'}
         >
           <WideCard
             style={{
@@ -332,7 +332,7 @@ export default function Home() {
             <div>
               <h2 style={{ marginBottom: '0.5rem' }}>Talk to us</h2>
               <p style={{ margin: '0rem' }}>
-                We want to help you build your web3 project or game. Send us an email if you want to learn more.{' '}
+                We want to help you build your web3 project or game. Please contact our team for assistance or partnership enquiries.{' '}
               </p>
             </div>
           </WideCard>
