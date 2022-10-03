@@ -1,0 +1,55 @@
+---
+sidebar_label: Token metadata
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+
+# Fetch token metadata of any ERC721 or ERC1155 contract
+
+*Sequence Metadata `GetTokenMetadata` Method:*
+
+* Request: POST /rpc/Metadata/GetTokenMetadata
+* Content-Type: application/json
+* Body (in JSON):
+  * `chainID` (string) -- the chain id, as a name or number (ie. "1" or "mainnet", "137" or "polygon", etc.)
+  * `contractAddress` (string) -- the contract address
+  * `tokenIDs` (array of strings) -- array of strings containing token ids to fetch metadata
+
+<br />
+
+**Example: `GetTokenMetadata` of some Skyweaver tokens on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H"Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetTokenMetadata -d '{ "chainID": "polygon", "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["65537", "65538", "65539"] }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceMetadataClient } from '@0xsequence/metadata'
+
+const metadataClient = new SequenceMetadataClient()
+
+const tokenMetadata = await metadataClient.getTokenMetadata({
+  chainID: 'polygon',
+  contractAddress: '0x631998e91476DA5B870D741192fc5Cbc55F5a52E',
+  tokenIDs: ['65537', '65538', '65539']
+})
+
+console.log('Skyweaver metadata for some tokens:', tokenMetadata)
+```
+
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,47 @@
+---
+---
+
+# Sending an ERC20 token
+
+Let's send some USDC tokens to another wallet address on the network.
+
+```ts
+// Part of the ERC20 ABI, so we can encode a `transfer` call
+const erc20Interface = new ethers.utils.Interface([
+  'function transfer(address _to, uint256 _value)'
+])
+
+// Get the wallet signer interface
+const wallet = sequence.getWallet()
+const signer = wallet.getSigner()
+
+// USDC contract address on Polygon network
+const usdcContractAddress = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
+
+// Sending to a recipient address
+const recipientAddress = '0x8b4de256180cfec54c436a470af50f9ee2813dbb'
+
+// Sending 1.50 USDC, note USDC has 6 decimal places
+const amount = ethers.utils.parseUnits('1.50', 6)
+
+// Encode an ERC-20 token transfer to recipient of the specified amount
+const data = erc20Interface.encodeFunctionData(
+  'transfer', [recipientAddress, amount]
+)
+
+// Prepare Transaction object
+const tx: sequence.transactions.Transaction = {
+  to: usdcContractAddress,
+  data: data
+}
+
+// Send the transaction via the signer to the blockchain :D The signer will prompt the user
+// sign+send the transaction, and once the user confirms it will be transmitted.
+const txnResp = await signer.sendTransaction(tx)
+
+// Wait for the transaction to be mined by the network
+await txnResp.wait()
+
+// We're done, print the transaction hash, and open it up in your block explorer
+console.log('transaction hash:', txnResp.hash)
+```

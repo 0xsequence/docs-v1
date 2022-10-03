@@ -1,0 +1,43 @@
+# Why smart contracts wallets?
+
+
+Ethereum wallets may take two different forms, Externally owned accounts (EOAs) or Smart Contract Wallets.
+The Sequence wallet is implemented as a smart contract, which allows the system to provide additional security and functionality.
+
+## External owned accounts
+
+Externally owned accounts are the most primitive form of wallet on Ethereum; EOAs are accounts composed of a single ECDSA key pair.
+
+### Pros
+
+- Simple to implement
+- Cheap to use (in some scenarios)
+- Easy to backup
+
+### Popular examples
+
+- [MetaMask](https://metamask.io/)
+- [Rainbow](https://rainbow.me/)
+- [MyEtherWallet](https://www.myetherwallet.com/)
+- [Trust](https://trustwallet.com/)
+
+## Smart contract wallets
+
+Smart contract wallets are wallets that are implemented as smart contracts; it allows the wallets to implement arbitrary logic within the bounds of what's supported by the underlying virtual machine.
+Because of this, these contracts can implement functionality that's not available for EOAs, and can also be upgraded if they are prepared to do so.
+
+### Pros
+
+- Multiple keys
+- Key rotation
+- Pay fees using ERC20 tokens (e.g. USDC)
+- Upgradeability
+- Social recovery support
+- Meta-transactions
+- More flexible design space
+
+## Examples
+
+- [Sequence](https://sequence.app/)
+- [Gnosis Safe](https://gnosis-safe.io/)
+- [Argent](https://www.argent.xyz/)
