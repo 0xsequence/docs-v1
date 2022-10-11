@@ -1,14 +1,14 @@
 ---
-sidebar_label: All tokens in a wallet
+sidebar_label: Tokens API
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 
-# Fetch all tokens & NFTs in any wallet
+# Tokens API
 
-**Fetches all ERC20, ERC721 and ERC1155 token balances and metadata in any wallet.**
+### Fetches list of ERC20, ERC721 and ERC1155 tokens and metadata in any wallet.
 
 *Sequence Indexer `GetTokenBalances` Method:*
 
@@ -19,6 +19,11 @@ import TabItem from '@theme/TabItem'
   * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
 
 <br />
+
+:::info PRO TIP: fetching ERC721/1155 token IDs
+In order to fetch ERC721/1155 token balances, you must pass the "contractAddress" to
+the `GetTokenBalances` method. See section below for more information.
+:::
 
 **Example: `GetTokenBalances` of a wallet account address on Polygon**
 
@@ -86,7 +91,8 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
-**Query ownership and balances of ERC721 and ERC1155 collections.**
+
+### Fetch token IDs, balances and metadata of ERC721 and ERC1155 collections.
 
 *Sequence Indexer `GetTokenBalances` Method:*
 
@@ -167,7 +173,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
-## Fetch the transaction history for any wallet address
+### Fetch the transaction history for any wallet address
 
 **Fetches the transaction / token history for any wallet address of any ERC20, ERC721 and ERC1155 token.
 The response includes decoded transaction details for easy consumption / rendering.**
@@ -253,7 +259,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
-## Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies
+### Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies
 
 **Fetches token supplies and metadata for any ERC20, ERC721, ERC1155 contract.**
 
@@ -342,7 +348,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
-## Fetch the transaction history for any token contract address
+### Fetch the transaction history for any token contract address
 
 **Fetch / listen to the transaction history for any ERC20, ERC721, ERC1155 contract.**
 
@@ -429,7 +435,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 
 
 
-## Fetch native network balance (aka ETH on Ethereum, MATIC on Polygon, AVAX on Avalanche, BNB on BSC, etc.)
+### Fetch native network balance (aka ETH on Ethereum, MATIC on Polygon, AVAX on Avalanche, BNB on BSC, etc.)
 
 *Sequence Indexer `GetEtherBalance` Method:*
 
@@ -506,7 +512,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 <br />
 
 
-## Fetch the chain ID
+### Fetch the chain ID
 
 *Sequence Indexer `GetChainID` Method:*
 
