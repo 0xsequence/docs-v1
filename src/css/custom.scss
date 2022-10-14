@@ -46,7 +46,7 @@
   display: flex !important;
   align-items: center;
   justify-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 580px) {
@@ -87,7 +87,7 @@ html[data-theme='dark'] .navbar-item-github:before {
   display: flex !important;
   align-items: center;
   justify-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 580px) {
