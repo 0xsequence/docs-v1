@@ -116,9 +116,19 @@ Name of one of the available theme provided by sequence the sequence wallet will
 Example: `settings: {theme: "light"}`
 
 #### **bannerUrl**
-URL of a banner image users will see when connecting or loging into your dapp.The banner image should follow a 3:1 aspect ration where 1200x400 works best.
+URL of a banner image users will see when connecting or loging into your dapp. The banner image should follow a 3:1 aspect ration where 1200x400 works best.
 
 Example: `settings: {bannerUrl: "https://yoursite.com/banner-image.png"}`
+
+#### **signInWithEmail**
+Specify signInWithEmail with an email address to allow user automatically sign in with the email option. Will be ignored if user is already signed in.
+
+Example: `settings: {signInWithEmail: "user@email.com"}`
+
+#### **signInOptions**
+Specify signInOptions to pick/limit the available sign in options. Will be ignored if user is already signed in.
+
+Example: `settings: {signInOptions: ["email", "google", "apple"]}`
 
 #### **includedPaymentProviders**
 List of payment providers users will be able to access. By default, users can access all payment providers integrated in Sequence.
