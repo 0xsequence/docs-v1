@@ -1,0 +1,28 @@
+---
+slug: /unity-sdk
+---
+# Unity SDK
+The Sequence Unity SDK provides full Sequence Wallet & Indexer integration for your Unity Games.
+
+This SDK follows [Semantic Versioning](https://semver.org/) (`major.minor.patch`). While we're still in `0.x.y` builds, API breaking changes can be made at any time. After `1.0.0`, breaking changes will always cause a `major` version increment, non-breaking new features will cause a `minor` version increment, and bugfixes will cause a `patch` version increment.
+
+## [Check out the Unity WebGL build of our demo dApp!](https://0xsequence.github.io/web3-unity-sdk/)
+The demo offers the same functionality as [our sequence.js demo dApp](https://github.com/0xsequence/demo-dapp), but using Unity UI & the Unity SDK.
+
+## Building your game
+### WebGL
+If you want to avoid buying Vuplex WebGL, since it's not technically used, then every time you do a WebGL build, _first move the Vuplex folder out of your project_, then move it back in after your build is done.
+We're working on a solution to this problem that doesn't involve assembly references 🙏
+
+You can buy & import Vuplex WebGL if you want to avoid this step, for now.
+
+Build your game as usual! There's no special WebGLTemplate needed :)
+### Standalone Windows & Mac, iOS, and Android
+Make sure you have the Vuplex webview for your build target platform installed, then build as usual!
+### Other platforms
+Reach out to us if you'd like to use the Sequence SDK on another platform!
+
+### Coming soon
+- NEthereum integration
+- Easy calls to contracts implementing ERC20,721,1155 & more
+- Connect to Metamask, WalletConnect, and more wallets

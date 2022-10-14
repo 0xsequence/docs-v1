@@ -178,7 +178,8 @@ module.exports = {
           'markdown',
           'json',
           'jsx',
-          'python'
+          'python',
+          'csharp'
         ]
       },
       colorMode: {
