@@ -1,0 +1,53 @@
+
+# Setup
+
+To start, you'll need to include the Sequence Wallet Prefab `SequenceSDK/SequenceSharp/Prefabs/SequenceWalletPrefab.prefab`.
+
+
+![Sequence wallet prefab](/img/unity/unity-prefab.png)
+
+Put the prefab in your scene, inside a Canvas.
+![Sequence wallet prefab in the world](/img/unity/unity-prefab-in-canvas.png)
+
+Position and scale it; this will be the viewport where the wallet is rendered in non-WebGL builds.
+
+You can edit the properties in the inspector to hook up events, as well as set the default network and enable some debugging tools.
+![Sequence wallet prefab](/img/unity/unity-prefab-inspector.png)
+
+Before calling any Wallet methods, you should hook up the `onWalletOpened`, `onWalletClosed`, `onAuthWindowOpened`, and `onAuthWindowClosed` events.
+Sequence will automatically make itself visible and invisible, but you might have extra chrome / animations you'd like to add to the wallet and/or auth window (close wallet buttons, etc).
+
+A simple solution is adding a Canvas Group and moving the `SequenceWalletPrefab` prefab inside it, and toggling visibility when the wallet opens/closes.
+These callbacks might not occur on the main thread in some builds (e.g. Android), so make sure you use a UnityMainThread job to do your visbility toggling on the main thread.
+
+```csharp
+  wallet.onWalletOpened.AddListener(() => {
+    UnityMainThread.wkr.AddJob(() => {
+      walletContainer.alpha = 1f;
+      walletContainer.interactable = true;
+      walletContainer.blocksRaycasts = true;
+    });
+  });
+  wallet.onWalletClosed.AddListener(() => {
+    UnityMainThread.wkr.AddJob(() => {
+      walletContainer.alpha = 1f;
+      walletContainer.interactable = true;
+      walletContainer.blocksRaycasts = true;
+    });
+  });
+```
+
+All the Sequence Wallet functions & classes are namespaced in the `SequenceSharp` namespace, so you might want to add `using SequenceSharp;` at the top of your CS files.
+
+Before interacting with the SDK, you should make sure it's ready:
+```csharp
+        if (wallet.readyToConnect) {
+          // your Connect function call here
+        } else {
+          wallet.onReadyToConnect.AddListener(()=> {
+          // your Connect function call here
+          });
+        }
+```
+
+Once it's ready, you can move on to connecting to the wallet!

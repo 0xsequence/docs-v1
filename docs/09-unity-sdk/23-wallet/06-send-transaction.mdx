@@ -1,0 +1,19 @@
+# Sending Transactions
+
+Signing a transaction will only retrieve the signed payload.
+If you want the wallet to actually dispatch the transaction to the network as well, that requires only a small modification to the previous example (note the change from `signTransactions` to `sendTransaction`):
+
+```csharp
+await wallet.ExecuteSequenceJS(@"
+    const transaction = {
+        to: recipientAddress,
+        value: 1000000000000000000
+    }
+
+    const signer = wallet.getSigner()
+    const txnResponse = await signer.sendTransaction(transaction)
+
+    // wait for the transaction to be mined
+    await txnResponse.wait()
+");
+```

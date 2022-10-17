@@ -1,0 +1,95 @@
+
+# Connect Wallet
+Once the wallet is ready, you can connect by calling `wallet.Connect`.
+```cs
+var connectDetails = await wallet.Connect(new ConnectOptions {
+    app = "Demo Unity Dapp",
+    authorize = true,
+    settings = new WalletSettings {
+      theme = "indigoDark",
+      bannerUrl = "https://yoursite.com/banner-image.png",  // 3:1 aspect ratio, 1200x400 works best
+      includedPaymentProviders = new string[] { PaymentProviderOption.Moonpay, PaymentProviderOption.Ramp },
+      defaultFundingCurrency = CurrencyOption.Matic,
+      defaultPurchaseAmount = 111,
+      lockFundingCurrencyToDefault = false,
+    }
+  }
+});
+
+Debug.Log("user accepted connect? " + connectDetails.connected)
+Debug.Log("users signed connect proof to valid their account address: ", connectDetails.proof)
+```
+
+After you connect, you can use `wallet.openWallet()` to open the wallet:
+
+```ts
+await wallet.OpenWallet();
+```
+
+You can also optionally pass a path, and pass settings when you open the wallet:
+
+```ts
+var connectDetails = await wallet.Open(new ConnectOptions {
+    settings = new WalletSettings {
+      theme = "indigoDark",
+      bannerUrl = "https://yoursite.com/banner-image.png",  // 3:1 aspect ratio, 1200x400 works best
+      includedPaymentProviders = new string[] { PaymentProviderOption.Moonpay, PaymentProviderOption.Ramp },
+      defaultFundingCurrency = CurrencyOption.Matic,
+      defaultPurchaseAmount = 111,
+      lockFundingCurrencyToDefault = false,
+    }
+  }
+});
+
+await wallet.OpenWallet("wallet/add-funds", connectDetails, null);
+```
+
+:::tip Check out some example Dapp source code
+For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/web3-unity-sdk).
+:::
+
+![Sequence on-demand sign in](/img/build/sign-in-fresh.png)
+
+![Sequence on-demand sign in, connect](/img/build/sign-in-connect.png)
+
+## Wallet Login and Connect Options
+Dapps with direct sequence integration can specify the following settings:
+
+#### **theme**
+Name of one of the available theme provided by sequence the sequence wallet will be rendered with. 
+
+Example: `settings = WalletSettings { theme: "light"} `
+
+#### **bannerUrl**
+URL of a banner image users will see when connecting or loging into your dapp. The banner image should follow a 3:1 aspect ration where 1200x400 works best.
+
+Example: `settings = WalletSettings { bannerUrl: "https://yoursite.com/banner-image.png"} `
+
+#### **signInWithEmail**
+Specify signInWithEmail with an email address to allow user automatically sign in with the email option. Will be ignored if user is already signed in.
+
+Example: `settings = WalletSettings { signInWithEmail: "user@email.com"} `
+
+#### **signInOptions**
+SignInOptions is not supported in the Unity SDK, as only email login is supported.
+
+#### **includedPaymentProviders**
+List of payment providers users will be able to access. By default, users can access all payment providers integrated in Sequence.
+
+Example: `settings = WalletSettings { includedPaymentProviders: [PaymentProviderOption.Moonpay, PaymentProviderOption.Ramp]} `
+
+#### **defaultFundingCurrency**
+The tag of the default currency to show when users open the payment provider page. The currency has to be supported by the payment providers integrated in sequence.
+
+Example:  `settings = WalletSettings { defaultFundingCurrency: "CurrencyOption.USDC} `
+
+#### **defaultPurchaseAmount**
+Use to specify a default purchase amount, as an integer, for prefilling the funding amount. If not specified, the default is 100.
+
+Example:  `settings = WalletSettings { defaultPurchaseAmount: 200} `
+
+
+#### **lockFundingCurrencyToDefault**
+Whether to only allow users to purchase the default currency specified by the `defaultFundingCurrency` option. If set to false, users will also be able to purchase other tokens. locking the default funding currency can be useful to prevent users from purchasing the wrong currency or the currency on the wrong chain.
+
+Example: `settings = WalletSettings { defaultFundingCurrency: true} `
