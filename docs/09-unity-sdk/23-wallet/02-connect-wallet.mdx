@@ -71,9 +71,7 @@ Specify signInWithEmail with an email address to allow user automatically sign i
 Example: `settings = WalletSettings { signInWithEmail: "user@email.com"} `
 
 #### **signInOptions**
-Specify signInOptions to pick/limit the available sign in options. Will be ignored if user is already signed in.
-
-Example: `settings = WalletSettings { signInOptions: ["email", "google", "apple"]} `
+SignInOptions is not supported in the Unity SDK, as only email login is supported.
 
 #### **includedPaymentProviders**
 List of payment providers users will be able to access. By default, users can access all payment providers integrated in Sequence.

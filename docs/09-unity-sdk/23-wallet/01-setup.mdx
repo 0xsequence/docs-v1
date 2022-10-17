@@ -42,10 +42,10 @@ All the Sequence Wallet functions & classes are namespaced in the `SequenceSharp
 Before interacting with the SDK, you should make sure it's ready:
 ```csharp
         if (wallet.readyToConnect) {
-          Connect();
+          // your Connect function call here
         } else {
           wallet.onReadyToConnect.AddListener(()=> {
-            Connect();
+          // your Connect function call here
           });
         }
 ```
