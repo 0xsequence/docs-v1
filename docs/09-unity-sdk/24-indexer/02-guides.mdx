@@ -25,15 +25,11 @@ Native Unity Implementation of [Sequence Indexer](/indexer)
 
 ```cs
 GetTokenBalancesArgs tokenBalancesArgs = new GetTokenBalancesArgs(accountAddress, contractAddress, true);
-GetTokenBalancesReturn tokenBalances;
-Indexer.GetTokenBalances(blockChain, tokenBalancesArgs, (tokenBalances) =>
+var tokenBalances = await Indexer.GetTokenBalances(blockChain, tokenBalancesArgs);
+if (tokenBalances.balances.Length > 0)
 {
-    if (tokenBalances != null && tokenBalances.balances.Length > 0)
-    {
-        //Display
-    }
-            
-});
+    //Display the balances :)
+}
 ```
 
 </TabItem>
@@ -64,15 +60,8 @@ The response includes decoded transaction details for easy consumption / renderi
 
 ```cs
 GetTransactionHistoryArgs transactionHistoryArgs = new GetTransactionHistoryArgs();
-GetTransactionHistoryReturn transactionHistoryReturn;
-Indexer.GetTransactionHistory(blockChain, transactionHistoryArgs, (transactionHistoryReturn) =>
-{
-    if (transactionHistoryReturn != null)
-    {
-        //Display
-    }
-            
-});
+var txHistory = await Indexer.GetTransactionHistory(blockChain, transactionHistoryArgs);
+//Display tx history :)
 ```
 
 </TabItem>
@@ -109,15 +98,11 @@ sure to query the indexer of the corresponding network).
 
 ```cs
 GetTokenSuppliesArgs tokenSuppliesArgs = new GetTokenSuppliesArgs(contractAddress, includeMetadata);
-GetTokenSuppliesReturn tokenSuppliesReturn;
-Indexer.GetTokenSupplies(blockChain, tokenSuppliesArgs, (tokenSuppliesReturn) =>
+var supplies = await Indexer.GetTokenSupplies(blockChain, tokenSuppliesArgs);
+if (supplies != null)
 {
-    if (tokenSuppliesReturn != null)
-    {
-        //Display
-    }
-            
-});
+    //Display supplies :)
+}
 
 ```
 
@@ -154,15 +139,11 @@ sure to query the indexer of the corresponding network).
 
 ```cs
 GetBalanceUpdatesArgs balanceUpdatesArgs = new GetBalanceUpdateArgs(contractAddress);
-GetBalanceUPdatesReturn balanceUpdatesReturn;
-Indexer.GetBalanceUpdates(blockChain, balanceUpdatesArgs, (balanceUpdatesReturn) =>
+var updates = await Indexer.GetBalanceUpdates(blockChain, balanceUpdatesArgs);
+if (updates != null)
 {
-    if (balanceUpdatesReturn != null)
-    {
-        //Display
-    }
-            
-});
+    //Display balance updates :)
+}
 
 ```
 
@@ -192,15 +173,11 @@ Indexer.GetBalanceUpdates(blockChain, balanceUpdatesArgs, (balanceUpdatesReturn)
 
 ```cs
 GetEtherBalanceArgs etherBalanceArgs = new GetEtherBalanceArgs(accountAddress);
-GetEtherBalanceReturn etherBalanceReturn;
-Indexer.GetEtherBalance(blockChain, etherBalanceArgs, (etherBalanceReturn) =>
+var etherBalance = await Indexer.GetEtherBalance(blockChain, etherBalanceArgs);
+if (etherBalance != null)
 {
-    if (etherBalanceReturn != null)
-    {
-        //Display
-    }
-            
-});
+    //Display ether balance :)
+}
 
 ```
 
@@ -225,15 +202,11 @@ Indexer.GetEtherBalance(blockChain, etherBalanceArgs, (etherBalanceReturn) =>
 
 ```cs
 
-GetChainIDReturn getChainIDReturn;
-Indexer.GetChainID(blockChain,(getChainIDReturn) =>
+var chainId = await Indexer.GetChainID(BlockChainType.Polygon);
+if (getChainIDReturn != null)
 {
-    if (getChainIDReturn != null)
-    {
-        //Display
-    }
-            
-});
+    //Display
+}
 ```
 
 </TabItem>
