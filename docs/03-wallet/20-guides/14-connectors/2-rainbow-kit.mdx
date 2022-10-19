@@ -28,7 +28,10 @@ const connectors = connectorsForWallets([
       sequenceWallet({
         chains,
         shimDisconnect: true,
-        appName: 'My Cool Dapp',
+        connect: {
+          app: 'Demo-app',
+          networkId: 137
+        }
       }),
       ...otherRainbowKitWallets
     ]
@@ -44,8 +47,8 @@ Chains supported by app. This is the same parameter as would be passed to other 
 ### shimDisconnect (optional)
 Boolean value that, if true, simulates the disconnect behavior by keeping track of connection status in storage. Defaults to true.
 
-### appName (optional)
-Name of the app which will show up in the Sequence popup requesting a connection.
+### connect (optional)
+Connect options for Sequence, including the name of the app and the default network id the wallet will attempt connection to.
 
 ## Example
 A demo app for RainbowKit is available [here](https://github.com/0xsequence/demo-dapp-rainbowkit)
