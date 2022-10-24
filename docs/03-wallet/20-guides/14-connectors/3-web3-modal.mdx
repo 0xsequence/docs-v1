@@ -1,0 +1,51 @@
+---
+sidebar_label: Using Web3 Modal
+---
+
+# Using Web3 Modal
+
+The Sequence wallet can easily be added as a provider for web3Modal
+
+:::tip Try it live :)
+Try [a live Dapp example](https://0xsequence.github.io/demo-dapp-web3modal/) using Sequence + Metamask + Wallet Connect with Web3Modal.
+
+Source code is available too: [https://github.com/0xsequence/demo-dapp-web3modal](https://github.com/0xsequence/demo-dapp-web3modal)
+:::
+
+## Installation
+
+The Sequence connector for web3Modal is available in the Web3Modal package by default.
+
+## Usage
+
+The sequence wallet can be added by simply a sequence provider with the sequence package.
+
+```js
+import { sequence } from '0xsequence'
+
+const providerOptions = {
+    ...otherWallets,
+    sequence: {
+      package: sequence,
+      options: {
+        appName: 'Web3Modal Demo Dapp',
+        defaultNetwork: 'polygon'
+      }
+    }
+}
+
+const web3Modal = new Web3Modal({
+  providerOptions,
+  cacheProvider: true
+})
+```
+
+## Parameters
+### defaultNetwork
+The default network for which the Sequence wallet will attempt a connection to.
+
+### appName (optional)
+The name of the app which will be displayed in the connection prompt of Sequence.
+
+## Example
+An example demo for the sequence Wallet + web3modal is available [here] (https://github.com/0xsequence/demo-dapp-web3modal)

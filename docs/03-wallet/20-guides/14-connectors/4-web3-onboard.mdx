@@ -1,0 +1,59 @@
+---
+sidebar_label: Using Web3 Onboard
+---
+
+# Using Web3-Onboard
+
+The Sequence wallet can be added through the Blocknative web3-onboard package.
+
+:::tip Try it live :)
+Try [a live Dapp example](https://0xsequence.github.io/demo-dapp-web3-onboard/) using Sequence + Metamask + Wallet Connect with Web3-Onboard.
+
+Source code is available too: [https://github.com/0xsequence/demo-dapp-web3-onboard](https://github.com/0xsequence/demo-dapp-web3-onboard)
+:::
+
+## Installation
+
+The Sequence module is available through npm:
+
+```shell
+npm install @web3-onboard/sequence
+```
+or
+```shell
+yarn add @web3-onboard/sequence
+```
+
+## Usage
+
+```js
+import sequenceModule from '@web3-onboard/sequence'
+
+const sequenceOptions = {
+  network: 137,
+  appName: 'My app'
+}
+
+const sequenceOnboard = sequenceModule({})
+
+const onboard = Onboard({
+  wallets: [
+    sequenceOnboard,
+    ...restWallets
+  ],
+  ...restofOnboardParams
+})
+
+```
+
+## Parameters
+
+### network (optional)
+The default network that the Sequence wallet will attempt to connect to.
+
+### appName (optional)
+The name of the app which will show up in Sequence's prompt upon an attempt to connect. 
+
+## Example
+
+An example demo of an integration of Sequence + Web3 Onboard is available [here](https://github.com/0xsequence/demo-dapp-web3-onboard)
