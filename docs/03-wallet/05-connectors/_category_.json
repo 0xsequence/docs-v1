@@ -1,3 +1,8 @@
 {
-  "label": "Wallet Connectors"
+  "label": "Wallet Connectors",
+  "link": {
+    "type": "doc",
+    "id": "wallet/connectors/overview"
+  },
+  "position": 4
 }
