@@ -284,8 +284,8 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <h2>Products</h2>
-            <p>Sequence is comprised of a series of products for developers</p>
+            <h2>The Sequence Stack</h2>
+            <p>Sequence is comprised of a series of modules for developers</p>
             {github.map((action) => (
               <Link style={{ textDecoration: 'none' }} href={action.href}>
                 <Card key={action.title} style={{ marginBottom: '1rem' }}>
