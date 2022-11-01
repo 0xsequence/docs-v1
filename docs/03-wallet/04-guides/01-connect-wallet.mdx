@@ -108,48 +108,91 @@ Read more about browser popup-blocking [here](https://javascript.info/popup-wind
 ![Sequence on-demand sign in, connect](/img/build/sign-in-connect.png)
 
 ## Wallet Login and Connect Options
-Dapps with direct sequence integration can specify the following settings:
+Dapps with direct sequence integration can specify a `ConnectOptions` object when running `wallet.connect()`.
 
-#### **theme**
+```
+const connectDetails = await wallet.connect(connectOptions)
+```
+
+The option parameters are described below.
+
+#### **networkId**
+Specifies the default network a dapp would like to connect to. This field is optional as it can be provided a number of different ways.
+
+Example: `await wallet.connect({ networkId: 137 })`
+
+#### **app**
+App name of the dapp which will be announced to user on connect screen.
+
+Example: `await wallet.connect({ app: 'My defi app' })`
+
+#### **appProtocol**
+Custom protocol for auth redirect (unity/unreal).
+
+#### **origin**
+Origin hint of the dapp's host opening the wallet. This value will automatically be determined and verified for integrity, and can be omitted.
+
+#### **expiry**
+Expiry number (in seconds) to expire connect session. default is 1 week of seconds.
+
+Example: `await wallet.connect({ expiry: 36000 })`
+
+#### **authorize**
+`authorize` will perform an ETHAuth eip712 signing and return the proof to the dapp.
+
+Example: `await wallet.connect({ authorize: true })`
+
+
+#### **refresh**
+`refresh` flag will force a full re-connect (ie. disconnect then connect again).
+
+Example: `await wallet.connect({ refresh: true })`
+
+#### **keepWalletOpened**
+`keepWalletOpened` will keep the wallet window opened after connecting. The default is to automatically close the wallet after connecting.
+
+Example: `await wallet.connect({ keepWalletOpened: true })`
+
+#### **settings.theme**
 Name of one of the available theme provided by sequence the sequence wallet will be rendered with. 
 
-Example: `settings: {theme: "light"}`
+Example: `await wallet.connect({ settings: {theme: "light"}}`
 
-#### **bannerUrl**
+#### **settings.bannerUrl**
 URL of a banner image users will see when connecting or loging into your dapp. The banner image should follow a 3:1 aspect ration where 1200x400 works best.
 
-Example: `settings: {bannerUrl: "https://yoursite.com/banner-image.png"}`
+Example: `await wallet.connect({ settings: {bannerUrl: "https://yoursite.com/banner-image.png"}}`
 
-#### **signInWithEmail**
+#### **settings.signInWithEmail**
 Specify signInWithEmail with an email address to allow user automatically sign in with the email option. Will be ignored if user is already signed in.
 
-Example: `settings: {signInWithEmail: "user@email.com"}`
+Example: `await wallet.connect({ settings: {signInWithEmail: "user@email.com"}}`
 
-#### **signInOptions**
+#### **settings.signInOptions**
 Specify signInOptions to pick/limit the available sign in options. Will be ignored if user is already signed in.
 
-Example: `settings: {signInOptions: ["email", "google", "apple"]}`
+Example: `await wallet.connect({ settings: {signInOptions: ["email", "google", "apple"]}}`
 
-#### **includedPaymentProviders**
+#### **settings.includedPaymentProviders**
 List of payment providers users will be able to access. By default, users can access all payment providers integrated in Sequence.
 
-Example: `settings: {includedPaymentProviders: ["moonpay", "ramp"]}`
+Example: `await wallet.connect({ settings: {includedPaymentProviders: ["moonpay", "ramp"]}}`
 
-#### **defaultFundingCurrency**
+#### **settings.defaultFundingCurrency**
 The tag of the default currency to show when users open the payment provider page. The currency has to be supported by the payment providers integrated in sequence.
 
-Example:  `settings: {defaultFundingCurrency: "usdc"}`
+Example:  `await wallet.connect({ settings: {defaultFundingCurrency: "usdc"}}`
 
-#### **defaultPurchaseAmount**
+#### **settings.defaultPurchaseAmount**
 Use to specify a default purchase amount, as an integer, for prefilling the funding amount. If not specified, the default is 100.
 
-Example:  `settings: {defaultPurchaseAmount: 200}`
+Example:  `await wallet.connect({ settings: {defaultPurchaseAmount: 200}}`
 
 
-#### **lockFundingCurrencyToDefault**
+#### **settings.lockFundingCurrencyToDefault**
 Whether to only allow users to purchase the default currency specified by the `defaultFundingCurrency` option. If set to false, users will also be able to purchase other tokens. locking the default funding currency can be useful to prevent users from purchasing the wrong currency or the currency on the wrong chain.
 
-Example: `settings: {defaultFundingCurrency: true}`
+Example: `await wallet.connect({ settings: {defaultFundingCurrency: true}}`
 
 ## Connecting your dapp with `web3.js` or `ethers.js`
 
