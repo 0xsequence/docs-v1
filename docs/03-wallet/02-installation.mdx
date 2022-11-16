@@ -4,13 +4,17 @@ The sequence.js SDK is composed of several sub-packages combined into a single m
 To add the SDK to your project, add a dependency on 0xsequence to your package.json:
 
 ```sh
-yarn add 0xsequence
+npm install 0xsequence ethers
 ```
-
 or
 
 ```sh
-npm install --save 0xsequence
+npm install 0xsequence ethers
+```
+or
+
+```sh
+yarn add 0xsequence ethers
 ```
 
 If you know that your project only requires specific sub-packages, you can also depend on those directly with
@@ -22,7 +26,8 @@ Your package.json should look something like this (actual version may vary):
   "name": "my-dapp",
   ...
   "dependencies": {
-    "0xsequence": "^0.42.0",
+    "0xsequence": "^0.43.0",
+    "ethers": ^5.7.0"
     ...
   }
 }
@@ -33,5 +38,6 @@ Your package.json should look something like this (actual version may vary):
 Optionally, `0xsequence` can be installed as a JS script source (UMD distribution) via:
 
 ```js
+<script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
 <script src="https://unpkg.com/0xsequence@latest/dist/0xsequence.umd.min.js"></script>
 ```
