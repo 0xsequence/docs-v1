@@ -14,13 +14,13 @@ const actions = [
     title: 'What is Sequence',
     href: '#',
     to: './intro/overview',
-    text: `Learn more about the Sequence developer platform and smart wallet`,
+    text: `Learn more about the Sequence web3 stack and smart wallet`,
   },
   {
     title: 'Multichain support',
     href: '#',
     to: '/multi-chain-support',
-    text: `Find out which chains are supported by the developer platform`,
+    text: `Find out which chains are supported by the web3 stack`,
   },
   {
     title: 'Gas fees',
