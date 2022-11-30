@@ -1,0 +1,34 @@
+# ERC721
+### [placeholder: ERC721 Token Description]
+
+*Sequence Unity SDK ERC721 `Name` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var name = await erc721.Name();
+```
+
+*Sequence Unity SDK ERC721 `Symbol` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var symbol = await erc721.Symbol();
+```
+
+*Sequence Unity SDK ERC721 `TokenURI` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var tokenURI = await erc721.TokenURI(tokenId);
+```
+
+*Sequence Unity SDK ERC721 `BalanceOf` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var balanceOf = await erc721.BalanceOf(ownerAddress);
+```
+
+*Sequence Unity SDK ERC721 `OwnerOf` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var name = await erc721.OwnerOf(tokenId);
+```
+
+//will update the rest when I finish testing

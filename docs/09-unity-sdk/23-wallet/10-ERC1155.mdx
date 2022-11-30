@@ -1,0 +1,22 @@
+# ERC1155
+### [placeholder: ERC1155 Token Description]
+
+*Sequence Unity SDK ERC1155 `URI` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+var URI = await erc1155.URI(tokenId);
+```
+
+*Sequence Unity SDK ERC1155 `BalanceOf` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+var balanceOf = await erc1155.BalanceOf(tokenId, account);
+```
+
+*Sequence Unity SDK ERC1155 `BalanceOfBatch` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+var balanceOfBatch = await erc1155.BalanceOfBatch(accounts, tokenIds);
+```
+
+//will update the rest when I finish testing
