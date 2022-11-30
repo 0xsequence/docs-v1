@@ -1,6 +1,6 @@
-# Get Wallet Account Address
+# Authenticate Users with Message Signature
 
-## Ask for the account address
+## Ask for the wallet address
 
 To get the user's Sequence wallet address:
 
@@ -10,14 +10,14 @@ const address = await wallet.getAddress()
 console.log(address)
 ```
 
-## Authenticate the account address
+## Authenticate wallet
 
-In many cases, you'll want your users to connect and then verify their account address. Many dapps do this by asking the user
-to sign a message, and then verify the signature from the user to ensure it's integrity.
+In many cases, you'll want your users to connect and then verify they do control this wallet address. Applications typically do this by asking the user
+to sign a message with their wallet, and then verify the signature from the user to ensure its integrity.
 
 As this is such a common workflow, Sequence can automatically authenticate the account address at the same time
 while the user is prompt to connect their wallet to your dapp. This allows the user experience to be simpler and
-more seamless, with less confusion and clicks -- it's a subtle thing, but makes a big difference.
+more seamless.
 
 ```ts
 import { sequence } from '0xsequence'
@@ -30,16 +30,19 @@ const connectDetails = await wallet.connect({
 })
 ```
 
+It will look like this to your users:  
+![Sequence on-demand sign in, connect](/img/build/authorize-connect.png)
+
 In the above example, we pass `authorize: true` to the `connect()` function, which will automatically have the user
-sign a EIP712 signed message to prove their identity. This allows you to then easily authenticate the connected
+sign a **EIP712 signed message** to prove their identity. This allows you to then easily authenticate the connected
 wallet address with absolutely certainty.
 
-FYI, you can find the signed message proof returned in `connectDetails.proof`, which is an EIP712 signed object using
-a simple a convention from [ethauth](https://github.com/0xsequence/ethauth.js). NOTE: EIP712 is just like a normal
-signed message, but if allows you to use an actual object for signing instead of just a plain-text string.
+You can find the signed message proof returned in `connectDetails.proof`, which is an EIP712 signed object using
+a simple a convention from [ethauth](https://github.com/0xsequence/ethauth.js). NOTE: EIP712 allows you to use an actual object for 
+signing instead of just a plain-text string.
 
 
-## Authenticate the account address server-side
+## Authenticate wallet server-side
 
 The above example demonstrates how to connect and verify the user's identity in your dapp on the client-side,
 but if you'd like to authenticate the Sequence authorization proof on your server, then you can do so with the following snippet:
