@@ -1,0 +1,59 @@
+# ERC20
+### [placeholder: ERC20 Token Description]
+
+*Sequence Unity SDK ERC20 `Name` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var name = await erc20.Name();
+```
+
+*Sequence Unity SDK ERC20 `Symbol` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var symbol = await erc20.Symbol();
+```
+
+*Sequence Unity SDK ERC20 `Decimals` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var decimals = await erc20.Decimals();
+```
+
+*Sequence Unity SDK ERC20 `TotalSupply` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var totalSupply = await erc20.TotalSupply();
+```
+
+*Sequence Unity SDK ERC20 `BalanceOf` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var balanceOf = await erc20.BalanceOf(accountAddress);
+```
+
+*Sequence Unity SDK ERC20 `Transfer` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var receipt = await erc20.Transfer(senderAddress, recipientAddress, amount);
+
+```
+
+*Sequence Unity SDK ERC20 `Allowance` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var allowance = await erc20.Allowance(ownerAddress, spenderAddress);
+```
+*Sequence Unity SDK ERC20 `Approve` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var receipt = await erc20.Approve(spenderAddress, amount);
+```
+
+*Sequence Unity SDK ERC20 `TransferFrom` Method:*
+```csharp
+ERC20 erc20 = new ERC20(web3, contractAddress);
+var receipt = await erc20.TransferFrom(senderAddress, recipientAddress, amount);
+```
+
+
+
