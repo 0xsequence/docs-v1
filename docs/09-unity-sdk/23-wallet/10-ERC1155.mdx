@@ -1,5 +1,5 @@
 # ERC1155
-### [placeholder: ERC1155 Token Description]
+### An ERC1155 token contract manages multiple token types.
 
 *Sequence Unity SDK ERC1155 `URI` Method:*
 ```csharp
@@ -19,4 +19,27 @@ ERC20 erc1155 = new ERC1155(web3, contractAddress);
 var balanceOfBatch = await erc1155.BalanceOfBatch(accounts, tokenIds);
 ```
 
-//will update the rest when I finish testing
+*Sequence Unity SDK ERC1155 `SetApprovalForAll` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+await erc1155.SetApprovalForAll(operator, _approved);
+```
+
+*Sequence Unity SDK ERC1155 `IsApprovedForAll` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+await erc1155.IsApprovedForAll(account, operator);
+```
+
+*Sequence Unity SDK ERC1155 `SafeTransferFrom` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+await erc1155.SafeTransferFrom(from, to, id, amount, data);
+```
+
+*Sequence Unity SDK ERC1155 `SafeBatchTransferFrom` Method:*
+```csharp
+ERC20 erc1155 = new ERC1155(web3, contractAddress);
+await erc1155.SafeBatchTransferFrom(from, to, ids, amounts, data);
+```
+
