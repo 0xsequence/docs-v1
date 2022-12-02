@@ -1,5 +1,5 @@
 # ERC721
-### [placeholder: ERC721 Token Description]
+### An ERC721 token contract keeps track of non-fungible tokens.
 
 *Sequence Unity SDK ERC721 `Name` Method:*
 ```csharp
@@ -28,7 +28,44 @@ var balanceOf = await erc721.BalanceOf(ownerAddress);
 *Sequence Unity SDK ERC721 `OwnerOf` Method:*
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
-var name = await erc721.OwnerOf(tokenId);
+var ownerOf = await erc721.OwnerOf(tokenId);
 ```
 
-//will update the rest when I finish testing
+*Sequence Unity SDK ERC721 `SafeTransferFrom` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+await erc721.SafeTransferFrom(from, to, tokenId);
+```
+
+*Sequence Unity SDK ERC721 `TransferFrom` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+await erc721.TransferFrom(from, to, tokenId);
+```
+
+*Sequence Unity SDK ERC721 `Approve` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+await erc721.Approve(to, tokenId);
+```
+
+*Sequence Unity SDK ERC721 `GetApproved` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var receipt = await erc721.GetApproved(tokenId);
+```
+
+*Sequence Unity SDK ERC721 `SetApprovalForAll` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var receipt = await erc721.SetApprovalForAll(operator, _approved);
+```
+
+
+*Sequence Unity SDK ERC721 `IsApprovedForAll` Method:*
+```csharp
+ERC20 erc721 = new ERC721(web3, contractAddress);
+var receipt = await erc721.IsApprovedForAll(owner, operator);
+```
+
+
