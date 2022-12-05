@@ -132,6 +132,12 @@ Specifies the default network a dapp would like to connect to. This field is opt
 
 Example: `await wallet.connect({ networkId: 137 })`
 
+:::info Mainnet and testnet modes
+Sequence wallets are currently either mainnet-only or testnet-only, meaning a user will have different addresses for the two modes, and can only be signed into one at a time.
+If the user is signed into one mode, e.g. testnet mode, but the dapp tries to connect to a mainnet network, the wallet will ask the user to sign out of their testnet wallet so that they may sign into their mainnet wallet.
+![Switch testnet mode](/img/build/switch-testnet-mode.png)
+:::
+
 #### **app**
 App name of the dapp which will be announced to user on connect screen.
 
