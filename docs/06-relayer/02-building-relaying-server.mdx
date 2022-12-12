@@ -21,11 +21,14 @@ import { RpcRelayer } from '@0xsequence/relayer'
 import { Wallet } from '@0xsequence/wallet'
 import { ethers } from 'ethers'
 
+// Get a provider
+const provider = new ethers.providers.JsonRpcProvider('https://nodes.sequence.app/polygon')
+
 // Create your server EOA
 const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 
 // Create your rpc relayer instance with relayer node you want to use
-const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app'})
+const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app', provider: provider})
 
 // Create your Sequence server wallet, controlled by your server EOA, and connect it to the relayer
 const wallet = (await Wallet.singleOwner(walletEOA)).connect(provider, relayer)
@@ -46,7 +49,7 @@ const txn = {
 
 // Request the possible fee options the relayer will accept for this transaction
 const [config, context] = await Promise.all([wallet.getWalletConfig(), wallet.getWalletContext()])
-const { options, quote } = await relayer.getFeeOptions(config, context, txn /* , txn2, txn3, etc... */)
+const { options, quote } = await relayer.getFeeOptions(config[0], context, txn /* , txn2, txn3, etc... */)
 
 
 
