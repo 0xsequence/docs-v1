@@ -47,6 +47,10 @@ const github = [
     title: 'Relayer',
     href: '/relayer',
   },
+  {
+    title: 'Unity SDK',
+    href: '/unity-sdk',
+  },
 ]
 
 const Guides = [

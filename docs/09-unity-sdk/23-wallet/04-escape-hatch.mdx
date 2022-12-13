@@ -1,13 +1,15 @@
 # Escape Hatch (executing sequence.js code)
 
-As you're working with more advanced on-chain interactions, you may find that the provided APIs are not powerful enough for your use case.
+As you're working with more advanced Sequence interactions, you may find that the provided APIs are not expressive enough for your use case.
 
-To account for this, there is a function `ExecuteSequenceJS` and its sister function `ExecuteSequenceJSAndParseJSON`.
+As a last resort, there is a function `ExecuteSequenceJS` and its sister function `ExecuteSequenceJSAndParseJSON`.
 
 ## ExecuteSequenceJS
+
 ```csharp
 public Task<string> ExecuteSequenceJS(string js)
 ```
+
 This function executes JS in a context with Sequence.js and Ethers.js.
 In this context, you're provided access to a global named `seq`, and a global named `ethers`.
 To get the wallet, use `seq.getWallet()`.
@@ -16,20 +18,25 @@ You can return arbitrary strings by using `return`.
 Returned Promises are automatically awaited. This function won't return until the passed Javascript (and any promises it returns) are executed.
 
 If the Javascript code throws an error, this function will throw a `JSExecutionError`.
+
 ### Example
+
 ```csharp
 var address = await wallet.ExecuteSequenceJS("return seq.getAddress();");
 Debug.Log(address);
 ```
 
-
 ## ExecuteSequenceJSAndParseJSON
+
 ```csharp
 public async Task<T> ExecuteSequenceJSAndParseJSON<T>(string js)
 ```
+
 This function operates like `ExecuteSequenceJS`, but it will JSON parse any returned values from JS into `T`.
 If it fails to parse the value, it will return `null`.
+
 ### Example
+
 ```csharp
 class SomeClass {
     string addr;
@@ -43,6 +50,5 @@ var someClass = await ExecuteSequenceJSAndParseJSON<SomeClass>(@"
     }
 ");
 ```
-
 
 See [the sequence.js docs](/wallet) for more information on how to write code using sequence.js.

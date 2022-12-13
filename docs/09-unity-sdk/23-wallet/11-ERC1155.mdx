@@ -1,45 +1,52 @@
 # ERC1155
+
 ### An ERC1155 token contract manages multiple token types.
 
-*Sequence Unity SDK ERC1155 `URI` Method:*
+_ERC1155 `URI` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 var URI = await erc1155.URI(tokenId);
 ```
 
-*Sequence Unity SDK ERC1155 `BalanceOf` Method:*
+_ERC1155 `BalanceOf` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 var balanceOf = await erc1155.BalanceOf(tokenId, account);
 ```
 
-*Sequence Unity SDK ERC1155 `BalanceOfBatch` Method:*
+_ERC1155 `BalanceOfBatch` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 var balanceOfBatch = await erc1155.BalanceOfBatch(accounts, tokenIds);
 ```
 
-*Sequence Unity SDK ERC1155 `SetApprovalForAll` Method:*
+_ERC1155 `SetApprovalForAll` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 await erc1155.SetApprovalForAll(operator, _approved);
 ```
 
-*Sequence Unity SDK ERC1155 `IsApprovedForAll` Method:*
+_ERC1155 `IsApprovedForAll` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 await erc1155.IsApprovedForAll(account, operator);
 ```
 
-*Sequence Unity SDK ERC1155 `SafeTransferFrom` Method:*
+_ERC1155 `SafeTransferFrom` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 await erc1155.SafeTransferFrom(from, to, id, amount, data);
 ```
 
-*Sequence Unity SDK ERC1155 `SafeBatchTransferFrom` Method:*
+_ERC1155 `SafeBatchTransferFrom` Method:_
+
 ```csharp
 ERC20 erc1155 = new ERC1155(web3, contractAddress);
 await erc1155.SafeBatchTransferFrom(from, to, ids, amounts, data);
 ```
-

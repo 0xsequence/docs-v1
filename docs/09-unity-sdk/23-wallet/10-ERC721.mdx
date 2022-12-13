@@ -1,71 +1,80 @@
 # ERC721
+
 ### An ERC721 token contract keeps track of non-fungible tokens.
 
-*Sequence Unity SDK ERC721 `Name` Method:*
+_ERC721 `Name` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var name = await erc721.Name();
 ```
 
-*Sequence Unity SDK ERC721 `Symbol` Method:*
+_ERC721 `Symbol` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var symbol = await erc721.Symbol();
 ```
 
-*Sequence Unity SDK ERC721 `TokenURI` Method:*
+_ERC721 `TokenURI` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var tokenURI = await erc721.TokenURI(tokenId);
 ```
 
-*Sequence Unity SDK ERC721 `BalanceOf` Method:*
+_ERC721 `BalanceOf` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var balanceOf = await erc721.BalanceOf(ownerAddress);
 ```
 
-*Sequence Unity SDK ERC721 `OwnerOf` Method:*
+_ERC721 `OwnerOf` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var ownerOf = await erc721.OwnerOf(tokenId);
 ```
 
-*Sequence Unity SDK ERC721 `SafeTransferFrom` Method:*
+_ERC721 `SafeTransferFrom` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 await erc721.SafeTransferFrom(from, to, tokenId);
 ```
 
-*Sequence Unity SDK ERC721 `TransferFrom` Method:*
+_ERC721 `TransferFrom` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 await erc721.TransferFrom(from, to, tokenId);
 ```
 
-*Sequence Unity SDK ERC721 `Approve` Method:*
+_ERC721 `Approve` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 await erc721.Approve(to, tokenId);
 ```
 
-*Sequence Unity SDK ERC721 `GetApproved` Method:*
+_ERC721 `GetApproved` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var receipt = await erc721.GetApproved(tokenId);
 ```
 
-*Sequence Unity SDK ERC721 `SetApprovalForAll` Method:*
+_ERC721 `SetApprovalForAll` Method:_
+
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var receipt = await erc721.SetApprovalForAll(operator, _approved);
 ```
 
+_ERC721 `IsApprovedForAll` Method:_
 
-*Sequence Unity SDK ERC721 `IsApprovedForAll` Method:*
 ```csharp
 ERC20 erc721 = new ERC721(web3, contractAddress);
 var receipt = await erc721.IsApprovedForAll(owner, operator);
 ```
-
-
