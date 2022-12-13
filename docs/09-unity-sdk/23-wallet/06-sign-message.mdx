@@ -1,0 +1,77 @@
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Signing & Verifying Messages
+
+## Prerequisites
+
+Make sure you have a `Web3` instance with the `SequenceInterceptor` configured, as documented in [the Nethereum section](./nethereum).
+
+## Signing Messages
+
+Sequence wallets are able to easily sign arbitrary messages using Nethereum.
+
+**To request a user's signature of a simple message:**
+
+```csharp
+var address = await web3.GetAddress();
+var message = "Hello, world!";
+var signature = await web3.Eth.Sign.SendRequestAsync(address, message);
+Debug.Log(signature);
+```
+
+**To request a user's signature of a typed-data ([EIP712](https://eips.ethereum.org/EIPS/eip-712)) message:**
+
+You can either use a typed ABI
+
+```csharp
+var chainId = await web3.Eth.ChainId.SendRequestAsync()
+var data = new TypedData<Domain>
+{
+    Domain = new Domain
+    {
+        Name = "Test Name",
+        Version = "1",
+        ChainId = chainId,
+        VerifyingContract = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
+    },
+    Types = MemberDescriptionFactory.GetTypesMemberDescription(typeof(Domain)),
+    PrimaryType = nameof(Domain),
+};
+var signature = await web3.Eth.AccountSigning.SignTypedDataV4.SendRequestAsync(data.ToJson());
+Debug.Log("Typed Data Signature: " + signature);
+```
+
+or a raw JSON string.
+
+```csharp
+var chainId = await web3.Eth.ChainId.SendRequestAsync()
+var data = @"
+{
+    ""domain"": {
+      ""name"": ""Ether Mail"",
+      ""version"": ""1"",
+      ""chainId"": " + chainId + @",
+      ""verifyingContract"": ""0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC""
+    },
+    ""types"": {
+      ""Person"": [
+        { ""name"": ""name"", ""type"": ""string"" },
+        { ""name"": ""wallet"", ""type"": ""address"" }
+      ]
+    },
+    ""message"": {
+      ""name"": ""Bob"",
+      ""wallet"": ""0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB""
+    }
+}
+";
+var signature = await web3.Eth.AccountSigning.SignTypedDataV4.SendRequestAsync(data.ToJson());
+Debug.Log("Typed Data Signature: " + signature);
+```
+
+<br />
+
+## Verifying Message Signatures
+
+See [the sequence.js docs](http://localhost:3000/wallet/guides/sign-message).

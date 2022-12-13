@@ -1,0 +1,20 @@
+# Sending Transactions
+
+## Prerequisites
+
+Make sure you have a `Web3` instance with the `SequenceInterceptor` configured, as documented in [the Nethereum section](./nethereum).
+
+## Sending a TX
+
+Dispatching a basic "send ETH" transaction is very simple using Nethereum :)
+This will submit the TX on chain, and wait for it to be accepted before returning.
+
+```csharp
+await web3.Eth.TransactionManager.SendTransactionAndWaitForReceiptAsync(
+    new TransactionInput(
+        "",
+        "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+        new HexBigInteger("1000000000000000000")
+    )
+);
+```

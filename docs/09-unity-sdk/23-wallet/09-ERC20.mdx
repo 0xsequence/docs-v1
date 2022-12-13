@@ -1,59 +1,67 @@
 # ERC20
+
 ### An ERC20 token contract keeps track of fungible tokens.
 
-*Sequence Unity SDK ERC20 `Name` Method:*
+_`Name` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var name = await erc20.Name();
 ```
 
-*Sequence Unity SDK ERC20 `Symbol` Method:*
+_`Symbol` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var symbol = await erc20.Symbol();
 ```
 
-*Sequence Unity SDK ERC20 `Decimals` Method:*
+_`Decimals` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var decimals = await erc20.Decimals();
 ```
 
-*Sequence Unity SDK ERC20 `TotalSupply` Method:*
+_`TotalSupply` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var totalSupply = await erc20.TotalSupply();
 ```
 
-*Sequence Unity SDK ERC20 `BalanceOf` Method:*
+_`BalanceOf` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var balanceOf = await erc20.BalanceOf(accountAddress);
 ```
 
-*Sequence Unity SDK ERC20 `Transfer` Method:*
+_`Transfer` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var receipt = await erc20.Transfer(senderAddress, recipientAddress, amount);
 
 ```
 
-*Sequence Unity SDK ERC20 `Allowance` Method:*
+_`Allowance` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var allowance = await erc20.Allowance(ownerAddress, spenderAddress);
 ```
-*Sequence Unity SDK ERC20 `Approve` Method:*
+
+_`Approve` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var receipt = await erc20.Approve(spenderAddress, amount);
 ```
 
-*Sequence Unity SDK ERC20 `TransferFrom` Method:*
+_`TransferFrom` Method:_
+
 ```csharp
 ERC20 erc20 = new ERC20(web3, contractAddress);
 var receipt = await erc20.TransferFrom(senderAddress, recipientAddress, amount);
 ```
-
-
-
