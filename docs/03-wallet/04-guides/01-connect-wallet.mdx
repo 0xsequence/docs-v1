@@ -164,6 +164,11 @@ Example: `await wallet.connect({ refresh: true })`
 
 Example: `await wallet.connect({ keepWalletOpened: true })`
 
+#### **askForEmail**
+`askForEmail` will ask user whether they want to share the email they use to sign in to wallet while connecting, and will be returned in `connectDetails`.
+
+Example: `await wallet.connect({ askForEmail: true })`
+
 #### **settings.theme**
 Name of one of the available theme provided by sequence the sequence wallet will be rendered with. 
 
