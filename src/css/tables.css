@@ -1,0 +1,9 @@
+table {
+  @apply text-sm;
+  letter-spacing: 0.015em;
+}
+
+[data-theme='dark'] {
+  --ifm-table-border-color: #222222;
+  --ifm-table-stripe-background: #191919 !important;
+}

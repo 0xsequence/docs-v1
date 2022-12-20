@@ -1,0 +1,29 @@
+.navbar-sidebar__back {
+  display: none;
+}
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid #222222 !important;
+}
+
+html[data-theme='light'] .theme-doc-sidebar-container {
+  border-right: 1px solid #dddddd !important;
+}
+
+.navbar-sidebar__brand {
+  box-shadow: none;
+  border-bottom: 1px solid #222222;
+}
+
+html[data-theme='light'] .navbar-sidebar__brand {
+  box-shadow: none;
+  border-bottom: 1px solid #dddddd;
+}
+
+.navbar-sidebar {
+  @apply bg-off-black;
+}
+
+html[data-theme='light'] .navbar-sidebar {
+  @apply bg-off-white;
+}
