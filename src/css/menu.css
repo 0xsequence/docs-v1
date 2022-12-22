@@ -1,0 +1,23 @@
+:root {
+  --ifm-menu-color: rgba(0, 0, 0, 0.5);
+  --ifm-menu-color-active: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme='dark'] {
+  --ifm-menu-color: rgba(255, 255, 255, 0.5);
+  --ifm-menu-color-active: rgba(255, 255, 255, 0.8);
+}
+
+.menu {
+  @apply font-inter text-sm;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: transparent;
+}
+
+.menu__caret::before,
+.menu__link--sublist-caret::after {
+  background: url(/img/icons/chevron.svg);
+  opacity: 0.5;
+}

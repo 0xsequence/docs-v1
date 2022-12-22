@@ -1,11 +1,11 @@
 {
-  "name": "website",
+  "name": "@0xsequence/docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "yarn run update-sequence-js && docusaurus start",
-    "build": "yarn run update-sequence-js && docusaurus build",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -13,7 +13,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "update-sequence-js": "((git -C sequence.js fetch origin master && git -C sequence.js reset --hard FETCH_HEAD && git -C sequence.js clean -df) || git clone https://github.com/0xsequence/sequence.js.git sequence.js) && cd sequence.js && yarn"
+    "update-sequence-js": "((git -C sequence.js fetch origin master && git -C sequence.js reset --hard FETCH_HEAD && git -C sequence.js clean -df) || git clone https://github.com/0xsequence/sequence.js.git sequence.js) && cd sequence.js && pnpm install"
   },
   "dependencies": {
     "@cmfcmf/docusaurus-search-local": "^0.11.0",
@@ -26,6 +26,7 @@
     "@heroicons/react": "^2.0.13",
     "@mdx-js/react": "^1.6.22",
     "@svgr/webpack": "^6.5.1",
+    "autoprefixer": "^10.4.13",
     "clsx": "^1.1.1",
     "docusaurus-plugin-sass": "^0.2.2",
     "file-loader": "^6.2.0",
@@ -33,6 +34,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sass": "^1.56.1",
+    "tailwindcss": "^3.2.4",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {

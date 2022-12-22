@@ -1,5 +1,6 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+darkCodeTheme.plain.backgroundColor = '#1d1d1d'
 
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -30,7 +31,7 @@ module.exports = {
           // showLastUpdateTime: true,
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.scss')
+          customCss: require.resolve('./src/css/custom.css')
         }
       })
     ]
@@ -47,6 +48,17 @@ module.exports = {
     //     }
     //   }
     // ],
+    async function tailwind() {
+      return {
+        name: 'docusaurus-tailwindcss',
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS and AutoPrefixer.
+          postcssOptions.plugins.push(require('tailwindcss'))
+          postcssOptions.plugins.push(require('autoprefixer'))
+          return postcssOptions
+        },
+      }
+    },
     [
       '@easyops-cn/docusaurus-search-local',
       {
@@ -66,108 +78,34 @@ module.exports = {
         content: `❤️ To follow Sequence product updates, follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/0xsequence" >Twitter</a>`
       },
       navbar: {
-        title: '',
         logo: {
-          alt: 'logo',
-          src: 'img/logo-light.svg',
-          srcDark: 'img/logo-dark.svg'
+          alt: 'Sequence logo',
+          src: 'img/sequence-composite.svg',
         },
-
         items: [
-          // {
-          //   type: 'doc',
-          //   docId: 'intro/overview',
-          //   position: 'left',
-          //   label: 'Overview'
-          // },
-          {
-            href: 'https://github.com/0xsequence',
-            position: 'left',
-            label: 'Github'
-          },
           {
             href: 'https://discord.gg/sequence',
-            position: 'left',
-            label: 'Discord'
-          },
-          // {
-          //   href: 'https://blog.sequence.xyz',
-          //   position: 'left',
-          //   label: 'Blog & Guides'
-          // },
-          {
-            type: 'doc',
-            docId: 'support/contact',
+            label: 'discord',
             position: 'right',
-            label: 'Support'
           },
-          // {
-          //   href: 'https://github.com/0xsequence',
-          //   className: 'navbar-item-github',
-          //   position: 'right'
-          // },
           {
             href: 'https://twitter.com/0xsequence',
-            className: 'navbar-item-twitter',
-            position: 'right'
-          }
-        ]
-      },
-      footer: {
-        logo: {
-          alt: 'Horizon Blockchain Games',
-          src: '/img/horizon-light-mode.svg',
-          href: 'https://horizon.io',
-          srcDark: '/img/horizon-dark-mode.svg'
-        },
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Intro',
-                to: '/'
-              },
-              {
-                label: 'Getting Started',
-                to: '/getting-started'
-              }
-            ]
+            label: 'twitter',
+            position: 'right',
           },
           {
-            title: 'Socials',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/sequence'
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/0xsequence'
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/0xsequence'
-              }
-            ]
+            href: 'https://github.com/0xsequence',
+            label: 'github',
           },
           {
-            title: 'Contact',
-            items: [
-              {
-                label: 'Email',
-                href: 'mailto: hello@horizon.io'
-              },
-              {
-                label: 'Support',
-                href: 'https://support.sequence.xyz'
-              }
-            ]
-          }
+            href: 'mailto:hello@horizon.io',
+            label: 'email',
+          },
+          {
+            href: '/support',
+            label: 'faq',
+          },
         ],
-
-        copyright: `Copyright © ${new Date().getFullYear()} Horizon Blockchain Games Inc`
       },
       prism: {
         theme: lightCodeTheme,

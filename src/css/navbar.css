@@ -1,0 +1,9 @@
+.navbar {
+  @apply dark:bg-off-black bg-off-white;
+  border-bottom: 1px solid #222222;
+  box-shadow: none;
+}
+
+html[data-theme='light'] .navbar {
+  border-bottom: 1px solid #dddddd;
+}

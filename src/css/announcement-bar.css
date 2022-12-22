@@ -1,0 +1,12 @@
+.clean-btn {
+  @apply opacity-100 hover:opacity-50 transition-none;
+}
+
+.clean-btn.close g {
+  stroke: #cfcfcf;
+  stroke-width: 1;
+}
+
+html[data-theme='light'] .clean-btn.close g {
+  stroke: #222222;
+}

@@ -1,0 +1,7 @@
+.theme-admonition * {
+  @apply font-inter !important;
+}
+
+.theme-admonition code {
+  @apply font-roboto !important;
+}

@@ -1,0 +1,20 @@
+.theme-doc-footer-edit-meta-row {
+  @apply flex-row-reverse my-4 text-sm;
+}
+
+.theme-doc-footer-edit-meta-row > .col {
+  @apply flex justify-end;
+}
+
+.theme-edit-this-page {
+  @apply flex items-center dark:text-white-80 text-black-80;
+}
+
+.theme-edit-this-page:hover {
+  @apply dark:text-white-80 text-black-80 no-underline opacity-50;
+}
+
+.theme-edit-this-page > svg {
+  @apply dark:fill-white-80 fill-black-80;
+  width: 16px;
+}

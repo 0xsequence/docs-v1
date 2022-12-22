@@ -1,0 +1,9 @@
+.docPage {
+  display: flex;
+  width: 100%;
+  @apply dark:bg-off-black bg-off-white;
+}
+
+.docsWrapper {
+  display: flex;
+}
