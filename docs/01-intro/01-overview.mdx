@@ -26,24 +26,51 @@ import IntroCards from '/src/components/IntroCards'
 import CardList from '/src/components/CardList'
 const GETTING_STARTED_ITEMS = [
   {
-    title: 'Quickstart',
-    description: 'Get started building using the JavaScript SDK',
+    title: 'Connect Wallet',
+    description: 'Learn how to connect your app to web3 with the Sequence Wallet',
     route: '/wallet',
   },
   {
-    title: 'Quickstart',
-    description: 'Get started building using the JavaScript SDK',
+    title: 'Signing & Verifying Messages',
+    description: 'Learn how to sign and verify messages from your app',
+    route: '/wallet/guides/sign-message',
+  },
+  {
+    title: 'Sending transactions',
+    description: 'Learn how to send transactions or execute a smart contract call.',
+    route: '/wallet/guides/send-erc20',
+  },
+  {
+    title: 'Unity SDK',
+    description: 'Get started with the Unity SDK',
+    route: '/unity-sdk',
+  },
+]
+const SEQUENCE_STACK_ITEMS = [
+  {
+    title: 'Smart Wallet',
+    description: 'Learn how to offer the most seamless web3 experience for your users',
     route: '/wallet',
   },
   {
-    title: 'Quickstart',
-    description: 'Get started building using the JavaScript SDK',
-    route: '/wallet',
+    title: 'Token & NFT APIs',
+    description: 'Instantly query token and nft history, transfers, balances, supplies and more',
+    route: '/indexer',
   },
   {
-    title: 'Quickstart',
-    description: 'Get started building using the JavaScript SDK',
-    route: '/wallet',
+    title: 'Token & NFT Metadata',
+    description: 'Learn how to query metadata for any token on any EVM chain',
+    route: '/metadata',
+  },
+  {
+    title: 'Relayer',
+    description: 'Learn how to increase throughput and lower latency of your transactions -- and its compatible with all contracts :)',
+    route: '/relayer',
+  },
+  {
+    title: 'Node Gateway',
+    description: 'Highly available and scalable blockchain RPC infrastructure',
+    route: '/node-gateway',
   },
 ]
 
@@ -51,4 +78,4 @@ const GETTING_STARTED_ITEMS = [
 
 ## The Sequence Stack
 
-<CardList items={GETTING_STARTED_ITEMS} />
+<CardList items={SEQUENCE_STACK_ITEMS} />

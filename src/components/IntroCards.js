@@ -16,14 +16,14 @@ const ITEMS = [
   },
   {
     route: '/intro/gas',
-    title: 'Gas Fees',
+    title: 'Gas Superpowers',
     description: 'Learn how to minimize, bundle, and remove gas fees for your users',
     icon: 'gas-icon',
   },
   {
     route: '/support',
-    title: 'Lorem Ipsum Dolor',
-    description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna.',
+    title: 'Support',
+    description: 'Get awesome support from our experienced web3 team.',
     icon: 'faq-icon',
   },
 ]
