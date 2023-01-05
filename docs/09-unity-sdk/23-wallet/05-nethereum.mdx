@@ -10,20 +10,19 @@ The Sequence Unity SDK provides full integration with Nethereum.
 
 ## Getting Started
 
-To use Sequence with Nethereum, you'll need to create a `Nethereum.Web3.Web3` instance, and hook up the `SequenceInterceptor`.
+To use Sequence with Nethereum, you'll need to create a `Nethereum.Web3.Web3` instance, and hook up the `SequenceWeb3Client`.
 Use our Wallet prefab and get a reference to a Wallet instance, then it's as easy as
 
 ```csharp
-var web3 = new Nethereum.Web3.Web3();
-var interceptor = new SequenceInterceptor(wallet, Chain.Polygon);
-web3.Client.OverridingRequestInterceptor = interceptor;
+var client = new SequenceWeb3Client(wallet, Chain.Polygon);
+var web3 = new Nethereum.Web3.Web3(client);
 ```
 
 With this `Web3` instance, you can do everything that your chain has to offer!
 You can even switch blockchains using the standard `wallet_switchEthereumChain` call, or even more simply by doing
 
 ```csharp
-interceptor.chainID = Chain.Ethereum;
+client.chainID = Chain.Ethereum;
 ```
 
 For more information about Nethereum, visit [the Nethereum documentation](https://docs.nethereum.com/en/latest/introduction/web3/).
