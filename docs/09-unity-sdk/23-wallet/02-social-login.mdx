@@ -1,0 +1,73 @@
+# Social Login
+
+Sequence Wallet supports social login through multiple providers.
+
+## WebGL
+
+Social login is enabled by default! Have fun!
+
+## All other platforms
+
+Social login is disabled by default in the Unity SDK, but enabling it is easy.
+
+Pick a URL protocol for your application's Sequence Social login support.
+In our demo dapp, we've picked `demo-dapp-sequence`.
+We recommend something with a `sequence` prefix or suffix, and that also includes a unique identifier for your game, to avoid conflicts with other games.
+
+You'll need to then set up social login for your build target(s):
+
+### iOS
+
+1. Open the iOS Player Settings window (menu: Edit > Project Settings > Player Settings, then select iOS).
+2. Select `Other Settings`, then scroll down to `Configuration`.
+3. Expand the `Supported URL schemes` section, and add 1 to the size.
+4. In the new `Element N` field, enter the URL scheme you've configured for Sequence Social login. For our demo dapp, that's `demo-dapp-sequence`
+
+### MacOS
+
+1. Open the Windows/Mac/Linux Player Settings window (menu: Edit > Project Settings > Player Settings, then select Windows/Mac/Linux).
+2. Select `Other Settings`, then scroll down to `Mac Configuration`.
+3. Expand the `Supported URL schemes` section, and add 1 to the size.
+4. In the new `Element N` field, enter the URL scheme you've configured for Sequence Social login. For our demo dapp, that's `demo-dapp-sequence`
+
+### Universal Windows Platform (UWP)
+
+1. Open the UWP Player Settings window (menu: Edit > Project Settings > Player Settings, then select UWP).
+2. Select `Publishing Settings` > `Protocol`.
+3. In the `Name` field, enter the URL scheme you've configured for Sequence Social login. For our demo dapp, that's `demo-dapp-sequence`
+
+### Android
+
+1. In the Project window, browse to Assets > Plugins > Android.
+2. If it doesn't already exist, create a new file and name it `AndroidManifest.xml`.
+3. Paste the following XML into the file, or, if you already have one, add the new keys from this XML to it.
+
+```xml
+   <?xml version="1.0" encoding="utf-8"?>
+   <manifest
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+   >
+     <application>
+       <activity
+         android:name="com.unity3d.player.UnityPlayerActivity"
+         android:theme="@style/UnityThemeSelector"
+       >
+         <intent-filter>
+           <action android:name="android.intent.action.MAIN" />
+           <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+         <intent-filter>
+           <action android:name="android.intent.action.VIEW" />
+           <category android:name="android.intent.category.DEFAULT" />
+           <category android:name="android.intent.category.BROWSABLE" />
+           <data android:scheme="demo-dapp-sequence" android:host="mobile.skyweaver.net" /> <!-- here is where you'll subsititute your social login URL scheme, but make sure to leave host="mobile.skyweaver.net"! -->
+         </intent-filter>
+       </activity>
+     </application>
+   </manifest>
+```
+
+### Native Windows (non-UWP)
+
+Social login isn't currently supported in this build target.
