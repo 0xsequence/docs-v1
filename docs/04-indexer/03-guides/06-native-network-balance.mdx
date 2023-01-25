@@ -39,11 +39,11 @@ const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app'
 // try any account address you'd like :)
 const accountAddress = '0xabc...'
 
-// query Sequence Indexer for all token balances of the account on Polygon
-const tokenBalances = await indexer.getTokenBalances({
+// query Sequence Indexer for the MATIC balance on Polygon
+const balance = await indexer.getEtherBalance({
 	accountAddress: accountAddress,
-	includeMetadata: true
 })
+	
 console.log('tokens in your account:', tokenBalances)
 ```
 
