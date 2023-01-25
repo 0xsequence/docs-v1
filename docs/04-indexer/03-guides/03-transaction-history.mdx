@@ -21,6 +21,12 @@ The response includes decoded transaction details for easy consumption / renderi
 	* `filter` (object)
   	* `accountAddress` (string) -- the wallet account address
 		* `contractAddress` (string) -- optionally specify a contract address to filter
+		* `accountAddresses` (string array) -- optionally specify a list of wallet account addresses
+		* `contractAddresses` (string array) -- optionally specify a list of contract address
+		* `transactionHashes` (string array) -- optionally specify a list of transaction hashes
+		* `metaTransactionIDs` (string array) -- optionally specify a list of meta transaction IDs
+		* `fromBlock` (number) -- optionally specify the starting block to select a range
+		* `toBlock` (number) -- optionally specify the ending block to select a range
   * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
 
 <br />
@@ -44,13 +50,16 @@ import { SequenceIndexerClient } from '@0xsequence/indexer'
 const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
 
 // try any account address you'd like :)
-const accountAddress = '0xabc...'
+const filter = {
+	accountAddress: "0xabc..."
+}
 
-// query Sequence Indexer for all token balances of the account on Polygon
+// query Sequence Indexer for all token transaction history on Polygon
 const transactionHistory = await indexer.getTransactionHistory({
-	accountAddress: accountAddress,
+	filter: filter,
 	includeMetadata: true
 })
+	
 console.log('transaction history in account:', transactionHistory)
 ```
 
