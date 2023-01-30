@@ -109,8 +109,6 @@ const injectGAScripts = () => {
     }
     gtag('js', new Date())
     gtag('config', `${GTAG_ID}`)
-
-    console.log('success')
   }
 
   document.head.append(script)
