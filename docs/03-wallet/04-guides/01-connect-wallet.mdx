@@ -62,7 +62,8 @@ console.log('user accepted connect?', connectDetails.connected)
 console.log('users signed connect proof to valid their account address:', connectDetails.proof)
 ```
 
-If you provide only a single sign in option, like Google or Email, the wallet will immediately open that login prompt & skip the login provider selection screen.
+You can pick/limit the available sign in options with `signInOptions`. Will be ignored if user is already signed in.
+
 ```ts
 const wallet = sequence.getWallet()
 
@@ -192,7 +193,6 @@ Example: `await wallet.connect({ settings: {signInWithEmail: "user@email.com"}}`
 
 #### **settings.signInOptions**
 Specify signInOptions to pick/limit the available sign in options. Will be ignored if user is already signed in.
-If you pass only one, it'll open that login screen immediately.
 
 Example: `await wallet.connect({ settings: {signInOptions: ["email", "google", "apple"]}}`
 
