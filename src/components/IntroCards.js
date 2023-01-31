@@ -47,7 +47,7 @@ export default function IntroCards() {
 
 function Card({ title, description, route, icon }) {
   return (
-    <Link to={route} className="flex-1 dark:bg-[rgba(255,255,255,0.05)] bg-white rounded-lg p-4 pb-3 hover:no-underline group cursor-pointer">
+    <Link to={route} className="flex-1 dark:bg-[rgba(255,255,255,0.05)] bg-[#EEEAE3] rounded-lg p-4 pb-3 hover:no-underline group cursor-pointer">
       <div className="text-sm group-hover:opacity-50">
         <p className="dark:text-white-80 text-black-80 font-bold mb-0">{title}</p>
         <p className="dark:text-white-50 text-black-50 sm:mb-8 mb-4">{description}</p>
