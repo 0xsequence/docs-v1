@@ -56,20 +56,27 @@ html[data-theme='dark'] .navbar__search-input:focus {
   @apply text-sm rounded-none bg-transparent !important;
   padding-top: 5px !important;
   padding-bottom: 5px !important;
-  border: 1px solid rgba(0, 0, 0, 0.15) !important;
-}
-
-.search-page-wrapper .container > input:focus {
-  border: 1px solid rgba(0, 0, 0, 0.5) !important;
   outline: none;
 }
 
+.search-page-wrapper .container > input {
+  border: 1px solid #cac8b6;
+}
+
 html[data-theme='dark'] .search-page-wrapper .container > input {
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.search-page-wrapper .container > input:focus {
+  border: 1px solid #6f6c51;
+}
+
+html[data-theme='dark'] .search-page-wrapper .container > input:focus {
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 [class^='searchResultItem'] {
-  border-bottom-color: #e3e1cf;
+  border-bottom-color: #e3e1cf !important;
   @apply flex flex-col dark:border-b-white-25 !important;
 }
 
@@ -86,7 +93,7 @@ html[data-theme='dark'] .search-page-wrapper .container > input {
 }
 
 [class^='searchResultItem'] mark {
-  background: rgba(0, 0, 0, 0.15) !important;
+  background: #e3e1cf !important;
   color: var(--ifm-link-hover-color);
 }
 
@@ -97,13 +104,14 @@ html[data-theme='dark'] [class^='searchResultItem'] mark {
 /* search suggestions window */
 [id^='searchBar'][class^='dropdownMenu'] {
   @apply dark:bg-off-black bg-off-white shadow-none !important;
-  border: 1px solid #bfbfbf !important;
+  border: 1px solid #cac8b6 !important;
 }
 html[data-theme='dark'] [id^='searchBar'][class^='dropdownMenu'] {
   border: 1px solid #4d4d4d !important;
 }
 
 [class^='suggestion'] {
+  @apply shadow-none !important;
   background: none !important;
 }
 
