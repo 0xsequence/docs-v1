@@ -73,21 +73,23 @@ export function CookieBar() {
         </p>
         <div className="ml-6 flex items-center">
           <button
+            onClick={acceptCookies}
             className={clsx(
               'py-2 px-3 mr-4 border-0 ring-1 ring-inset ring-[rgba(255,255,255,0.15)]',
-              'rounded-xl text-[14px] leading-[18px] text-white font-semibold'
+              'rounded-xl text-[14px] leading-[18px] text-white font-semibold',
+              'cursor-pointer hover:opacity-80'
             )}
             style={{ background: BUTTON_GRADIENT }}
-            onClick={acceptCookies}
           >
             Accept
           </button>
           <button
+            onClick={rejectCookies}
             className={clsx(
               'py-2 px-3 mr-4 border-0 ring-1 ring-inset ring-[rgba(255,255,255,0.15)]',
-              'bg-[#191919] rounded-xl text-[14px] leading-[18px] text-white font-semibold'
+              'bg-[#191919] rounded-xl text-[14px] leading-[18px] text-white font-semibold',
+              'cursor-pointer hover:opacity-80'
             )}
-            onClick={rejectCookies}
           >
             Reject
           </button>
@@ -101,7 +103,10 @@ const GTAG_ID = 'G-B4F1CT9GP2'
 
 const injectGAScripts = () => {
   const script = document.createElement('script')
-  script.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`)
+  script.setAttribute(
+    'src',
+    `https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`
+  )
   script.onload = function () {
     window.dataLayer = window.dataLayer || []
     function gtag() {
