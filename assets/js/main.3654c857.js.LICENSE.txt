@@ -63,6 +63,8 @@ object-assign
  * Copyright (C) 2020 Oliver Nightingale
  */
 
+/*! js-cookie v3.0.1 | MIT */
+
 /**
  * @license React
  * use-sync-external-store-shim.production.min.js
