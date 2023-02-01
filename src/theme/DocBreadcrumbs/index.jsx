@@ -56,8 +56,9 @@ function BreadcrumbsItem({ children, active, index, addMicrodata }) {
         itemType: 'https://schema.org/ListItem',
       })}
       className={
-        !active &&
-        "after:content-['>'] after:w-10 after:h-10 after:text-black-50 dark:after:text-white-50 after:mx-2"
+        !active
+          ? "after:content-['>'] after:w-10 after:h-10 after:text-black-50 dark:after:text-white-50 after:mx-2"
+          : ''
       }
     >
       {children}
