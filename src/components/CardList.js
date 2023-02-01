@@ -14,7 +14,7 @@ export default function CardList({ items }) {
 
 function Card({ title, description, route }) {
   const rootElClassName = clsx(
-    'block relative dark:bg-[rgba(255,255,255,0.05)] bg-white rounded-lg p-4 hover:no-underline group w-full',
+    'block relative dark:bg-[rgba(255,255,255,0.05)] bg-[#EEEAE3] rounded-lg p-4 hover:no-underline group w-full',
     !!route && 'cursor-pointer'
   )
 

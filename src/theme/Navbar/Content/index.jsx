@@ -80,7 +80,17 @@ export default function NavbarContent() {
           className="shrink-0 border-0 bg-transparent p-0 pr-1 cursor-pointer mobile-nav:hidden block"
           onClick={mobileSidebar.toggle}
         >
-          <img src={`/img/icons/hamburger-icon.svg`} />
+          <svg
+            className="dark:fill-[#d9d9d9] fill-[#cac8b6]"
+            width="16"
+            height="9"
+            viewBox="0 0 16 9"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect y="0.865723" width="16" height="1" />
+            <rect y="7.86572" width="16" height="1" />
+          </svg>
         </button>
       </div>
     </div>

@@ -16,7 +16,7 @@ module.exports = {
       },
       colors: {
         ['off-black']: '#111111',
-        ['off-white']: '#F1EDE7',
+        ['off-white']: '#F8F5F1',
         ['white-80']: '#cfcfcf',
         ['white-50']: '#888888',
         ['white-25']: '#4D4D4D',

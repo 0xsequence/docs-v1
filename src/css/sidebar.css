@@ -7,7 +7,7 @@
 }
 
 html[data-theme='light'] .theme-doc-sidebar-container {
-  border-right: 1px solid #dddddd !important;
+  border-right: 1px solid #e3e1cf !important;
 }
 
 .navbar-sidebar__brand {
@@ -17,7 +17,7 @@ html[data-theme='light'] .theme-doc-sidebar-container {
 
 html[data-theme='light'] .navbar-sidebar__brand {
   box-shadow: none;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #e3e1cf;
 }
 
 .navbar-sidebar {

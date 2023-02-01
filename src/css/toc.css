@@ -15,7 +15,7 @@
   bottom: 4px;
   width: 2px;
   position: absolute;
-  @apply dark:bg-white-25 bg-black-25;
+  @apply dark:bg-white-25 bg-[#E3E1CF];
 }
 
 .table-of-contents__link--active::before {
@@ -26,7 +26,7 @@
   width: 2px;
   height: 13px;
   transform: translateY(4px);
-  @apply dark:bg-white-80 bg-black-80;
+  @apply dark:bg-white-80 bg-[#9d7100];
 }
 
 .table-of-contents__link {

@@ -17,7 +17,7 @@ export default function NavbarMobileSidebarLayout({ header, secondaryMenu }) {
       <div className="flex-1 overflow-y-scroll">
         <div className="navbar-sidebar__item menu">{secondaryMenu}</div>
       </div>
-      <div className="w-full py-6 px-4 flex items-center justify-between shrink-0 border-t dark:border-[#222222] border-[#dddddd]">
+      <div className="w-full py-6 px-4 flex items-center justify-between shrink-0 border-t dark:border-[#222222] border-[#e3e1cf]">
         <div className="flex items-center gap-x-4">
           {items.map((item, index) => {
             const className = 'flex items-center hover:opacity-50'

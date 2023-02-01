@@ -3,7 +3,12 @@ table {
   letter-spacing: 0.015em;
 }
 
-[data-theme='dark'] {
+html[data-theme='dark'] {
   --ifm-table-border-color: #222222;
   --ifm-table-stripe-background: #191919 !important;
+}
+
+html[data-theme='light'] {
+  --ifm-table-border-color: #cac8b6;
+  --ifm-table-stripe-background: #eeeae3 !important;
 }

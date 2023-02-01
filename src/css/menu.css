@@ -12,8 +12,8 @@
   @apply font-inter text-sm;
 }
 
-.menu__link--active:not(.menu__link--sublist) {
-  background-color: transparent;
+.menu__link--active {
+  @apply font-semibold;
 }
 
 .menu__caret::before,
