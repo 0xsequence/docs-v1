@@ -41,7 +41,7 @@ export default function DocItemLayout({ children }) {
     <div className="row">
       <div className={clsx('col')}>
         <DocVersionBanner />
-        <div className="w-full max-w-[580px] mx-auto">
+        <div className="w-full max-w-[850px] mx-auto">
           <article>
             <DocBreadcrumbs />
             <DocVersionBadge />
