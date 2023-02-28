@@ -26,7 +26,7 @@ implementation of the Indexer API client](https://github.com/0xsequence/sequence
 :::info Sequence Indexer endpoints
 Sequence Indexer offers the same API across a variety of EVM networks. Make sure to check the Indexer endpoints
 and use the corresponding host for your dapp/game. For example, on Ethereum mainnet the Sequence Indexer endpoint is
-https://mainnet-indexer.sequence.app and Polygon is https://polygon-indexer.sequence.app.
+https://mainnet-indexer-v2.sequence.app and Polygon is https://polygon-indexer-v2.sequence.app.
 
 🌄 [View the full list of supported networks and Indexer endpoints here](/indexer#supported-networks--endpoints)
 :::
@@ -57,7 +57,7 @@ import { SequenceIndexerClient } from '@0xsequence/indexer'
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-const indexer = new SequenceIndexerClient('https://mainnet-indexer.sequence.app')
+const indexer = new SequenceIndexerClient('https://mainnet-indexer-v2.sequence.app')
 
 // see examples below for the kinds of queries you can make
 const tokenBalances = await indexer.getTokenBalances(...)
@@ -82,7 +82,7 @@ import (
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-seqIndexer := indexer.NewIndexerClient("https://mainnet-indexer.sequence.app", http.DefaultClient)
+seqIndexer := indexer.NewIndexerClient("https://mainnet-indexer-v2.sequence.app", http.DefaultClient)
 
 // see examples below for the kinds of queries you can make
 tokenBalances, err := seqIndexer.GetTokenBalances(...)

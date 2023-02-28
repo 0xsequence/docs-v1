@@ -31,7 +31,7 @@ the `GetTokenBalances` method. See section below for more information.
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -41,7 +41,7 @@ curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequenc
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexerClient } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+const indexer = new SequenceIndexerClient('https://polygon-indexer-v2.sequence.app')
 
 // try any account address you'd like :)
 const accountAddress = '0xabc...'
@@ -68,7 +68,7 @@ import (
 )
 
 func GetTokenBalances(accountAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer-v2.sequence.app", http.DefaultClient)
 
 	includeMetadata := true
 
@@ -111,7 +111,7 @@ Please [contact our team](/support) for assistance with integrations to another 
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -121,7 +121,7 @@ curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequenc
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexerClient } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+const indexer = new SequenceIndexerClient('https://polygon-indexer-v2.sequence.app')
 
 // try any contract and account address you'd like :)
 const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
@@ -150,7 +150,7 @@ import (
 )
 
 func GetTokenBalances(contractAddress, accountAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer-v2.sequence.app", http.DefaultClient)
 
 	includeMetadata := true
 
