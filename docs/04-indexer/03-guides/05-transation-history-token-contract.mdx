@@ -14,23 +14,23 @@ In this example, we use the Skyweaver token contract address 0x631998e91476DA5B8
 on the Polygon network. You may query any contract address on any of the supported networks (but make
 sure to query the indexer of the corresponding network).
 
+*Sequence Indexer `GetTransactionHistory` Method:*
 
-*Sequence Indexer `GetBalanceUpdates` Method:*
-
-* Request: POST /rpc/Indexer/GetBalanceUpdates
+* Request: POST /rpc/Indexer/GetTransactionHistory
 * Content-Type: application/json
 * Body (in JSON):
-	* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
+	* `filter` (object) 
+		* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
 
 <br />
 
-**Example: `GetBalanceUpdates` of Skyweaver contract on Polygon**
+**Example: `GetTransactionHistory` of Skyweaver contract on Polygon**
 
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequence.app/rpc/Indexer/GetBalanceUpdates -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E" }'
+curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequence.app/rpc/Indexer/GetTransactionHistory -d '{ "filter": { "accountAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E" }, "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -46,12 +46,17 @@ const indexer = new SequenceIndexerClient('https://polygon-indexer-v2.sequence.a
 const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
 
 // query Sequence Indexer for all token details / supplies
-// NOTE: you can also pass the page object for paginated results. As well, pass the lastUpdateID
-// to query since the last update.
-const history = await indexer.getBalanceUpdates({
+// try any contract address you'd like :)
+const filter = {
 	contractAddress: contractAddress
+}
+
+// query Sequence Indexer for all token transaction history on Polygon
+const transactionHistory = await indexer.getTransactionHistory({
+	filter: filter
 })
-console.log('token history of contract:', history)
+	
+console.log('transaction history of contract:', transactionHistory)
 ```
 
 </TabItem>
@@ -67,16 +72,19 @@ import (
 	"github.com/0xsequence/go-sequence/indexer"
 )
 
-func GetBalanceUpdates(contractAddress string) {
+func GetTransactionHistory(accountAddress string) {
 	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer-v2.sequence.app", http.DefaultClient)
 
-	// NOTE: you can also pass the page object for paginated results. As well, pass the lastUpdateID
-	// to query since the last update.
-	_, history, err := seqIndexer.GetBalanceUpdates(context.Background(), contractAddress, 0, nil)
+	filter := &indexer.TransactionHistoryFilter{
+		ContractAddress: &contractAddress,
+	}
+	includeMetadata := true
+
+	_, history, err := seqIndexer.GetTransactionHistory(context.Background(), filter, nil, &includeMetadata)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("token token of contract:", history)
+	fmt.Println("transaction history:", history)
 }
 ```
 
