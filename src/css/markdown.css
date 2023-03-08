@@ -50,3 +50,11 @@
 .markdown code {
   @apply text-sm font-roboto !important;
 }
+
+.markdown .language-bash {
+  overflow: auto;
+}
+
+.markdown .language-bash code {
+  white-space: pre-wrap;
+}
