@@ -30,7 +30,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }) {
 
   return (
     <div className="flex">
-      <div className="w-full max-w-[580px] mx-auto">
+      <div className="w-full max-w-[850px] mx-auto">
         <DocVersionBanner />
         <DocBreadcrumbs />
         <DocVersionBadge />
