@@ -20,7 +20,7 @@ import TabItem from '@theme/TabItem'
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://mainnet-indexer-v2.sequence.app/rpc/Indexer/GetChainID
+curl -X POST -H "Content-Type: application/json" https://mainnet-indexer.sequence.app/rpc/Indexer/GetChainID
 ```
 
 </TabItem>
@@ -30,7 +30,7 @@ curl -X POST -H "Content-Type: application/json" https://mainnet-indexer-v2.sequ
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexerClient } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexerClient('https://mainnet-indexer-v2.sequence.app')
+const indexer = new SequenceIndexerClient('https://mainnet-indexer.sequence.app')
 
 const { chainID } = await indexer.getChainID()
 console.log(chainID) // 1
@@ -50,7 +50,7 @@ import (
 )
 
 func GetChainID() {
-	seqIndexer := indexer.NewIndexerClient("https://mainnet-indexer-v2.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexerClient("https://mainnet-indexer.sequence.app", http.DefaultClient)
 
 	chainID, err := seqIndexer.GetChainID(context.Background())
 	if err != nil {

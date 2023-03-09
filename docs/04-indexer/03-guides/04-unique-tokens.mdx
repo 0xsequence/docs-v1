@@ -34,7 +34,7 @@ sure to query the indexer of the corresponding network).
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequence.app/rpc/Indexer/GetTokenSupplies -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenSupplies -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -44,7 +44,7 @@ curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequ
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexerClient } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexerClient('https://polygon-indexer-v2.sequence.app')
+const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
 
 // here we query the Skyweaver contract address, but you can use any
 const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
@@ -71,7 +71,7 @@ import (
 )
 
 func GetTokenSupplies(contractAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer-v2.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
 
 	filter := &indexer.TransactionHistoryFilter{
 		ContractAddress: &contractAddress,

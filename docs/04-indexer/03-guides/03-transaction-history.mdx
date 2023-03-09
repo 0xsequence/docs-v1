@@ -37,7 +37,7 @@ The response includes decoded transaction details for easy consumption / renderi
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequence.app/rpc/Indexer/GetTransactionHistory -d '{ "filter": { "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9" }, "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTransactionHistory -d '{ "filter": { "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9" }, "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -47,7 +47,7 @@ curl -X POST -H "Content-Type: application/json" https://polygon-indexer-v2.sequ
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexerClient } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexerClient('https://polygon-indexer-v2.sequence.app')
+const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
 
 // try any account address you'd like :)
 const filter = {
@@ -77,7 +77,7 @@ import (
 )
 
 func GetTransactionHistory(accountAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer-v2.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
 
 	filter := &indexer.TransactionHistoryFilter{
 		AccountAddress: &accountAddress,
