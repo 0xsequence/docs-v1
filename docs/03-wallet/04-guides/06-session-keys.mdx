@@ -1,0 +1,86 @@
+# Confirmation Free Signatures
+It is possible to build an application where users sign messages without requiring a confirmation in their Sequence wallet every time. This is possible using *session keys*, or ephemeral keys.
+
+# Session Keys
+Session keys are ephemeral private keys that can be generated and stored client-side, typically in a user's local storage. They provide a convenient and secure way for users to authorize specific actions in a decentralized application without requiring them to confirm each action through their primary wallet.
+
+By signing a message with their primary wallet (e.g., Sequence Wallet), users can authorize a session key to act on their behalf for a limited time or scope. Applications can then interpret signed messages from the session key as if they were coming directly from the user's wallet, streamlining the user experience.
+
+Session keys are particularly useful for applications that require frequent user interactions, as they help reduce the number of wallet confirmations needed, while still maintaining a secure and verifiable authentication process.
+
+# Using Session keys with Sequence
+
+### 1. Initialize Sequence Wallet and Connect
+```javascript
+import { Wallet } from '@0xsequence/wallet'
+import { ethers } from 'ethers'
+
+const wallet = new Wallet()
+await wallet.connect()
+
+const signer = wallet.getSigner()
+const userAddress = await signer.getAddress()
+```
+
+### 2. Generate a Session Key
+Create a new ephemeral private key, store it in local storage, and derive the associated address:
+
+```javascript
+const sessionPrivateKey = ethers.utils.randomBytes(32)
+localStorage.setItem('sessionPrivateKey', ethers.utils.hexlify(sessionPrivateKey))
+const sessionWallet = new ethers.Wallet(sessionPrivateKey)
+const sessionAddress = await sessionWallet.getAddress()
+```
+
+### 3. Sign Authorization Message
+Sign a message with the user's Sequence Wallet to authorize the session key:
+
+```javascript
+const authorizationMessage = `Authorize this device to play this game.`
+const signature = await signer.signMessage(authorizationMessage)
+```
+
+### 4. Verify Authorization Signature
+
+Verify the signature on the server or client side using Sequence utility functions:
+
+```javascript
+const provider = wallet.getProvider()
+const chainId = await wallet.getChainId()
+
+const isValid = await sequence.utils.isValidMessageSignature(
+  userAddress,
+  authorizationMessage,
+  signature,
+  provider,
+  chainId
+)
+
+if (isValid) {
+  console.log('Session key authorized')
+} else {
+  console.log('Session key not authorized')
+}
+```
+
+### 5. Sign Message with Session Key
+Use the session key to sign a message client-side without user interaction:
+
+```javascript
+const message = 'Perform action without wallet confirmation'
+const sessionSignature = await sessionWallet.signMessage(message)
+```
+
+### 6. Verify Session Signature
+Verify the session signature on the server or client side:
+
+```javascript
+const recoveredSessionAddress = ethers.utils.verifyMessage(message, sessionSignature)
+if (recoveredSessionAddress === sessionAddress) {
+  console.log('Session signature valid')
+} else {
+  console.log('Session signature invalid')
+}
+```
+
+**Note**: You should retrieve the session key stored in local storage upon loading the application and only create a new session key if none can be found.
