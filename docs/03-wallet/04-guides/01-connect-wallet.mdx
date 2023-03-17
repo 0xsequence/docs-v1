@@ -34,10 +34,17 @@ Your dapp can connect to your user's wallet by first instantiating the Wallet pr
 import { sequence } from "0xsequence";
 
 // This assumes your dapp runs on Ethereum mainnet
-const wallet = await sequence.initWallet('mainnet')
+const wallet = sequence.initWallet('mainnet')
 
 // If your dapp runs on a different EVM-compatible blockchain, you can specify its name as the argument
-// const wallet = await sequence.initWallet('polygon')
+// const wallet = sequence.initWallet('polygon')
+```
+
+Note that is possible to retrieve the above instance by using the `getWallet()` method:
+
+```ts
+import { sequence } from "0xsequence";
+const wallet = sequence.getWallet()
 ```
 
 Once you have the instance, you can connect to the wallet:
