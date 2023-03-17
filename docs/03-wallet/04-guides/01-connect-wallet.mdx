@@ -40,11 +40,16 @@ const wallet = sequence.initWallet('mainnet')
 // const wallet = sequence.initWallet('polygon')
 ```
 
+Note that is possible to retrieve the above instance by using the `getWallet()` method:
+
+```ts
+import { sequence } from "0xsequence";
+const wallet = sequence.getWallet()
+```
+
 Once you have the instance, you can connect to the wallet:
 
 ```ts
-const wallet = sequence.getWallet()
-
 const connectDetails = await wallet.connect({
   app: 'Your Dapp name',
   authorize: true,
