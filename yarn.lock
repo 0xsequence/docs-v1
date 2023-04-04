@@ -1410,6 +1410,13 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@databeat/tracker@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@databeat/tracker/-/tracker-0.2.3.tgz#41c4a057ac9041eebad49e68b081c510ccc77db2"
+  integrity sha512-nL7WfY8uRxYNvvrutb/YFDz5WtZqJYllzm0yKgUVYGtda9rVHqlleaeeTKLx2cpKF+pnHmClcknQy+3nAtqaGQ==
+  dependencies:
+    "@noble/hashes" "^1.3.0"
+
 "@docsearch/css@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-3.3.0.tgz#d698e48302d12240d7c2f7452ccb2d2239a8cd80"
@@ -2311,6 +2318,11 @@
   version "1.6.22"
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
+
+"@noble/hashes@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.3.0.tgz#085fd70f6d7d9d109671090ccae1d3bec62554a1"
+  integrity sha512-ilHEACi9DwqJB0pw7kv+Apvh50jiiSyR/cQ3y4W7lOR5mhvn/50FLUfsnfJz0BDZtl/RR16kXvptiv6q1msYZg==
 
 "@node-rs/jieba-android-arm-eabi@1.6.1":
   version "1.6.1"
