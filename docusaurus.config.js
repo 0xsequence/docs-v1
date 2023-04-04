@@ -37,6 +37,9 @@ module.exports = {
       })
     ]
   ],
+  clientModules: [
+    require.resolve('./src/load.js')
+  ],
   plugins: [
     // [
     //   'docusaurus-plugin-typedoc',
