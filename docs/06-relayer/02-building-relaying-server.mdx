@@ -97,8 +97,7 @@ const feeTxn = {
 
 
 // Send your transaction with the fee and quote to the relayer for dispatch
-const signer = wallet.getSigner()
-const txnResponse = await signer.sendTransaction([txn, feeTxn], undefined, undefined, quote)
+const txnResponse = await wallet.sendTransaction([txn, feeTxn], undefined, undefined, quote)
 
 // Wait for transaction to be mined
 const txnReceipt = await txnResponse.wait()
@@ -145,9 +144,8 @@ const txn2 = {
 }
 
 // Dispatch transactions, which can now be executed in parallel
-const signer = wallet.getSigner()
-const txnResponse = await signer.sendTransactionBatch([txn1, txn2])
+const txnResponse = await wallet.sendTransactionBatch([txn1, txn2])
 ```
 
-If batching transactions is not a problem for your use-case, you can call `await signer.sendTransactionBatch(txns)`.
+If batching transactions is not a problem for your use-case, you can call `await wallet.sendTransactionBatch(txns)`.
 You can read more about batch transactions in [Sending Batched Transactions](/wallet/guides/send-batch-transactions).
