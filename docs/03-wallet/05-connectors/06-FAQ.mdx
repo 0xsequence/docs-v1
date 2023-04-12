@@ -20,11 +20,30 @@ See using wallet libraries with [next.js 13](/wallet/connectors/FAQ#how-do-i-use
 We can use the [dynamic import feature](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js to import and render the wallet library in the browser. It is important to set the `ssr` option to false, which disables server-side rendering, for the integration to work properly.
 The library wrapper component and all its connectors should be imported in such a way before being used. 
 
+In the example below, we first create a wrapper component:
+```js
+const RainbowKitWrapper = ({ children }) => {
+  // ...rest of the component's code initializing all the connectors and setting the options
+
+  return (
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider appInfo={AppInfo} chains={chains}>
+        {children}
+      </RainbowKitProvider>
+    </WagmiConfig>
+  );
+}
+
+export default RainbowKitWrapper
+```
+
+We then import this component using dynamic import with the `ssr` option at false.
+
 ```js
 import dynamic from 'next/dynamic'
 
-
-// We import a wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
+// We import a custom wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
+// An example of the content of this wrapper component can be found here: https://github.com/SamueleA/nextjs-dynamic-import-sequence/blob/main/pages/RainbowKitProvider.tsx
 const RainbowKitWrapper = dynamic(() => import('./RainbowKitProvider'), {
   ssr: false
 })
@@ -45,5 +64,42 @@ Libraries other than RainbowKit should be imported in a similar manner.
 ### How do I use a wallet library and connector with next.js version 13 and above?
 Next.js 13 allows the declaration of Client Components which are components that will be rendered in the browser.
 A wrapper component containing the wallet library initialized with all the connectors must be declared with the `"use client"` directive. The `"use client"` directive is what will turn the wrapper component into a Client Component to be rendered in the browser.
+
+In the example below, we first declare a wrapper Client Component:
+
+```js
+"use client" // this directive informs next.js that the component is a Client Component to be rendered in the browser
+
+const RainbowKitWrapper = ({ children }) => {
+  // ...rest of the component's code initializing all the connectors and setting the options
+
+  return (
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider appInfo={AppInfo} chains={chains}>
+        {children}
+      </RainbowKitProvider>
+    </WagmiConfig>
+  );
+}
+
+export default RainbowKitWrapper
+```
+
+This wrapper component can then be imported normally and wrap the rest of the application. The child components can be a combination of Client and Server components.
+
+```js
+// We import a custom wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
+// An example of the content of this wrapper component can be found here: https://github.com/SamueleA/nextjs-dynamic-import-sequence/blob/main/pages/RainbowKitProvider.tsx
+import RainbowKitWrapper from './RainbowKitWrapper'
+
+// We can then wrap our entire app with this browser's rendered component
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <RainbowKitWrapper>
+      <Component {...pageProps} />
+    </RainbowKitWrapper>
+  );
+}
+```
 
 Click [here](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components) for more information about Client Components.
