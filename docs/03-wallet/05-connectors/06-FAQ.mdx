@@ -1,0 +1,49 @@
+---
+sidebar_label: FAQ
+---
+
+Below are frequently asked questions related to the integration of the Sequence wallet connector.
+
+## NextJs
+
+### Why does my wallet integration produce an error when used with next.js?
+
+Wallet libraries and connectors must be rendered in the browser, attempts to render the page elsewhere, such as on backend server, will therefore produce and error. That is because these libraries often depend on properties found in the `window` object which is only available in the browser.
+By default, Next.js renders the web page's content on the server before sending it to the browser. In order to prevent an error, we must specify to Next.js that the wallet library's wrapper component must be rendered in the browser instead. The method for doing so will be different depending on the version of Next.js used.
+
+See using wallet libraries with [next.js 12](/wallet/connectors/FAQ#how-do-i-use-a-wallet-library-and-connector-with-nextjs-version-12-and-below)
+
+See using wallet libraries with [next.js 13](/wallet/connectors/FAQ#how-do-i-use-a-wallet-library-and-connector-with-nextjs-version-13-and-above)
+
+
+### How do I use a wallet library and connector with next.js version 12 and below?
+We can use the [dynamic import feature](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js to import and render the wallet library in the browser. It is important to set the `ssr` option to false, which disables server-side rendering, for the integration to work properly.
+The library wrapper component and all its connectors should be imported in such a way before being used. 
+
+```js
+import dynamic from 'next/dynamic'
+
+
+// We import a wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
+const RainbowKitWrapper = dynamic(() => import('./RainbowKitProvider'), {
+  ssr: false
+})
+
+// We can then wrap our entire app with this browser's rendered component
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <RainbowKitWrapper>
+      <Component {...pageProps} />
+    </RainbowKitWrapper>
+  );
+}
+```
+
+The full example of this setup working with the rainbowKit library can be found [here](https://github.com/SamueleA/nextjs-dynamic-import-sequence).
+Libraries other than RainbowKit should be imported in a similar manner.
+
+### How do I use a wallet library and connector with next.js version 13 and above?
+Next.js 13 allows the declaration of Client Components which are components that will be rendered in the browser.
+A wrapper component containing the wallet library initialized with all the connectors must be declared with the `"use client"` directive. The `"use client"` directive is what will turn the wrapper component into a Client Component to be rendered in the browser.
+
+Click [here](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components) for more information about Client Components.
