@@ -6,3 +6,12 @@ If you encounter this error when loading Sequence UnitySDK for the first time
 
 Try find the dlls file in folder Assets>Plugins>net742dllsAOT in Inspector, deselect Validate References option for related dlls.
 ![Deselect Validate References](/img/unity/unity-troubleshooting-2.png)
+
+### Android can only be called on Unity main thread error
+If you encounter this error in Android Logcat window, try to use this script to wrap your code inside
+```
+MainThread.wkr.AddJob( () =>
+{
+    //YOUR CODE
+})
+```
