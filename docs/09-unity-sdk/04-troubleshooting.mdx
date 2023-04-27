@@ -1,13 +1,13 @@
 # Troubleshooting
 
-### Assembly reference errors
+### 1) Assembly reference errors
 If you encounter this error when loading Sequence UnitySDK for the first time
 ![Assembly Reference Errors](/img/unity/unity-troubleshooting-1.png)
 
 Try find the dlls file in folder Assets>Plugins>net742dllsAOT in Inspector, deselect Validate References option for related dlls.
 ![Deselect Validate References](/img/unity/unity-troubleshooting-2.png)
 
-### Android can only be called on Unity main thread error
+### 2) Android can only be called on Unity main thread error
 If you encounter this error in Android Logcat window, try to use this script to wrap your code inside
 ```
 MainThread.wkr.AddJob( () =>
