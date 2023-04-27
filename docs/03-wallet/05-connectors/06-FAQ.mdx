@@ -42,7 +42,7 @@ We then import this component using dynamic import with the `ssr` option at fals
 ```js
 import dynamic from 'next/dynamic'
 
-// We import a custom wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
+// We import a custom wrapper component that initializes the wallet library and all its connectors
 // An example of the content of this wrapper component can be found here: https://github.com/0xsequence/demo-dapp-wagmi-next/blob/12/pages/WagmiProvider.tsx
 const WagmiProvider = dynamic(() => import('./WagmiProvider'), {
   ssr: false
@@ -86,7 +86,7 @@ export default WagmiWrapper
 This wrapper component can then be imported normally and wrap the rest of the application. The child components can be a combination of Client and Server components.
 
 ```js
-// We import a custom wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
+// We import a custom wrapper component that initializes the wallet library and all its connectors
 // An example of the content of this wrapper component can be found here: https://github.com/0xsequence/demo-dapp-wagmi-next/blob/master/components/WagmiProvider.tsx
 import WagmiWrapper from './WagmiWrapper'
 
