@@ -20,15 +20,11 @@ then in your app,
 ```ts
 import { SequenceMetadataClient } from '@0xsequence/metadata'
 
-// TODO: review ..
 const metadata = new SequenceMetadataClient()
-
-# Metadata API Installation
+```
 
 **NOTE:** if you're using `@0xsequence/metadata` from node.js, we recommend using node v18.x or newer.
 
-<br />
-```
 
 ### Go Installation
 
@@ -45,8 +41,6 @@ import (
 
 seqMetadata := metadata.NewMetadataClient("https://metadata.sequence.app", http.DefaultClient)
 
-// TODO: review ...
-// see examples below for the kinds of queries you can make
 tokenBalances, err := seqIndexer.GetTokenBalances(...)
 ```
 
