@@ -8,98 +8,89 @@ Below are frequently asked questions related to the integration of the Sequence 
 
 ### Why does my wallet integration produce an error when used with next.js?
 
-Wallet libraries and connectors must be rendered in the browser, attempts to render the page elsewhere, such as on backend server, will therefore produce and error. That is because these libraries often depend on properties found in the `window` object which is only available in the browser.
-By default, Next.js renders the web page's content on the server before sending it to the browser. In order to prevent an error, we must specify to Next.js that the wallet library's wrapper component must be rendered in the browser instead. The method for doing so will be different depending on the version of Next.js used.
+Wallet libraries and connectors must be rendered in the browser. This is particularly true for Wagmi and Wagmi-based libraries. Attempts to render the page elsewhere, such as on backend server, can produce errors in some situations. Rendering on the server is therefore highly discouraged. 
 
-See using wallet libraries with [next.js 12](/wallet/connectors/FAQ#how-do-i-use-a-wallet-library-and-connector-with-nextjs-version-12-and-below)
+The method for fixing this issue will depend on the folder structure. The `pages` folder structure is available for all versions of NextJs, while the `app` folder structure is only available for NextJs version 13 and above and may require being turned on through an experimental setting.
 
-See using wallet libraries with [next.js 13](/wallet/connectors/FAQ#how-do-i-use-a-wallet-library-and-connector-with-nextjs-version-13-and-above)
+See using wallet libraries with [next.js pages directory](/wallet/connectors/FAQ#how-do-i-use-a-wallet-library-and-connector-with-nextjs-using-the-pages-directory-all-versions-of-nextjs)
+
+See using wallet libraries with [next.js app directory(NextJs 13+ feature)](/wallet/connectors/FAQ#how-do-i-use-a-wallet-library-and-connector-with-nextjs-using-the-app-directory-version-13-and-above-only)
 
 
-### How do I use a wallet library and connector with next.js version 12 and below?
-We can use the [dynamic import feature](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js to import and render the wallet library in the browser. It is important to set the `ssr` option to false, which disables server-side rendering, for the integration to work properly.
-The library wrapper component and all its connectors should be imported in such a way before being used. 
+### How do I use a wallet library and connector with next.js using the `pages` directory (all versions of NextJs)?
+The content of the application which depends on Wagmi hooks must be mounted only once the application is rendered in the client. This is a limitation due to wagmi when used with NextJs, and all wagmi-based libraries will inherit this limitation. To do so we can use a `useEffect` hook to wait before rendering the application.
 
-In the example below, we first create a wrapper component:
+In the example below, we wait until the app is mounted in the client before rendering the rest of the application:
 ```js
-const RainbowKitWrapper = ({ children }) => {
-  // ...rest of the component's code initializing all the connectors and setting the options
+import { useIsMounted } from '../hooks'
+import Home from '../components/Home'
 
+const Page = () => {
+  const isMounted = useIsMounted()
+
+  if (!isMounted) return null
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider appInfo={AppInfo} chains={chains}>
-        {children}
-      </RainbowKitProvider>
-    </WagmiConfig>
-  );
+    <>
+      <Home />
+    </>
+  )
 }
 
-export default RainbowKitWrapper
+export default Page
 ```
 
-We then import this component using dynamic import with the `ssr` option at false.
+A full code example of this setup working with the Wagmi library can be found [on github](https://github.com/0xsequence/demo-dapp-wagmi/tree/wagmi-0-12-x).
+The method described above is the one recommended by Wagmi and is demonstrated in their [official example](https://github.com/wagmi-dev/wagmi/blob/0.12.x/examples/_dev/src/pages/index.tsx).
 
-```js
-import dynamic from 'next/dynamic'
-
-// We import a custom wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
-// An example of the content of this wrapper component can be found here: https://github.com/SamueleA/nextjs-dynamic-import-sequence/blob/main/pages/RainbowKitProvider.tsx
-const RainbowKitWrapper = dynamic(() => import('./RainbowKitProvider'), {
-  ssr: false
-})
-
-// We can then wrap our entire app with this browser's rendered component
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <RainbowKitWrapper>
-      <Component {...pageProps} />
-    </RainbowKitWrapper>
-  );
-}
-```
-
-The full example of this setup working with the rainbowKit library can be found [here](https://github.com/SamueleA/nextjs-dynamic-import-sequence).
-Libraries other than RainbowKit should be imported in a similar manner.
-
-### How do I use a wallet library and connector with next.js version 13 and above?
-Next.js 13 allows the declaration of Client Components which are components that will be rendered in the browser.
+### How do I use a wallet library and connector with next.js using the `app` directory (version 13 and above only)?
+NextJs 13 and above allows using a new folder structure in which the content is placed in an `app` directory. Enabling this feature may require explicitly indicating it with an experimental setting.
+When using such a folder structure, NextJs allows the declaration of Client Components which are components that will be rendered in the browser.
 A wrapper component containing the wallet library initialized with all the connectors must be declared with the `"use client"` directive. The `"use client"` directive is what will turn the wrapper component into a Client Component to be rendered in the browser.
 
-In the example below, we first declare a wrapper Client Component:
+In addition, there is a bug with wagmi and nextJs when using the autoConnect feature which causes
+
+In the example below, we declare a wrapper component with the `"use client"` directive:
 
 ```js
 "use client" // this directive informs next.js that the component is a Client Component to be rendered in the browser
 
-const RainbowKitWrapper = ({ children }) => {
-  // ...rest of the component's code initializing all the connectors and setting the options
+const WagmiWrapper = ({ children }) => {
+  const wagmiClient = createClient({
+    autoConnect: true,
+    connectors,
+    provider,
+    webSocketProvider,
+  });
+
 
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider appInfo={AppInfo} chains={chains}>
-        {children}
-      </RainbowKitProvider>
+      {children}
     </WagmiConfig>
   );
 }
 
-export default RainbowKitWrapper
+export default WagmiWrapper
 ```
 
 This wrapper component can then be imported normally and wrap the rest of the application. The child components can be a combination of Client and Server components.
 
 ```js
-// We import a custom wrapper component that initializes the wallet library and all its connectors, in this case Rainbowkit
-// An example of the content of this wrapper component can be found here: https://github.com/SamueleA/nextjs-dynamic-import-sequence/blob/main/pages/RainbowKitProvider.tsx
-import RainbowKitWrapper from './RainbowKitWrapper'
+// We import a custom wrapper component that initializes the wallet library and all its connectors
+// An example of the content of this wrapper component can be found here: https://github.com/0xsequence/demo-dapp-wagmi-next/blob/master/components/WagmiProvider.tsx
+import WagmiWrapper from './WagmiWrapper'
 
 // We can then wrap our entire app with this browser's rendered component
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RainbowKitWrapper>
+    <WagmiWrapper>
       <Component {...pageProps} />
-    </RainbowKitWrapper>
+    </WagmiWrapper>
   );
 }
 ```
+
+A full code example using Nextjs and the `app` directory can be found [on github](https://github.com/0xsequence/demo-dapp-wagmi-next).
+The method described above is the one recommended by Wagmi through their NextJs example which can be consulted by running the command `npx create-wagmi` and selecting the nextJs option.
 
 Click [here](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components) for more information about Client Components.
