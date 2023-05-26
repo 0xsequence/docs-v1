@@ -15,7 +15,7 @@ Source code is available too: [https://github.com/0xsequence/demo-dapp-wagmi](ht
 
 ## Installation
 
-The connector is installed via the npm package `@0xsequence/wagmi-connector`.
+The connector is installed via the npm package `@0xsequence/wagmi-connector`. If you are using the latest, viem-based, version of wagmi (>= 1.0.0) the package can be installed with the following command:
 
 ```shell
 npm install @0xsequence/wagmi-connector 0xsequence ethers
@@ -23,6 +23,16 @@ npm install @0xsequence/wagmi-connector 0xsequence ethers
 or
 ```shell
 yarn add @0xsequence/wagmi-connector 0xsequence ethers
+```
+
+If you are using an older version of Wagmi which is based of ethers (< 1.0.0), use the following command:
+
+```shell
+npm install @0xsequence/wagmi-connector@1.0 0xsequence ethers
+```
+or
+```shell
+yarn add @0xsequence/wagmi-connector@1.0 0xsequence ethers
 ```
 
 ## Usage
