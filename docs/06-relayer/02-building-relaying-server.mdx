@@ -1,4 +1,4 @@
-# Building Relaying Server with Sequence
+# Building a Relaying Server with Sequence
 
 With Sequence, you can create a smart contract wallet your server can use to dispatch transactions for your users
 without you having to be worried about transaction speed, throughput and re-orgs.
@@ -7,14 +7,15 @@ without you having to be worried about transaction speed, throughput and re-orgs
 By default, Sequence transactions will be executed sequentially. 
 :::
 
-
-### Nodejs Server
+## Nodejs Server
 
 Your server will need an EOA wallet that will be able to sign messages. It will be the owner of your server-side Sequence
 wallet which will be used to dispatch transactions.
 
 This Sequence wallet should have the correct ownership at your contract level, not the EOA.
 Also, the Sequence wallet should be sufficiently funded in order to pay fees needed by the relayer to dispatch your transactions.
+
+Using this approach - versus the next section (with sponsoring) - includes the ability to pay for gas in any available currency by our relayer (e.g. 'MATIC', 'DAI', 'USDC', 'WETH').
 
 ```ts
 import { RpcRelayer } from '@0xsequence/relayer'
@@ -107,6 +108,85 @@ if (txnReceipt.status != 1) {
   console.log(`Unexpected status: ${txnReceipt.status}`)
 }
 
+```
+
+## Nodejs Server with Gas Sponsoring using Sequence Builder
+
+:::tip Need access to our Sequence Builder?
+Reach out to us by email @ hello@sequence.io or complete our Sequence Pro form to hear back: https://pro.sequence.xyz/.
+:::
+
+If you want to have your transactions sponsored & paid for with a credit card, you can follow the below steps before beginning your code, at the following link: https://sequence.build/ 
+
+By sponsoring your transaction, you can now just send the transaction without a fee object and not have to fund the smart contract wallet before relaying any transactions.
+
+:::info Already Deployed Contract
+For this example, we assume you have a smart contract deployed with a contract address to include in the last step.
+:::
+
+### A. Create Dapp
+
+![Sequence builder create app](/img/builder/builder_create_dapp.png)
+
+### B. New Dapp
+
+![Sequence builder new dapp](/img/builder/builder_new_dapp.png)
+
+### C.1 Gas Tank
+
+![Sequence builder gas tank](/img/builder/builder_gas_tank.png)
+
+### C.2 Add Gas
+
+![Sequence builder add gas](/img/builder/builder_add_gas.png)
+
+### C.3 Add Sponsored Address
+
+![Sequence builder add sponsored address](/img/builder/builder_add_sponsored_address.png)
+
+The following is example code that implements a relayed transaction, same as the above example (i.e. Nodejs Server) but without fees, taken care of by the Sequence Builder.
+
+```ts
+import { RpcRelayer } from '@0xsequence/relayer'
+import { Wallet } from '@0xsequence/wallet'
+import { ethers } from 'ethers'
+
+// Get a provider
+const provider = new ethers.providers.JsonRpcProvider('https://nodes.sequence.app/polygon')
+
+// Create your server EOA
+const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
+
+// Create your rpc relayer instance with relayer node you want to use
+const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app', provider: provider})
+
+// Create your Sequence server wallet, controlled by your server EOA, and connect it to the relayer
+const wallet = (await Wallet.singleOwner(walletEOA)).connect(provider, relayer)
+
+// Craft your transaction
+const erc721Interface = new ethers.utils.Interface([
+  'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
+])
+
+const data = erc721Interface.encodeFunctionData(
+  'safeTransferFrom', [senderAddress, recipientAddress, id]
+)
+
+const txn = {
+  to: erc721TokenAddress,
+  data
+}
+
+// Send your transaction to the relayer for dispatch
+const txnResponse = await wallet.sendTransaction([txn])
+
+// Wait for transaction to be mined
+const txnReceipt = await txnResponse.wait()
+
+// Check if transaction was successful 
+if (txnReceipt.status != 1) {
+  console.log(`Unexpected status: ${txnReceipt.status}`)
+}
 ```
 
 ## Parallel Transactions
