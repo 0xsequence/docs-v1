@@ -35,10 +35,10 @@ It will look like this to your users:
 
 In the above example, we pass `authorize: true` to the `connect()` function, which will automatically have the user
 sign a **EIP712 signed message** to prove their identity. This allows you to then easily authenticate the connected
-wallet address with absolutely certainty.
+wallet address with absolute certainty.
 
 You can find the signed message proof returned in `connectDetails.proof`, which is an EIP712 signed object using
-a simple a convention from [ethauth](https://github.com/0xsequence/ethauth.js). NOTE: EIP712 allows you to use an actual object for 
+a simple convention from [ethauth](https://github.com/0xsequence/ethauth.js). NOTE: EIP712 allows you to use an actual object for 
 signing instead of just a plain-text string.
 
 
@@ -62,7 +62,7 @@ try {
 
 See the [Go Sequence SDK](https://github.com/0xsequence/go-sequence) on using Sequence in your Go applications.
 
-If your server is written in a language other then Javascript/Typescript or Go, all you have to do is validate
+If your server is written in a language other than Javascript/Typescript or Go, all you have to do is validate
 the signature with [EIP1271, the standard method for validating signed messages for a smart wallet](https://eips.ethereum.org/EIPS/eip-1271).
 
 As always, if you have any questions or require help, reach out to us on [Discord](https://discord.gg/sequence).
