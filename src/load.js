@@ -1,7 +1,7 @@
 import { Location } from 'history'
 import { Databeat } from '@databeat/tracker'
 
-export const analytics = new Databeat('https://databeat.sequence.app', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJzZXEtZG9jcyIsImV4cCI6MTcxMjIxNDYzNn0.yIMP8g6Rk7izgoZFfH4FRa1YQYdY-9n9f1R99kx-u7E')
+export const analytics = new Databeat('https://databeat.sequence.app', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJzZXEtZG9jcyIsImV4cCI6MTcxMjIxNDYzNn0.qWxTAvdiD1mWUZaEMFwp3_Xq-aFmMzzoIU8h4a8xG9c')
 
 export function onRouteDidUpdate({ location, previousLocation }) {
   // Don't execute if we are still on the same page; the lifecycle may be fired
