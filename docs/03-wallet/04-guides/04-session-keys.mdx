@@ -48,11 +48,10 @@ Verify the signature on the server or client side using Sequence utility functio
 const provider = wallet.getProvider()
 const chainId = await wallet.getChainId()
 
-const isValid = await sequence.utils.isValidMessageSignature(
+const isValid = await wallet.utils.isValidMessageSignature(
   userAddress,
   authorizationMessage,
   signature,
-  provider,
   chainId
 )
 

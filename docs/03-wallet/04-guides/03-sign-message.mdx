@@ -67,23 +67,22 @@ const chainId = await wallet.getChainId()
 // The sequence utils `isValidMessageSignature` method can validate signatures
 // from any kind of wallet (ie. EOA or Smart Wallet) which includes Metamask, Coinbase,
 // and Sequence.
-const isValid = await sequence.utils.isValidMessageSignature(
+const isValid = await wallet.utils.isValidMessageSignature(
   walletAddress,
   message,
   signature,
-  provider,
-  chainId // optional, as it will use the chain id from the provider
+  chainId
 )
 
 console.log(isValid)
 ```
 
 :::info Sequence is a Smart Contract based account
-As a Smart Contract-based account, Sequence signatures must be validated with the standard
-EIP1271 method, see https://eips.ethereum.org/EIPS/eip-1271.
+These signatures are by default encoded using EIP-6492, see https://eips.ethereum.org/EIPS/eip-6492.
 
-The `sequence.utils.isValidMessageSignature`
-utility function is an easy way to validate any kind of message signature from any wallet.
+This means that the signatures can be verified using the standard process defined in the `UniversalVerified` contract on EIP-6492.
+
+The `wallet.utils.isValidMessageSignature` implements EIP-6492 verification, it can be used to verify signatures from any kind of wallet.
 :::
 
 <br/>
@@ -277,11 +276,11 @@ func ValidateETHAuth() {
 
 ## How does it work?
 
-### Notes on Signature Validation with EIP1271
+### Notes on Signature Validation with EIP1271 + EIP6492
 
 Smart Wallets like Sequence rely on the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) standard for signature validation.
 
-The EIP1271 is a single function on a contract defined as:
+The [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) is a single function on a contract defined as:
 
 ```solidity
 function isValidSignature(
@@ -293,26 +292,59 @@ function isValidSignature(
 The first `_hash` argument accepts the hash of the message digest, and the second argument `_signature`
 is the signed payload returned by the wallet upon signing. 
 
+Additionally, Smart Wallets don't always deploy a contract onchain every time a new wallet is created.
+Instead, they compute the wallet address deterministically, and the wallet is only deployed when a transaction needs to be made.
+
+In this case, we can't use the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) function directly, because the wallet contract doesn't exist yet.
+Instead, we use the [EIP-6492](https://eips.ethereum.org/EIPS/eip-6492) standard, which defined a method for bootstrapping the wallet
+contract and calling the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) function, in a single operation.
+
+
 For Javascript/Typescript signature verification, you can use `0xsequence` utility functions like so:
 
 ```ts
 import { 0xsequence } from '0xsequence'
 
-const isValid = await sequence.utils.isValidSignature(
+const wallet = sequence.getWallet()
+
+const isValid = await wallet.utils.isValidSignature(
   walletAddress,
   digest,
   signature,
-  provider,
   chainId
 )
 
 console.log(isValid) // returns true/false
 ```
 
-Additionally you can also use `sequence.utils.isValidMessageSignature` or `sequence.utils.isValidTypedDataSignature`
-which are just syntactic sugar for `sequence.utils.isValidSignature`.
+Additionally you can also use `wallet.utils.isValidMessageSignature` or `wallet.utils.isValidTypedDataSignature`
+which are just syntactic sugar for `wallet.utils.isValidSignature`.
 
 As well, for convenience the signature validation functions above support verifying EOA or Smart Wallet signatures.
 This allows you to use a single code path in your Dapp to verify any kind of signature and support multiple wallets at
 the same time, like Metamask, Coinbase, Sequence, WalletConnect, Argent, Rainbow, etc. -- all Ethereum compatible wallets, EOA
 or Smart Wallets, will *just work*.
+
+## Legacy non-EIP6492 Signing
+
+By default, all the signing methods will generate [EIP-6492](https://eips.ethereum.org/EIPS/eip-6492) encoded signatures.
+This avoids the need to deploy the wallet onchain before being able to validate the signature, and is the recommended way to sign messages.
+
+However, if you need to generate legacy non-EIP6492 signatures, you can do so by setting the last argument of the signing methods to `false`:
+
+```ts
+const signer = wallet.getSigner()
+const message = 'Hello World!'
+
+const signature = await signer.signMessage(message, 137, false)
+console.log(signature)
+```
+
+These legacy signatures can be validated using the `wallet.utils.isValidSignature method`, but they can also be validated using
+the isValidSignature method defined on the wallet contract, as specified by the [EIP1271](https://eips.ethereum.org/EIPS/eip-1271) standard.
+
+:::caution
+Notice that signing non-EIP6492 signatures requires the wallet to be deployed onchain, and thus the user will be prompted
+to deploy the wallet onchain before being able to sign the message. If the network has fees (like Ethereum), the user will
+also be prompted to pay the transaction fees.
+:::
