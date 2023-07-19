@@ -1,2 +1,96 @@
-# Signature encoding
+# Signature Encoding
 
+Sequence Wallets support [ERC-1271 Standard Contract Signature Verification](https://eips.ethereum.org/EIPS/eip-1271) to allow signing of transactions and messages.
+
+## ERC-191 Ethereum Signed Data
+
+Messages encoded with as [ERC-191 Ethereum Signed Data](https://eips.ethereum.org/EIPS/eip-191) are able to be created and signed as follows.
+
+```ts
+import { Wallet } from '@0xsequence/wallet'
+
+// Construct your Sequence Wallet (out of scope for this section)
+const wallet: Wallet
+
+const message = "Hello, World!"
+
+const prefixedMessage = "\x19Ethereum Signed Message:\n" + len(message) + message
+const signature = await wallet.signMessage(prefixedMessage)
+```
+
+The above will iterate through local, signing the message. If the threshold is reached, the signature is returned. 
+Otherwise the library will iterate through the remote signers as well.
+The resulting signatures are joined and encoded as a hex string.
+
+## ERC-712 Structured Data Signatures
+
+[ERC-712 Structured Data](https://eips.ethereum.org/EIPS/eip-712) can also be signed in a similar fashion.
+
+```ts
+import { Wallet } from '@0xsequence/wallet'
+import { encodeTypedDataDigest } from '@0xsequence/utils'
+
+// Construct your Sequence Wallet (out of scope for this section)
+const wallet: Wallet
+
+// Encode the typed data
+const chainId = 1
+const typedData = {
+	types: {
+		Person: [
+			{ name: 'name', type: 'string' },
+			{ name: 'wallet', type: 'address' },
+			{ name: 'count', type: 'uint8' }
+		]
+	},
+	primaryType: 'Person' as const,
+	domain: {
+		name: 'Ether Mail',
+		version: '1',
+		chainId: chainId,
+		verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC'
+	},
+	message: {
+		name: 'Bob',
+		wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+		count: 4
+	}
+} 
+const hashedData = encodeTypedDataDigest(typedData)
+
+const signature = await wallet.signMessage(hashedData)
+```
+
+The above will iterate through local, signing the message. If the threshold is reached, the signature is returned. 
+Otherwise the library will iterate through the remote signers as well.
+The resulting signatures are joined and encoded as a hex string.
+
+## Verification
+
+The signature can be verified by calling the `isValidSignature` method on the wallet.
+
+```sol
+  /**
+   * @notice Verifies whether the provided signature is valid with respect to the provided hash
+   * @dev MUST return the correct magic value if the signature provided is valid for the provided hash
+   *   > The bytes4 magic value to return when signature is valid is 0x1626ba7e : bytes4(keccak256("isValidSignature(bytes32,bytes)"))
+   * @param _hash       keccak256 hash that was signed
+   * @param _signatures Signature byte array associated with _data.
+   *                    Encoded as abi.encode(Signature[], Configs)
+   * @return magicValue Magic value 0x1626ba7e if the signature is valid and 0x0 otherwise
+   */
+  function isValidSignature(
+    bytes32 _hash,
+    bytes calldata _signatures
+  ) public override virtual view returns (bytes4) {
+    // Validate signatures
+    (bool isValid,) = _signatureValidation(_hash, _signatures);
+    if (isValid) {
+      return SELECTOR_ERC1271_BYTES32_BYTES;
+    }
+
+    return bytes4(0);
+  }
+```
+
+This will iterate through the combined signatures and validate that the resulting signature breaches the wallet's threshold.
