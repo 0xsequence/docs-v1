@@ -48,15 +48,31 @@ The above example demonstrates how to connect and verify the user's identity in 
 but if you'd like to authenticate the Sequence authorization proof on your server, then you can do so with the following snippet:
 
 ```ts
-const ethAuth = new ETHAuth()
-await ethAuth.configJsonRpcProvider('https://polygon-mainnet.infura.io/v3/<your infura key here>')
+import { ValidateSequenceWalletProof } from '@0xsequence/auth'
+import { commons, v2 } from '@0xsequence/core'
+import { ETHAuth } from '@0xsequence/ethauth'
+import { trackers } from '@0xsequence/sessions'
+import * as ethers from 'ethers'
+
+// ...
+
+const rpcUrl = 'https://polygon-mainnet.infura.io/v3/<your infura key here>'
+const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
+
+// create an EIP-6492-aware ETHAuth proof validator
+const validator = ValidateSequenceWalletProof(
+  () => new commons.reader.OnChainReader(provider),
+  new trackers.remote.RemoteConfigTracker('https://sessions.sequence.app'),
+  v2.DeployedWalletContext
+)
+const ethauth = new ETHAuth(validator)
+await ethauth.configJsonRpcProvider(rpcUrl)
 
 try {
-  const decodedProof = await ethAuth.decodeProof(connectDetails.proof.proofString)
-  console.log('welcome user address', decodedProof.address)
-
+  const proof = await ethAuth.decodeProof(connectDetails.proof.proofString)
+  console.log(`proof for address ${proof.address} is valid`)
 } catch (err) {
-  console.log('proof is invalid -- do not trust the provided account address')
+  console.log(`invalid proof -- do not trust address: ${err}`)
 }
 ```
 
