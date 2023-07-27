@@ -14,7 +14,7 @@ const transaction2 = {
 }
 
 const signer = wallet.getSigner()
-const response = await signer.sendTransactionBatch([transaction1, transaction2])
+const response = await signer.sendTransaction([transaction1, transaction2])
 console.log(response)
 ```
 
@@ -50,6 +50,6 @@ const transactions = [
 ]
 
 const signer = wallet.getSigner()
-const response = await signer.sendTransactionBatch(transactions)
+const response = await signer.sendTransaction(transactions)
 console.log(response)
 ```

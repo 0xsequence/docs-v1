@@ -39,9 +39,9 @@ const connectors = connectorsForWallets([
     wallets: [
       sequenceWallet({
         chains,
+        defaultNetwork: 'polygon'
         connect: {
-          app: 'Demo-app',
-          networkId: 137
+          app: 'Demo-app'
         }
       }),
       ...otherRainbowKitWallets
@@ -58,6 +58,9 @@ Chains supported by app. This is the same parameter as would be passed to other 
 ### connect (optional)
 Connect options for Sequence, including the name of the app and the default network id the wallet will attempt connection to.
 A more in depth description of the connect options is available [here](/wallet/guides/connect-wallet#wallet-login-and-connect-options).
+
+### defaultNetwork (optional)
+The default network to connect to. Sequence will default all operations to this network. It can also be defined using a number (e.g. 1 for Mainnet, 5 for Goerli, etc...).
 
 ## Using NextJs
 There are special considerations to take into account when using NextJs with Wagmi-based libraries like RainbowKit, such that it functions harmoniously with the server-side rendering of NextJs.

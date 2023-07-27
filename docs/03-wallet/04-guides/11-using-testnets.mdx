@@ -1,10 +1,29 @@
 # Using Sequence on testnets
 
+By default, all Sequence wallets are able to use all supported networks (including testnets!). Dapps can interact with any of these testnets like they would with any other network.
+
+For example, if a dapp only wants to interact with the Mumbai testnet, they can do so by specifying the network when `initWallet` is called:
+
+```ts
+import { sequence } from '0xsequence'
+
+const wallet = await sequence.initWallet({ defaultNetwork: 'mumbai' })
+```
+
+Most methods also support a `chainId` parameter, which can be used to specify the network to interact with:
+
+```ts
+const signer = wallet.getSigner()
+
+const transaction = {
+  to: '0x6d52be8194216fF4E7685D285728C8dF9050b2CC',
+  value: ethers.utils.parseEther('0.1')
+}
+
+const response = await signer.sendTransaction(transaction, { chainId: 'mumbai' })
+```
+
 ## Supported test networks
 - Goerli
 - Mumbai
 - BSC Testnet
-
-In order to connect to test networks, you need to go to the Sequence login screen and click on `Enable Testnet` in the footer.
-
-![Sequence enable testnets](/img/testnet-login.png)
