@@ -61,8 +61,8 @@ Given a message and signature, you can check if a particular wallet signed that 
 // encoded and passed separately.
 const wallet = sequence.getWallet()
 const provider = wallet.getProvider()
-const walletAddress = await wallet.getAddress()
-const chainId = await wallet.getChainId()
+const walletAddress = wallet.getAddress()
+const chainId = wallet.getChainId()
 
 // The sequence utils `isValidMessageSignature` method can validate signatures
 // from any kind of wallet (ie. EOA or Smart Wallet) which includes Metamask, Coinbase,
@@ -336,7 +336,7 @@ However, if you need to generate legacy non-EIP6492 signatures, you can do so by
 const signer = wallet.getSigner()
 const message = 'Hello World!'
 
-const signature = await signer.signMessage(message, 137, false)
+const signature = await signer.signMessage(message, { eip6492: false })
 console.log(signature)
 ```
 

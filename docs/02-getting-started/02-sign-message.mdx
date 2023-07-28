@@ -17,12 +17,13 @@ const signature = await signer.signMessage(message)
 console.log('message signature:', signature)
 
 // Validate the signed message. The sequence utils `isValidMessageSignature` method
-// supports validating both EOA and Smart Wallet (EIP1271) signatures with this simple call.
+// supports validating both EOA and Smart Wallet (EIP1271 + EIP6492)
+// signatures with this simple call.
 const isValid = await wallet.utils.isValidMessageSignature(
   await wallet.getAddress(),
   message,
   signature,
-  provider
+  provider.getChainId()
 )
 
 console.log('isValid?', isValid)

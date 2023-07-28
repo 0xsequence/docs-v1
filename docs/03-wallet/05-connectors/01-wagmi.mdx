@@ -36,9 +36,9 @@ import { SequenceConnector } from '@0xsequence/wagmi-connector'
     new SequenceConnector({
       chains,
       options: {
+        defaultNetwork: 'polygon',
         connect: {
           app: 'Demo-app',
-          networkId: 137
         }
       }
     }),
@@ -61,6 +61,9 @@ Chains supported by app. This is the same parameter as would be passed to other 
 ### options.connect (optional)
 Connection details that will be passed to Sequence upon connection, including app name, network id, etc...
 A more in depth description of the connect options is available [here](/wallet/guides/connect-wallet#wallet-login-and-connect-options).
+
+### options.defaultNetwork (optional)
+The default network to connect to. Sequence will default all operations to this network. It can also be defined using a number (e.g. 1 for Mainnet, 5 for Goerli, etc...).
 
 ## Using older versions of Wagmi (<= 0.12.x)
 If you are using an older version of Wagmi (<= 0.12.x), which is based on ethers instead of viem, use the following command to install the appropriate version of the wagmi connector:

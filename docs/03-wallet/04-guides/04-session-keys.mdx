@@ -19,7 +19,7 @@ const wallet = new Wallet()
 await wallet.connect()
 
 const signer = wallet.getSigner()
-const userAddress = await signer.getAddress()
+const userAddress = signer.getAddress()
 ```
 
 ### 2. Generate a Session Key
