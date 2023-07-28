@@ -1,0 +1,130 @@
+---
+slug: /migrate-sequence-js-1-1-0
+---
+
+# Migrate to sequence-js v1.1.0 
+
+This document explains how to migrate from sequence-js versions earlier than v1.1.0 to v1.1.0.
+
+## Changes
+
+### Init library
+
+The `initWallet` function's `network` parameter has been replaced. Now, it accepts a configuration object that *may* include a `defaultNetwork` parameter.
+
+Before:
+
+```ts
+const wallet = await sequence.initWallet('mainnet')
+```
+
+After:
+
+```ts
+const wallet = await sequence.initWallet({ defaultNetwork: 'mainnet' })
+```
+
+The parameter remains optional. If not provided, the default network will be `mainnet`.
+
+### Wallet class instance
+
+Previously, both `initWallet` and `getWallet` returned a `Wallet` instance, which could be used to access both a provider and a signer. Now, they return a `SequenceProvider`, which already functions as the provider while offering sequence-specific methods.
+
+Methods such as `getSigner` and `getProvider` are still available in `SequenceProvider`. Note that calling `getProvider()` will return `self`.
+
+Before:
+
+```ts
+const wallet = await sequence.initWallet('mainnet')
+const provider = wallet.getProvider()
+const signer = wallet.getSigner()
+```
+
+After:
+
+```ts
+const provider = await sequence.initWallet('mainnet')
+const signer = provider.getSigner()
+```
+
+#### Custom network provider and signer
+
+The `getProvider` and `getSigner` methods now accept an optional `network` parameter. This is handy when you wish to use a custom provider or signer for a specific network. In such cases, a tailored network provider/signer is created, and the method does **not** return `self`.
+
+### Connect wallet
+
+The `connect` function now mandates an `app` parameter, representing the app name requesting the connection. This name will be displayed to the user.
+
+Before:
+
+```ts
+const connectDetails = await wallet.connect()
+```
+
+After:
+
+```ts
+const connectDetails = await wallet.connect({ app: 'Your app name' })
+```
+
+### Sign EIP-6492 messages
+
+EIP-6492 allows the wallet to sign messages without first executing a transaction. This feature should be utilized only when the signature will be validated by software supporting EIP-6492, such as the sequence-js library. All `sign` methods of the signer use EIP-6492 by default.
+
+To opt out of EIP-6492, previously you could append a `false` value at the end of each sign method; now you can pass an `eip6492` named argument.
+
+Before:
+
+```ts
+const signature = await signer.signMessage(message, undefined, false)
+```
+
+After:
+
+```ts
+const signature = await signer.signMessage(message, { eip6492: false })
+```
+
+### Operate on a specific network
+
+Earlier, most methods of the signer and provider would target the default network. You could alter this by adding a positional `network` argument at the end of each method. This has been swapped with a named `chainId` argument, which can be combined with other named arguments, such as `eip6492`.
+
+Before:
+
+```ts
+const balance = await provider.sendTransaction(transaction, 'rinkeby')
+```
+
+After:
+
+```ts
+const balance = await provider.sendTransaction(transaction, { chainId: 'rinkeby' })
+```
+
+### Send batch transactions
+
+Previously, separate methods (`sendTransactionBatch` and `sendTransaction`) were provided for batch transactions. Now, there's just `sendTransaction` that can receive either an array of transactions or a singular transaction.
+
+Before:
+
+```ts
+const receipt1 = await provider.sendTransactionBatch([transaction1, transaction2])
+const receipt2 = await provider.sendTransaction(transaction3)
+```
+
+After:
+
+```ts
+const receipt1 = await provider.sendBatchTransaction([transaction1, transaction2])
+const receipt2 = await provider.sendBatchTransaction(transaction3)
+```
+
+### Removal of internal state methods
+
+Some internal state methods have been either removed or deprecated. This encompasses methods for:
+
+- Determining if the wallet is deployed
+- Retrieving the wallet's "sequence context"
+- Accessing the "inner configuration" of the wallet (i.e., its comprising signers)
+
+Should you require any of these methods, please reach out to [support](./support).
