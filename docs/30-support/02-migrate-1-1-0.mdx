@@ -128,3 +128,95 @@ Some internal state methods have been either removed or deprecated. This encompa
 - Accessing the "inner configuration" of the wallet (i.e., its comprising signers)
 
 Should you require any of these methods, please reach out to [support](./support).
+
+### Rainbowkit Connector
+
+Compatibility with the Rainbowkit connector has been largely retained. However, the configuration for `defaultNetwork` has been relocated. Previously, it was set under `connect.networkId`. Now, it has been elevated to a top-level property named `defaultNetwork`.
+
+Before:
+
+```ts
+sequenceWallet({
+  chains,
+  connect: {
+    app: 'Demo app',
+    networkId: 1,
+  },
+})
+```
+
+After:
+
+```ts
+sequenceWallet({
+  chains,
+  defaultNetwork: 1,
+  connect: {
+    app: 'Demo app',
+  },
+})
+```
+
+#### Wagmi Connector
+
+The Wagmi connector has undergone the same modifications as the Rainbowkit connector.
+
+Before:
+
+```ts
+new SequenceConnector({
+  chains,
+  connect: {
+    app: 'Demo app',
+    networkId: 1,
+  },
+})
+```
+
+After:
+
+```ts
+new SequenceConnector({
+  chains,
+  defaultNetwork: 1,
+  connect: {
+    app: 'Demo app',
+  },
+})
+```
+
+### Rainbowkit & Wagmi Connector - EIP-6492 Signatures
+
+In earlier versions, EIP-6492 signatures were activated globally either through the `useEIP6492` configuration property or the `useSequenceEIP6492` method. Both methods have now been deprecated. Attempting to initialize with `useEIP6492` will result in a runtime error.
+
+For utilizing EIP-6492 in the updated version, you'll need to explicitly invoke `sequence_sign` or `sequence_signTypedData_v4` on the connector.
+
+Before:
+
+```ts
+new SequenceConnector({
+  chains,
+  connect: {
+    app: 'Demo app',
+    networkId: 1,
+    useEIP6492: true,
+  },
+})
+```
+
+After:
+
+```ts
+// NOTE: The connector is now initialized without the useEIP6492 property.
+// ...
+const sig = await walletClient.request({
+  method: 'sequence_sign',
+  params: [message, account]
+}) as string;
+```
+
+:::info Ensure Correct Peer Dependency
+Both `@0xsequence/wagmi-connector` and `@0xsequence/rainbowkit-plugin` versions `2.1.0` require `0xsequence` as a peer dependency. Ensure that you are using version `1.1.0` or higher of `0xsequence`. Utilizing older versions may lead to instability in your application.
+
+This is essential to maintain compatibility and ensure the stable operation of your connectors and plugins.
+:::
