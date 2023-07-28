@@ -2,9 +2,9 @@
 slug: /migrate-sequence-js-1-1-0
 ---
 
-# Migrate to sequence-js v1.1.0 
+# Migrate to sequence.js v1.1.0 
 
-This document explains how to migrate from sequence-js versions earlier than v1.1.0 to v1.1.0.
+This document explains how to migrate to sequence.js v1.1.0 from earlier versions.
 
 ## Changes
 
@@ -30,7 +30,7 @@ The parameter remains optional. If not provided, the default network will be `ma
 
 Previously, both `initWallet` and `getWallet` returned a `Wallet` instance, which could be used to access both a provider and a signer. Now, they return a `SequenceProvider`, which already functions as the provider while offering sequence-specific methods.
 
-Methods such as `getSigner` and `getProvider` are still available in `SequenceProvider`. Note that calling `getProvider()` will return `self`.
+Methods such as `getSigner` and `getProvider` are still available in `SequenceProvider`. Note that calling `getProvider()` will return `this`.
 
 Before:
 
@@ -43,13 +43,13 @@ const signer = wallet.getSigner()
 After:
 
 ```ts
-const provider = await sequence.initWallet('mainnet')
+const provider = await sequence.initWallet({ defaultNetwork: 'mainnet' })
 const signer = provider.getSigner()
 ```
 
 #### Custom network provider and signer
 
-The `getProvider` and `getSigner` methods now accept an optional `network` parameter. This is handy when you wish to use a custom provider or signer for a specific network. In such cases, a tailored network provider/signer is created, and the method does **not** return `self`.
+The `getProvider` and `getSigner` methods now accept an optional `network` parameter. This is handy when you wish to use a custom provider or signer for a specific network. In such cases, a tailored network provider/signer is created, and the method does **not** return `this`.
 
 ### Connect wallet
 
@@ -69,7 +69,7 @@ const connectDetails = await wallet.connect({ app: 'Your app name' })
 
 ### Sign EIP-6492 messages
 
-EIP-6492 allows the wallet to sign messages without first executing a transaction. This feature should be utilized only when the signature will be validated by software supporting EIP-6492, such as the sequence-js library. All `sign` methods of the signer use EIP-6492 by default.
+EIP-6492 allows the wallet to sign messages without first executing a transaction. This feature should be utilized only when the signature will be validated by software supporting EIP-6492, such as the sequence.js library. All `sign` methods of the signer use EIP-6492 by default.
 
 To opt out of EIP-6492, previously you could append a `false` value at the end of each sign method; now you can pass an `eip6492` named argument.
 
@@ -109,14 +109,12 @@ Before:
 
 ```ts
 const receipt1 = await provider.sendTransactionBatch([transaction1, transaction2])
-const receipt2 = await provider.sendTransaction(transaction3)
 ```
 
 After:
 
 ```ts
-const receipt1 = await provider.sendBatchTransaction([transaction1, transaction2])
-const receipt2 = await provider.sendBatchTransaction(transaction3)
+const receipt1 = await provider.sendTransaction([transaction1, transaction2])
 ```
 
 ### Removal of internal state methods
