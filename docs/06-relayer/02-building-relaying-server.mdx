@@ -121,6 +121,15 @@ if (txnReceipt.status != 1) {
 }
 ```
 
+:::caution Triggers migration
+
+Openning a session may trigger a migration of your Sequence wallet to a new version, this could be `v1` to `v2` or `v2` to future versions.
+
+Migration is a one-way process, once your wallet is migrated it cannot be reverted to a previous version.
+
+To catch any unwanted migration, you can use the `onMigration` callback.
+:::
+
 ## Nodejs Server with Gas Sponsoring using Sequence Builder
 
 :::tip Need access to our Sequence Builder?
