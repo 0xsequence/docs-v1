@@ -145,7 +145,7 @@ Notice that transactions with `to === wallet` are strictly forbidden, and will g
 | type   | string | Transaction type, should be "erc721send"      | No       |
 | token  | string | The ERC721 token contract address             | No       |
 | to     | string | The recipient Ethereum address                | No       |
-| value  | string | Token ID to send                              | No       |
+| id     | string | Token ID to send                              | No       |
 | safe   | bool   | Whether to use the safeTransferFrom function  | Yes      |
 | data   | string | Additional data for the transaction           | Yes      |
 
@@ -187,7 +187,7 @@ Notice that `data` can only be used if `safe === true`.
         "type": "erc721send",
         "token": "0xF87E31492Faf9A91B02Ee0dEAAd50d51d56D5d4d",
         "to": "0x17fFA2d95b58228e1ECb0C6Ac25A6EfD20BA08E4",
-        "value": "7",
+        "id": "7",
         "safe": true,
         "data": "0x112233"
       },
