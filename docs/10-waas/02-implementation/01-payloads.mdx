@@ -89,6 +89,7 @@ This payload is generated when `signMessage` is called on the SDK.
 | ---     | ---    | ---                                        | ---      |
 | code    | string | The "code" of the payload (`signMessage`). | No       |
 | wallet  | string | Address of the wallet.                     | No       |
+| network | string | Network on which to send the transactions. | No       |
 | message | string | Message to be signed.                      | No       |
 
 
@@ -98,6 +99,7 @@ This payload is generated when `signMessage` is called on the SDK.
   "packet": {
     "code": "signMessage",
     "wallet": "0xBc5F07A5852fdF3DBd57A76835109220D0ADd8E8",
+    "network": "1",
     "message": "Join game: #284892"
   },
   "signatures": [{
