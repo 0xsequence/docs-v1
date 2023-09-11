@@ -18,21 +18,26 @@ Also, the Sequence wallet should be sufficiently funded in order to pay fees nee
 Using this approach - versus the next section (with sponsoring) - includes the ability to pay for gas in any available currency by our relayer (e.g. 'MATIC', 'DAI', 'USDC', 'WETH').
 
 ```ts
-import { RpcRelayer } from '@0xsequence/relayer'
-import { Wallet } from '@0xsequence/wallet'
-import { ethers } from 'ethers'
-
-// Get a provider
-const provider = new ethers.providers.JsonRpcProvider('https://nodes.sequence.app/polygon')
+import { Session } from '@0xsequence/auth'
 
 // Create your server EOA
 const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 
-// Create your rpc relayer instance with relayer node you want to use
-const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app', provider: provider})
+// Open a Sequence session, this will find or create
+// a Sequence wallet controlled by your server EOA
+const session = await Session.singleSigner({
+  signer: walletEOA
+})
 
-// Create your Sequence server wallet, controlled by your server EOA, and connect it to the relayer
-const wallet = (await Wallet.singleOwner(walletEOA)).connect(provider, relayer)
+// Get the Sequence wallet address
+console.log(session.account.address)
+
+// Get a signer for a specific network
+// - 1:     Ethereum Mainnet
+// - 137:   Polygon Mainnet
+// - 42161: Arbitrum One
+// See https://chainid.network/ for more
+const signer = session.account.getSigner(137)
 
 // Craft your transaction
 const erc721Interface = new ethers.utils.Interface([
@@ -48,57 +53,8 @@ const txn = {
   data
 }
 
-// Request the possible fee options the relayer will accept for this transaction
-const [config, context] = await Promise.all([wallet.getWalletConfig(), wallet.getWalletContext()])
-const { options, quote } = await relayer.getFeeOptions(config[0], context, txn /* , txn2, txn3, etc... */)
-
-
-
-// Choose a fee from the list of options returned by the relayer
-// MATIC is native to Polygon and needs to be handled differently than other ERC-20 tokens like USDC
-
-// === vvv To pay the fee in native MATIC: vvv ===
-const option = options.find(option => option.token.symbol === 'MATIC')
-if (!option) {
-  throw Error(`relayer doesn't support MATIC fees`)
-}
-
-// Craft the MATIC fee payment transaction
-// revertOnError: true is required for fee payments
-const feeTxn = {
-  to: option.to,
-  value: option.value,
-  gasLimit: option.gasLimit,
-  revertOnError: true
-}
-// === ^^^ MATIC fee ^^^ ===
-
-
-
-// === vvv To pay the fee in USDC: vvv ===
-const option = options.find(option => option.token.symbol === 'USDC')
-if (!option) {
-  throw Error(`relayer doesn't support USDC fees`)
-}
-
-const erc20Interface = new ethers.utils.Interface([
-  'function transfer(address _to, uint256 _value)'
-])
-
-// Craft the USDC fee payment transaction
-// revertOnError: true is required for fee payments
-const feeTxn = {
-  to: option.token.contractAddress,
-  gasLimit: option.gasLimit,
-  data: erc20Interface.encodeFunctionData('transfer', [option.to, option.value]),
-  revertOnError: true
-}
-// === ^^^ USDC fee ^^^ ===
-
-
-
-// Send your transaction with the fee and quote to the relayer for dispatch
-const txnResponse = await wallet.sendTransaction([txn, feeTxn], undefined, undefined, quote)
+// Send the transaction
+const txnResponse = await signer.sendTransaction(txn)
 
 // Wait for transaction to be mined
 const txnReceipt = await txnResponse.wait()
@@ -107,8 +63,72 @@ const txnReceipt = await txnResponse.wait()
 if (txnReceipt.status != 1) {
   console.log(`Unexpected status: ${txnReceipt.status}`)
 }
-
 ```
+
+You can also enforce a specific way to pay for gas fees, or the openning of a specific Sequence wallet.
+
+```ts
+import { Session } from '@0xsequence/auth'
+
+// Create your server EOA
+const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
+
+// Open a Sequence session, this will find or create
+// a Sequence wallet controlled by your server EOA
+const session = await Session.singleSigner({
+  signer: walletEOA,
+  // OPTIONAL: Multiple wallets could be found for the same EOA
+  // to enforce a specific wallet you can use the following callback
+  selectWallet: async (wallets: string[]) => {
+    const found = wallets.find(w => w === EXPECTED_WALLET_ADDRESS)
+    if (!found) throw Error('wallet not found')
+    // Returning the wallet address will make the session use it
+    // returning undefined will make the session create a new wallet
+    return found
+  }
+})
+
+const signer = session.account.getSigner(137, {
+  // OPTIONAL: You can also enforce a specific way to pay for gas fees
+  // if not provided the sdk will select one for you
+  selectFee: async (
+    _txs: any,
+    options: FeeOption[]
+  ) => {
+    // Find the option to pay with native tokens
+    const found = options.find(o => !o.token.contractAddress)
+    if (!found) throw Error('fee option not found')
+    return found
+  }
+})
+
+// Initialize the contract
+const usdc = new ethers.Contract(
+  '0x2791bca1f2de4661ed88a30c99a7a9449aa84174', // USDC on Polygon
+  ERC_20_ABI,
+  signer
+)
+
+// Send the transaction
+const txnResponse = await usdc.transfer(recipient, 1)
+
+// Wait for transaction to be mined
+const txnReceipt = await txnResponse.wait()
+
+// Check if transaction was successful 
+if (txnReceipt.status != 1) {
+  console.log(`Unexpected status: ${txnReceipt.status}`)
+}
+```
+
+:::caution Triggers migration
+
+Openning a session may trigger a migration of your Sequence wallet to a new version, this could be `v1` to `v2` or `v2` to future versions.
+
+Migration is a one-way process, once your wallet is migrated it cannot be reverted to a previous version.
+
+To catch any unwanted migration, you can use the `onMigration` callback.
+:::
 
 ## Nodejs Server with Gas Sponsoring using Sequence Builder
 
@@ -147,21 +167,35 @@ For this example, we assume you have a smart contract deployed with a contract a
 The following is example code that implements a relayed transaction, same as the above example (i.e. Nodejs Server) but without fees, taken care of by the Sequence Builder.
 
 ```ts
-import { RpcRelayer } from '@0xsequence/relayer'
-import { Wallet } from '@0xsequence/wallet'
-import { ethers } from 'ethers'
-
-// Get a provider
-const provider = new ethers.providers.JsonRpcProvider('https://nodes.sequence.app/polygon')
+import { Session } from '@0xsequence/auth'
 
 // Create your server EOA
 const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 
-// Create your rpc relayer instance with relayer node you want to use
-const relayer = new RpcRelayer({url: 'https://polygon-relayer.sequence.app', provider: provider})
+// Open a Sequence session, this will find or create
+// a Sequence wallet controlled by your server EOA
+const session = await Session.singleSigner({
+  signer: walletEOA
+})
 
-// Create your Sequence server wallet, controlled by your server EOA, and connect it to the relayer
-const wallet = (await Wallet.singleOwner(walletEOA)).connect(provider, relayer)
+// Get the Sequence wallet address
+console.log(session.account.address)
+
+// Get a signer for a specific network
+// - 1:     Ethereum Mainnet
+// - 137:   Polygon Mainnet
+// - 42161: Arbitrum One
+// See https://chainid.network/ for more
+const signer = session.account.getSigner(137, {
+  // OPTIONAL: This ensures that the transaction is paid for by the gas tank
+  // but if not provided, the gas tank will be used anyway
+  selectFee: async (
+    _txs: any,
+    _options: FeeOption[]
+  ) => {
+    return undefined
+  }
+})
 
 // Craft your transaction
 const erc721Interface = new ethers.utils.Interface([
@@ -177,8 +211,8 @@ const txn = {
   data
 }
 
-// Send your transaction to the relayer for dispatch
-const txnResponse = await wallet.sendTransaction([txn])
+// Send the transaction
+const txnResponse = await signer.sendTransaction(txn)
 
 // Wait for transaction to be mined
 const txnReceipt = await txnResponse.wait()
@@ -199,33 +233,40 @@ This allows the transactions to be dispatched immediately in an unbuffered way w
 Here is an example of how to do that:
 
 ```js
-// Import sequence nonce encoding function
-import { encodeNonce } from '@0xsequence/transactions';
-
 // Generate random nonce spaces with ~0% probability of collision
 const randomNonceSpace1 = ethers.BigNumber.from(ethers.utils.hexlify(ethers.utils.randomBytes(20)))
 const randomNonceSpace2 = ethers.BigNumber.from(ethers.utils.hexlify(ethers.utils.randomBytes(20)))
+
+// Create signers for each nonce space
+const signer1 = session.account.getSigner(137, {
+  nonceSpace: randomNonceSpace1
+})
+
+const signer2 = session.account.getSigner(137, {
+  nonceSpace: randomNonceSpace2
+})
 
 // Generate transactions
 const txn1 = {
   to: tokenContract.address,
   data: erc20Interface.encodeFunctionData(
     'transfer', [recipient1, amount1]
-  ),
-  nonce: encodeNonce(randomNonceSpace1, 0)
+  )
 }
 
 const txn2 = {
   to: tokenContract.address,
   data: erc20Interface.encodeFunctionData(
     'transfer', [recipient2, amount2]
-  ),
-  nonce: encodeNonce(randomNonceSpace2, 0)
+  )
 }
 
 // Dispatch transactions, which can now be executed in parallel
-const txnResponse = await wallet.sendTransactionBatch([txn1, txn2])
+await Promise.all([
+  signer1.sendTransaction(txn1),
+  signer2.sendTransaction(txn2)
+])
 ```
 
-If batching transactions is not a problem for your use-case, you can call `await wallet.sendTransactionBatch(txns)`.
+If batching transactions is not a problem for your use-case, you can call `await wallet.sendTransaction(txns)`.
 You can read more about batch transactions in [Sending Batched Transactions](/wallet/guides/send-batch-transactions).
