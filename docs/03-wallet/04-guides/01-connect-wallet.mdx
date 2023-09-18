@@ -162,6 +162,12 @@ Example: `await wallet.connect({ expiry: 36000 })`
 
 Example: `await wallet.connect({ authorize: true })`
 
+#### **authorizeNonce**
+
+`authorizeNonce` is an optional number to be passed as ETHAuth's nonce claim for replay protection.
+
+Example: `await wallet.connect({ authorizeNonce: 123 })`
+
 #### **refresh**
 
 `refresh` flag will force a full re-connect (ie. disconnect then connect again).
