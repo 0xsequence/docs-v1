@@ -1,0 +1,35 @@
+---
+sidebar_label: Configuration
+---
+
+# Overview
+Developers can further customize the Sequence Kit experience by passing configuration options.
+
+These settings can be passed down to the `KitProvider` wrapper:
+
+```jsx
+
+  const kitConfig =  {
+		defaultTheme: 'light',
+		position: 'top-left,
+		...
+	}
+
+  <KitProvider config={kitConfig}>
+    <App />
+  <KitProvider>
+
+```
+
+# Options
+
+## `defaultTheme`
+The defaultTheme is the color palette used for styling the modal. Can be 'light' or 'dark'. Default to 'dark'.
+
+## `position`
+The position parameter determines the location of the various modals on the screen.
+Possible values: 'center' | 'middle-right' | 'middle-left' | 'top-center' | 'top-right' | 'top-left' | 'bottom-center' | 'bottom-right' | 'bottom-left'
+Defaults to: 'center'
+
+## `signIn`
+The signIn object is used to configure the sign in modal.
