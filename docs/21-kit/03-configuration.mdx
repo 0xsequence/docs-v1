@@ -111,7 +111,7 @@ Determines whether the inline email input will be shown in the sign in modal.
 | string[]  | ['google', 'discord', 'facebook', 'apple']    |
 
 Determines which authentication options will be shown as mini options in the sign in modal. This space is meant for social connectors.
-The wallets will be displayed in the order they are passed in the array.
+The wallets will be displayed in the order they are passed in the array. The values correspond to the connector's id and a corresponding connector must be passed down to wagmi.
 
 ### `signIn.authOptions`
 <div>
@@ -123,7 +123,7 @@ The wallets will be displayed in the order they are passed in the array.
 | string[]  | ['metamask', 'wallet-connect'] |
 
 Determines which authentication options will be shown in the modal as big buttons.
-The wallets will be displayed in the order they are passed in the array.
+The wallets will be displayed in the order they are passed in the array. The values correspond to the connector's id and a corresponding connector must be passed down to wagmi.
 
 ## `displayedAssets`
 | Type    | Default |
