@@ -111,6 +111,7 @@ Determines whether the inline email input will be shown in the sign in modal.
 | string[]  | ['google', 'discord', 'facebook', 'apple']    |
 
 Determines which authentication options will be shown as mini options in the sign in modal. This space is meant for social connectors.
+The wallets will be displayed in the order they are passed in the array.
 
 ### `signIn.authOptions`
 <div>
@@ -122,11 +123,13 @@ Determines which authentication options will be shown as mini options in the sig
 | string[]  | ['metamask', 'wallet-connect'] |
 
 Determines which authentication options will be shown in the modal as big buttons.
+The wallets will be displayed in the order they are passed in the array.
 
 ## `displayedAssets`
 | Type    | Default |
 | -------- | ------- |
 | [{ contractAddress: string, chainId: number }, ...]  | undefined |
 
-Determines which assets will be displayed in the embedded wallet modal main view.
+If provided, this will determine which assets are to be displayed in the embedded wallet modal main view.
 By passing a list of displayed assets, only assets from the provided list will be displayed in the main view.
+In the case that no assets are provided, all owned assets can be displayed in the main view.

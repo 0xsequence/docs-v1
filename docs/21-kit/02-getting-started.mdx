@@ -52,7 +52,7 @@ function App() {
   })
 
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <KitProvider>
         <MyPage />
       </KitProvider>
@@ -70,6 +70,7 @@ To install the optional embedded wallet, add the `KitWalletProvider` below the `
 ```jsx
 import { KitWalletProvider } from '@0xsequence/kit-wallet'
 
+// ...
 
 const App = () => {
   return (
@@ -116,11 +117,11 @@ function App() {
   })
 
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <KitProvider>
-				<KitWalletProvider>
-        	<MyPage />
-				</KitWalletProvider>
+        <KitWalletProvider>
+          <MyPage />
+        </KitWalletProvider>
       </KitProvider>
     </WagmiConfig>
   );
