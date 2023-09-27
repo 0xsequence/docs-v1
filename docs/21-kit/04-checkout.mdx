@@ -3,7 +3,7 @@ sidebar_label: Checkout
 ---
 
 # Overview
-The checkout modal enables developers to easily facilitate payments through either cryptocurrency or credit card.
+The checkout modal enables developers to easily facilitate cryptocurrency payments.
 
 <div class="text--center">
   <img src="/img/kit/checkout-modal.png" />
@@ -68,19 +68,10 @@ Configure the checkout modal using the `checkoutSettings` object:
 
 ```jsx
 const checkoutSettings = {
-  creditCardCheckout: {...},
   cryptoCheckout: {...},
   orderSummaryItems: {...}
 }
 ```
-If the `creditCardCheckout` field is provided, the credit card checkout feature will be enabled. If the `cryptoCheckout` field is provided, the crypto checkout feature will be enabled so that the user can be using crypto. If both fields are provided, the user will be able to choose between the two options to execute the transaction.
-The `orderSummaryItems` field is used to display the order summary in the checkout modal which comes in the form a list of collectibles.
-
-
-### Credit Card Checkout Configuration (`creditCardCheckout`)
-The `creditCardCheckout` setting contains information for credit card checkout using the Paper api.
-
-For more information, view the [Paper documentation](https://docs.withpaper.com/reference/create-checkout-elements-client-secret) or at the sample settings in the [React example](https://github.com/0xsequence/kit/blob/master/examples/react/src/utils/settings.ts#L4).
 
 ### Crypto Checkout Configuration (`cryptoCheckout`)
 The `cryptoCheckout` field specifies settings for checking out with cryptocurrency, e.g., interacting with a minting contract or marketplace contract.
@@ -115,10 +106,3 @@ Example configuration:
       },
     ]
 ```
-
-## Credit Card Checkout Integration
-The credit card integration is based on the Paper API. Ensure that the combination of [network and currency is supported](https://docs.withpaper.com/reference/checkouts-faq#which-blockchains-and-currencies-are-supported).
-
-Additionally, the smart contract must be whitelisted by the Sequence team before integrating it with the credit card checkout feature.
-
-To whitelist your smart contract for credit card checkout with Sequence Kit, please reach out to hello@horizon.io.
