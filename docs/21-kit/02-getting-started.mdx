@@ -1,15 +1,14 @@
 ---
-sidebar_label: Getting started
+sidebar_label: Getting Started
 ---
 
+# Getting Started with Sequence Kit
 
-# Overview
-In this guide, we will install sequence kit, learn how to trigger the connection modal and how to display the embedded wallet.
+In this guide, we will walk you through installing Sequence Kit, triggering the connection modal, and displaying the embedded wallet in your application.
 
-# Installing Sequence Kit Packages
+## Installing Sequence Kit Packages
 
-The Sequence Kit library is modular and only the packages which are immediately needed must be installed. In this case, we will need to install the `kit` core package, the `connectors` package which interfaces with different wallet providers and the `wallet` which is the embedded wallet.
-Alongside those those packages, we will also install other dependencies such as wagmi, viem and 0xsequence.
+Sequence Kit is modular, allowing you to install only the necessary packages. To get started, install the `kit` core package, the `connectors` package for interfacing with various wallet providers, and the `wallet` for the embedded wallet. Additionally, install other dependencies such as wagmi, viem, and 0xsequence.
 
 ```bash
 npm install @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
@@ -19,9 +18,11 @@ pnpm install @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet w
 yarn add @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
 ```
 
-# Setting up the kit wrapper
-In order to use the core kit wrapper, which enables connecting web3 wallets to the application, we must setup wagmi. The snippet below shows a basic wagmi configuration. Please read the wagmi documentation in order to further customize wagmi.
-Then, app must be wrapped by the `KitProvider` wrapper. This wrapper must a child of the `WagmiConfig` wrapper.
+# Setting Up the Kit Wrapper
+To utilize the core kit wrapper for connecting web3 wallets to your application, follow these steps:
+
+1. Configure wagmi for your app. Below is a basic wagmi configuration. For advanced configurations, please refer to the [wagmi documentation](https://wagmi.sh/react/WagmiConfig).
+
 
 ```jsx
 import MyPage from './components/MyPage'
@@ -60,8 +61,11 @@ function App() {
 }
 ```
 
-# Setting up the embedded wallet wrapper
-The optional embedded wallet can be installed by simply adding the `KitWalletWrapper` below the `KitProvider` wrapper.
+2. Wrap your app with the `KitProvider` within the `WagmiConfig` wrapper.
+
+
+# Setting Up the Embedded Wallet Wrapper
+To install the optional embedded wallet, add the `KitWalletProvider` below the `KitProvider` wrapper.
 
 ```jsx
 import { KitWalletProvider } from '@0xsequence/kit-wallet'
@@ -123,13 +127,13 @@ function App() {
 }
 ```
 
-# Invoking the connect modal
+# Triggering the Connect Modal
 
 <div class="text--center">
   <img src="/img/kit/sign-in-modal.png" />
 </div>
 
-The connect modal can be invoked by using the `useOpenConnectModal` hook.
+Invoke the connect modal using the `useOpenConnectModal` hook.
 
 ```jsx
 import { useOpenConnectModal } from '@0xsequence/kit'
@@ -157,7 +161,7 @@ const MyReactComponent = () => {
 }
 ```
 
-From there, the modal will close once the user has signed in. The `useAccount` hook from wagmi can be useful to detect whether the user is connected or not.
+The modal will automatically close once the user signs in. You can utilize the `useAccount` hook from wagmi to detect the user's connection status.
 
 # Invoking the embedded wallet modal
 
@@ -165,7 +169,7 @@ From there, the modal will close once the user has signed in. The `useAccount` h
   <img src="/img/kit/embedded-wallet.png" />
 </div>
 
-The embedded wallet can be opened thanks to the `useOpenWalletModal` react hook.
+Open the embedded wallet using the `useOpenWalletModal` react hook.
 
 ```jsx
 import { useOpenWalletModal } from '@0xsequence/kit-wallet'
@@ -184,4 +188,4 @@ const MyComponent = () => {
 ```
 
 # React Example
-The Sequence Kit [Github repository](https://github.com/0xsequence/kit) contains an [example app](https://github.com/0xsequence/kit/tree/master/examples/react) which can be used for learning and testing.
+The Sequence Kit [Github repository](https://github.com/0xsequence/kit) contains an [example app](https://github.com/0xsequence/kit/tree/master/examples/react) that you can use for learning and testing.

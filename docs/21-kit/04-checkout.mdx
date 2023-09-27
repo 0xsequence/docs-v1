@@ -1,4 +1,124 @@
 ---
 sidebar_label: Checkout
 ---
-	
+
+# Overview
+The checkout modal enables developers to easily facilitate payments through either cryptocurrency or credit card.
+
+<div class="text--center">
+  <img src="/img/kit/checkout-modal.png" />
+</div>
+
+# Integration
+To integrate the checkout feature, follow these steps:
+1. Install the `kit-checkout` module:
+
+```bash
+npm install @0xsequence/kit-checkout
+# or
+pnpm install @0xsequence/kit-checkout
+# or
+yarn add @0xsequence/kit-checkout
+```
+
+2. Place the KitCheckoutProvider below the Sequence Kit Core provider in your app:
+
+```jsx
+import { KitCheckoutProvider } from '@0xsequence/kit-checkout'
+
+
+const App = () => {
+  return (
+    <WagmiConfig config={config}>
+      <KitProvider>
+        <KitCheckoutProvider>
+          <Page />
+        </KitCheckoutProvider>
+      </KitProvider>
+    </WagmiConfig>
+  )
+}
+```
+## Opening the Checkout modal
+Use the `useCheckoutModal` hook to open the checkout modal and pass a settings object:
+
+
+```jsx
+  import { useCheckoutModal } from '@0xsequence/kit-checkout'
+
+
+  const MyComponent = () => {
+    const { triggerCheckout } = useCheckoutModal()
+  
+    const onClick = () => {
+      const checkoutSettings = {...}
+      triggerCheckout(checkoutSettings)
+    }
+
+    return (
+      <button onClick={onClick}>checkout</button>
+    )
+  }
+```
+
+
+## Configuring the Checkout modal
+Configure the checkout modal using the `checkoutSettings` object:
+
+
+```jsx
+const checkoutSettings = {
+  creditCardCheckout: {...},
+  cryptoCheckout: {...},
+  orderSummaryItems: {...}
+}
+```
+If the `creditCardCheckout` field is provided, the credit card checkout feature will be enabled. If the `cryptoCheckout` field is provided, the crypto checkout feature will be enabled so that the user can be using crypto. If both fields are provided, the user will be able to choose between the two options to execute the transaction.
+The `orderSummaryItems` field is used to display the order summary in the checkout modal which comes in the form a list of collectibles.
+
+
+### Credit Card Checkout Configuration (`creditCardCheckout`)
+The `creditCardCheckout` setting contains information for credit card checkout using the Paper api.
+
+For more information, view the [Paper documentation](https://docs.withpaper.com/reference/create-checkout-elements-client-secret) or at the sample settings in the [React example](https://github.com/0xsequence/kit/blob/master/examples/react/src/utils/settings.ts#L4).
+
+### Crypto Checkout Configuration (`cryptoCheckout`)
+The `cryptoCheckout` field specifies settings for checking out with cryptocurrency, e.g., interacting with a minting contract or marketplace contract.
+
+Example configuration:
+
+```jsx
+cons checkoutConfig = {
+  // ...
+  cryptoCheckout: {
+    chainId: 137,
+    triggerTransaction: async () => { console.log('triggered transaction') },
+    coinQuantity: {
+      contractAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+      amountRequiredRaw: '10000000000'
+    },
+  },
+}
+```
+
+### Order Summary Configuration (`orderSummaryItems`)
+The `orderSummaryItems` field specifies the list of collectibles shown in the order summary.
+
+Example configuration:
+
+```jsx
+    orderSummaryItems: [
+      {
+        contractAddress: '0x631998e91476da5b870d741192fc5cbc55f5a52e',
+        tokenId: '66597',
+        quantityRaw: '100'
+      },
+    ]
+```
+
+## Credit Card Checkout Integration
+The credit card integration is based on the Paper API. Ensure that the combination of [network and currency is supported](https://docs.withpaper.com/reference/checkouts-faq#which-blockchains-and-currencies-are-supported).
+
+Additionally, the smart contract must be whitelisted by the Sequence team before integrating it with the credit card checkout feature.
+
+To whitelist your smart contract for credit card checkout with Sequence Kit, please reach out to hello@horizon.io.

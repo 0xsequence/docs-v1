@@ -2,16 +2,17 @@
 sidebar_label: Configuration
 ---
 
-# Overview
-Developers can further customize the Sequence Kit experience by passing configuration options.
+# Configuration Options
+Developers can customize the Sequence Kit experience by passing configuration options to the `KitProvider` wrapper.
 
-These settings can be passed down to the `KitProvider` wrapper:
+Here's how you can configure the kit using these options:
+
 
 ```jsx
 
   const kitConfig =  {
 		defaultTheme: 'light',
-		position: 'top-left,
+		position: 'top-left',
 		...
 	}
 
@@ -21,30 +22,42 @@ These settings can be passed down to the `KitProvider` wrapper:
 
 ```
 
-# Options
+# Available Options
+
 
 ## `defaultTheme`
 | Type    | Default |
 | -------- | ------- |
-| light \| dark  | dark    |
+|  string | dark    |
 
-The defaultTheme is the color palette used for styling the modal.
+The defaultTheme determines the color palette used for styling the modal. Possible values include:
+- light
+- dark
+
 
 ## `position`
 | Type    | Default |
 | -------- | ------- |
-| center \| middle-right \| middle-left \| top-center \| top-right \| top-left \| bottom-center \| bottom-right \| bottom-left  | center    |
+| string  | center    |
 
-The position parameter determines the location of the various modals on the screen.
-Possible values: 
-Defaults to: 'center'
+The position parameter determines the location of the various modals on the screen. Possible values include:
+- center
+- middle-right
+- middle-left
+- top-center
+- top-right
+- top-left
+- bottom-center
+- bottom-right
+- bottom-left
 
-## `signIn`
-The signIn object is used to configure the sign in modal.
+
+## Sign In Modal Configuration (`signIn`)
+The `signIn` object is used to configure the sign in modal.
 
 ### `signIn.logoUrlDarkMode`
 
-<div class="text--center">
+<div>
   <img src="/img/kit/dark-mode-logo.png" />
 </div>
 
@@ -52,12 +65,10 @@ The signIn object is used to configure the sign in modal.
 | -------- | ------- |
 | string  | undefined    |
 
-
-This is the url of the logo that will be shown in the sign in modal when the theme is set to `dark`.
-If no value is provided, the space will be left blank.
+URL of the logo to be shown in the sign in modal when the theme is set to `dark`.
 
 ### `signIn.logoUrlLightMode`
-<div class="text--center">
+<div>
   <img src="/img/kit/light-mode-logo.png" />
 </div>
 
@@ -65,12 +76,11 @@ If no value is provided, the space will be left blank.
 | -------- | ------- |
 | string  | undefined    |
 
-This is the url of the logo that will be shown in the sign in modal when the theme is set to `light`.
-If no value is provided, the space will be left blank.
+URL of the logo to be shown in the sign in modal when the theme is set to `light`.
 
 ### `signIn.projectName`
 
-<div class="text--center">
+<div>
   <img src="/img/kit/project-name.png" />
 </div>
 
@@ -78,10 +88,10 @@ If no value is provided, the space will be left blank.
 | -------- | ------- |
 | string  | undefined    |
 
-This is the name of the project that will be shown in the sign in modal.
+Name of the project to be shown in the sign in modal.
 
 ### `signIn.showEmailInput`
-<div class="text--center">
+<div>
   <img src="/img/kit/email-input.png" />
 </div>
 
@@ -89,11 +99,10 @@ This is the name of the project that will be shown in the sign in modal.
 | -------- | ------- |
 | boolean  | true    |
 
-Determines whether or not the email input will be shown in the sign in modal.
-Please note that in order for the option to appear the corresponding connector must be passed down to wagmi beforehand.
+Determines whether the inline email input will be shown in the sign in modal.
 
 ### `signIn.miniAuthOptions`
-<div class="text--center">
+<div>
   <img src="/img/kit/mini-auth-options.png" />
 </div>
 
@@ -101,11 +110,10 @@ Please note that in order for the option to appear the corresponding connector m
 | -------- | ------- |
 | string[]  | ['google', 'discord', 'facebook', 'apple']    |
 
-Determines which authentication options will be shown as a mini options in the sign in modal. This space is meant to be used for social connectors.
-Please note that in order for the option to appear the connector must have been passed down to wagmi beforehand.
+Determines which authentication options will be shown as mini options in the sign in modal. This space is meant for social connectors.
 
 ### `signIn.authOptions`
-<div class="text--center">
+<div>
   <img src="/img/kit/auth-options.png" />
 </div>
 
@@ -113,13 +121,12 @@ Please note that in order for the option to appear the connector must have been 
 | -------- | ------- |
 | string[]  | ['metamask', 'wallet-connect'] |
 
-Determines which authentication options will be shown in the modal as a big button.
-Please note that in order for the option to appear the connector must have been passed down to wagmi beforehand.
+Determines which authentication options will be shown in the modal as big buttons.
 
 ## `displayedAssets`
 | Type    | Default |
 | -------- | ------- |
 | [{ contractAddress: string, chainId: number }, ...]  | undefined |
 
-Determines which assets will be shown in the embedded wallet modal main view. By default collections and coins will be shown based on randomness and the asset value across all owned assets.
+Determines which assets will be displayed in the embedded wallet modal main view.
 By passing a list of displayed assets, only assets from the provided list will be displayed in the main view.
