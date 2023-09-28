@@ -39,6 +39,8 @@ You'll need to then set up social login for your build target(s):
 ### Android
 
 1. In the Project window, browse to Assets > Plugins > Android.
+
+  a) Note: in some later versions of Unity, this path doesn't exist by default. Please navigate to `Edit > Project Settings > Player` and under the Android Publishing Settings, enable `Custom Main Manifest` in the Build section. See https://docs.unity3d.com/Manual/deep-linking-android.html for more info.
 2. If it doesn't already exist, create a new file and name it `AndroidManifest.xml`.
 3. Paste the following XML into the file, or, if you already have one, add the new keys from this XML to it.
 
@@ -67,6 +69,34 @@ You'll need to then set up social login for your build target(s):
      </application>
    </manifest>
 ```
+  a) Note: some Unity 2022 versions contain a bug with Android deep-linking. Please use this XML instead.
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <manifest
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+  >
+      <application>
+          <activity
+                  android:name="com.unity3d.player.UnityPlayerActivity"
+                  android:theme="@style/UnityThemeSelector"
+                  android:exported="true">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+              <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+              <intent-filter>
+                  <action android:name="android.intent.action.VIEW" />
+                  <category android:name="android.intent.category.DEFAULT" />
+                  <category android:name="android.intent.category.BROWSABLE" />
+                  <data android:scheme="demo-dapp-sequence" android:host="mobile.skyweaver.net" /> <!-- here is where you'll subsititute your social login URL scheme, but make sure to leave host="mobile.skyweaver.net"! -->
+              </intent-filter>
+          </activity>
+      </application>
+  </manifest>
+  ```
+  i.e. add `<meta-data android:name="unityplayer.UnityActivity" android:value="true" />` after your first `intent-filter`. Please see https://forum.unity.com/threads/deep-linking-in-unity-2022-the-app-is-restarted.1447300/ for more info.
 
 ### Native Windows (non-UWP)
 
