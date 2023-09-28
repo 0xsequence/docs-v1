@@ -40,7 +40,7 @@ You'll need to then set up social login for your build target(s):
 
 1. In the Project window, browse to Assets > Plugins > Android.
 
-  a) Note: in some later versions of Unity, this path doesn't exist by default. Please navigate to `Edit > Project Settings > Player` and under the Android Publishing Settings, enable `Custom Main Manifest` in the Build section. See https://docs.unity3d.com/Manual/deep-linking-android.html for more info.
+  a) Note: in Unity versions 2021.2 and up this path doesn't exist by default. Please navigate to `Edit > Project Settings > Player` and under the Android Publishing Settings, enable `Custom Main Manifest` in the Build section. See https://docs.unity3d.com/Manual/deep-linking-android.html for more info.
 2. If it doesn't already exist, create a new file and name it `AndroidManifest.xml`.
 3. Paste the following XML into the file, or, if you already have one, add the new keys from this XML to it.
 
@@ -69,7 +69,7 @@ You'll need to then set up social login for your build target(s):
      </application>
    </manifest>
 ```
-  a) Note: some Unity 2022 versions contain a bug with Android deep-linking. Please use this XML instead.
+  a) Note: Unity 2022 versions prior to `2022.3.7f1` and 2023 versions prior to `2023.1.7f1`, `2023.2.0b3`, or `2023.3.0a1` contain a bug with Android deep-linking. Please use this XML instead.
   ```xml
   <?xml version="1.0" encoding="utf-8"?>
   <manifest
