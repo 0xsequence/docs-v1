@@ -1,0 +1,108 @@
+# Wallets and transactions
+
+Once the SDK is initialized and the user has been authenticated, you can access the wallet corresponding to that user's account. The wallet is the entry point to all the operations that can be performed on the user's account.
+
+## Wallet address
+
+The wallet address is unique to each user, can't be changed, and is used to identify the user's account. It is a string of 42 characters starting with `0x`.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: '${process.env.SEQUENCE_API_KEY}',
+});
+
+await waas.signIn({ idToken });
+
+const address = await waas.getAddress();
+```
+```stdout
+0xE4b10c53aa75E19E088cfDD0cff7D46a0E4206F0
+```
+
+## Sign messages
+
+The wallet can be used to sign messages. The signatures can later be validated onchain or offchain.
+
+TODO: add example
+
+## Send transactions
+
+All wallets can send transactions right after creation. No extra steps are required to create the wallet, as all users have a wallet by default.
+
+### Raw transaction
+
+Raw transactions specify all the parameters of the transaction, including the `to` address, the `value` to send, and the `data` to include.
+
+Gas limits, prices, and nonce are always handled automatically by WaaS.
+
+A network must be specified when sending a transaction. The network must be specified as the `chainId` of the network, for example `1` for Ethereum mainnet, `42161` for Arbitrum, etc.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: '${process.env.SEQUENCE_API_KEY}',
+});
+
+await waas.signIn({ idToken });
+
+const tx = await waas.sendTransaction({
+  chainId: 42161
+}, {
+  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',
+  value: '200000000000000000000', // 200 ETH
+  data: '0x9fa2b3c4',
+});
+
+console.log(tx)
+```
+```stdout
+{
+  code: 'transactionReceipt',
+  data: {
+    'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+  }
+}
+```
+
+### Send ERC20 tokens
+
+Helper methods are available for common operations, such as sending ERC20 tokens. This automatically handles the `data` field of the transaction.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: '${process.env.SEQUENCE_API_KEY}',
+});
+
+await waas.signIn({ idToken });
+
+const tx = await waas.sendERC20({
+  chainId: 42161
+}, {
+  token: '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
+  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',
+  value: '200000000000000000000', // 200 DAI
+})
+
+console.log(tx)
+```
+```stdout
+{
+  code: 'transactionReceipt',
+  data: {
+    'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+  }
+}
+```
+
+:::caution
+Email accounts can only send transactions after the current session has been confirmed by the Sequence guard. This is done by clicking an email link sent to the user's email address or phone number.
+
+Social login accounts (like Google and Facebook) can send transactions immediately after signing in.
+
+For more details, see [validation](/waas/waas-auth/validation).
+:::

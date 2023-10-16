@@ -1,0 +1,70 @@
+# Session Management
+
+Sequence Auth + WaaS handles the following aspects of your application:
+
+- User creation
+- User authentication
+- Session management
+
+This means you don't need to implement an account system yourself; instead, you interact with the Auth + WaaS SDK whenever you need to authenticate a user.
+
+## Sign in / Sign Up
+
+Signing in and signing up are the same operation; the account is automatically created if it doesn't already exist.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: `${process.env.SEQUENCE_API_KEY}`,
+});
+
+// Get an idToken using the social auth provider of your choice
+// (e.g., Google, Facebook, Twitter, etc.)
+await waas.signIn({ idToken });
+```
+
+### Email Sign In / Sign Up
+
+TODO
+
+### Phone Sign In / Sign Up
+
+TODO
+
+## List Sessions
+
+This function returns a list of sessions for the current user and only includes sessions that are still valid.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: `${process.env.SEQUENCE_API_KEY}`,
+});
+
+await waas.signIn({ idToken });
+
+const sessions = await waas.listSessions();
+console.log(sessions);
+```
+
+```stdout
+TODO
+```
+
+## Close Session
+
+A session can be closed using the `id` of the session. Any session can be closed from any device with an active session.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: `${process.env.SEQUENCE_API_KEY}`,
+});
+
+await waas.signIn({ idToken });
+
+await waas.dropSession({ id: '...' });
+```
