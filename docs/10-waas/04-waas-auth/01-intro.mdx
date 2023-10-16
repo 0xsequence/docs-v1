@@ -1,0 +1,11 @@
+# Intro to Sequence Auth + WaaS
+
+Sequence Auth + WaaS provides a simple way to add account creation, login, session management, and wallet support to your app, enabling applications to provide traditional web experiences (e.g., social login, email login, etc.) while providing access to crypto wallets to interact with smart contracts.
+
+## How It Works
+
+Sequence WaaS is a hosted service that provides a non-custodial wallet for your users. It works by co-validating the user's identity alongside the validation performed by an existing backend (e.g., Firebase, Auth0, etc.). Two entities independently validate the user's identity, meaning that neither Sequence nor the existing backend can act maliciously to access the user's funds.
+
+However, pure WaaS integration does require an existing backend to validate the user's identity. Sequence Auth is meant to be a drop-in replacement for such a backend, providing a simple way to integrate Sequence WaaS into your app.
+
+It works by leveraging the capabilities of Amazon Nitro and Cognito to implement a custom authentication and account management flow, while providing a simple SDK to integrate with your app.

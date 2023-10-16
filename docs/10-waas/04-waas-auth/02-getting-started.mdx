@@ -1,0 +1,31 @@
+# Getting Started
+
+## SDK Installation
+
+We provide a TypeScript SDK for the Auth + WaaS system. You can install it with:
+
+```bash
+pnpm install @0xsequence/waas
+```
+
+## Project Setup
+
+To start interacting with the Auth + WaaS system, you'll need to create a new project on Sequence Builder.
+
+TODO: Explain how to create a project on the builder.
+
+Once you've created a project, you'll obtain API credentials that you can use to authenticate with the Auth + WaaS system.
+
+## Library Setup
+
+To start using the Auth + WaaS SDK, you'll need to create a new instance of the `Waas` class:
+
+```typescript
+import SequenceAuth from '@0xsequence/waas'
+
+const waas = new SequenceAuth({
+  key: `${process.env.SEQUENCE_API_KEY}`,
+})
+```
+
+Note that the library is operational, but it can't be used to interact with any wallet until you have authenticated **as a user**.
