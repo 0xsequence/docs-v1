@@ -8,6 +8,8 @@ Sequence WaaS offers two modes to fit your app's needs: Standalone WaaS and Sequ
 
 Standalone WaaS integrates with your current backend. It lets you add wallet capabilities without changing how you handle users. You'll deploy a "PSS - Partner Signer Server" to hold a private key and expose an RPC API for wallet management.
 
+<img src="/img/diagrams/waas/standalone-overview.drawio.svg" />
+
 **Note**: Make sure your existing account system securely authenticates users. The PSS trusts that each request is properly authorized by your backend.
 
 ### Standalone WaaS Components
@@ -20,6 +22,8 @@ Standalone WaaS integrates with your current backend. It lets you add wallet cap
 ## Sequence Auth + WaaS
 
 This mode is an all-in-one solution for user authentication and wallets. It's standalone and can't be used with other account systems without causing a double login issue.
+
+<img src="/img/diagrams/waas/auth-overview.drawio.svg" />
 
 ### Sequence Auth + WaaS Components
 
