@@ -1,0 +1,192 @@
+---
+sidebar_label: Getting Started
+---
+
+# Getting Started with Sequence Kit
+
+In this guide, we will walk you through installing Sequence Kit, triggering the connection modal, and displaying the embedded wallet in your application.
+
+## Installing Sequence Kit Packages
+
+Sequence Kit is modular, allowing you to install only the necessary packages. To get started, install the `kit` core package, the `connectors` package for interfacing with various wallet providers, and the `wallet` for the embedded wallet. Additionally, install other dependencies such as wagmi, viem, and 0xsequence.
+
+```bash
+npm install @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
+# or
+pnpm install @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
+# or
+yarn add @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
+```
+
+# Setting Up the Kit Wrapper
+To utilize the core kit wrapper for connecting web3 wallets to your application, follow these steps:
+
+1. Configure wagmi for your app. Below is a basic wagmi configuration. For advanced configurations, please refer to the [wagmi documentation](https://wagmi.sh/react/WagmiConfig).
+
+
+```jsx
+import MyPage from './components/MyPage'
+import { KitProvider } from '@0xsequence/kit'
+import { getDefaultConnectors } from '@0xsequence/kit-connectors'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
+import { mainnet, polygon } from 'wagmi/chains'
+
+function App() {
+  const { chains, publicClient, webSocketPublicClient } = configureChains(
+    [polygon, mainnet],
+    [publicProvider()],
+  )
+
+  const connectors = getDefaultConnectors({
+    chains,
+    walletConnectProjectId: 'project_id',
+    defaultChainId: 137
+  })
+  
+  const config = createConfig({
+    autoConnect: true,
+    publicClient,
+    webSocketPublicClient,
+    connectors
+  })
+
+  return (
+    <WagmiConfig config={config}>
+      <KitProvider>
+        <MyPage />
+      </KitProvider>
+    </WagmiConfig>
+  );
+}
+```
+
+2. Wrap your app with the `KitProvider` within the `WagmiConfig` wrapper.
+
+
+# Setting Up the Embedded Wallet Wrapper
+To install the optional embedded wallet, add the `KitWalletProvider` below the `KitProvider` wrapper.
+
+```jsx
+import { KitWalletProvider } from '@0xsequence/kit-wallet'
+
+// ...
+
+const App = () => {
+  return (
+    <WagmiConfig config={config}>
+      <KitProvider>
+        <KitWalletProvider>
+          <Page />
+        </KitWalletProvider>
+      </KitProvider>
+    </WagmiConfig>
+  )
+}
+```
+
+The complete code will then look like this:
+
+```jsx
+import MyPage from './components/MyPage'
+import { KitProvider } from '@0xsequence/kit'
+import { getDefaultConnectors } from '@0xsequence/kit-connectors'
+import { KitWalletProvider } from '@0xsequence/kit-wallet'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
+import { mainnet, polygon } from 'wagmi/chains'
+
+function App() {
+  const { chains, publicClient, webSocketPublicClient } = configureChains(
+    [polygon, mainnet],
+    [publicProvider()],
+  )
+
+  const connectors = getDefaultConnectors({
+    chains,
+    walletConnectProjectId: 'project_id',
+    defaultChainId: 137
+  })
+
+  
+  const config = createConfig({
+    autoConnect: true,
+    publicClient,
+    webSocketPublicClient,
+    connectors
+  })
+
+  return (
+    <WagmiConfig config={config}>
+      <KitProvider>
+        <KitWalletProvider>
+          <MyPage />
+        </KitWalletProvider>
+      </KitProvider>
+    </WagmiConfig>
+  );
+}
+```
+
+# Triggering the Connect Modal
+
+<div class="text--center">
+  <img src="/img/kit/sign-in-modal.png" />
+</div>
+
+Invoke the connect modal using the `useOpenConnectModal` hook.
+
+```jsx
+import { useOpenConnectModal } from '@0xsequence/kit'
+import { useDisconnect, useAccount, useSigner, useProvider } from 'wagmi'
+
+
+const MyReactComponent = () => {
+  const { setOpenConnectModal } = useOpenConnectModal()
+
+  const { isConnected } = useAccount()
+
+  const onClick = () => {
+    setOpenConnectModal(true)
+  }
+
+  return (
+    <>
+      {!isConnected && (
+        <button onClick={onClick}>
+          Sign in
+        </button>
+      )}
+    </>
+  )
+}
+```
+
+The modal will automatically close once the user signs in. You can utilize the `useAccount` hook from wagmi to detect the user's connection status.
+
+# Invoking the embedded wallet modal
+
+<div class="text--center">
+  <img src="/img/kit/embedded-wallet.png" />
+</div>
+
+Open the embedded wallet using the `useOpenWalletModal` react hook.
+
+```jsx
+import { useOpenWalletModal } from '@0xsequence/kit-wallet'
+
+const MyComponent = () => {
+  const { setOpenWalletModal } = useOpenWalletModal()
+
+  const onClick = () => {
+    setOpenWalletModal(true)
+  }
+
+  return (
+    <button onClick={onClick}>open wallet</button>
+  )
+}
+```
+
+# React Example
+The Sequence Kit [Github repository](https://github.com/0xsequence/kit) contains an [example app](https://github.com/0xsequence/kit/tree/master/examples/react) that you can use for learning and testing.
