@@ -21,8 +21,10 @@ import TabItem from '@theme/TabItem'
 <br />
 
 :::info PRO TIP: fetching ERC721/1155 token IDs
-In order to fetch ERC721/1155 token balances, you must pass the "contractAddress" to
-the `GetTokenBalances` method. See section below for more information.
+You'll notice that, by default, `GetTokenBalances` will return at most one token instance from each contract.
+In order to fetch ERC721/1155 token balances, you must pass the "contractAddress" to the `GetTokenBalances` method. 
+This will return all of the tokens owned by `accountAddress` from the specified `contractAddress`.
+See section below for more information.
 :::
 
 **Example: `GetTokenBalances` of a wallet account address on Polygon**
