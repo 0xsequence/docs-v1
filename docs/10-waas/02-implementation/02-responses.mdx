@@ -1,0 +1,157 @@
+# Response Payloads
+
+When interacting with the WaaS API, each intent payload will trigger a corresponding response payload. This could be either a successful response or a prompt for a different action.
+
+## General Response Structure
+
+Regardless of the specific response type, all responses have a standard structure with the following fields:
+
+| Name  | Type   | Description                           | Optional |
+|-------|--------|---------------------------------------|----------|
+| code  | string | Identifies the type of response       | No       |
+| data  | object | Holds content defined by response type| No       |
+
+## Types of Responses
+
+### Transaction Receipt Response
+
+Triggered upon successful execution of a [send transaction intent](../intents/send-transaction.md). The code for this response is `transactionReceipt`.
+
+The `data` field contains:
+
+| Name   | Type   | Description            | Optional |
+|--------|--------|------------------------|----------|
+| txHash | string | The transaction hash   | No       |
+
+#### Example
+
+```json
+{
+  "code": "transactionReceipt",
+  "data": {
+    "txHash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+  }
+}
+```
+
+#### How to Detect
+
+```ts
+import { payloads } from '@0xsequence/waas';
+
+const res = ... // response from WaaS API
+
+if (payloads.responses.isSendTransactionResponse(res)) {
+  // It's a transaction receipt
+}
+```
+
+### Signed Message Response
+
+Triggered after a successful [sign message intent](../intents/sign-message.md). The code is `signedMessage`.
+
+The `data` field contains:
+
+| Name      | Type   | Description            | Optional |
+|-----------|--------|------------------------|----------|
+| message   | string | The signed message     | No       |
+| signature | string | The signature          | No       |
+
+#### Example
+
+```json
+{
+  "code": "signedMessage",
+  "data": {
+    "message": "Hello World",
+    "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+  }
+}
+```
+
+#### How to Detect
+
+```ts
+import { payloads } from '@0xsequence/waas';
+
+const res = ... // response from WaaS API
+
+if (payloads.responses.isSignedMessageResponse(res)) {
+  // It's a signed message
+}
+```
+
+### Session Opened Response
+
+Occurs after successfully executing an [open session intent](../intents/open-session.md). The code is `sessionOpened`.
+
+The `data` field contains:
+
+| Name      | Type   | Description                      | Optional |
+|-----------|--------|----------------------------------|----------|
+| sessionId | string | Session ID (resembling an address)| No       |
+| wallet    | string | The Sequence wallet address      | No       |
+
+#### Example
+
+```json
+{
+  "code": "sessionOpened",
+  "data": {
+    "sessionId": "0xBdeAfd3ee0550a73f615D2BaEA2E3D6d48FC857D",
+    "wallet": "0x44c2Ea42Fb006a613a7b41D142576eD6B5055902"
+  }
+}
+```
+
+#### How to Detect
+
+```ts
+import { payloads } from '@0xsequence/waas';
+
+const res = ... // response from WaaS API
+
+if (payloads.responses.isOpenSessionResponse(res)) {
+  // It's a session opened
+}
+```
+
+### Validation Required Response
+
+Some actions may necessitate additional validation. In such cases, the response code is `validationRequired`.
+
+The `data` field contains:
+
+| Name      | Type   | Description                      | Optional |
+|-----------|--------|----------------------------------|----------|
+| sessionId | string | Session ID (resembling an address)| No       |
+
+#### How to Detect
+
+```ts
+import { payloads } from '@0xsequence/waas';
+
+const res = ... // response from WaaS API
+
+if (payloads.responses.isValidationRequiredResponse(res)) {
+  // Validation is required
+}
+```
+
+### Note
+
+Both `sendTransaction` and `signMessage` intents could require validation. Always check for a `validationRequired` response before assuming you've received a transaction receipt or a signed message.
+
+```ts
+import { payloads } from '@0xsequence/waas';
+
+const res = ... // response from WaaS API
+
+if (payloads.responses.isValidationRequiredResponse(res)) {
+  // Handle validation
+}
+
+if (payloads.responses.isSendTransactionResponse(res)) {
+  // It's a transaction receipt
+}
+```
