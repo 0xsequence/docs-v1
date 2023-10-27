@@ -165,6 +165,22 @@ Notice that `data` can only be used if `safe === true`.
 | vals[].amount | string     | Amount of tokens with this ID to send         | No       |
 | data          | string     | Additional data for the transaction           | Yes      |
 
+#### delayedEncode
+
+Delayed encode transactions have their payload data not encoded on the client, it instead is left to be encoded by the WaaS API. This reduces the burden on the client, and makes it easier to integrate in environments with limited libraries.
+
+| Type                     | Field   | Data Type                                       | Description                                                               |
+|--------------------------|---------|--------------------------------------------------|---------------------------------------------------------------------------|
+| DelayedEncodeData        | abi     | string                                           | The ABI (Application Binary Interface) for the contract.                   |
+|                          | func    | string                                           | The function to call within the smart contract.                            |
+|                          | args    | (string \| DelayedEncodeData)[] \| { [key: string]: (string \| DelayedEncodeData) }  | The arguments to pass to the function. Can be an array or an object. |
+| DelayedEncodeSubpacket   | type    | 'delayedEncode'                                  | The type of the subpacket, in this case, it's `'delayedEncode'`.           |
+|                          | to      | string                                           | The address to which the transaction is sent.                              |
+|                          | value   | string                                           | The value being sent in the transaction, usually in Ether for Ethereum.    |
+|                          | data    | DelayedEncodeData                                | The data payload, containing the ABI, function to call, and arguments.     |
+
+Hope this helps!
+
 ```json
 {
   "version": "1.0.0",
@@ -205,6 +221,18 @@ Notice that `data` can only be used if `safe === true`.
           "amount": "1"
         }],
         "data": "0x223344"
+      },
+      {
+        "type": "delayedEncode",
+        "to": "0x140d72763D1ce39Ad4E2e73EC6e8FC53E5b73B64",
+        "value": "0",
+        "abi": "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_maxCost\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_fees\",\"type\":\"address\"}],\"name\":\"fillOrKillOrder\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+        "func": "fillOrKillOrder",
+        "args": {
+          "_orderId": "0x6bd55a2877890bd58871eefe886770a7734077a74981910a75d7b1f044b5bf28",
+          "_maxCost": "1000000000000000000",
+          "_fees": "[\"0x095aE61E8207C7856eA273235D6BAdb69d815F5e\", \"0xC9D9B33231d24dd8cC53fDD64F7ABdd156f2a7E2\"]"
+        }
       }
     ]
   },
