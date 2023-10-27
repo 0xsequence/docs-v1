@@ -34,7 +34,7 @@ You can find the source of the `0xsequence` package on [Github](https://github.c
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = await sequence.initWallet({ defaultNetwork: 'mainnet' })
+const wallet = sequence.initWallet({ defaultNetwork: 'mainnet' })
 const connectDetails = await wallet.connect(({ app: 'Your app name' }))
 
 console.log('=> connected?', connectDetails.connected)
@@ -44,7 +44,7 @@ console.log('=> connected?', connectDetails.connected)
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = await sequence.initWallet({ defaultNetwork: 'polygon' })
+const wallet = sequence.initWallet({ defaultNetwork: 'polygon' })
 const connectDetails = await wallet.connect(({ app: 'Your app name' }))
 
 console.log('=> connected?', connectDetails.connected)

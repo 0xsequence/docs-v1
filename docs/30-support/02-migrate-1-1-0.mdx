@@ -15,13 +15,13 @@ The `initWallet` function's `network` parameter has been replaced. Now, it accep
 Before:
 
 ```ts
-const wallet = await sequence.initWallet('mainnet')
+const wallet = sequence.initWallet('mainnet')
 ```
 
 After:
 
 ```ts
-const wallet = await sequence.initWallet({ defaultNetwork: 'mainnet' })
+const wallet = sequence.initWallet({ defaultNetwork: 'mainnet' })
 ```
 
 The parameter remains optional. If not provided, the default network will be `mainnet`.
@@ -35,7 +35,7 @@ Methods such as `getSigner` and `getProvider` are still available in `SequencePr
 Before:
 
 ```ts
-const wallet = await sequence.initWallet('mainnet')
+const wallet = sequence.initWallet('mainnet')
 const provider = wallet.getProvider()
 const signer = wallet.getSigner()
 ```
@@ -43,7 +43,7 @@ const signer = wallet.getSigner()
 After:
 
 ```ts
-const provider = await sequence.initWallet({ defaultNetwork: 'mainnet' })
+const provider = sequence.initWallet({ defaultNetwork: 'mainnet' })
 const signer = provider.getSigner()
 ```
 
