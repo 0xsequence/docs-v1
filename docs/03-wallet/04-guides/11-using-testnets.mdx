@@ -7,7 +7,7 @@ For example, if a dapp only wants to interact with the Mumbai testnet, they can 
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = await sequence.initWallet({ defaultNetwork: 'mumbai' })
+const wallet = sequence.initWallet({ defaultNetwork: 'mumbai' })
 ```
 
 Most methods also support a `chainId` parameter, which can be used to specify the network to interact with:
