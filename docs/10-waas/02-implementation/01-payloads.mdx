@@ -17,12 +17,14 @@ It's important to notice that integrating WaaS **does not** require you to manua
 
 The payload structure is as follows:
 
-| Name        | Type        | Description                                       | Optional |
-| ---         | ---         | ---                                               | ---      |
-| version     | string      | The version of the SDK that generated the payload | No       |
-| packet      | object      | Contents, defined by each payload type            | No       |
-| signatures  | signature[] | Payload signatures by existing sessions           | Yes      |
-| packet.code | string      | Identifier of the payload type.                   | No       |
+| Name           | Type        | Description                                                   | Optional |
+| ---            | ---         | ---                                                           | ---      |
+| version        | string      | The version of the SDK that generated the payload             | No       |
+| packet         | object      | Contents, defined by each payload type                        | No       |
+| signatures     | signature[] | Payload signatures by existing sessions                       | Yes      |
+| packet.code    | string      | Identifier of the payload type                                | No       |
+| packet.issued  | number      | Timestamp of when the payload was issued, in seconds          | No       |
+| packet.expires | number      | Timestamp of when the payload will expire, in seconds         | No       |
 
 > The wallet is optional when openning a new session
 
@@ -39,6 +41,8 @@ The payload structure is as follows:
   "version": "1.0.0",
   "packet": {
     "code": "signMessage",
+    "issued": 1600000000,
+    "expires": 1600086400,
     "wallet": "0xBc5F07A5852fdF3DBd57A76835109220D0ADd8E8",
     "message": "Join game: #284892"
   },
@@ -72,6 +76,8 @@ The `wallet` parameter is optional *ONLY* for this payload. If passed it will en
   "version": "1.0.0",
   "packet": {
     "code": "openSession",
+    "issued": 1600000000,
+    "expires": 1600086400,
     "session": "0xCF67BCbD9D5DFD373b03f4fc8143e1c6744B5696",
     "proof": {
       "idToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbXktZG9tYWluLmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDEyMzQ1NiIsImF1ZCI6IjEyMzRhYmNkZWYiLCJleHAiOjEzMTEyODE5NzAsImlhdCI6MTMxMTI4MDk3MCwibmFtZSI6IkphbmUgRG9lIiwiZ2l2ZW5fbmFtZSI6IkphbmUiLCJmYW1pbHlfbmFtZSI6IkRvZSJ9.bql-jxlG9B_bielkqOnjTY9Di9FillFb6IMQINXoYsw",
@@ -98,6 +104,8 @@ This payload is generated when `signMessage` is called on the SDK.
   "version": "1.0.0",
   "packet": {
     "code": "signMessage",
+    "issued": 1600000000,
+    "expires": 1600086400,
     "wallet": "0xBc5F07A5852fdF3DBd57A76835109220D0ADd8E8",
     "network": "1",
     "message": "Join game: #284892"
@@ -116,6 +124,7 @@ This payload is generated when `sendTransaction` is called on the SDK.
 | Name         | Type                                                       | Description                                    | Optional |
 | ---          | ---                                                        | ---                                            | ---      |
 | code         | string                                                     | The "code" of the payload (`sendTransaction`). | No       |
+| identifier   | string                                                     | Unique identifier for the transaction          | No       |
 | wallet       | string                                                     | Address of the wallet.                         | No       |
 | network      | string                                                     | Network on which to send the transactions.     | No       |
 | transactions | (transaction \| erc20send \| erc721send \| erc1155send)[]  | Array of transaction objects.                  | No       |
@@ -186,6 +195,9 @@ Hope this helps!
   "version": "1.0.0",
   "packet": {
     "code": "sendTransaction",
+    "issued": 1600000000,
+    "expires": 1600086400,
+    "identifier": "tx-id1-1600000000",
     "wallet": "0xBc5F07A5852fdF3DBd57A76835109220D0ADd8E8",
     "network": "137",
     "transactions": [
@@ -222,18 +234,28 @@ Hope this helps!
         }],
         "data": "0x223344"
       },
-      {
-        "type": "delayedEncode",
+			{
+				"type": "delayedEncode",
         "to": "0x140d72763D1ce39Ad4E2e73EC6e8FC53E5b73B64",
         "value": "0",
-        "abi": "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_maxCost\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_fees\",\"type\":\"address\"}],\"name\":\"fillOrKillOrder\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"}]",
-        "func": "fillOrKillOrder",
-        "args": {
-          "_orderId": "0x6bd55a2877890bd58871eefe886770a7734077a74981910a75d7b1f044b5bf28",
-          "_maxCost": "1000000000000000000",
-          "_fees": "[\"0x095aE61E8207C7856eA273235D6BAdb69d815F5e\", \"0xC9D9B33231d24dd8cC53fDD64F7ABdd156f2a7E2\"]"
-        }
-      }
+				"data": {
+					"abi": "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_maxCost\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_fees\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"fillOrKillOrder\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"otherMethods\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+					"func": "fillOrKillOrder",
+					"args": [
+						"0x6bd55a2877890bd58871eefe886770a7734077a74981910a75d7b1f044b5bf28",
+						"1000000000000000000",
+						"[\"0x095aE61E8207C7856eA273235D6BAdb69d815F5e\", \"0xC9D9B33231d24dd8cC53fDD64F7ABdd156f2a7E2\"]",
+						{
+							"abi": "notExpired(uint256,string)",
+							"func": "notExpired",
+							"args": [
+								"1600000000",
+								"Nov 1st, 2020"
+							]
+						}
+					]
+				}
+			}
     ]
   },
   "signatures": [{
@@ -258,6 +280,8 @@ This payload is generated when the client requests clossing a given session. Not
   "version": "1.0.0",
   "packet": {
     "code": "closeSession",
+    "issued": 1600000000,
+    "expires": 1600086400,
     "wallet": "0xBc5F07A5852fdF3DBd57A76835109220D0ADd8E8",
     "session": "0xCF67BCbD9D5DFD373b03f4fc8143e1c6744B5696"
   },
