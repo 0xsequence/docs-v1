@@ -33,6 +33,30 @@ const result = await waas.validateSession();
 true
 ```
 
+#### Redirect URL
+
+By default, the validation link **does not** redirect the user after validation. Instead, it displays a success message and prompts the user to close the window. To redirect the user after validation, pass a `redirectUrl` to the `validateSession` method.
+
+```ts
+await waas.validateSession({
+  redirectUrl: 'https://myapp.com/checkout'
+});
+```
+
+The redirect URL can also be passed to any method that might trigger session validation, such as `sendTransaction`.
+
+```ts
+const tx = await waas.sendERC20({
+  validation: {
+    redirectUrl: 'https://myapp.com/checkout'
+  },
+  chainId: 42161,
+  token: '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
+  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',    // Recipient
+  value: '200000000000000000000',                      // 200 DAI
+})
+```
+
 ### Listen for session validations
 
 Events like transaction sends may silently prompt session validation. Use the `onValidationRequired` hook to catch such instances.
@@ -54,14 +78,16 @@ Session validation is automatic when certain actions requiring validation are pe
 
 ```ts
 const tx = await waas.sendTransaction({
-    chainId: 1,
+  chainId: 1,
+  validation: {
     onValidationRequired: () => {
       console.log('Session has been triggered for validation');
       return true;
     }
   },
-  { to: '0x...', value: '1' }
-);
+  to: '0x061150e5574716DBb1a2cdf54b3DcE9F94395f65',
+  value: '1'
+});
 ```
 
 By returning `true` or `false` from the `onValidationRequired` hook, you either continue or cancel the action, respectively.
