@@ -13,7 +13,7 @@ const waas = new SequenceAuth({
   key: '${process.env.SEQUENCE_API_KEY}',
 });
 
-await waas.signIn({ idToken });
+await waas.signIn({ idToken }, "Session name");
 
 const address = await waas.getAddress();
 ```
@@ -25,7 +25,31 @@ const address = await waas.getAddress();
 
 The wallet can be used to sign messages. The signatures can later be validated onchain or offchain.
 
-TODO: add example
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: '${process.env.SEQUENCE_API_KEY}',
+});
+
+await waas.signIn({ idToken }, "Session name");
+
+const signature = await waas.signMessage({
+  chainId: 137,
+  message: 'Hello world',
+});
+
+console.log(signature)
+```
+```json
+{
+  "code": "signedMessage",
+  "data": {
+    "message": "0x48656c6c6f20776f726c64",
+    "signature": "0x0100010000000002012128ff2dd168dc250dc3da93db3131f737e6961a0000fe0100030000000006010001000074000197013331090a763fc7ef2216502cfbff5d855530f977a0ee6db3615722ed9bad498781d8ed72d52b5c9717708ac757f7789c9567e5468566179bd03f72d1fc7b1c010400002c01011111b16c6268897233eddea98a041b326b0faef2010122229ce37ccfee1cbab2b743b22c314b5667cf1a06020001000074000100deb9091f5beb1ebd8d91a1b81e562a70cdb3a1cdafc5e61087b18d1c221c570754ecbe056bdef5f82c388a9bf53f074521aeaf5afdeed3a2ba70adb89362631b010400002c0101444444444444444444444444444444444444444401015555555555555555555555555555555555555555030100a5a91b133336e5ef1c7e23c13974535018fab1c0"
+  }
+}
+```
 
 ## Send transactions
 
@@ -46,19 +70,20 @@ const waas = new SequenceAuth({
   key: '${process.env.SEQUENCE_API_KEY}',
 });
 
-await waas.signIn({ idToken });
+await waas.signIn({ idToken }, "Session name");
 
 const tx = await waas.sendTransaction({
-  chainId: 42161
-}, {
-  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',
-  value: '200000000000000000000', // 200 ETH
-  data: '0x9fa2b3c4',
+  chainId: 42161,
+  transactions: [{
+    to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',
+    value: '200000000000000000000', // 200 ETH
+    data: '0x9fa2b3c4',
+  }]
 });
 
 console.log(tx)
 ```
-```stdout
+```json
 {
   code: 'transactionReceipt',
   data: {
@@ -78,25 +103,81 @@ const waas = new SequenceAuth({
   key: '${process.env.SEQUENCE_API_KEY}',
 });
 
-await waas.signIn({ idToken });
+await waas.signIn({ idToken }, "Session name");
 
 const tx = await waas.sendERC20({
-  chainId: 42161
-}, {
+  chainId: 42161,
   token: '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
-  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',
-  value: '200000000000000000000', // 200 DAI
+  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',    // Recipient
+  value: '200000000000000000000',                      // 200 DAI
 })
 
 console.log(tx)
 ```
-```stdout
+```json
 {
   code: 'transactionReceipt',
   data: {
     'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
   }
 }
+```
+
+### Send ERC721 tokens
+
+Sending ERC721 tokens also has a helper method. This automatically handles the `data` field of the transaction.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: '${process.env.SEQUENCE_API_KEY}',
+});
+
+await waas.signIn({ idToken });
+
+const tx = await waas.sendERC721({
+  chainId: 42161,
+  token: '0xF87E31492Faf9A91B02Ee0dEAAd50d51d56D5d4d', // Decentraland LAND
+  to: '0x27CabC9700EE6Db2797b6AC1e1eCe81C72A2cD8D',    // Recipient
+  id: '33347671958251969419410711528313284722562',     // Asset ID
+})
+
+console.log(tx)
+```
+```json
+{
+  code: 'transactionReceipt',
+  data: {
+    'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+  }
+}
+```
+
+### Send ERC1155 tokens
+
+Sending ERC1155 tokens is also supported.
+
+```ts
+import SequenceAuth from '@0xsequence/waas';
+
+const waas = new SequenceAuth({
+  key: '${process.env.SEQUENCE_API_KEY}',
+});
+
+await waas.signIn({ idToken });
+
+const tx = await waas.sendERC1155({
+  chainId: 137,
+  token: '0x631998e91476da5b870d741192fc5cbc55f5a52e', // Skyweaver assets
+  values: [{
+    id: '66547',                                       // Asset ID
+    value: '200',                                      // Amount for this asset
+  }, {
+    id: '68572',
+    value: '1000',
+  }]
+})
 ```
 
 :::caution

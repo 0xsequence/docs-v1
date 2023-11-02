@@ -21,7 +21,7 @@ const waas = new SequenceAuth({
 
 // Get an idToken using the social auth provider of your choice
 // (e.g., Google, Facebook, Twitter, etc.)
-await waas.signIn({ idToken });
+await waas.signIn({ idToken }, "MacBook Pro - Chrome");
 ```
 
 ### Email Sign In / Sign Up
@@ -43,14 +43,41 @@ const waas = new SequenceAuth({
   key: `${process.env.SEQUENCE_API_KEY}`,
 });
 
-await waas.signIn({ idToken });
+await waas.signIn({ idToken }, "MacBook Pro - Chrome");
 
 const sessions = await waas.listSessions();
 console.log(sessions);
 ```
 
-```stdout
-TODO
+```json
+[
+  {
+    "id": "0x574372ff1A0Eede68B5358Cce7bbb93155A9dfe0",
+    "address": "0x574372ff1a0eede68b5358cce7bbb93155a9dfe0",
+    "userId": "42#https://accounts.google.com#109234880945084120673",
+    "projectId": 42,
+    "issuer": "https://accounts.google.com",
+    "subject": "109234880945084120673",
+    "friendlyName": "Pixel 3 - Brave",
+    "createdAt": "2023-11-02T18:22:03.102950917Z",
+    "refreshedAt": "2023-11-02T18:22:03.109787921Z",
+    "expiresAt": "2123-10-09T18:22:03.102951017Z",
+    "isThis": false
+  },
+  {
+    "id": "0x3C4E11E4dbF23B87C14bd75d0Da9C75707392D21",
+    "address": "0x3c4e11e4dbf23b87c14bd75d0da9c75707392d21",
+    "userId": "42#https://accounts.google.com#109234880945084120673",
+    "projectId": 42,
+    "issuer": "https://accounts.google.com",
+    "subject": "109234880945084120673",
+    "friendlyName": "MacBook Pro - Chrome",
+    "createdAt": "2023-11-02T18:50:32.815189174Z",
+    "refreshedAt": "2023-11-02T18:50:32.819722082Z",
+    "expiresAt": "2123-10-09T18:50:32.815189234Z",
+    "isThis": true
+  }
+]
 ```
 
 ## Close Session
@@ -64,7 +91,8 @@ const waas = new SequenceAuth({
   key: `${process.env.SEQUENCE_API_KEY}`,
 });
 
-await waas.signIn({ idToken });
+await waas.signIn({ idToken }, "MacBook Pro - Chrome");
 
-await waas.dropSession({ id: '...' });
+const sessions = await waas.listSessions();
+await waas.dropSession({ sessionId: sessions[0].id });
 ```
