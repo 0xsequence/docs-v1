@@ -180,6 +180,65 @@ const tx = await waas.sendERC1155({
 })
 ```
 
+### Call any contract
+
+The `callContract` method can be used to call any contract method. This is useful for calling methods that are not supported by the helper methods. To call a contract an ABI or function signature must be provided.
+
+#### Function signature
+
+Providing a function signature is the easiest way to call a contract method, as it doesn't require an ABI. The function signature can be provided with named parameters or positional parameters.
+
+##### Named arguments
+
+```ts
+const tx = await sequence.callContract({
+  to: '0x503388C73Ca663eA34e103c11C9F47C9433af471',  // Contract address
+  abi: 'mint(address to, uint256 tokenId)',          // Function signature
+  func: 'mint',                                      // Function name
+  args: {
+    to: '0xf439e432d54c2Bf5518A1901D3791070d4192986',
+    tokenId: '1',
+  },
+  value: 0                                           // Value to send
+})
+```
+
+##### Positional arguments
+
+Notice that passing a named function signature with positional arguments is allowed.
+
+```ts
+const tx = await sequence.callContract({
+  to: '0x503388C73Ca663eA34e103c11C9F47C9433af471',  // Contract address
+  abi: 'mint(address,uint256)',                      // Function signature
+  func: 'mint',                                      // Function name
+  args: [
+    '0xf439e432d54c2Bf5518A1901D3791070d4192986',
+    '1',
+  ],
+  value: 0                                           // Value to send
+})
+```
+
+#### ABI
+
+Providing an ABI is more verbose, but allows for more flexibility, as a single ABI can be used to call multiple methods. ABIs support named arguments and positional arguments.
+
+```ts
+const abi = `[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}]`
+
+const tx = await sequence.callContract({
+  to: '0x6b175474e89094c44da98b954eedeac495271d0f',  // Contract address
+  abi: abi,                                          // ABI
+  func: 'transfer',                                  // Function name
+  args: {
+    _to: '0xf439e432d54c2Bf5518A1901D3791070d4192986',
+    _value: '1',
+  },
+  value: 0                                           // Value to send
+})
+```
+
 :::caution
 Email accounts can only send transactions after the current session has been confirmed by the Sequence guard. This is done by clicking an email link sent to the user's email address or phone number.
 
