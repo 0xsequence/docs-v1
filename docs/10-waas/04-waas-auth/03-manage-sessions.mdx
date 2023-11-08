@@ -13,15 +13,15 @@ This means you don't need to implement an account system yourself; instead, you 
 Signing in and signing up are the same operation; the account is automatically created if it doesn't already exist.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: `${process.env.SEQUENCE_API_KEY}`,
-});
+})
 
 // Get an idToken using the social auth provider of your choice
 // (e.g., Google, Facebook, Twitter, etc.)
-await waas.signIn({ idToken }, "MacBook Pro - Chrome");
+await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 ```
 
 ### Email Sign In / Sign Up
@@ -37,16 +37,16 @@ TODO
 This function returns a list of sessions for the current user and only includes sessions that are still valid.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: `${process.env.SEQUENCE_API_KEY}`,
-});
+})
 
-await waas.signIn({ idToken }, "MacBook Pro - Chrome");
+await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 
-const sessions = await waas.listSessions();
-console.log(sessions);
+const sessions = await waas.listSessions()
+console.log(sessions)
 ```
 
 ```json
@@ -85,14 +85,14 @@ console.log(sessions);
 A session can be closed using the `id` of the session. Any session can be closed from any device with an active session.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: `${process.env.SEQUENCE_API_KEY}`,
-});
+})
 
-await waas.signIn({ idToken }, "MacBook Pro - Chrome");
+await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 
-const sessions = await waas.listSessions();
-await waas.dropSession({ sessionId: sessions[0].id });
+const sessions = await waas.listSessions()
+await waas.dropSession({ sessionId: sessions[0].id })
 ```

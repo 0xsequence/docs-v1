@@ -15,8 +15,8 @@ For users logging in with an email, Amazon Cognito sends a magic link to validat
 To check the validation status of the current session, use the `isSessionValid` method. This returns `true` for social logins and `false` for email logins until email validation is complete.
 
 ```ts
-const isValid = await waas.isSessionValid();
-console.log(isValid);
+const isValid = await waas.isSessionValid()
+console.log(isValid)
 ```
 ```stdout
 true
@@ -27,7 +27,7 @@ true
 Manually trigger a session validation with the `validateSession` method. This will send a validation link to the user's email. If validated within 10 minutes, the method returns `true`; otherwise, it returns `false`.
 
 ```ts
-const result = await waas.validateSession();
+const result = await waas.validateSession()
 ```
 ```stdout
 true
@@ -40,7 +40,7 @@ By default, the validation link **does not** redirect the user after validation.
 ```ts
 await waas.validateSession({
   redirectUrl: 'https://myapp.com/checkout'
-});
+})
 ```
 
 The redirect URL can also be passed to any method that might trigger session validation, such as `sendTransaction`.
@@ -64,7 +64,7 @@ Events like transaction sends may silently prompt session validation. Use the `o
 ```ts
 waas.onValidationRequired(() => {
   console.log('Session has been triggered for validation');
-});
+})
 
 await waas.sendTransaction({ chainId: 1 }, { to: '0x...', value: '1' });
 ```
@@ -87,7 +87,7 @@ const tx = await waas.sendTransaction({
   },
   to: '0x061150e5574716DBb1a2cdf54b3DcE9F94395f65',
   value: '1'
-});
+})
 ```
 
 By returning `true` or `false` from the `onValidationRequired` hook, you either continue or cancel the action, respectively.
