@@ -5,7 +5,7 @@
 We provide a TypeScript SDK for the Auth + WaaS system. You can install it with:
 
 ```bash
-pnpm install @0xsequence/waas@0.0.0-20231108135717
+pnpm install @0xsequence/waas@0.0.0-20231108174744
 ```
 
 ## Project Setup
@@ -39,7 +39,7 @@ import { Sequence } from '@0xsequence/waas'
 
 export const sequence = new Sequence({
   network: 'polygon',
-  key: 'eyJzZWNyZXQiOiJ0YmQiLCJ0ZW5hbnQiOjksImlkZW50aXR5UG9vbElkIjoidXMtZWFzdC0yOjQyYzlmMzlkLWM5MzUtNGQ1Yy1hODQ1LTVjODgxNWM3OWVlMyJ9',
+  key: 'eyJzZWNyZXQiOiJ0YmQiLCJ0ZW5hbnQiOjksImlkZW50aXR5UG9vbElkIjoidXMtZWFzdC0yOjQyYzlmMzlkLWM5MzUtNGQ1Yy1hODQ1LTVjODgxNWM3OWVlMyIsImVtYWlsQ2xpZW50SWQiOiI1Zmw3ZGc3bXZ1NTM0bzl2ZmpiYzZoajMxcCJ9',
 }, defaults.TEMPLATE_NEXT)
 ```
 
@@ -49,6 +49,6 @@ Notice that only two oauth providers are available for this configuration: `goog
 GOOGLE_CLIENT_ID=1041613285238-6hrgdboqrjglsj583njhhseh4b1nh16n.apps.googleusercontent.com
 ```
 
-::: warning
+:::warning
 All the sample credentials are strictly for development purposes and should not be used in production. They are subject to change at any time.
 :::
