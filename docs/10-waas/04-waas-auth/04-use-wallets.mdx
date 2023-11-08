@@ -7,15 +7,15 @@ Once the SDK is initialized and the user has been authenticated, you can access 
 The wallet address is unique to each user, can't be changed, and is used to identify the user's account. It is a string of 42 characters starting with `0x`.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: '${process.env.SEQUENCE_API_KEY}',
-});
+})
 
-await waas.signIn({ idToken }, "Session name");
+await waas.signIn({ idToken }, "Session name")
 
-const address = await waas.getAddress();
+const address = await waas.getAddress()
 ```
 ```stdout
 0xE4b10c53aa75E19E088cfDD0cff7D46a0E4206F0
@@ -26,13 +26,13 @@ const address = await waas.getAddress();
 The wallet can be used to sign messages. The signatures can later be validated onchain or offchain.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: '${process.env.SEQUENCE_API_KEY}',
-});
+})
 
-await waas.signIn({ idToken }, "Session name");
+await waas.signIn({ idToken }, "Session name")
 
 const signature = await waas.signMessage({
   chainId: 137,
@@ -63,14 +63,20 @@ Gas limits, prices, and nonce are always handled automatically by WaaS.
 
 A network must be specified when sending a transaction. The network must be specified as the `chainId` of the network, for example `1` for Ethereum mainnet, `42161` for Arbitrum, etc.
 
-```ts
-import SequenceAuth from '@0xsequence/waas';
+:::info
+Notice that all **send transaction** responses need to be checked using `isSentTransactionResponse`. This is required since WaaS will validate that a given transaction does not fail *before* executing the transaction, and in case of failure, the response will be an error receipt instead of a transaction receipt.
 
-const waas = new SequenceAuth({
+See more in [transaction receipts](#transaction-receipts).
+:::
+
+```ts
+import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
+
+const waas = new Sequence({
   key: '${process.env.SEQUENCE_API_KEY}',
 });
 
-await waas.signIn({ idToken }, "Session name");
+await waas.signIn({ idToken }, "Session name")
 
 const tx = await waas.sendTransaction({
   chainId: 42161,
@@ -79,15 +85,22 @@ const tx = await waas.sendTransaction({
     value: '200000000000000000000', // 200 ETH
     data: '0x9fa2b3c4',
   }]
-});
+})
 
-console.log(tx)
+if (isSentTransactionResponse(tx)) {
+  console.log(tx)
+}
 ```
 ```json
 {
-  code: 'transactionReceipt',
-  data: {
-    'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+  "code": "transactionReceipt",
+  "data": {
+    "txHash": "0xf2e9f728abd65089f25efda5852e605ced377f4e2c89dbf143b124623ed09b2c",
+    "metaTxHash": "acc36ed4ef40db74137266e48d863083a5c7e85e2735d69adafcb5b362b6cfc0",
+    "nativeReceipt": { ... },
+    "receipt": { ... },
+    "request": { ... },
+    "simulations": [ ... ],
   }
 }
 ```
@@ -97,11 +110,11 @@ console.log(tx)
 Helper methods are available for common operations, such as sending ERC20 tokens. This automatically handles the `data` field of the transaction.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: '${process.env.SEQUENCE_API_KEY}',
-});
+})
 
 await waas.signIn({ idToken }, "Session name");
 
@@ -112,13 +125,20 @@ const tx = await waas.sendERC20({
   value: '200000000000000000000',                      // 200 DAI
 })
 
-console.log(tx)
+if (isSentTransactionResponse(tx)) {
+  console.log(tx)
+}
 ```
 ```json
 {
-  code: 'transactionReceipt',
-  data: {
-    'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+  "code": "transactionReceipt",
+  "data": {
+    "txHash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3",
+    "metaTxHash": "01a087979dccbbc49a45b72d987e5651d65bd97349ccbfdd601b0b7beee9ddc4",
+    "nativeReceipt": { ... },
+    "receipt": { ... },
+    "request": { ... },
+    "simulations": [ ... ],
   }
 }
 ```
@@ -128,11 +148,11 @@ console.log(tx)
 Sending ERC721 tokens also has a helper method. This automatically handles the `data` field of the transaction.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: '${process.env.SEQUENCE_API_KEY}',
-});
+})
 
 await waas.signIn({ idToken });
 
@@ -143,13 +163,20 @@ const tx = await waas.sendERC721({
   id: '33347671958251969419410711528313284722562',     // Asset ID
 })
 
-console.log(tx)
+if (isSentTransactionResponse(tx)) {
+  console.log(tx)
+}
 ```
 ```json
 {
-  code: 'transactionReceipt',
-  data: {
-    'txHash': '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+  "code": "transactionReceipt",
+  "data": {
+    "txHash": "0x4936962d9972a70bffc27f376f55d9c60c12e762819fa6384fdb466664122b6e",
+    "metaTxHash": "e6513a60b63359a365f0d3f05744d89823278ec829fc5cb4d275bb815d0f5887",
+    "nativeReceipt": { ... },
+    "receipt": { ... },
+    "request": { ... },
+    "simulations": [ ... ],
   }
 }
 ```
@@ -159,13 +186,13 @@ console.log(tx)
 Sending ERC1155 tokens is also supported.
 
 ```ts
-import SequenceAuth from '@0xsequence/waas';
+import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: '${process.env.SEQUENCE_API_KEY}',
-});
+})
 
-await waas.signIn({ idToken });
+await waas.signIn({ idToken })
 
 const tx = await waas.sendERC1155({
   chainId: 137,

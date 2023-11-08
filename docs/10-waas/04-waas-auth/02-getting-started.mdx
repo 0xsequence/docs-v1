@@ -21,9 +21,9 @@ Once you've created a project, you'll obtain API credentials that you can use to
 To start using the Auth + WaaS SDK, you'll need to create a new instance of the `Waas` class:
 
 ```typescript
-import SequenceAuth from '@0xsequence/waas'
+import { Sequence } from '@0xsequence/waas'
 
-const waas = new SequenceAuth({
+const waas = new Sequence({
   key: `${process.env.SEQUENCE_API_KEY}`,
 })
 ```
