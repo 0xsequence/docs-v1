@@ -5,7 +5,7 @@
 We provide a TypeScript SDK for the Auth + WaaS system. You can install it with:
 
 ```bash
-pnpm install @0xsequence/waas
+pnpm install @0xsequence/waas@0.0.0-20231108135717
 ```
 
 ## Project Setup
@@ -29,3 +29,26 @@ const waas = new Sequence({
 ```
 
 Note that the library is operational, but it can't be used to interact with any wallet until you have authenticated **as a user**.
+
+## Sample credentials
+
+The following configuration can be used as a development preview, **notice that we do not guarantee the availability or security of any wallets created with these credentials**.
+
+```typescript
+import { Sequence } from '@0xsequence/waas'
+
+export const sequence = new Sequence({
+  network: 'polygon',
+  key: 'eyJzZWNyZXQiOiJ0YmQiLCJ0ZW5hbnQiOjksImlkZW50aXR5UG9vbElkIjoidXMtZWFzdC0yOjQyYzlmMzlkLWM5MzUtNGQ1Yy1hODQ1LTVjODgxNWM3OWVlMyJ9',
+}, defaults.TEMPLATE_NEXT)
+```
+
+Notice that only two oauth providers are available for this configuration: `google` and `email` (only available on `localhost`). For `google` it is possible to use the following credentials:
+
+```
+GOOGLE_CLIENT_ID=1041613285238-6hrgdboqrjglsj583njhhseh4b1nh16n.apps.googleusercontent.com
+```
+
+::: warning
+All the sample credentials are strictly for development purposes and should not be used in production. They are subject to change at any time.
+:::
