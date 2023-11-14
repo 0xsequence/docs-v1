@@ -1,3 +1,4 @@
+const prism = require('prism-react-renderer')
 const lightCodeTheme = prism.themes['github']
 const darkCodeTheme = prism.themes['palenight']
 
