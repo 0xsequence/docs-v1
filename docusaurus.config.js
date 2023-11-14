@@ -81,15 +81,6 @@ module.exports = {
         id: 'announcementBar', // Increment on change
         content: `❤️ To follow Sequence product updates, follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/0xsequence" >Twitter</a>`
       },
-      sidebar: {
-        '_WaaS': [
-          {
-            type: 'link',
-            label: 'WaaS',
-            href: '/waas/intro/', // Replace with the actual path to your documentation
-          },
-        ],
-      },
       navbar: {
         logo: {
           alt: 'Sequence logo',

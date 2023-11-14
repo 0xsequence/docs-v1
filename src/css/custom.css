@@ -104,7 +104,3 @@ html {
   --ifm-menu-color-background-active: #1d1d1d;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
-
-.hidden {
-  display: none !important;
-}
