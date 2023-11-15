@@ -15,7 +15,7 @@ Regardless of the specific response type, all responses have a standard structur
 
 ### Transaction Receipt Response
 
-Triggered upon successful execution of a [send transaction intent](../intents/send-transaction.md). The code for this response is `transactionReceipt`.
+Triggered upon successful execution of a [send transaction intent](/waas/implementation/payloads#send-transaction-payload). The code for this response is `transactionReceipt`.
 
 The `data` field contains:
 
@@ -208,7 +208,7 @@ if (payloads.responses.isSentTransactionResponse(res)) {
 
 ### Failed Transaction Response
 
-Triggered upon failed to execute a [send transaction intent](../intents/send-transaction.md). The code for this response is `transactionFailed`.
+Triggered upon failed to execute a [send transaction intent](/waas/implementation/payloads#send-transaction-payload). The code for this response is `transactionFailed`.
 
 The `data` field contains:
 
@@ -279,7 +279,7 @@ if (payloads.responses.isFailedTransactionResponse(res)) {
 
 ### Signed Message Response
 
-Triggered after a successful [sign message intent](../intents/sign-message.md). The code is `signedMessage`.
+Triggered after a successful [sign message intent](/waas/implementation/payloads#sign-message-payload). The code is `signedMessage`.
 
 The `data` field contains:
 
@@ -314,7 +314,7 @@ if (payloads.responses.isSignedMessageResponse(res)) {
 
 ### Session Opened Response
 
-Occurs after successfully executing an [open session intent](../intents/open-session.md). The code is `sessionOpened`.
+Occurs after successfully executing an [open session intent](/waas/implementation/payloads#open-session-payload). The code is `sessionOpened`.
 
 The `data` field contains:
 
