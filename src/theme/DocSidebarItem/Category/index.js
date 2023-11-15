@@ -115,9 +115,11 @@ export default function DocSidebarItemCategory({
       setCollapsed(true)
     }
   }, [collapsible, expandedItem, index, setCollapsed, autoCollapseCategories])
-
   return (
-    <li
+    <>
+    {
+      label != "WaaS" ?
+      <li
       className={clsx(
         ThemeClassNames.docs.docSidebarItemCategory,
         ThemeClassNames.docs.docSidebarItemCategoryLevel(level),
@@ -183,5 +185,8 @@ export default function DocSidebarItemCategory({
         />
       </Collapsible>
     </li>
+      : null
+    }
+    </>
   )
 }
