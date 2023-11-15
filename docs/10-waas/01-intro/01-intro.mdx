@@ -2,23 +2,23 @@
 
 Sequence WaaS (wallet as a service) enables the creation, management and usage of fully functional EVM compatible wallets. These wallets can be created on-demand for each user and allow you to integrate an application with an Ethereum compatible blockchain, while using familiar constructions like RPC APIs.
 
-Sequence WaaS offers real non-custodial wallets, the system guarantees that each created wallet can only be accesed only with the concent of the owner of the wallet.
+Sequence WaaS offers real non-custodial wallets, and the system guarantees that each created wallet can only be accessed only with the consent of the owner of the wallet.
 
 ## Architecture overview
 
-Sequence WaaS wallets are native smart contract multisigs, the configuration of the multisig can be seen as a 2/2, both of which are required to sign in order to operate them; each one of the signer protects the wallet from a difference facet of possible threats.
+Sequence WaaS wallets are native smart contract multisigs, the configuration of the multisig can be seen as a 2/2, both of which are required to sign in order to operate them; each one of the signers protects the wallet from a different facet of possible threats.
 
 ### Signer 1: PSS - Partner signer server
 
-This service is hosted by the partner, it contains one of the two keys in the wallet. It's purpose is to protect the wallets against Sequence WaaS API missbehaving. It achieves this by re-validating all API calls that were originally requested to the API.
+This service is hosted by the partner, it contains one of the two keys in the wallet. Its purpose is to protect the wallets against the Sequence WaaS API misbehaving. It achieves this by re-validating all API calls that were originally requested to the API.
 
 ### Signer 2: Sequence Guard
 
-The Sequence Guard is hosted by Sequence, it contains the other key of the wallets. It's meant to protect the wallets against the case on which the WaaS API keys of the partner become compromised. It achieves this in two different ways:
+The Sequence Guard is hosted by Sequence, it contains the other key of the wallets. It's meant to protect the wallets against any case in which the WaaS API keys of the partner become compromised. It achieves this in two different ways:
 
-1 - Limits and allowlists: you can (from the development dashboard) configure what kind of actions are allowed, this means that the guard will only sign transactions whithin these contraints. For example, you can define that only NFT contract X can be called, and the guard will enforce that no other transactions can take place.
+1 - Limits and allowlists: you can (from the development dashboard) configure what kind of actions are allowed, this means that the guard will only sign transactions within these constraints. For example, you can define that only NFT contract X can be called, and the guard will enforce that no other transactions can take place.
 
-2 - Authenticating the user: the Sequence Guard will authenticate the user **independetnly from the partner authentication**, it performs this action either by using a 3rd party OAuth 2.0 id token (from Meta, Google, X, etc.) or by directly communicating with the user via email/phone number with an OTP code.
+2 - Authenticating the user: the Sequence Guard will authenticate the user independently from the partner authentication, it performs this action either by using a 3rd party OAuth 2.0 id token (from Meta, Google, X, etc.) or by directly communicating with the user via email/phone number with an OTP code.
 
 ## Threat model
 
@@ -26,10 +26,10 @@ With these safeguards in place wallets are **safe** against the following scenar
 
 1) Sequence.app backend is compromised, or guard keys are leaked: in this scenario, the PSS will refuse to sign, since it can't validate the correct origin of the WaaS API calls.
 
-2) Partner backend is compromised, or PSS keys are leaked: in this scenario the Sequence guard protects the wallets, because it idenpendetly authenticates the user, an attacker in this scenario wouldn't be able to access any wallets.
+2) Partner backend is compromised, or PSS keys are leaked: in this scenario the Sequence guard protects the wallets, because it independently authenticates the user, an attacker in this scenario wouldn't be able to access any wallets.
 
 The model also provides partial protection against the scenario:
 
-3) Partner frontend is compromised, or MIDM on the partner side: If an attacker were to be able to vulnerate the frontend of the partner, it could gain access to wallets at the time of login, but it could not be able to gain access to wallets of users who are currently inactive. This means that recovery from such scenario is possible, with limited damage.
+3) Partner frontend is compromised, or MIDM on the partner side: If an attacker were to be able to vulnerate the frontend of the partner, it could gain access to wallets at the time of login, but it cannot gain access to wallets of users who are currently inactive. This means that recovery from such a scenario is possible, with limited damage.
 
 
