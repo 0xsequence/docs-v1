@@ -1,5 +1,7 @@
 # Sequence Docs
 
+**IMPORTANT:** please make sure you install "git lfs" in order to use this repository.
+
 ### Dev
 
 1. \$ `yarn install`
