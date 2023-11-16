@@ -53,11 +53,11 @@ yarn add 0xsequence ethers
 then in your app,
 
 ```ts
-import { SequenceIndexerClient } from '@0xsequence/indexer'
+import { SequenceIndexer } from '@0xsequence/indexer'
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-const indexer = new SequenceIndexerClient('https://mainnet-indexer.sequence.app')
+const indexer = new SequenceIndexer('https://mainnet-indexer.sequence.app')
 
 // see examples below for the kinds of queries you can make
 const tokenBalances = await indexer.getTokenBalances(...)

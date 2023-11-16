@@ -38,9 +38,9 @@ curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequenc
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
-import { SequenceIndexerClient } from '@0xsequence/indexer'
+import { SequenceIndexer } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexerClient('https://polygon-indexer.sequence.app')
+const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app')
 
 // here we query the Skyweaver contract address, but you can use any
 const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
