@@ -1,9 +1,9 @@
 const { themes } = require('prism-react-renderer');
 const lightCodeTheme = themes.github;
-const darkCodeTheme = themes.dracula;
+const darkCodeTheme = themes.palenight;
 
-darkCodeTheme.plain.backgroundColor = '#1d1d1d'
-lightCodeTheme.plain.backgroundColor = '#ffffff'
+// darkCodeTheme.plain.backgroundColor = '#000'
+// lightCodeTheme.plain.backgroundColor = '#ffffff'
 
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
