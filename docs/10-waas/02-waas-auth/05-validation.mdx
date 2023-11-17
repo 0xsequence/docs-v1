@@ -2,17 +2,19 @@
 
 Users with Auth + WaaS go through two distinct flows based on the login method:
 
+### Email login (one-time code)
+
+For users logging in with an email, Amazon Cognito sends a one-time code to validate their identity. This is a trusted method that does not require additional verification.
+
 ### Social login
 
-Users who log in via established social auth providers like Google or Facebook don't need additional validation. Both Amazon Nitro and the Sequence Guard already validate the provider's `idToken`.
+Users who log in via established social auth providers like Google or Facebook don't need additional validation. However, when logging in using a custom provider, we cannot guarantee sufficient protection of user's identity. Due to this, we might require additional verification by asking the user to provide a one-time code we send to their email address.
 
-### Email login (magic link)
-
-For users logging in with an email, Amazon Cognito sends a magic link to validate their identity. However, this only covers Amazon's side of things. Sequence Guard performs its own validation. It's advisable to delay this second validation until a wallet-related action is required, to avoid double-validation prompts.
+Please contact Sequence support if you wish to discuss whether your authentication provider can be considered trusted.
 
 ## Validation status
 
-To check the validation status of the current session, use the `isSessionValid` method. This returns `true` for social logins and `false` for email logins until email validation is complete.
+To check the validation status of the current session, use the `isSessionValid` method. This returns `true` for email login and trusted social logins and `false` for custom logins until email validation is complete.
 
 ```ts
 const isValid = await waas.isSessionValid()
