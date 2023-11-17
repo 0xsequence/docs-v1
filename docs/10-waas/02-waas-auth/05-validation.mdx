@@ -10,6 +10,8 @@ For users logging in with an email, Amazon Cognito sends a one-time code to vali
 
 Users who log in via established social auth providers like Google or Facebook don't need additional validation. However, when logging in using a custom provider, we cannot guarantee sufficient protection of user's identity. Due to this, we might require additional verification by asking the user to provide a one-time code we send to their email address.
 
+Please contact Sequence support if you wish to discuss whether your authentication provider can be considered trusted.
+
 ## Validation status
 
 To check the validation status of the current session, use the `isSessionValid` method. This returns `true` for email login and trusted social logins and `false` for custom logins until email validation is complete.

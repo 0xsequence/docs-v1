@@ -12,7 +12,7 @@ Sequence WaaS wallets are native smart contract multisigs, the configuration of 
 
 Sequence Auth provides a simple way to add account creation, login, session management, and wallet support to your app, enabling applications to provide traditional web experiences (e.g., social login, email login, etc.) while providing access to crypto wallets to interact with smart contracts.
 
-All user and session data is encrypted by a Hardware Security Module operated by a third party. This makes it protected from both external attackers and internal access by Horizon or anyone else. **Nobody** can access a user's wallet but the user themselves.
+All user and session data is encrypted by a Hardware Security Module operated by a third party. This makes it protected from both external attackers and internal access by Sequence Team or anyone else. **Nobody** can access a user's wallet but the user themselves.
 
 You won't need to trust us, this is a guarantee you can verify yourself: this service is hosted in a cryptographically attested secure enclave on Amazon Nitro platform. And we offer publicly available independently audited source code (coming soon), so you can rest assured that it hasn't been tampered with.
 
@@ -23,7 +23,7 @@ Sequence Guard is a service hosted by Sequence and contains the other key of the
 
 1 - Limits and allowlists: you can (from the development dashboard) configure what kind of actions are allowed, this means that the guard will only sign transactions within these constraints. For example, you can define that only NFT contract X can be called, and the guard will enforce that no other transactions can take place.
 
-2 - Authenticating the user: the Sequence Guard will authenticate the user **independently of the Sequence Auth**, it performs this action either by using a 3rd party OAuth 2.0 id token (from Meta, Google, X, etc.) or by directly communicating with the user via email/phone number with an OTP code.
+2 - Authenticating the user: the Sequence Guard will authenticate the user **independently of the Sequence Auth**, it performs this action either by using a 3rd party OAuth 2.0 id token (from Meta, Google, X, etc.) or by directly communicating with the user via email/phone number with an OTP code. The direct communication is not always required and, when it does happen, it's seamless and branded with your project details.
 
 ## Threat model
 
