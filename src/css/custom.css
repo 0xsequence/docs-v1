@@ -93,6 +93,7 @@ html {
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
+  --ifm-background-color: #111111 !important;
   --ifm-color-primary: #9bb7ff;
   --ifm-color-primary-dark: #7299ff;
   --ifm-color-primary-darker: #5d8bff;
@@ -104,3 +105,18 @@ html {
   --ifm-menu-color-background-active: #1d1d1d;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* fix sidebar from being underneath top navbar */
+.theme-doc-sidebar-menu.menu__list {
+  margin-top: 10vh;
+}
+
+@media (max-width: 576px) {
+  /* fix sidebar from being underneath top navbar */
+  .theme-doc-sidebar-menu.menu__list {
+    margin-top: 0vh !important;
+  }
+}
+
+
+

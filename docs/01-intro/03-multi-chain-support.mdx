@@ -3,7 +3,18 @@ slug: /multi-chain-support
 ---
 
 import ChainTable from '/src/components/ChainTable'
-const chainList = [
+
+
+# Multi-Chain Support
+
+Sequence can support all EVM compatible chains. The following networks are currently supported by Sequence Wallet, Sequence Indexer,
+Sequence Relayer and all Sequence SDKs:
+
+**Sequence Status Page: [https://status.sequence.info](https://status.sequence.info)**
+
+## Networks
+
+<ChainTable items={[
   {
     network: 'Ethereum',
     logo: '/img/networks/1.png',
@@ -58,8 +69,11 @@ const chainList = [
     chainId: 8453,
     chainHandle: 'base',
   }
-]
-const testChainList = [
+]} />
+
+## Testnets
+
+<ChainTable items={[
   {
     network: 'Ethereum Goerli',
     logo: '/img/networks/1.png',
@@ -96,24 +110,7 @@ const testChainList = [
     chainId: 97,
     chainHandle: 'bsc-testnet',
   }
-]
-
-
-# Multi-Chain Support
-
-Sequence can support all EVM compatible chains. The following networks are currently supported by Sequence Wallet, Sequence Indexer,
-Sequence Relayer and all Sequence SDKs:
-
-**Sequence Status Page: [https://status.sequence.info](https://status.sequence.info)**
-
-
-## Networks
-
-<ChainTable items={chainList} />
-
-## Testnets
-
-<ChainTable items={testChainList} />
+]} />
 
 
 ## Layer-3 Support

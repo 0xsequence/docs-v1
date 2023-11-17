@@ -28,7 +28,10 @@ a server.
 **Status:** https://status.sequence.info
 
 import IndexerTable from '/src/components/IndexerTable'
-const serviceList = [
+
+**Mainnet networks:**
+
+<IndexerTable items={[
   {
     network: 'Ethereum',
     logo: '/img/networks/1.png',
@@ -79,8 +82,13 @@ const serviceList = [
     logo: '/img/networks/8453.png',
     endpoint: 'https://base-indexer.sequence.app',
   }
-]
-const testServiceList = [
+]} />
+
+<br />
+
+**Test networks:**
+
+<IndexerTable items={[
   {
     network: 'Ethereum Goerli',
     logo: '/img/networks/1.png',
@@ -111,17 +119,7 @@ const testServiceList = [
     logo: '/img/networks/8453.png',
     endpoint: 'https://base-goerli-indexer.sequence.app',
   }
-]
-
-**Mainnet networks:**
-
-<IndexerTable items={serviceList} />
-
-<br />
-
-**Test networks:**
-
-<IndexerTable items={testServiceList} />
+]} />
 
 
 ## Getting Started

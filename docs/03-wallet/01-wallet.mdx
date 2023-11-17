@@ -16,7 +16,8 @@ These keys are meant to be controlled by the wallet owner and provide added secu
 compromised for the wallet to be compromised.
 
 import CardList from '/src/components/CardList'
-const MyItems = [
+
+<CardList items={[
   {
     title: '👤 Social/email login',
     description:
@@ -70,6 +71,4 @@ const MyItems = [
     description:
       "Users don't need to worry about gas prices, gas limits or stuck transactions.",
   },
-]
-
-<CardList items={MyItems} />
+]} />
