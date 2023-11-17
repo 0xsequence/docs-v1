@@ -108,5 +108,15 @@ html {
 
 /* fix sidebar from being underneath top navbar */
 .theme-doc-sidebar-menu.menu__list {
-  margin-top: 70px;
+  margin-top: 10vh;
 }
+
+@media (max-width: 576px) {
+  /* fix sidebar from being underneath top navbar */
+  .theme-doc-sidebar-menu.menu__list {
+    margin-top: 0vh !important;
+  }
+}
+
+
+
