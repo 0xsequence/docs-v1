@@ -181,7 +181,7 @@ Delayed encode transactions have their payload data not encoded on the client, i
 |--------------------------|---------|--------------------------------------------------|---------------------------------------------------------------------------|
 | DelayedEncodeData        | abi     | string                                           | The ABI (Application Binary Interface) for the contract.                   |
 |                          | func    | string                                           | The function to call within the smart contract.                            |
-|                          | args    | (string \| DelayedEncodeData)[] \| { [key: string]: (string \| DelayedEncodeData) }  | The arguments to pass to the function. Can be an array or an object. |
+|                          | args    | (string \| DelayedEncodeData)[] \| \{ [key: string]: (string \| DelayedEncodeData) \}  | The arguments to pass to the function. Can be an array or an object. |
 | DelayedEncodeSubpacket   | type    | 'delayedEncode'                                  | The type of the subpacket, in this case, it's `'delayedEncode'`.           |
 |                          | to      | string                                           | The address to which the transaction is sent.                              |
 |                          | value   | string                                           | The value being sent in the transaction, usually in Ether for Ethereum.    |

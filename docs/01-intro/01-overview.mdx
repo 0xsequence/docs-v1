@@ -24,7 +24,8 @@ import IntroCards from '/src/components/IntroCards'
 ## Getting Started
 
 import CardList from '/src/components/CardList'
-const GETTING_STARTED_ITEMS = [
+
+<CardList items={[
   {
     title: 'Connect Wallet',
     description: 'Learn how to connect your app to web3 with the Sequence Wallet',
@@ -45,8 +46,11 @@ const GETTING_STARTED_ITEMS = [
     description: 'Get started with the Unity SDK',
     route: '/unity-sdk',
   },
-]
-const SEQUENCE_STACK_ITEMS = [
+]} />
+
+## The Sequence Stack
+
+<CardList items={[
   {
     title: 'Smart Wallet',
     description: 'Learn how to offer the most seamless web3 experience for your users',
@@ -72,10 +76,4 @@ const SEQUENCE_STACK_ITEMS = [
     description: 'Highly available and scalable blockchain RPC infrastructure',
     route: '/node-gateway',
   },
-]
-
-<CardList items={GETTING_STARTED_ITEMS} />
-
-## The Sequence Stack
-
-<CardList items={SEQUENCE_STACK_ITEMS} />
+]} />

@@ -1,5 +1,7 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/palenight')
+const { themes } = require('prism-react-renderer');
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.dracula;
+
 darkCodeTheme.plain.backgroundColor = '#1d1d1d'
 lightCodeTheme.plain.backgroundColor = '#ffffff'
 
