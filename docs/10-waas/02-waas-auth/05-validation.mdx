@@ -26,7 +26,7 @@ true
 
 ### Trigger session validation
 
-Manually trigger a session validation with the `validateSession` method. This will send a validation link to the user's email. If validated within 10 minutes, the method returns `true`; otherwise, it returns `false`.
+Manually trigger a session validation with the `validateSession` method. This will send a code to the user's email. If validated within 10 minutes, the method returns `true`; otherwise, it returns `false`.
 
 ```ts
 const result = await waas.validateSession()
@@ -35,22 +35,23 @@ const result = await waas.validateSession()
 true
 ```
 
-#### Redirect URL
-
-By default, the validation link **does not** redirect the user after validation. Instead, it displays a success message and prompts the user to close the window. To redirect the user after validation, pass a `redirectUrl` to the `validateSession` method.
+Once user receives the code, he can validate the session with the `finishValidateSession` method that takes the code as an argument. If the code is valid, the method returns `true`; otherwise, it returns `false`.
 
 ```ts
-await waas.validateSession({
-  redirectUrl: 'https://myapp.com/checkout'
-})
+const result = await waas.finishValidateSession('123456')
+```
+```stdout
+true
 ```
 
-The redirect URL can also be passed to any method that might trigger session validation, such as `sendTransaction`.
+#### onValidationRequired callback
+
+The `onValidationRequired` callback is triggered when a session validation is required. This can happen when a user tries to perform an action that requires validation, such as sending a transaction or signing a message. It determines whether the session validation should be triggered or not. If the callback returns `true`, the session validation is triggered. If it returns `false`, the action is cancelled.
 
 ```ts
 const tx = await waas.sendERC20({
   validation: {
-    redirectUrl: 'https://myapp.com/checkout'
+    onValidationRequired: () => true
   },
   chainId: 42161,
   token: '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
