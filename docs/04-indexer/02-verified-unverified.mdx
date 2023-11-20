@@ -1,0 +1,79 @@
+---
+sidebar_label: Verified vs. unverified tokens
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Verified vs. Unverified Tokens
+
+The Sequence Indexer is a simple API to query any blockchain token and NFT data, with the feature that allows developers to query for both verified and unverified token contracts filtered by Sequence.
+
+How it works, is that Sequence uses a crowdsourced [token directory](https://github.com/0xsequence/token-directory), [CoinGecko](https://www.coingecko.com/), [OpenSea](https://opensea.com/) and other sources to verify contracts like the Sequence Builder, so that the default when using the Indexer with `includeMetadata` has spam reduced.
+
+This allows the product to develop a practice of keeping information sanitized as a first pass for any web3 experience. 
+
+Now, in order to query for unverified contracts additional fields must be used, which can be shown in the below example.
+
+# Unverified Contracts Examples
+
+### Fetch the transaction history including unverified contracts for any wallet address
+
+*Sequence Indexer `GetTransactionHistory` Method:*
+
+* Request: POST /rpc/Indexer/GetTransactionHistory
+* Content-Type: application/json
+* Body (in JSON):
+	* `filter` (object)
+  	    * `accountAddress` (string) -- the wallet account address
+		* `contractAddress` (string) -- optionally specify a contract address to filter
+		* `accountAddresses` (string array) -- optionally specify a list of wallet account addresses
+		* `contractAddresses` (string array) -- optionally specify a list of contract address
+		* `transactionHashes` (string array) -- optionally specify a list of transaction hashes
+		* `metaTransactionIDs` (string array) -- optionally specify a list of meta transaction IDs
+		* `fromBlock` (number) -- optionally specify the starting block to select a range
+		* `toBlock` (number) -- optionally specify the ending block to select a range
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+  * `metadataOptions`(object)
+        * `includeUnverified` (boolean) -- optionally toggle the inclusion of unverified contracts
+        * `includeMetadataContracts` (string array) -- optionally specify a list of unverified contract addresses to query
+<br />
+
+**Example: `GetTransactionHistory` of a wallet account address on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTransactionHistory -d '{ "filter": { "accountAddress": "0x64b2f2fC095417Ef0CBA2FFFb17C9b92E82bCf8C" }, "includeMetadata": true, "metadataOptions": { "includeMetadataContracts": ["0x2Fdf496353923C5F1bDd9fFdacE3Db555942B30d"]  } }'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceIndexer } from '@0xsequence/indexer'
+
+const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app')
+
+// try any account address you'd like :)
+const filter = {
+	accountAddress: "0xabc..."
+}
+
+// query Sequence Indexer for all token transaction history on Polygon
+const transactionHistory = await indexer.getTransactionHistory({
+	filter: filter,
+	includeMetadata: true,
+        metadataOptions: { 
+            includeUnverified : true,
+            includeMetadataContracts: ["0x2Fdf496353923C5F1bDd9fFdacE3Db555942B30d"] 
+        }
+})
+	
+console.log('transaction history in account:', transactionHistory)
+```
+
+</TabItem>
+</Tabs>
