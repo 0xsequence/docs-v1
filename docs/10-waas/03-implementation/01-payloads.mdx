@@ -204,59 +204,59 @@ Hope this helps!
     "network": "137",
     "transactions": [
       {
-        "type": "transaction",
+        "data": "0x3251ba32",
         "to": "0x479F6a5b0C1728947318714963a583C56A78366A",
-        "value": "39381",
-        "data": "0x3251ba32"
+        "type": "transaction",
+        "value": "39381"
       },
       {
-        "type": "erc20send",
-        "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
         "to": "0x7b1Bd3474D789e18e2E329E2c53F819B6E687b4A",
+        "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "type": "erc20send",
         "value": "1000"
       },
       {
-        "type": "erc721send",
-        "token": "0xF87E31492Faf9A91B02Ee0dEAAd50d51d56D5d4d",
-        "to": "0x17fFA2d95b58228e1ECb0C6Ac25A6EfD20BA08E4",
+        "data": "0x112233",
         "id": "7",
         "safe": true,
-        "data": "0x112233"
+        "to": "0x17fFA2d95b58228e1ECb0C6Ac25A6EfD20BA08E4",
+        "token": "0xF87E31492Faf9A91B02Ee0dEAAd50d51d56D5d4d",
+        "type": "erc721send"
       },
       {
-        "type": "erc1155send",
-        "token": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+        "data": "0x223344",
         "to": "0x91E8aC543C5fEDf9F3Ef8b9dA1500dB84305681F",
+        "token": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+        "type": "erc1155send",
         "vals": [{
-          "id": "2",
-          "amount": "5"
+          "amount": "5",
+          "id": "2"
         }, {
-          "id": "500",
-          "amount": "1"
-        }],
-        "data": "0x223344"
+          "amount": "1",
+          "id": "500"
+        }]
       },
 			{
-				"type": "delayedEncode",
-        "to": "0x140d72763D1ce39Ad4E2e73EC6e8FC53E5b73B64",
-        "value": "0",
 				"data": {
 					"abi": "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_maxCost\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_fees\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"fillOrKillOrder\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"otherMethods\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
-					"func": "fillOrKillOrder",
 					"args": [
 						"0x6bd55a2877890bd58871eefe886770a7734077a74981910a75d7b1f044b5bf28",
 						"1000000000000000000",
 						"[\"0x095aE61E8207C7856eA273235D6BAdb69d815F5e\", \"0xC9D9B33231d24dd8cC53fDD64F7ABdd156f2a7E2\"]",
 						{
 							"abi": "notExpired(uint256,string)",
-							"func": "notExpired",
 							"args": [
 								"1600000000",
 								"Nov 1st, 2020"
-							]
+							],
+							"func": "notExpired"
 						}
-					]
-				}
+					],
+					"func": "fillOrKillOrder"
+				},
+        "to": "0x140d72763D1ce39Ad4E2e73EC6e8FC53E5b73B64",
+				"type": "delayedEncode",
+        "value": "0"
 			}
     ],
     "wallet": "0xBc5F07A5852fdF3DBd57A76835109220D0ADd8E8"
