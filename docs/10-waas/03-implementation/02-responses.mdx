@@ -23,7 +23,7 @@ The `data` field contains:
 |----------------|-------------------|------------------------------------------------------|----------|
 | txHash         | string            | Transaction hash of the Ethereum transaction         | No       |
 | metaTxHash     | string            | Hash of the meta transaction                         | No       |
-| request        | TransactionsPacket| The original request packet of the transaction       | No       |
+| request        | [SendTransactionPayload](https://docs.sequence.xyz/waas/implementation/payloads/#send-transaction-payload)| The original request packet of the transaction       | No       |
 | receipt        | MetaTxnReceipt    | Receipt of the meta transaction                      | No       |
 | nativeReceipt  | any               | Native receipt of the Ethereum transaction           | Yes      |
 | simulations    | SimulateResult[]  | Array of simulation results                          | Yes      |
