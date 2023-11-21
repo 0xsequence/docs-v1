@@ -17,11 +17,11 @@ jobs:
     
     - name: Install dependencies
       run: |
-        npm install -g yarn
-        yarn install
+        npm install -g pnpm
+        pnpm install
     
     - name: Build
-      run: yarn run build
+      run: pnpm build
 
     - name: Touch CNAME
       run: echo "docs.sequence.xyz" > build/CNAME
