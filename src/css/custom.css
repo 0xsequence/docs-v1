@@ -106,6 +106,10 @@ html {
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+[data-theme='light'] {
+  --ifm-background-color: #f7f5f1 !important;
+}
+
 /* fix sidebar from being underneath top navbar */
 .theme-doc-sidebar-menu.menu__list {
   margin-top: 10vh;
@@ -118,5 +122,10 @@ html {
   }
 }
 
+[data-theme='dark'] .markdown code {
+  background: #1f1f1f !important;
+}
 
-
+.markdown {
+  tab-size: 4 !important;
+}
