@@ -24,7 +24,11 @@ sure to query the indexer of the corresponding network).
 * Content-Type: application/json
 * Body (in JSON):
 	* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
-  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+	* `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+	* `metadataOptions` (object - optional) -- additional options for metadata
+		- `omitUnverified` (boolean - optional) -- omit contracts which are unverified to helps reduce spam
+		- `includeContracts` ([]string - optional) -- list of specific contract addresses to always be included, even if omitUnverified is enabled.
+
 
 <br />
 
