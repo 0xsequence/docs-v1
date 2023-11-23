@@ -18,10 +18,10 @@ calls to control the results returned.
 The Sequence Metadata service keeps track of contracts which are "verified" by checking popular
 sources like Coingecko, OpenSea, Sequence Builder (https://sequence.build) and the Sequence Token
 Directory (https://github.com/0xsequence/token-directory). By calling the Indexer RPC methods with
-`"metadataOptions": { "omitUnverified": true }`, any contract address which has not been verified, will
+`"metadataOptions": { "verifiedOnly": true }`, any contract address which has not been verified, will
 be omitted from the results. We recommend using this option all the time, but, the downside is
 if your project's contracts are unverified, then they will also be omitted from the results. To help
 with this, your options are to get verified with one of the sources above, or in your RPC calls to pass
-`"metadataOptions": { "omitUnverified": true, "includeContracts": ["0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "0x8bb759bb68995343ff1e9d57ac85ff5c5fb79334"] }`
+`"metadataOptions": { "verifiedOnly": true, "includeContracts": ["0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "0x8bb759bb68995343ff1e9d57ac85ff5c5fb79334"] }`
 as an example.
 

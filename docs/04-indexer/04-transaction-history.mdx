@@ -29,8 +29,8 @@ The response includes decoded transaction details for easy consumption / renderi
 		* `toBlock` (number) -- optionally specify the ending block to select a range
 	* `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
 	* `metadataOptions` (object - optional) -- additional options for metadata
-		- `omitUnverified` (boolean - optional) -- omit contracts which are unverified to helps reduce spam
-		- `includeContracts` ([]string - optional) -- list of specific contract addresses to always be included, even if omitUnverified is enabled.
+		- `verifiedOnly` (boolean - optional) -- return only contracts which are 'verified' to help reduce spam
+		- `includeContracts` ([]string - optional) -- list of specific contract addresses to always be included, even if verifiedOnly is enabled.
 
 
 <br />
