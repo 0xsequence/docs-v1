@@ -29,14 +29,14 @@ Our Indexer service is now managed through **[Sequence Builder](https://sequence
 
 <br />
 
-**Example: `GetTokenBalances` of a wallet account address on Polygon using an `API_ACCESS_KEY`**
+**Example: `GetTokenBalances` of a wallet account address on Polygon using an `c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA`**
 
 <strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: API_ACCESS_KEY" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -46,7 +46,7 @@ curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: API_ACCESS_KE
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexer } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app', 'API_ACCESS_KEY')
+const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app', 'c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA')
 
 // try any account address you'd like :)
 const accountAddress = '0xabc...'
@@ -73,7 +73,7 @@ import (
 )
 
 func GetTokenBalances(accountAddress string) {
-	seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "API_ACCESS_KEY")
+	seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
 	includeMetadata := true
 
@@ -118,14 +118,14 @@ See section below for more information.
 
 <br />
 
-**Example: `GetTokenBalances` of a contract + account address on Polygon using an `API_ACCESS_KEY`**
+**Example: `GetTokenBalances` of a contract + account address on Polygon using an `c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA`**
 
 <strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: API_ACCESS_KEY" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA" https://polygon-indexer.sequence.app/rpc/Indexer/GetTokenBalances -d '{ "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9", "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -135,7 +135,7 @@ curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: API_ACCESS_KE
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexer } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app', 'API_ACCESS_KEY')
+const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app', 'c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA')
 
 // try any contract and account address you'd like :)
 const contractAddress = '0x631998e91476DA5B870D741192fc5Cbc55F5a52E'
@@ -165,7 +165,7 @@ import (
 )
 
 func GetTokenBalances(contractAddress, accountAddress string) {
-	seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "API_ACCESS_KEY")
+	seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
 	includeMetadata := true
 
