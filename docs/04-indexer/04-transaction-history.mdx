@@ -41,13 +41,14 @@ The response includes decoded transaction details for easy consumption / renderi
 
 <br />
 
-**Example: `GetTransactionHistory` of a wallet account address on Polygon**
+**Example: `GetTransactionHistory` of a wallet account address on Polygon using an `API_ACCESS_KEY`**
 
+<strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequence.app/rpc/Indexer/GetTransactionHistory -d '{ "filter": { "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9" }, "includeMetadata": true }'
+curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: API_ACCESS_KEY" https://polygon-indexer.sequence.app/rpc/Indexer/GetTransactionHistory -d '{ "filter": { "accountAddress": "0x8e3E38fe7367dd3b52D1e281E4e8400447C8d8B9" }, "includeMetadata": true }'
 ```
 
 </TabItem>
@@ -57,7 +58,7 @@ curl -X POST -H "Content-Type: application/json" https://polygon-indexer.sequenc
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceIndexer } from '@0xsequence/indexer'
 
-const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app')
+const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app', 'API_ACCESS_KEY')
 
 // try any account address you'd like :)
 const filter = {

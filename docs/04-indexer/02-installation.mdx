@@ -55,15 +55,16 @@ or
 ```sh
 yarn add 0xsequence ethers
 ```
+<strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 
-then in your app,
+then in your app (using your `API_Access_Key`),
 
 ```ts
 import { SequenceIndexer } from '@0xsequence/indexer'
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-const indexer = new SequenceIndexer('https://mainnet-indexer.sequence.app')
+const indexer = new SequenceIndexer('https://mainnet-indexer.sequence.app', 'API_ACCESS_KEY')
 
 // see examples below for the kinds of queries you can make
 const tokenBalances = await indexer.getTokenBalances(...)
