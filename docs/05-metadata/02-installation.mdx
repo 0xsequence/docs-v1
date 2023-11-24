@@ -14,13 +14,14 @@ or
 ```bash
 npm install @0xsequence/metadata
 ```
+<strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This installation requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 
-then in your app,
+then in your app (using your `API_Access_Key`),
 
 ```ts
 import { SequenceMetadataClient } from '@0xsequence/metadata'
 
-const metadata = new SequenceMetadataClient()
+const metadata = new SequenceMetadataClient('https://metadata.sequence.app', 'API_ACCESS_KEY')
 ```
 
 **NOTE:** if you're using `@0xsequence/metadata` from node.js, we recommend using node v18.x or newer.

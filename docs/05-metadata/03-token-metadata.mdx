@@ -37,13 +37,15 @@ token metadata directly.
 
 <br />
 
-**Example: `GetTokenMetadata` of some Skyweaver tokens on Polygon**
+**Example: `GetTokenMetadata` of some tokens using an `API_ACCESS_KEY`**
+
+<strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetTokenMetadata -d '{ "chainID": "polygon", "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["65537", "65538", "65539"] }'
+curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: API_ACCESS_KEY" https://metadata.sequence.app/rpc/Metadata/GetTokenMetadata -d '{"chainID":"polygon", "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["65537", "65538", "65539"] }'
 ```
 
 </TabItem>
@@ -53,7 +55,7 @@ curl -X POST -H "Content-Type: application/json" https://metadata.sequence.app/r
 // Works in both a Webapp (browser) or Node.js:
 import { SequenceMetadataClient } from '@0xsequence/metadata'
 
-const metadataClient = new SequenceMetadataClient()
+const metadataClient = new SequenceMetadataClient("https://metadata.sequence.app", "API_ACCESS_KEY")
 
 const tokenMetadata = await metadataClient.getTokenMetadata({
   chainID: 'polygon',
@@ -61,7 +63,7 @@ const tokenMetadata = await metadataClient.getTokenMetadata({
   tokenIDs: ['65537', '65538', '65539']
 })
 
-console.log('Skyweaver metadata for some tokens:', tokenMetadata)
+console.log('token metadata: ', tokenMetadata)
 ```
 
 </TabItem>
