@@ -68,7 +68,7 @@ import (
 )
 
 func GetTokenBalances(accountAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "API_ACCESS_KEY")
 
 	includeMetadata := true
 

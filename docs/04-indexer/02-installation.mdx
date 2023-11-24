@@ -89,10 +89,16 @@ import (
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-seqIndexer := indexer.NewIndexerClient("https://mainnet-indexer.sequence.app", http.DefaultClient)
+seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "API_ACCESS_KEY")
 
 // see examples below for the kinds of queries you can make
-tokenBalances, err := seqIndexer.GetTokenBalances(...)
+accountAddress := "ACCOUNT_ADDRESS"
+includeMetadata := true
+metadataOptions := indexer.MetadataOptions{
+	VerifiedOnly: true,
+}
+
+_, tokenBalances, err := seqIndexer.GetTokenBalances(context.Background(), &accountAddress, nil, nil, &includeMetadata, &metadataOptions, nil)
 ```
 
 <br />

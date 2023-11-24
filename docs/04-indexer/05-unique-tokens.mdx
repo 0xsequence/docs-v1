@@ -82,7 +82,7 @@ import (
 )
 
 func GetTokenSupplies(contractAddress string) {
-	seqIndexer := indexer.NewIndexerClient("https://polygon-indexer.sequence.app", http.DefaultClient)
+	seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "API_ACCESS_KEY")
 
 	filter := &indexer.TransactionHistoryFilter{
 		ContractAddress: &contractAddress,

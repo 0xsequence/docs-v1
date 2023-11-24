@@ -40,9 +40,9 @@ import (
 	"github.com/0xsequence/go-sequence/metadata"
 )
 
-seqMetadata := metadata.NewMetadataClient("https://metadata.sequence.app", http.DefaultClient)
+seqMetadata := metadata.NewMetadata("API_ACCESS_KEY")
 
-tokenBalances, err := seqIndexer.GetTokenBalances(...)
+contractInfo, err := seqMetadata.GetContractInfo(context.Background(), "polygon", "CONTRACT_ADDRESS")
 ```
 
 <br />

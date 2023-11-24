@@ -67,6 +67,19 @@ console.log('token metadata: ', tokenMetadata)
 ```
 
 </TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"github.com/0xsequence/go-sequence/metadata"
+)
+
+seqMetadata := metadata.NewMetadata("API_ACCESS_KEY")
+
+collectibleInfo, err := seqMetadata.GetTokenMetadata(context.Background(), "polygon", "CONTRACT_ADDRESS", []string{"1", "2"})
+```
+
+</TabItem>
 <TabItem value="other" label="Other">
 
 Please [contact our team](/support) for assistance with integrations to another target.
