@@ -87,9 +87,25 @@ Please [contact our team](/support) for assistance with integrations to another 
 </TabItem>
 </Tabs>
 
-<br/>
-<br/>
+## Refreshing token metadata
 
+When deploying new contracts or metadata updates the refresh token metadata url should be called via a simple HTTPS get reguest by command line or browser for data to indexeable in the Sequence Indexer metadata service.
+
+Example: refresh metadata of token on `network_ID` of `collection_ID` with `token_ID`
+
+```bash
+# format: https://metadata.sequence.app/tokens/<network_ID>/<collection_ID>/<token_ID>
+
+curl https://metadata.sequence.app/tokens/polygon/0xdc0479cc5bba033b3e7de9f178607150b3abce1f/105046/refresh
+
+```
+
+### Testing instructions:
+
+1. Check current token metadata at `https://metadata.sequence.app/tokens/<network_ID>/<collection_ID>/<token_ID>`
+2. Modify token metadata content either on chain or via token baseURI
+3. Call refresh token ID endpoints
+4. Check token metadata changes at `https://metadata.sequence.app/tokens/<network_ID>/<collection_ID>/<token_ID>`
 
 ## Token Metadata Standards
 
