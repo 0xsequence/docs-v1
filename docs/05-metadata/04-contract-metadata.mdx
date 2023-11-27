@@ -7,10 +7,10 @@ import TabItem from '@theme/TabItem'
 
 # Contract Metadata
 
-:::warning[changes to METADATA API usage and billing]
-Our Metadata API service is now managed through **[Sequence Builder](https://sequence.build/landing)**. Usage is charged in credits - issued monthly based your subscription plan. Sign up to grab your API access key. 
+:::warning[INTRODUCING THE SEQUENCE BUILDER - https://sequence.build]
+Our **Metadata** service is now managed through **[Sequence Builder](https://sequence.build)**. Sign up to grab your API access key. 
 
-[Get started with the **Sequence Builder** Free Plan today!](https://sequence.build/landing)
+[Get started with the **Sequence Builder** Free Plan today!](https://sequence.build)
 :::
 
 * [Learn how to query contract-level metadata directly for any contract](/metadata/token-metadata#fetch-token-metadata-for-any-erc721-or-erc1155-contract)
@@ -50,9 +50,9 @@ curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: c3bgcU3LkFR9B
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
-import { SequenceMetadataClient } from '@0xsequence/metadata'
+import { SequenceMetadata } from '@0xsequence/metadata'
 
-const metadataClient = new SequenceMetadataClient("https://metadata.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
+const metadataClient = new SequenceMetadata("https://metadata.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
 const contractMetadata = await metadataClient.getContractInfoBatch({
   chainID: 'polygon',
