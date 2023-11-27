@@ -7,6 +7,12 @@ import TabItem from '@theme/TabItem'
 
 # Token Metadata
 
+:::warning[INTRODUCING THE SEQUENCE BUILDER - https://sequence.build]
+Our **Metadata** service is now managed through **[Sequence Builder](https://sequence.build)**. Sign up to grab your API access key. 
+
+[Get started with the **Sequence Builder** Free Plan today!](https://sequence.build)
+:::
+
 Sequence provides a metadata service for fetching token metadata for any ERC721 or ERC1155 contract, on [any EVM chain](/multi-chain-support).
 
 * [Learn how to query token metadata directly for any contract](/metadata/token-metadata#fetch-token-metadata-for-any-erc721-or-erc1155-contract)
@@ -31,13 +37,15 @@ token metadata directly.
 
 <br />
 
-**Example: `GetTokenMetadata` of some Skyweaver tokens on Polygon**
+**Example: `GetTokenMetadata` of some tokens using an `c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA`**
+
+<strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 
 <Tabs>
 <TabItem value="curl" label="curl">
 
 ```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetTokenMetadata -d '{ "chainID": "polygon", "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["65537", "65538", "65539"] }'
+curl -X POST -H "Content-Type: application/json" -H "X-Access-Key: c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA" https://metadata.sequence.app/rpc/Metadata/GetTokenMetadata -d '{"chainID":"polygon", "contractAddress": "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["65537", "65538", "65539"] }'
 ```
 
 </TabItem>
@@ -45,9 +53,9 @@ curl -X POST -H "Content-Type: application/json" https://metadata.sequence.app/r
 
 ```ts
 // Works in both a Webapp (browser) or Node.js:
-import { SequenceMetadataClient } from '@0xsequence/metadata'
+import { SequenceMetadata } from '@0xsequence/metadata'
 
-const metadataClient = new SequenceMetadataClient()
+const metadataClient = new SequenceMetadata("https://metadata.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
 const tokenMetadata = await metadataClient.getTokenMetadata({
   chainID: 'polygon',
@@ -55,7 +63,20 @@ const tokenMetadata = await metadataClient.getTokenMetadata({
   tokenIDs: ['65537', '65538', '65539']
 })
 
-console.log('Skyweaver metadata for some tokens:', tokenMetadata)
+console.log('token metadata: ', tokenMetadata)
+```
+
+</TabItem>
+<TabItem value="golang" label="Go">
+
+```go
+import (
+	"github.com/0xsequence/go-sequence/metadata"
+)
+
+seqMetadata := metadata.NewMetadata("c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
+
+collectibleInfo, err := seqMetadata.GetTokenMetadata(context.Background(), "polygon", "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", []string{"1", "2"})
 ```
 
 </TabItem>

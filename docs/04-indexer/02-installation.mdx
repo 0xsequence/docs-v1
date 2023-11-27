@@ -7,6 +7,12 @@ import TabItem from '@theme/TabItem'
 
 # Indexer Installation
 
+:::warning[INTRODUCING THE SEQUENCE BUILDER - https://sequence.build]
+Our **Indexer** service is now managed through **[Sequence Builder](https://sequence.build)**. Sign up to grab your API access key. 
+
+[Get started with the **Sequence Builder** Free Plan today!](https://sequence.build)
+:::
+
 Sequence Indexer is a simple API to query any blockchain token and NFT data. Below are instructions
 on how to integrate the Sequence Indexer API into your Webapps, Games, and backends. In case you missed
 it, please also see the [Indexer Overview](/indexer).
@@ -49,15 +55,16 @@ or
 ```sh
 yarn add 0xsequence ethers
 ```
+<strong style={{color: '#fff8e6', background: '#be8a05', fontSize: 16}}>This code requires an API Access Key from <a href="https://sequence.build" style={{color: '#fff8e6', background: '#be8a05'}}><u>**Sequence Builder**</u></a>.</strong>
 
-then in your app,
+then in your app (using your `API_Access_Key`),
 
 ```ts
 import { SequenceIndexer } from '@0xsequence/indexer'
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-const indexer = new SequenceIndexer('https://mainnet-indexer.sequence.app')
+const indexer = new SequenceIndexer('https://mainnet-indexer.sequence.app', 'c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA')
 
 // see examples below for the kinds of queries you can make
 const tokenBalances = await indexer.getTokenBalances(...)
@@ -82,10 +89,16 @@ import (
 
 // see https://docs.sequence.xyz/indexer#supported-networks--endpoints for list of
 // indexer hosts for the chain you'd like to query
-seqIndexer := indexer.NewIndexerClient("https://mainnet-indexer.sequence.app", http.DefaultClient)
+seqIndexer := indexer.NewIndexer("https://polygon-indexer.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
 // see examples below for the kinds of queries you can make
-tokenBalances, err := seqIndexer.GetTokenBalances(...)
+accountAddress := "ACCOUNT_ADDRESS"
+includeMetadata := true
+metadataOptions := indexer.MetadataOptions{
+	VerifiedOnly: true,
+}
+
+_, tokenBalances, err := seqIndexer.GetTokenBalances(context.Background(), &accountAddress, nil, nil, &includeMetadata, &metadataOptions, nil)
 ```
 
 <br />
