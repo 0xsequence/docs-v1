@@ -1,3 +1,138 @@
+---
+slug: /deploy-an-item-collection
+---
 
+# How to load (deploy) an item collection
 
-# Loading (deploying) an item collection
+## Introduction
+
+Are you ready to dive into the exciting world of web3 gaming? Whether you’re a blockchain newbie or just looking to expand your gaming horizons, this tutorial is perfect for you.
+
+This guide will start from the very beginning, helping you to create an account if you haven't already. Then we help you to create a project for all of your game's smart contracts to live in. And finally, we will help you deploy your first smart contract!
+
+After you load collections into the game, you can use your Smart Contract to mint a specific collection of collectibles (with an ERC-721). Or you can have a collection of items (ERC 1155), where you can add new items to it at any time, and create (mint) any number of these items whenever you like.
+
+Lets get started!
+
+## Step 0: Signup and Create a Project
+
+Before you can deploy a smart contract, you need to signup and create a project on builder first.
+
+#### Signup for builder
+
+If you haven't already, go to [**sequence.build**](https://sequence.build/) to create an account.
+
+Once you have an account created, its time to create a project where you can deploy smart contracts for your item collections.
+
+#### Create a Project
+
+In your dashboard on [**sequence.build**](https://sequence.build/), click the `+ Create new Project` button.
+
+![Sequence builder new project](/img/builder/builder_create_new_project_for_contract_deploy.png)
+
+#### Project details
+
+Give your project a name, and upload an avatar if you would like.
+
+#### Select network(s)
+
+Select the network you would like to deploy smart contracts to first. You can always add more networks later.
+
+:::note
+in order to use items on different networks, smart contracts must be deployed on each network
+:::
+
+For this example, I will start by deploying to Polygon.
+
+![Sequence builder new project details](/img/builder/builder_new_project_details_for_contract_deploy.png)
+
+## Step 1: Go to the Contracts section
+
+In the project dashboard, find the `Contracts` tab on the left side.
+
+#### Add a new contract
+
+Once you have that open, click the `+ New contract` button
+
+![Sequence builder new contract](/img/builder/builder_create_new_contract_for_contract_deploy.png)
+
+## Step 2: Choose a contract for your item collection
+
+#### Select a contract 
+
+You have a couple of different options to load your item collection with. 
+
+We provide a few standard contracts to choose from, including an ERC1155, an ERC721, and an ERC20.
+
+If you plan to use one of our standard contracts, skip ahead to **Step 3: Deploy your smart contract**
+
+![Sequence builder select contract](/img/builder/builder_select_contract_for_contract_deploy.png)
+
+#### Bring your own smart contract
+
+You can also click the `+ View more contracts` button, which will open up a modal showing more standard contracts.
+
+At the bottom of this modal, click the `+ Upload Source` button to deploy your own contract.
+
+![Sequence builder more contracts](/img/builder/builder_more_contracts_for_contract_deploy.png)
+
+## Step 3: Deploy your smart contract
+
+#### Select/confirm the network
+
+You may have already selected the network you want to deploy this contract too, so confirm that this is the right network.
+
+#### Provide a contract name and symbol
+
+Give your smart contract a name. If your contract is an ERC20 or ERC721, then you will need to give it a token symbol as well. 
+
+:::note
+Providing a token symbol at deployment is not necessary for ERC1155 as there will be several different tokens associated with this contract - token symbols are determined when a new token is created at minting.
+:::
+
+#### Determine a contract owner
+
+Provide a wallet address for the contract owner. This will likely be yourself.
+
+![Sequence builder contract details](/img/builder/builder_provide_contract_details_for_contract_deploy.png)
+
+## Step 4: Sign the transaction
+
+In order to complete the deployment of a smart contract, the contract deploy (that's you) will need to sign a transaction on the network that its being deployed to.
+
+You will use your Sequence wallet to sign the transaction.
+
+#### Sequence wallet
+
+A Sequence wallet should have been created when you signed up for builder. You can confirm this by looking in the top right corner of then window anytime when you are in builder.
+
+If you do not see this, then you need to signup and create a wallet.
+
+![Sequence builder see wallet](/img/builder/builder_see_wallet_for_contract_deploy.png)
+// [x] builder_see_wallet_for_contract_deploy
+
+#### Signature modal
+
+After you click the `Deploy Contract` button, a modal will pop up - which is your sequence wallet. In your wallet you will see a request to sign a transaction. It will include transaction details along with network fee estimations.
+
+:::warning
+It cost a fee (we call this gas) to deploy on a network - so make sure you have some of the native network tokens in your wallet ahead of time to cover it.
+:::
+
+Once you've read the transaction details, execute the transaction by hitting `confirm` on the signature.
+
+![Sequence builder sign transaction](/img/builder/builder_sign_transaction_for_contract_deploy.png)
+// [x] builder_sign_transaction_for_contract_deploy
+
+## Step 5: Collectable contract deployed
+
+After you sign the transaction, the network will take a few seconds (maybe minutes depending on the network and other factors) to confirm your transaction.
+
+When the transaction is complete, the contract will be deployed.
+
+#### Linked contract in dashboard
+
+Now that your smart contract is deployed, return to the `Contracts` section of Builder. There you should see your newly deployed contract. You should also be able to see what kind of contract it is, along with any roles you have - like `owner` for example
+
+![Sequence builder confirm deployment](/img/builder/builder_confirm_deployment_for_contract_deploy.png)
+// [x] builder_confirm_deployment_for_contract_deploy
