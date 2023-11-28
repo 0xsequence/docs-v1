@@ -47,11 +47,11 @@ const indexer = new SequenceIndexer('https://polygon-indexer.sequence.app', 'c3b
 const accountAddress = '0xabc...'
 
 // query Sequence Indexer for the MATIC balance on Polygon
-const balance = await indexer.getEtherBalance({
+const tokenBalance = await indexer.getEtherBalance({
 	accountAddress: accountAddress,
 })
 	
-console.log('tokens in your account:', tokenBalances)
+console.log('tokens in your account:', tokenBalance)
 ```
 
 </TabItem>
