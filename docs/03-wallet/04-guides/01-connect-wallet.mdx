@@ -87,8 +87,13 @@ After you connect, you can use `wallet.openWallet()` to open the wallet:
 const wallet = sequence.getWallet();
 wallet.openWallet();
 ```
+:::tip Check out some example Dapp source code
+For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/demo-dapp) and [Demo-Dapp-Web3Modal](https://github.com/0xsequence/demo-dapp-web3modal).
+:::
 
-You can also optionally pass a path, and use `openWithOptions` intent to pass settings when you open the wallet:
+## Navigating your `0xsequence` wallet paths
+
+You can also optionally pass a path that is compatible with any of the wallet features (e.g. send, scan, bridge, etc.), and use `openWithOptions` intent to pass settings when you open the wallet:
 
 ```ts
 const settings: Settings = {
@@ -110,10 +115,24 @@ const wallet = sequence.getWallet();
 
 const path = "wallet/add-funds";
 wallet.openWallet(path, intent);
+
 ```
 
-:::tip Check out some example Dapp source code
-For a complete examples, see [Demo-Dapp](https://github.com/0xsequence/demo-dapp) and [Demo-Dapp-Web3Modal](https://github.com/0xsequence/demo-dapp-web3modal).
+Where the `path` variable in the above code snippet can be replaced by any one of the following example wallet function strings:
+
+1. Send Coins: 			        `"wallet/send/select/coins"`
+2. Send Collectibles: 		  `"wallet/send/select/collectibles"`
+3. Scan QR: 			          `"wallet/send/scan"`
+4. Swap tokens: 		        `"wallet/swap?chainId=<network_id>&from=<token_address>&to=<token_address>"`
+5. Bridge Networks		      `"wallet/bridge"`
+6. History of Transactions  `"wallet/history"`
+7. Contacts			            `"wallet/contacts"`
+8. Onramp			              `"wallet/add-funds"`
+9. View Coins			          `"wallet/collectibles/<network_id>/<token_address>"`
+10. View Collectibles 		  `"wallet/collectibles/<network_id>/<token_address>/<token_id>"`
+
+:::tip Access any wallet path programmatically
+You can try yourself, by even accessing paths like `settings` by clicking around the wallet, and copy and pasting the URL after the base `http://sequence.app/` into the `.openWallet()` function
 :::
 
 :::caution Avoid Browsers Blocking Sequence Popup
