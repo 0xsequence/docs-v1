@@ -89,23 +89,63 @@ Please [contact our team](/support) for assistance with integrations to another 
 
 ## Refreshing token metadata
 
-When deploying new contracts or metadata updates the refresh token metadata url should be called via a simple HTTPS get request by command line or browser for data to indexeable in the Sequence Indexer metadata service.
+When deploying new contracts or metadata updates the refresh token metadata url should be called with an access key from (the Sequence Builder) via a HTTPS POST request by command line or via metadata SDK in a program for data to indexeable in the Sequence Indexer metadata service.
 
-Example: refresh metadata of token on `network_ID` of `collection_ID` with `token_ID`
+*Sequence Metadata `refreshTokenMetadata` Method:*
 
+* Request: POST /rpc/Metadata/RefreshTokenMetadata
+* Content-Type: application/json
+* Body (in JSON):
+  * `chainID` (string) -- the chain id, as a name or number (ie. "1" or "mainnet", "137" or "polygon", etc.)
+  * `contractAddress` (string) -- the contract address
+  * `tokenIDs` (array of strings) -- array of strings containing token ids to fetch metadata
+
+<Tabs>
+<TabItem value="curl" label="curl">
 ```bash
-# format: https://metadata.sequence.app/tokens/<network_ID>/<collection_ID>/<token_ID>
-
-curl https://metadata.sequence.app/tokens/polygon/0xdc0479cc5bba033b3e7de9f178607150b3abce1f/105046/refresh
-
+curl -v -X POST -H "Content-type: application/json" -H "X-Access-Key: wuELppeX0pttvJABl8bIuxPAAAAAAAAAA" https://metadata.sequence.app/rpc/Metadata/RefreshTokenMetadata -d '{"chainID":"polygon", "contractAddress":"0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["1","2"]}'
 ```
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceMetadata } from '@0xsequence/metadata'
+
+const metadataClient = new SequenceMetadata("https://metadata.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
+
+const tokenMetadata = await metadataClient.refreshTokenMetadata({
+    chainID: 'polygon',
+    contractAddress: '0x631998e91476DA5B870D741192fc5Cbc55F5a52E',
+    tokenIDs: ['65537', '65538', '65539']
+})
+
+console.log('token metadata: ', tokenMetadata)
+```
+</TabItem>
+<TabItem value="go" label="Go">
+```go
+import (
+	"github.com/0xsequence/go-sequence/metadata"
+)
+
+seqMetadata := metadata.NewMetadata("c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
+
+refreshInfo, err := seqMetadata.RefreshTokenMetadata(context.Background(), "polygon", "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", []string{"1", "2"})
+```
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
 
 ### Testing instructions:
 
-1. Check current token metadata at `https://metadata.sequence.app/tokens/<network_ID>/<collection_ID>/<token_ID>`
-2. Modify token metadata content either on chain or via token baseURI
-3. Call refresh token ID endpoints
-4. Check token metadata changes at `https://metadata.sequence.app/tokens/<network_ID>/<collection_ID>/<token_ID>`
+1. Check current token metadata using [token metadata fetch](/metadata/token-metadata#fetch-token-metadata-for-any-erc721-or-erc1155-contract)
+2. Modify token metadata content either onchain or via token baseURI 
+3. Call refresh token ID endpoints using [refresh metadata](/metadata/token-metadata#refreshing-token-metadata)
+4. Check token metadata changes using [token metadata fetch](/metadata/token-metadata#fetch-token-metadata-for-any-erc721-or-erc1155-contract)
 
 ## Token Metadata Standards
 
