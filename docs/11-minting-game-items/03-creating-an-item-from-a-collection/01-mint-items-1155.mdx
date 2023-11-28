@@ -1,3 +1,93 @@
-
+---
+slug: /mint-items-from-1155
+---
 
 # How to mint in-game items and achievements in builder
+
+## Introduction
+
+In this guide, we’re going to walk through the process of creating your own in-game assets through minting from an ERC-1155 contract. These assets commonly used for items and acheivements, but could be used for just about any game object.
+
+#### An ERC-1155?
+
+You might be wondering, why use an “ERC-1155”? Or maybe it means nothing to you at all, and you just want to create an awesome game with some of its data stored on-chain.
+
+ERC-1155 is simply [a multi-token standard](https://eips.ethereum.org/EIPS/eip-1155) that allows the creation of fungible, non-fungible, and semi-fungible tokens all in one contract. For games, this means that you can manage all of your in-game tokens with a single contract.
+
+#### What can you do with it?
+
+Your imagination is the limit. We mentioned achievements before, you could mint each as an NFT and grant it to the player. Or let’s say your game generates unique items every time a boss is killed. Those items could be minted as tokens with all attributes baked in, and held in the player’s own wallet. 
+
+Lets dive in!
+
+### Prerequisite: Create a Project and deploy a Smart Contract
+
+Before you get started creating (minting) items, you will need to first deploy the smart contract you wish to mint from. If you have not done so already, go back and do [how to load an item collection through deploying a smart contract](https://docs.sequence.xyz/minting-game-items/deploy-an-item-collection).
+
+## Step 1: Select the Collection for your item
+
+Start by selecting the contract you would like to create an item from. In this example, we are covering ERC-1155, so select you the ERC-1155 contract that you have deployed. 
+
+Once in the project dashboard, you should see the Collection - select it.
+
+
+![Sequence builder select contract](/img/builder/builder_select_contract_mint_achievements.png)
+
+## Step 2: Navigate to Write Contract
+
+When you open your contract, you will see several options. Everything from details like your contract address, type, the network its deployed on - to options for adding gas or help setting up an indexer. Below those details, you have more options to view contract details and interact with it.
+
+Within that subset of options, select the `Write Contract` section.
+
+
+![Sequence builder write contract](/img/builder/builder_navigate_write_contract_mint_achievements.png)
+
+This will drop down several methods that you can call to the smart contract. You do this by sending a transaction to the smart contract with the included call data.
+
+Since we're here to mint item today, select the `mint` method.
+
+
+![Sequence builder select mint](/img/builder/builder_select_mint_method_mint_achievements.png)
+
+## Step 3: Provide details for the Mint method
+
+Selecting `mint` will expand it to give you a couple of fields to fill out. Fill each of these fields out first:
+- `to (address)` - the address you want these to be minted to, for this example put your own address in.
+- `tokenId (uint256)` - give the collection of items an id, for a first collection enter 0 or 1 here.
+- `amount (uint256)` - enter the amount of items you want to mint in this collection.
+- `data (bytes)` - for this one, enter 0x
+
+:::note
+This type of contract, ERC-1155, can have several different groups of tokens on it - each requiring its own id.
+:::
+
+Once you have filled out all of the fields, hit `write` to send a transaction to mint.
+
+
+![Sequence builder fill mint details](/img/builder/builder_fill_mint_details_mint_achievements.png)
+
+## Step 4: Mint and sign your transaction
+
+After you hit `write`, a modal with your wallet will pop-up. In order to create (mint) these items, you will need to send a transaction.
+
+Read the transaction details, then execute the transaction by hitting `confirm` on the signature.
+
+
+![Sequence builder sign transactions](/img/builder/builder_sign_transaction_mint_achievements.png)
+
+After you sign the transaction, the network will take a few seconds (maybe minutes depending on the network and other factors) to confirm your transaction.
+
+## Step 5: Confirm your minted items
+
+When the transaction is complete, you will have created your items by minting them from the smart contract!
+
+If you click `Balances`, you should be able to see the total number of items you minted from your collection.
+
+
+![Sequence builder confirm mint](/img/builder/builder_confirm_mint_items_mint_achievements.png)
+
+In my example, you can see the 5 items I created just now, along with 4k items that I created in a seperate minting earlier.
+
+You can also click `Tokens` to see the both of the collections that we created and minted from.
+
+![Sequence builder confirm nft](/img/builder/builder_confirm_nft_mint_achievements.png)
