@@ -21,8 +21,21 @@ const waas = new Sequence({
 
 // Get an idToken using the social auth provider of your choice
 // (e.g., Google, Facebook, Twitter, etc.)
-await waas.signIn({ idToken }, "MacBook Pro - Chrome")
+const res = await waas.signIn({ idToken }, "MacBook Pro - Chrome")
+
+console.log(res)
 ```
+
+```json
+{
+  "sessionId": "0x63A21cCa14ed7454B9cF6466af422B5c597c6b57",
+  "wallet": "0xd6043fe6f06d90ec2cB36cA5CD1B193A8515f350",
+}
+```
+
+:::warning **Session ID**
+Even though the `sessionId` looks like an Ethereum address, it is not. It is a unique identifier for the session and must never be used as a recipient of funds. Any funds sent to a `sessionId` will be lost forever.
+:::
 
 :::note
 Sessions opened with some providers might require a second step in order to be usable for sending transactions.
