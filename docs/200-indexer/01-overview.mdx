@@ -1,0 +1,141 @@
+---
+slug: /indexer
+---
+
+# Indexer
+
+:::warning[INTRODUCING THE SEQUENCE BUILDER - https://sequence.build]
+Our **Indexer** service is now managed through **[Sequence Builder](https://sequence.build)**. Sign up to grab your API access key. 
+
+[Get started with the **Sequence Builder** Free Plan today!](https://sequence.build)
+:::
+
+The Sequence Indexer is a modular web3 service that makes it easy to query blockchain token
+and NFT data from Ethereum-compatible networks. The Indexer **automatically indexes every
+ERC20, ERC721 and ERC1155 token** from Ethereum-compatible chains.
+
+In fact, the Sequence Wallet uses the Indexer behind the scenes so it can seamlessly
+render all token information in any wallet. But of course, the Indexer is a modular piece
+of infrastructure, and you may use it directly from your dapp, game, or even from
+a server.
+
+**Features:**
+
+- Super-fast API to query all token balances, history, metadata and NFTs with multi-chain support
+- Real-time indexing of ERC20, ERC721 and ERC1155 transactions across EVM-compatible chains
+- Automatically detects all tokens on the chain, without the need for a contract registry
+- Resilient to node failures and chain re-organizations
+- Easily listen for specific events and transactions on-chain accurately with a simple API
+- Built-in token / nft metadata support to easily render tokens in your apps / games
+- High uptime and availability
+
+## Supported Networks & Endpoints
+
+**Status:** https://status.sequence.info
+
+import IndexerTable from '/src/components/IndexerTable'
+
+**Mainnet networks:**
+
+<IndexerTable items={[
+  {
+    network: 'Ethereum',
+    logo: '/img/networks/1.png',
+    endpoint: 'https://mainnet-indexer.sequence.app',
+  },
+  {
+    network: 'Polygon',
+    logo: '/img/networks/137.png',
+    endpoint: 'https://polygon-indexer.sequence.app',
+  },
+  {
+    network: 'Polygon zkEVM',
+    logo: '/img/networks/1101.png',
+    endpoint: 'https://polygon-zkevm-indexer.sequence.app',
+  },
+  {
+    network: 'Arbitrum One',
+    logo: '/img/networks/42161.png',
+    endpoint: 'https://arbitrum-indexer.sequence.app',
+  },
+  {
+    network: 'Arbitrum Nova',
+    logo: '/img/networks/42170.png',
+    endpoint: 'https://arbitrum-nova-indexer.sequence.app',
+  },
+  {
+    network: 'Optimism',
+    logo: '/img/networks/10.png',
+    endpoint: 'https://optimism-indexer.sequence.app',
+  },
+  {
+    network: 'BSC',
+    logo: '/img/networks/56.png',
+    endpoint: 'https://bsc-indexer.sequence.app',
+  },
+  {
+    network: 'Avalanche',
+    logo: '/img/networks/43114.png',
+    endpoint: 'https://avalanche-indexer.sequence.app',
+  },
+  {
+    network: 'Gnosis',
+    logo: '/img/networks/64.png',
+    endpoint: 'https://gnosis-indexer.sequence.app',
+  },
+  {
+    network: 'Base',
+    logo: '/img/networks/8453.png',
+    endpoint: 'https://base-indexer.sequence.app',
+  }
+]} />
+
+<br />
+
+**Test networks:**
+
+<IndexerTable items={[
+  {
+    network: 'Ethereum Goerli',
+    logo: '/img/networks/1.png',
+    endpoint: 'https://goerli-indexer.sequence.app',
+  },
+  {
+    network: 'Ethereum Sepolia',
+    logo: '/img/networks/1.png',
+    endpoint: 'https://sepolia-indexer.sequence.app',
+  },
+  {
+    network: 'Polygon Mumbai',
+    logo: '/img/networks/137.png',
+    endpoint: 'https://mumbai-indexer.sequence.app',
+  },
+  {
+    network: 'Arbitrum Goerli',
+    logo: '/img/networks/42161.png',
+    endpoint: 'https://arbitrum-goerli-indexer.sequence.app',
+  },
+  {
+    network: 'BSC Testnet',
+    logo: '/img/networks/56.png',
+    endpoint: 'https://bsc-testnet-indexer.sequence.app',
+  },
+    {
+    network: 'Base Goerli',
+    logo: '/img/networks/8453.png',
+    endpoint: 'https://base-goerli-indexer.sequence.app',
+  }
+]} />
+
+
+## Getting Started
+
+Here are a few example queries you can make to a blockchain from your dapp, game, or wallet:
+
+- [Fetch all tokens & NFTS in any wallet including all metadata](/indexer/fetch-tokens)
+- [Fetch the transaction history for any wallet address](/indexer/transaction-history)
+- [Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies](/indexer/unique-tokens)
+- [What is the total token supply of an ERC20 token? What is the total token supply of
+  all the ERC1155 tokens in a particular contract?](/indexer/unique-tokens)
+- [Fetch the transaction history for any token contract address](/indexer/transation-history-token-contract)
+
