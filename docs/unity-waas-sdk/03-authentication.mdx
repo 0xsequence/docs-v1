@@ -1,0 +1,109 @@
+# Authentication
+As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an OIDC idToken. For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
+
+To implement authentication, we recommend using our `LoginPanel` prefab. Locate this prefab under `SequenceExamples > Prefabs` and drag it under a [Canvas](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) in your scene.
+This will provide you easy access to two authentication methods:
+
+## 1. Email Sign In
+Available on all platforms, email sign in leverages [Amazon Cognito](https://aws.amazon.com/cognito/) and provides the user with a 2FA challenge - a 6 digit code emailed to the entered address for the user to enter on the next page.
+Once the user successfully completes the 2FA challenge, the SDK will receive an idToken in JWT format from Amazon Cognito and proceed to establish the session with WaaS API.
+
+## 2. Social Sign in
+Available on all platforms except WebGL (currently), social sign in uses [OIDC](https://openid.net/developers/how-connect-works/) with the [implicit flow](https://auth0.com/docs/authenticate/login/oidc-conformant-authentication/oidc-adoption-implicit-flow) to allow users to login via their existing Google, Discord, Facebook, or Apple accounts.
+Once the user successfully signs in, an idToken is returned via deep link to the application.
+In order to enable deep linking, we must register a custom URL scheme for our application. There are some platform specific requirements to set this up.
+
+### iOS
+
+1. Open the iOS Player Settings window (menu: Edit > Project Settings > Player Settings, then select iOS).
+2. Select `Other Settings`, then scroll down to `Configuration`.
+3. Expand the `Supported URL schemes` section, and add 1 to the size.
+4. In the new `Element N` field, enter the URL scheme we've configured for Sequence Social login: `sdk-powered-by-sequence`
+
+### MacOS
+
+1. Open the Windows/Mac/Linux Player Settings window (menu: Edit > Project Settings > Player Settings, then select Windows/Mac/Linux).
+2. Select `Other Settings`, then scroll down to `Mac Configuration`.
+3. Expand the `Supported URL schemes` section, and add 1 to the size.
+4. In the new `Element N` field, enter the URL scheme we've configured for Sequence Social login: `sdk-powered-by-sequence`
+
+### PC
+
+No additional steps required.
+
+### Android
+
+1. In the Project window, browse to Assets > Plugins > Android.
+
+  a) Note: in Unity versions 2021.2 and up this path doesn't exist by default. Please navigate to `Edit > Project Settings > Player` and under the Android Publishing Settings, enable `Custom Main Manifest` in the Build section. See https://docs.unity3d.com/Manual/deep-linking-android.html for more info.
+2. If it doesn't already exist, create a new file and name it `AndroidManifest.xml`.
+3. Paste the following XML into the file, or, if you already have one, add the new keys from this XML to it.
+
+```xml
+   <?xml version="1.0" encoding="utf-8"?>
+   <manifest
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+   >
+     <application>
+       <activity
+         android:name="com.unity3d.player.UnityPlayerActivity"
+         android:theme="@style/UnityThemeSelector"
+       >
+         <intent-filter>
+           <action android:name="android.intent.action.MAIN" />
+           <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+         <intent-filter>
+           <action android:name="android.intent.action.VIEW" />
+           <category android:name="android.intent.category.DEFAULT" />
+           <category android:name="android.intent.category.BROWSABLE" />
+           <data android:scheme="sdk-powered-by-sequence"/>
+         </intent-filter>
+       </activity>
+     </application>
+   </manifest>
+```
+  a) Note: Unity 2022 versions prior to `2022.3.7f1` and 2023 versions prior to `2023.1.7f1`, `2023.2.0b3`, or `2023.3.0a1` contain a bug with Android deep-linking. Please use this XML instead.
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <manifest
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+  >
+      <application>
+          <activity
+                  android:name="com.unity3d.player.UnityPlayerActivity"
+                  android:theme="@style/UnityThemeSelector"
+                  android:exported="true">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+              <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+              <intent-filter>
+                  <action android:name="android.intent.action.VIEW" />
+                  <category android:name="android.intent.category.DEFAULT" />
+                  <category android:name="android.intent.category.BROWSABLE" />
+                  <data android:scheme="sdk-powered-by-sequence"/>
+              </intent-filter>
+          </activity>
+      </application>
+  </manifest>
+  ```
+  i.e. add `<meta-data android:name="unityplayer.UnityActivity" android:value="true" />` after your first `intent-filter`. Please see https://forum.unity.com/threads/deep-linking-in-unity-2022-the-app-is-restarted.1447300/ for more info.
+
+  ### WebGL
+  
+  Coming soon.
+
+  ## Connecting with WaaS
+
+  Once we've received the idToken from either email login or social sign in, the SDK will handle connecting with WaaS servers for you. If you're curious how this is done, please see `ConnectToWaaS` in `WaaSLogin.cs`.
+  You'll want to subscribe to the `WaaSLogin.OnWaaSWalletCreated` event. This can be done with the following code snippet:
+  ```
+  WaaSLogin.OnWaaSWalletCreated += OnWaaSWalletCreatedHandler;
+  ```
+  where `OnWaaSWalletCreatedHandler` is a function accepting a `WaaSWallet` as it's only parameter.
+
+  Congratulations! You've just connected your user with WaaS, creating them a new account and non-custodial smart contract wallet as needed.
