@@ -1,0 +1,302 @@
+# Minting a Collectible using a Gasless Serverless Relayer
+
+The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs.
+
+The following steps will guide you through how to build your technology in 4 steps:
+
+1. Setup Cloudflare environment with wrangler cli & deploy a test
+2. Build smart contract & deploy / sponsor with Builder
+3. Use EthAuthProof to prevent EOA DDoS
+4. Deploy & mint a collectible to wallet
+
+The result, an API with the following specs:
+* HTTPS GET: returns blockNumber
+* HTTPS POST(proof, address): mints a collectible & returns transaction hash
+
+## 1. Setup Cloudflare environment with wrangler cli & deploy a test
+
+In order to create the project from scratch, first create a project with `mkdir`, `cd` into the project, and run `pnpm init` to create a package.json.
+
+Next, make sure wrangler cli is installed in your project and set the `wrangler` keywword as an alias in your local bash session.
+
+```
+$ ppm install wrangler --save-dev
+$ alias wrangler='./node_modules/.bin/wrangler'
+```
+
+Perform a login step to login to your cloudflare dashboard to connect the Cloudflare platform to your local development environment.
+
+```
+$ wrangler login
+```
+
+Follow the prompts, then once logged in initialize the project in the project directory with and follow the prompts to deploy yout typescript application.
+
+```
+$ wrangler init
+```
+
+This will clone down a starter repository that can be used to deploy code to the cloud.
+
+Once initialized and if you haven't already deployed your code, you can do so with:
+
+```
+$ wrangler deploy
+```
+
+Finally, enter the generated `https://<app>.workers.dev` link in the browser.
+
+## 2. Build smart contract & deploy / sponsor with Builder
+
+Build your smart contract with the necessary features, for example here is the recommended contract that adds a few features like: only being able to mint from the relayer and the ability to turn on and off the mint.
+
+```sol
+
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+
+contract Demo is ERC1155 {
+    bool public minting;
+    address public relayerAddress;
+    address public ownerAddress;
+
+    modifier onlyRelayer(){
+        require(msg.sender == relayerAddress);
+        _;
+    }
+
+    modifier onlyOwner(){
+        require(msg.sender == ownerAddress);
+        _;
+    }
+
+    constructor(address _relayerAddress) ERC1155("https://<your_metadata>/{id}.json") {
+        relayerAddress = _relayerAddress;
+        ownerAddress = msg.sender;
+        minting = true;
+    }
+
+    function mint(uint _tokenID, address collector) onlyRelayer external {
+        require(minting, "contract not minting");
+        _mint(collector, _tokenID, 1, "");
+    }
+
+    function setMinting(bool _state) onlyOwner external {
+        minting = _state;
+    }
+}
+```
+
+Compile your code with one of the popular frameworks (like forge, hardhat, etc.) and follow the following video to learn how to use the builder to
+[set up and deploy smart contracts](https://www.youtube.com/watch?v=g7jthpR-bCM)
+
+## 4. Use EthAuthProof to prevent EOA DDoS
+
+Next, install `ethers` and `0xsequence` 
+
+```
+$ pnpm install 0xsequence ethers@5.7.2
+```
+
+Then, we have to add a type of middleware, after we check if it's a POST or GET request. If it's a POST request, verify that the passed in `proofString` and `address` are valid.  
+
+The code scaffold would look like this, with `callContract` and `getBlockNumber` mocked out.
+
+```ts
+import { sequence } from '0xsequence'
+import { ethers } from 'ethers'
+
+export interface Env {
+	PKEY: string
+}
+
+// use the sequence api to verify proof came from a sequence wallet
+const verify = async (chainId: string, walletAddress: string, ethAuthProofString: string): Promise<Boolean> => {
+	const api = new sequence.api.SequenceAPIClient('https://api.sequence.app')
+	const { isValid } = await api.isValidETHAuthProof({
+		chainId, walletAddress, ethAuthProofString
+	})
+	return isValid
+}
+
+async function handleRequest(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+	if (env.PKEY === undefined || env.PKEY === '') {
+		console.log('ooops! check your wranger.toml config to set your PKEY')
+	}
+
+	// POST reuest
+	if (request.method === "POST") {
+		// parse the request body as JSON
+		const body = await request.json();
+		const { proof, address }: any = body;
+		try {
+			// check that the proof is valid
+			if(await verify('polygon', address, proof)){
+				try{
+					// mocked call
+					const res = await callContract(request, env, address)
+					return new Response(`${res.hash}`, { status: 200 })
+				} catch (err: any) {
+					console.log(err)
+					return new Response(`Something went wrong: ${JSON.stringify(err)}`, { status: 400 })
+				}
+			} else {
+				return new Response(`Unauthorized`, { status: 401 })
+			}
+		} catch(err: any){
+			return new Response(`Unauthorized ${JSON.stringify(err)}`, { status: 401 })
+		}
+	} 
+	// GET request
+	else {
+		try {
+			// mocked call
+			const res = await getBlockNumber(request)
+			return new Response(`Block Number: ${res}`)
+		} catch(err: any){
+			return new Response(`Something went wrong: ${JSON.stringify(err)}`, { status: 400 })
+		}
+	}
+}
+
+const getBlockNumber = async (request: Request): Promise<number> => {
+	return 0
+}
+
+const callContract = async (request: Request, env: Env, address: string): Promise<ethers.providers.TransactionResponse> => {
+	return { hash: "0x" } as any
+}
+
+export default {
+	async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+		// Process the request and create a response
+		const response = await handleRequest(request, env, ctx);
+
+		// Set CORS headers
+		response.headers.set("Access-Control-Allow-Origin", "*");
+		response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+		response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+		// return response
+		return response;
+	}
+};
+```
+
+#### Wrangler template has missing window object
+It should be noted, if you try to deploy this you'll get a missing `window` object required by the modules. 
+
+To prevent this, add the following line to your `wrangler.toml` file to make the environment compatible.
+
+```
+...
+main = "src/index.ts"
+compatibility_date = "2023-11-21"
+
+node_compat = true # add this line
+...
+```
+
+#### Testing the deploy
+
+You can now redeploy using `wrangler deploy`
+
+And perform a curl request to test your endpoint like such:
+
+```
+$ curl -X POST https://your-worker.your-subdomain.workers.dev
+success
+
+$ curl -X POST https://your-worker.your-subdomain.workers.dev \
+-H "Content-Type: application/json" \
+-d '{"proof": "someProof", "address": "someAddress"}'
+
+... invalid proof string ... 
+
+# and if you replace with actual proof (from a wallet client login) and address on polygon, it should return 
+success
+
+```
+
+## 5. Deploy & mint a collectible to wallet
+
+Finally, we install the following packages 
+
+```
+$ pnpm install @0xsequence/auth @0xsequence/network 
+```
+
+and implement the `callContract` and `getBlockNumber` methods previously mocked out as follows:
+
+```ts
+import { Session, SessionSettings } from '@0xsequence/auth'
+import { networks, ChainId } from '@0xsequence/network'
+...
+
+const nodeUrl = 'https://nodes.sequence.app/polygon'
+const relayerUrl = 'https://polygon-relayer.sequence.app'
+const chainId = ChainId.POLYGON
+
+...
+
+const getBlockNumber = async (request: Request): Promise<number> => {
+	return await provider.getBlockNumber()
+}
+
+const callContract = async (request: Request, env: Env, address: string): Promise<ethers.providers.TransactionResponse> => {
+
+    // create EOA from private key
+	const walletEOA = new ethers.Wallet(env.PKEY, provider);
+
+	// instantiate settings
+	const settings: Partial<SessionSettings> = {
+		networks: [{
+			...networks[ChainId.POLYGON],
+			rpcUrl: nodeUrl,
+			provider: provider, // NOTE: must pass the provider here
+			relayer: {
+				url: relayerUrl,
+				provider: {
+					url: nodeUrl
+				}
+			}
+		}],
+	}
+
+    // create a single signer sequence wallet session
+	const session = await Session.singleSigner({
+		settings: settings,
+		signer: walletEOA,
+	})
+
+	const signer = session.account.getSigner(chainId)
+		
+	const collectibleInterface = new ethers.utils.Interface([
+		'function mint(uint _tokenID, address collector)'
+	])
+		
+	const data = collectibleInterface.encodeFunctionData(
+		'mint', [0, address]
+	)
+
+	const txn = { to: contractAddress, data }
+
+	try {
+		return await signer.sendTransaction(txn)
+	} catch (err) {
+		throw err
+	}
+}
+```
+
+Where an EOA wallet is instantiated from the envrionment variables uing PKEY, which should be set with the following commands:
+
+```
+$ wrangler secret put PKEY
+# follow prompts
+```
+
+Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/minting-collectible-severless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
+
+If you want to browse the full code, see [here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer)
+
+Good luck!
