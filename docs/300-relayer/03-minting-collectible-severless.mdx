@@ -1,6 +1,6 @@
 # Minting a Collectible using a Gasless Serverless Relayer
 
-The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs.
+The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so a game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs.
 
 The following steps will guide you through how to build your technology in 4 steps:
 
@@ -17,7 +17,7 @@ The result, an API with the following specs:
 
 In order to create the project from scratch, first create a project with `mkdir`, `cd` into the project, and run `pnpm init` to create a package.json.
 
-Next, make sure wrangler cli is installed in your project and set the `wrangler` keywword as an alias in your local bash session.
+Next, make sure wrangler cli is installed in your project and set the `wrangler` keyword as an alias in your local bash session.
 
 ```
 $ ppm install wrangler --save-dev
@@ -30,7 +30,7 @@ Perform a login step to login to your cloudflare dashboard to connect the Cloudf
 $ wrangler login
 ```
 
-Follow the prompts, then once logged in initialize the project in the project directory with and follow the prompts to deploy yout typescript application.
+Follow the prompts, then once logged in initialize the project in the project directory and follow the prompts to deploy yout typescript application.
 
 ```
 $ wrangler init
@@ -48,7 +48,7 @@ Finally, enter the generated `https://<app>.workers.dev` link in the browser.
 
 ## 2. Build smart contract & deploy / sponsor with Builder
 
-Build your smart contract with the necessary features, for example here is the recommended contract that adds a few features like: only being able to mint from the relayer and the ability to turn on and off the mint.
+Build your smart contract with the necessary features, for example, here is the recommended contract that adds a few features like: only being able to mint from the relayer, the ability to turn on and off the mint, and and owner associated with the contract address.
 
 ```sol
 
@@ -91,7 +91,7 @@ Compile your code with one of the popular frameworks (like forge, hardhat, etc.)
 
 ## 4. Use EthAuthProof to prevent EOA DDoS
 
-Next, install `ethers` and `0xsequence` 
+Next, install `ethers` and `0xsequence` to get access to sequence APIs in order to perform a proof validation that the request is coming from a trusted source, a sequence wallet.
 
 ```
 $ pnpm install 0xsequence ethers@5.7.2
@@ -288,7 +288,7 @@ const callContract = async (request: Request, env: Env, address: string): Promis
 }
 ```
 
-Where an EOA wallet is instantiated from the envrionment variables uing PKEY, which should be set with the following commands:
+Where in the prior code, an EOA wallet is instantiated from the environment variables uing PKEY, which should be set with the following commands:
 
 ```
 $ wrangler secret put PKEY
