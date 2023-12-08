@@ -59,13 +59,13 @@ const config = createConfig({
 });
 ```
 
-Next, use your custom connector by specifying its `id` in either the `authOptions` or `miniAuthOptions` field of the Sequence Kit configuration:
+Next, use your custom connector by specifying its `id` in either the `socialAuthOptions` or `walletAuthOptions` field of the Sequence Kit configuration:
 
 ```tsx
 const kitConfig = {
   signIn: {
-    miniAuthOptions: ['google', 'facebook'],
-    authOptions: ['metamask', 'my-custom-connector'],
+    socialAuthOptions: ['google', 'facebook'],
+    walletAuthOptions: ['metamask', 'my-custom-connector'],
   }
 };
 
