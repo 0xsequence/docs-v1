@@ -1,0 +1,155 @@
+# Write to blockchain
+
+The blockchain can be thought of as a general-purpose, publically viewable and verified, database. To write to a blockchain, similar to with a typical database, you must make a <u>transaction</u>.
+
+Typically, creating a blockchain transaction is rather complex, but WaaS handles that complexity for you and exposes 5 types of `Transactions`.
+
+## RawTransaction
+The most basic form of a `Transaction`, a raw transaction is very useful to send ETH or the gas currency of the network you are interacting with to an `Address`.
+
+For example, to send one MATIC to `0x9766bf76b2E3e7BCB8c61410A3fC873f1e89b43f` you can use this snippet:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address,
+    Chain.Polygon,
+    new SequenceSDK.WaaS.Transaction[]
+    {
+        new RawTransaction("0x9766bf76b2E3e7BCB8c61410A3fC873f1e89b43f", DecimalNormalizer.Normalize(1))
+    }));
+```
+where _wallet is a WaaSWallet and _address is the WaaSWallet's address.
+
+Note: the [EVM](https://ethereum.org/en/developers/docs/evm/) does not support floating point numbers. As a result, token (and gas currency) values are represented by whole numbers and a "decimals" value. 1 ETH (or in the example above 1 MATIC) is represented as `1000000000000000000` (1 * 10^18) as ETH, MATIC, and most gas currencies have a "decimals" value of 18. `DecimalNormalizer.Normalize` (above) is a basic helper function that will return `input value * 10^decimals` and optionally accepts a "decimals" value as a second parameter (defaulting to 18 when not provided).
+
+Additionally, you can include data with a raw transaction in hexadecimal format as a string. For more on this, please see the advanced section of this documentation.
+
+## sendERC20
+An [ERC20](https://docs.openzeppelin.com/contracts/4.x/erc20) token is the fungible token standard. You can easily deploy an ERC20 contract and mint tokens using our [Builder](https://sequence.build/). Learn how in our [Builder documentation](https://docs.sequence.xyz/builder/overview).
+
+To send an ERC20 token transaction, you can use this code snippet:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new SendERC20(
+            erc20TokenAddress,
+            ToAddress,
+            AmountAsString),
+    }));
+```
+
+Note: as above, it is recommended to use `DecimalNormalizer.Normalize` to convert the amount from human readable format to EVM format. Please make sure to include the optional "decimals" int parameter if your ERC20 token has a "decimals" value that is not 18. If you're not sure how many "decimals" your ERC20 has, this can be easily read on the Builder using the "decimals" method under "Read Contract".
+
+## sendERC721
+An [ERC721](https://docs.openzeppelin.com/contracts/4.x/erc721) token is the non-fungible standard, you've probably heard of them as NFTs. You can easily deploy an ERC721 contract and mint tokens using our [Builder](https://sequence.build/). Learn how in our [Builder documentation](https://docs.sequence.xyz/builder/overview).
+
+To send an ERC721 token transaction, you can use this code snippet:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new SendERC721(
+            erc721TokenAddress,
+            ToAddress,
+            TokenIdAsString),
+    }));
+```
+
+## sendERC1155
+An [ERC1155](https://docs.openzeppelin.com/contracts/4.x/api/token/erc1155) token is the multi token standard, often referred to as SFTs (semi-fungible tokens). As [co-creators of the ERC1155 standard](https://eips.ethereum.org/EIPS/eip-1155) we are firm believers in its unparalleled usefulness for games. You can easily deploy an ERC1155 contract and mint tokens using our [Builder](https://sequence.build/). Learn how in our [Builder documentation](https://docs.sequence.xyz/builder/overview).
+
+To send an ERC1155 token transaction, you can use this code snippet:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new SendERC1155(
+            erc1155TokenAddress,
+            ToAddress,
+            new SendERC1155Values[]
+            {
+                new SendERC1155Values(TokenIdAsString, AmountAsString),
+                ...
+            }),
+    }));
+```
+
+Note: you can send multiple token ids from the same ERC1155 contract in a single transaction by including multiple `SendERC1155Values` objects in the transaction
+
+## DelayedEncode
+When calling a smart contract on an EVM-based network, the client goes through a complex process known as "ABI encoding" where the function signature you want to call as well as the parameters you're providing are encoded into a binary format. This process is complicated and error-prone so we've abstracted it all away so that you don't have to deal with it. But, if you're curious to learn how it works, please see [this document](https://docs.soliditylang.org/en/develop/abi-spec.html).
+
+A DelayedEncode transaction allows you to call any method on an arbitrary smart contract, allowing us to handle the complicated ABI encoding process.
+
+To send a DelayedEncode transaction, you can use this code snippet:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new DelayedEncode(ContractAddress, ValueAsString, new DelayedEncodeData(
+            ContractABIAsString,
+            ParametersAsObjectArray,
+            FunctionNameAsString)),
+    }));
+```
+Let's examine the above to get a better understanding of some of the variables that may be non-obvious.
+
+ValueAsString: This will <i>usually</i> be "0" unless you are calling a [payable method](https://docs.alchemy.com/docs/solidity-payable-functions) denoted by the `payable` keyword in the smart contract definition. If you are calling a payable method, it is recommended to use `DecimalNormalizer.Normalize` to convert the amount from human readable format to EVM format.
+
+ContractABIAsString: This can either be the entire [ABI](https://www.alchemy.com/overviews/what-is-an-abi-of-a-smart-contract-examples-and-usage) or just the function you plan on interacting with. If you're not familiar with ABIs, we'd recommend copy-pasting the function signature (with parameters) from the contract source code on Etherscan (or the appropriate block explorer for your network) and removing the whitespace and variable names.
+
+ParametersAsObjectArray: The parameters you want to provide to the method you wish to call. No need to provide the parameter names, just their values in the order they appear in the ABI. Provide parameters in string format when in doubt.
+
+FunctionNameAsString: The name of the function you want to call as it appears in the ABI (or source code). Exclude parathenses and parameters.
+
+Putting this together, an example of using delayed encode to call the "transfer" function on an ERC20 would look like this:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new DelayedEncode(ContractAddress, "0", new DelayedEncodeData(
+            "transfer(address,uint256)",
+            new object[]
+            {
+                ToAddress, DecimalNormalizer.Normalize(1)
+            },
+            "transfer")),
+    }));
+```
+
+## Batch Transactions
+Using the magic of the Sequence Smart Contract wallet, our SDK allows you to seemlessly batch transactions together. Batching transactions together is extremely beneficial as it provides material gas savings and allows you to create complex transactions, that either all pass or all fail, without deploying custom smart contracts for each bespoke use case, opening a whole new realm of design possibilities!
+
+Sending a batch transaction is easy! Simply include multiple transactions, of any type, in your transaction array when making the `SendTransaction` request.
+
+For example - sending a transaction of each type in a batch:
+```
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address,
+    Chain.Polygon,
+    new SequenceSDK.WaaS.Transaction[]
+    {
+        new RawTransaction(ToAddress, DecimalNormalizer.Normalize(1)),
+        new SendERC20(
+            erc20TokenAddress,
+            ToAddress,
+            AmountAsString),
+        new SendERC721(
+            erc721TokenAddress,
+            ToAddress,
+            TokenIdAsString),
+        new SendERC1155(
+            erc1155TokenAddress,
+            ToAddress,
+            new SendERC1155Values[]
+            {
+                new SendERC1155Values(TokenIdAsString, AmountAsString),
+                ...
+            }),
+        new DelayedEncode(ContractAddress, ValueAsString, new DelayedEncodeData(
+            ContractABIAsString,
+            ParametersAsObjectArray,
+            FunctionNameAsString)),
+    }));
+```
+Since these transactions are all batched into a single transaction by the Sequence Smart Contract Wallet before being submitted to the network, you will receive only one transaction receipt.

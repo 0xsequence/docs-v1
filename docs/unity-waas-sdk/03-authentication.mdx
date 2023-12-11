@@ -2,6 +2,7 @@
 As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an OIDC idToken. For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
 
 To implement authentication, we recommend using our `LoginPanel` prefab. Locate this prefab under `SequenceExamples > Prefabs` and drag it under a [Canvas](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) in your scene.
+We recommend having the `Canvas Scaler` component attached to your `Canvas` use the "Scale with Screen Size" UI Scale Mode. This will make it so that the LoginPanel (and any other UI elements under this Canvas) are scaled automatically when switching between build targets.
 This will provide you easy access to two authentication methods:
 
 ## 1. Email Sign In
@@ -12,6 +13,8 @@ Once the user successfully completes the 2FA challenge, the SDK will receive an 
 Available on all platforms except WebGL (currently), social sign in uses [OIDC](https://openid.net/developers/how-connect-works/) with the [implicit flow](https://auth0.com/docs/authenticate/login/oidc-conformant-authentication/oidc-adoption-implicit-flow) to allow users to login via their existing Google, Discord, Facebook, or Apple accounts.
 Once the user successfully signs in, an idToken is returned via deep link to the application.
 In order to enable deep linking, we must register a custom URL scheme for our application. There are some platform specific requirements to set this up.
+
+<b>Note: social sign in does not work in the Editor as we cannot register a custom URL scheme.</b>
 
 ### iOS
 
