@@ -1,0 +1,225 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Read from blockchain 
+
+Reading from the blockchain is done using our Indexer.
+
+:::warning[INTRODUCING THE SEQUENCE BUILDER - https://sequence.build]
+Our stack is now managed through **[Sequence Builder](https://sequence.build)**. Sign up to grab your API access key. 
+
+[Get started with the **Sequence Builder** Free Plan today!](https://sequence.build)
+:::
+
+Native Unity Implementation of [Sequence Indexer](/indexer)
+
+## [Installation](/unity-sdk/installation)
+
+## Tokens API
+
+### Fetch token IDs, balances and metadata of ERC721 and ERC1155 collections.
+
+*Sequence Indexer `GetTokenBalances` Method:*
+
+* Request: POST /rpc/Indexer/GetTokenBalances
+* Content-Type: application/json
+* Body (in JSON):
+  * `accountAddress` (string) -- the wallet account address
+  * `contractAddress` (string) -- the contract address of the ERC721 / ERC1155 collection
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+
+<br />
+
+**Example: `GetTokenBalances` of a contract + account address on Polygon**
+<Tabs>
+<TabItem value="csharp" label="Unity C#">
+
+```cs
+GetTokenBalancesArgs tokenBalancesArgs = new GetTokenBalancesArgs(accountAddress, contractAddress, true);
+var tokenBalances = await Indexer.GetTokenBalances(blockChain, tokenBalancesArgs);
+if (tokenBalances.balances.Length > 0)
+{
+    //Display the balances :)
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+### Fetch the transaction history for any wallet address
+
+**Fetches the transaction / token history for any wallet address of any ERC20, ERC721 and ERC1155 token.
+The response includes decoded transaction details for easy consumption / rendering.**
+
+*Sequence Indexer `GetTransactionHistory` Method:*
+
+* Request: POST /rpc/Indexer/GetTransactionHistory
+* Content-Type: application/json
+* Body (in JSON):
+	* `filter` (object)
+  	* `accountAddress` (string) -- the wallet account address
+		* `contractAddress` (string) -- optionally specify a contract address to filter
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+
+<br />
+
+**Example: `GetTransactionHistory` of a wallet account address on Polygon**
+
+<Tabs>
+<TabItem value="cs" label="Unity C#">
+
+```cs
+GetTransactionHistoryArgs transactionHistoryArgs = new GetTransactionHistoryArgs();
+var txHistory = await Indexer.GetTransactionHistory(blockChain, transactionHistoryArgs);
+//Display tx history :)
+```
+
+</TabItem>
+
+</Tabs>
+
+<br />
+
+
+### Fetch all unique tokens in a particular ERC20/721/1155 contract, including total supplies
+
+**Fetches token supplies and metadata for any ERC20, ERC721, ERC1155 contract.**
+
+This query is helpful to render all tokens in a token contract, or to query the total token supplies.
+In this example, we use the Skyweaver token contract address 0x631998e91476DA5B870D741192fc5Cbc55F5a52E
+on the Polygon network. You may query any contract address on any of the supported networks (but make
+sure to query the indexer of the corresponding network).
+
+
+*Sequence Indexer `GetTokenSupplies` Method:*
+
+* Request: POST /rpc/Indexer/GetTokenSupplies
+* Content-Type: application/json
+* Body (in JSON):
+	* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
+  * `includeMetadata` (boolean - optional - default: false) -- toggle token metadata to be included in the response
+
+<br />
+
+**Example: `GetTokenSupplies` of Skyweaver contract on Polygon**
+
+<Tabs>
+<TabItem value="cs" label="Unity C#">
+
+```cs
+GetTokenSuppliesArgs tokenSuppliesArgs = new GetTokenSuppliesArgs(contractAddress, includeMetadata);
+var supplies = await Indexer.GetTokenSupplies(blockChain, tokenSuppliesArgs);
+if (supplies != null)
+{
+    //Display supplies :)
+}
+
+```
+
+</TabItem>
+
+</Tabs>
+
+<br />
+
+
+### Fetch the transaction history for any token contract address
+
+**Fetch / listen to the transaction history for any ERC20, ERC721, ERC1155 contract.**
+
+This query is helpful to track transaction history of a particular token contract.
+In this example, we use the Skyweaver token contract address 0x631998e91476DA5B870D741192fc5Cbc55F5a52E
+on the Polygon network. You may query any contract address on any of the supported networks (but make
+sure to query the indexer of the corresponding network).
+
+
+*Sequence Indexer `GetBalanceUpdates` Method:*
+
+* Request: POST /rpc/Indexer/GetBalanceUpdates
+* Content-Type: application/json
+* Body (in JSON):
+	* `contractAddress` (string) -- a ERC20 / ERC721 / ERC1155 contract address
+
+<br />
+
+**Example: `GetBalanceUpdates` of Skyweaver contract on Polygon**
+
+<Tabs>
+<TabItem value="cs" label="Unity C#">
+
+```cs
+GetBalanceUpdatesArgs balanceUpdatesArgs = new GetBalanceUpdateArgs(contractAddress);
+var updates = await Indexer.GetBalanceUpdates(blockChain, balanceUpdatesArgs);
+if (updates != null)
+{
+    //Display balance updates :)
+}
+
+```
+
+</TabItem>
+
+</Tabs>
+
+<br />
+
+
+
+### Fetch native network balance (aka ETH on Ethereum, MATIC on Polygon, AVAX on Avalanche, BNB on BSC, etc.)
+
+*Sequence Indexer `GetEtherBalance` Method:*
+
+* Request: POST /rpc/Indexer/GetEtherBalance
+* Content-Type: application/json
+* Body (in JSON):
+  * `accountAddress` (string) -- the wallet account address
+
+<br />
+
+**Example: `GetEtherBalance` MATIC balance of a wallet account address on Polygon**
+
+<Tabs>
+<TabItem value="cs" label="Unity C#">
+
+```cs
+GetEtherBalanceArgs etherBalanceArgs = new GetEtherBalanceArgs(accountAddress);
+var etherBalance = await Indexer.GetEtherBalance(blockChain, etherBalanceArgs);
+if (etherBalance != null)
+{
+    //Display ether balance :)
+}
+
+```
+
+</TabItem>
+
+</Tabs>
+
+<br />
+
+
+### Fetch the chain ID
+
+*Sequence Indexer `GetChainID` Method:*
+
+* Request: POST /rpc/Indexer/GetChainID
+* Content-Type: application/json
+
+<br />
+
+<Tabs>
+<TabItem value="cs" label="Unity C#">
+
+```cs
+
+var chainId = await Indexer.GetChainID(BlockChainType.Polygon);
+if (getChainIDReturn != null)
+{
+    //Display
+}
+```
+
+</TabItem>
+
+</Tabs>
