@@ -30,7 +30,7 @@ Native Unity Implementation of [Sequence Indexer](/indexer)
 
 **Example: `GetTokenBalances` of a contract + account address on Polygon**
 <Tabs>
-<TabItem value="csharp" label="Unity c#">
+<TabItem value="csharp" label="Unity C#">
 
 ```cs
 GetTokenBalancesArgs tokenBalancesArgs = new GetTokenBalancesArgs(accountAddress, contractAddress, true);
@@ -65,7 +65,7 @@ The response includes decoded transaction details for easy consumption / renderi
 **Example: `GetTransactionHistory` of a wallet account address on Polygon**
 
 <Tabs>
-<TabItem value="cs" label="Unity c#">
+<TabItem value="cs" label="Unity C#">
 
 ```cs
 GetTransactionHistoryArgs transactionHistoryArgs = new GetTransactionHistoryArgs();
@@ -103,7 +103,7 @@ sure to query the indexer of the corresponding network).
 **Example: `GetTokenSupplies` of Skyweaver contract on Polygon**
 
 <Tabs>
-<TabItem value="cs" label="Unity c#">
+<TabItem value="cs" label="Unity C#">
 
 ```cs
 GetTokenSuppliesArgs tokenSuppliesArgs = new GetTokenSuppliesArgs(contractAddress, includeMetadata);
@@ -144,7 +144,7 @@ sure to query the indexer of the corresponding network).
 **Example: `GetBalanceUpdates` of Skyweaver contract on Polygon**
 
 <Tabs>
-<TabItem value="cs" label="Unity c#">
+<TabItem value="cs" label="Unity C#">
 
 ```cs
 GetBalanceUpdatesArgs balanceUpdatesArgs = new GetBalanceUpdateArgs(contractAddress);
@@ -178,7 +178,7 @@ if (updates != null)
 **Example: `GetEtherBalance` MATIC balance of a wallet account address on Polygon**
 
 <Tabs>
-<TabItem value="curl" label="curl">
+<TabItem value="cs" label="Unity C#">
 
 ```cs
 GetEtherBalanceArgs etherBalanceArgs = new GetEtherBalanceArgs(accountAddress);
@@ -207,7 +207,7 @@ if (etherBalance != null)
 <br />
 
 <Tabs>
-<TabItem value="curl" label="curl">
+<TabItem value="cs" label="Unity C#">
 
 ```cs
 
@@ -221,3 +221,4 @@ if (getChainIDReturn != null)
 </TabItem>
 
 </Tabs>
+
