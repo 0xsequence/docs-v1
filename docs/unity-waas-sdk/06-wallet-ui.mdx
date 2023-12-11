@@ -1,0 +1,45 @@
+# Wallet UI
+
+As a Wallet as a Service product, this SDK requires no UI. However, as we expect some apps will still choose to provide some form of wallet UI to users, we are making efforts to provide a default UI for you to use.
+
+This UI can be found under `SequenceExamples`.
+
+To add the UI to your scene, you can add the `WalletPanel` prefab found under `Assets > SequenceExamples > Prefabs`. It is opened using the Open method; you must provide an `Address` as an argument - this is the address for the wallet and will be used to read from the blockchain using the Indexer.
+
+You'll notice that the UI is still a work in progress and is using mocks in some places (fetching transaction history and prices). These will be replaced in coming updates of the SDK, but please feel free to replace them on your own (and for bonus points, submit a PR!).
+
+## How It Works
+The sample Sequence UI is comprised of a few important components.
+
+### UIPage
+A `UIPage` is the base implementation of a "page" in the sample UI. Example pages: `LoginPage`, `TokenInfoPage`
+It is responsible for opening/closing the page and managing the chosen `ITween`.
+
+### ITween
+An `ITween` is an interface for an animation (in/out) that can be applied to a `RectTransform` (a required component of a `UIPage`). If you don't like the animations for a given `UIPage` or `UIPanel` you can easily swap it for any other MonoBehaviour implementing the `ITween` interface, even your own!
+
+### UIPanel
+Inherriting from `UIPage`, a `UIPanel` is the base implementation of a "panel" in the sample UI. Example panels: `LoginPanel`, `WalletPanel`
+In addition to `UIPage` responsibilities, UIPanels maintain a stack of UIPages and `object[]` (open arguments) and are responsible for managing any required event listeners and UI transitions between their child pages (according to Scene inspector heirarchy), including handling the "Back" button.
+
+### SequenceSampleUI
+`SequenceSampleUI` can be thought of as the "manager" of the sample UI. It holds a reference to all the UIPanels and is responsible for opening them as needed, including at `Start()`. If you are integrating all or part of the provided sample UI into your project, you may find it more practical to replace `SequenceSampleUI` with your own UI "manager".
+
+## UI Customizability
+Built on Unity's UI system, the UI is entirely customizable. We encourage you to make it your own and "beautify" it to suit your app!
+
+### Color Scheme Manager
+To help you with the process, we've added a basic `ColorSchemeManager` script which you can experiment with in our Demo scene (found at `Assets > SequenceExamples > Scenes > Demo.unity`).
+
+To use the `ColorSchemeManager`, please perform the following in edit mode.
+
+1. Create a `Color Scheme` [scriptable object](https://docs.unity3d.com/Manual/class-ScriptableObject.html) by navigating to the top bar `Assets > Create > Sequence > Color Scheme` and give it an appropriate name.
+2. Set the desired colors in your new scriptable object - don't forget to set the alpha values! Unity defaults these to 0.
+3. Locate the `ColorSchemeManager` MonoBehaviour in your scene in the inspector. In our demo scene, this is attached to the `SequenceCanvas` gameObject.
+4. Set your newly created scriptable object as the Color Scheme.
+5. Click "Apply". Note that this may take a few seconds to apply and you <i>may</i> need to click apply multiple times due to the way Unity refreshes after changes in the inspector (version dependant).
+
+The `ColorSchemeManager` isn't meant to give you perfect results and the perfect UI right out of the gate, but we hope it saves you some time on the way there!
+
+### More Customization Tools Coming Soon
+We hope to bring you more convenience tools to help you customize the UI quicker and easier! While we have ideas of our own, nobody understands your needs better than you do, so please don't hesitate to reach out to us with any ideas you have! Or better yet, submit a PR!
