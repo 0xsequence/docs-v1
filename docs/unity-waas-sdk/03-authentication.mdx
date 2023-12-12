@@ -103,9 +103,9 @@ No additional steps required.
   ## Connecting with WaaS
 
   Once we've received the idToken from either email login or social sign in, the SDK will handle connecting with WaaS servers for you. If you're curious how this is done, please see `ConnectToWaaS` in `WaaSLogin.cs`.
-  You'll want to subscribe to the `WaaSLogin.OnWaaSWalletCreated` event. This can be done with the following code snippet:
+  You'll want to subscribe to the `WaaSWallet.OnWaaSWalletCreated` event. This can be done with the following code snippet:
   ```
-  WaaSLogin.OnWaaSWalletCreated += OnWaaSWalletCreatedHandler;
+  WaaSWallet.OnWaaSWalletCreated += OnWaaSWalletCreatedHandler;
   ```
   where `OnWaaSWalletCreatedHandler` is a function accepting a `WaaSWallet` as it's only parameter.
 

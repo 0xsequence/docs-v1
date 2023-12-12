@@ -4,6 +4,22 @@ The blockchain can be thought of as a general-purpose, publically viewable and v
 
 Typically, creating a blockchain transaction is rather complex, but WaaS handles that complexity for you and exposes 5 types of `Transactions`.
 
+Sending a transaction is an [asynchronous Task](https://medium.com/@sonusprocks/async-await-in-c-unity-explained-in-easy-words-571ebb6a9369). You can use `await` when calling `WaaSWallet.SendTransaction` from within an async Task if you wish to obtain the `TransactionReturn` object directly. Or, you can take the recommended approach which is to setup handler functions for the `WaaSWallet.OnSendTransactionComplete` and `WaaSWallet.OnSendTransactionFailed` events and call the `WaaSWallet.SendTransaction` method from anywhere (without await). For example:
+```
+public void OnSendTransactionCompleteHandler(SuccessfulTransactionReturn result) {
+    // Do something
+}
+
+public void OnSendTransactionFailedHandler(FailedTransactionReturn result) {
+    // Do something
+}
+
+public void OnWaaSWalletCreatedHander(WaaSWallet wallet) {
+    wallet.OnSendTransactionComplete += OnSendTransactionCompleteHandler;
+    wallet.OnSendTransactionFailed += OnSendTransactionFailedHandler;
+}
+```
+
 ## RawTransaction
 The most basic form of a `Transaction`, a raw transaction is very useful to send ETH or the gas currency of the network you are interacting with to an `Address`.
 
@@ -94,9 +110,9 @@ _wallet.SendTransaction(new SendTransactionArgs(
 ```
 Let's examine the above to get a better understanding of some of the variables that may be non-obvious.
 
-ValueAsString: This will <i>usually</i> be "0" unless you are calling a [payable method](https://docs.alchemy.com/docs/solidity-payable-functions) denoted by the `payable` keyword in the smart contract definition. If you are calling a payable method, it is recommended to use `DecimalNormalizer.Normalize` to convert the amount from human readable format to EVM format.
+ValueAsString: This will <i>usually</i> be "0" unless you are calling a [payable method](https://solidity-by-example.org/payable/) denoted by the `payable` keyword in the smart contract definition. If you are calling a payable method, it is recommended to use `DecimalNormalizer.Normalize` to convert the amount from human readable format to EVM format.
 
-ContractABIAsString: This can either be the entire [ABI](https://www.alchemy.com/overviews/what-is-an-abi-of-a-smart-contract-examples-and-usage) or just the function you plan on interacting with. If you're not familiar with ABIs, we'd recommend copy-pasting the function signature (with parameters) from the contract source code on Etherscan (or the appropriate block explorer for your network) and removing the whitespace and variable names.
+ContractABIAsString: This can either be the entire [ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#json) or just the function you plan on interacting with. If you're not familiar with ABIs, we'd recommend copy-pasting the function signature (with parameters) from the contract source code on Etherscan (or the appropriate block explorer for your network) and removing the whitespace and variable names.
 
 ParametersAsObjectArray: The parameters you want to provide to the method you wish to call. No need to provide the parameter names, just their values in the order they appear in the ABI. Provide parameters in string format when in doubt.
 
