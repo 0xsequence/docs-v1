@@ -1,0 +1,76 @@
+# Wallets
+
+In the context of SequenceEthereum, a `Wallet` is defined by the `IWallet` interface. There are currently 2 implementations of the `IWallet` interface in this SDK.
+
+## 1. EthWallet
+
+`EthWallet` is a standard [EOA wallet](https://ethereum.stackexchange.com/questions/5828/what-is-an-eoa-account) for EVM chains.
+
+An EthWallet is easily created:
+```
+IWallet eoaWallet = new EthWallet(); // This will generate a cryptographically random private key
+IWallet eoaWallet = new EthWallet(privateKeyString); // Create a wallet using a previously generated private key
+```
+
+## 2. WaaSToWalletAdapter
+
+`WaaSToWalletAdapter` is an adapter that allows you to use a `WaaSWallet` with the same `IWallet` interface as an `EthWallet` so that it may be used interchangeably with EOA wallets throughout the rest of the SequenceEthereum library.
+
+A WaaSToWalletAdapter is easily created once you have a WaaSWallet:
+```
+IWallet waasAdapter = new WaaSToWalletAdapter(waasWallet);
+```
+
+## Methods
+
+The `IWallet` interface provides a number of methods for you. The most important of which are:
+
+### GetAddress
+
+Returns the `Address` for the wallet
+```
+Address address = wallet.GetAddress();
+```
+
+### SendTransaction 
+
+Signs the given `EthTransaction` and submits it via the given client 
+```
+string transactionHash = await wallet.SendTransaction(client, transaction);
+```
+
+### SendTransactionAndWaitForReceipt
+
+Signs the given `EthTransaction` and submits it via the given client then waits for the `TransactionReceipt`
+```
+TransactionReceipt receipt = await wallet.SendTransactionAndWaitForReceipt(client, transaction);
+```
+
+### SendTransactionBatch
+
+Signs the given `EthTransaction[]` and submits them via the given client. 
+If wallet is an `EthWallet`, the transactions will be submitted sequentially, each of which may pass or fail. If the wallet is a `WaaSToWalletAdapter`, the transactions will be batched together into a single transaction that is submitted all at once and either passes or fails as a whole.
+Similarly, if a wallet is an `EthWallet` the `string[]` (transaction hashes) you receive will be equal in length to the `EthTransaction[]` you submitted. While, if the wallet is a `WaaSToWalletAdapter`, you will only receive one transaction hash (`string[]` of length 1)
+```
+string[] transactionHashes = await wallet.SendTransactionBatch(client, transactions);
+```
+
+### SendTransactionBatchAndWaitForReceipts
+
+Signs the given `EthTransaction[]` and submits them via the given client then waits for the `TransactionReceipt[]`. 
+If wallet is an `EthWallet`, the transactions will be submitted sequentially, each of which may pass or fail. If the wallet is a `WaaSToWalletAdapter`, the transactions will be batched together into a single transaction that is submitted all at once and either passes or fails as a whole.
+Similarly, if a wallet is an `EthWallet` the `TransactionReceipt[]` you receive will be equal in length to the `EthTransaction[]` you submitted. While, if the wallet is a `WaaSToWalletAdapter`, you will only receive one transaction receipt (`TransactionReceipt[]` of length 1)
+```
+TransactionReceipt[] receipts = await wallet.SendTransactionAndWaitForReceipt(client, transactions);
+```
+
+### SignMessage
+
+Given a message and an optional chain id, sign the message using the wallet. Omit the chain id from the signature if not provided
+```
+string signedMessage = await wallet.SignMessage(message, chainId)
+```
+Note: the chainId is expected to be in hexadecimal format. If you are working with a `Chain` object (recommended), you can use the `AsString` method to get the hexadecimal format of the chain id
+```
+string signedMessage = await wallet.SignMessage(message, Chain.Polygon.AsString());
+```

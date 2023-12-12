@@ -1,0 +1,10 @@
+# Transfers
+
+In order to transfer ETH (or the gas currency for your network), it is recommended to use `TranferEth.CreateTransaction`
+
+```
+EthTransaction transferTransaction = await TransferEth.CreateTransaction(client, wallet, recipientAddress, DecimalNormalizer.Normalize(1));
+TransactionReceipt receipt = await wallet.SendTransactionAndWaitForReceipt(client, transferTransaction);
+```
+
+Behind the scenes, this will create a `GasLimitEstimator` which will construct the transaction for you - including determining the appropriate gasPrice, gasLimit, and nonce.
