@@ -1,11 +1,11 @@
-# Minting a Collectible using a Gasless Serverless Relayer
+# Mint a Collectible using a Gasless Serverless Relayer
 
 The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so a game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs.
 
 The following steps will guide you through how to build your technology in 4 steps:
 
 1. Setup Cloudflare environment with wrangler cli & deploy a test
-2. Build smart contract & deploy / sponsor with Builder
+2. Write smart contract & deploy / sponsor with Builder
 3. Use EthAuthProof to prevent EOA DDoS
 4. Deploy & mint a collectible to wallet
 
@@ -24,13 +24,13 @@ $ ppm install wrangler --save-dev
 $ alias wrangler='./node_modules/.bin/wrangler'
 ```
 
-Perform a login step to login to your cloudflare dashboard to connect the Cloudflare platform to your local development environment.
+Create an account on the [Cloudflare site](https://cloudflare.com/) and perform a login step to login to your cloudflare dashboard to connect the Cloudflare platform to your local development environment.
 
 ```
 $ wrangler login
 ```
 
-Follow the prompts, then once logged in initialize the project in the project directory and follow the prompts to deploy yout typescript application.
+Follow the prompts to create a `"Hello World" Worker` app with a generated name, then once logged in initialize the project in the project directory and follow the prompts to deploy your typescript application.
 
 ```
 $ wrangler init
@@ -38,17 +38,23 @@ $ wrangler init
 
 This will clone down a starter repository that can be used to deploy code to the cloud.
 
-Once initialized and if you haven't already deployed your code, you can do so with:
+Once initialized the last step before deployment is to register a sub-domain.
+
+#### Register your cloudflare sub-domain
+
+On the [Cloudflare site](https://cloudflare.com/) create the workers.dev subdomain in Workers & Pages > select your Worker > Your subdomain > Change.
+
+And if you haven't already deployed your code, you can do so after you've `cd`'ed into the generated app folder (should be some random name from the `wrangler init` step) and:
 
 ```
 $ wrangler deploy
 ```
 
-Finally, enter the generated `https://<app>.workers.dev` link in the browser.
+Finally, enter the generated `https://<app>.workers.dev` link in the browser and view response.
 
-## 2. Build smart contract & deploy / sponsor with Builder
+## 2. Write smart contract & deploy / sponsor with Builder
 
-Build your smart contract with the necessary features, for example, here is the recommended contract that adds a few features like: only being able to mint from the relayer, the ability to turn on and off the mint, and and owner associated with the contract address.
+Write your smart contract with the necessary features, for example, here is the recommended contract that adds a few features like: only being able to mint from the relayer, the ability to turn on and off the mint, and a contract owner with certain privileges.
 
 ```sol
 
@@ -86,10 +92,23 @@ contract Demo is ERC1155 {
 }
 ```
 
-Compile your code with one of the popular frameworks (like forge, hardhat, etc.) and follow the following video to learn how to use the builder to
-[set up and deploy smart contracts](https://www.youtube.com/watch?v=g7jthpR-bCM)
+Compile your code with one of the popular frameworks (like forge, hardhat, etc.) and follow the steps below to upload and deploy your contract in the [Sequence Builder](https://sequence.build).
 
-## 4. Use EthAuthProof to prevent EOA DDoS
+Then, access the contract page once you've [created a project](https://www.youtube.com/watch?v=UAHxmO27KrA&list=PLN_CsIpJBRiiJ7MAKrWSXj1oxWTJfiEir&index=1) and select `+ View more contracts`
+
+![contract page in builder](/img/relayer/contracts_page.png)
+
+And select `+ Upload Source`
+
+![view more options](/img/relayer/view_more_options.png)
+
+Finally, name your contract and upload your abi file generated locally before deploying your contract with `Upload Contract Source` and completing the onchain transaction to deploy to your selected network.
+
+![contract source](/img/relayer/contract_source.png)
+
+Once you've completed the steps, you'll find in the contracts page your contract address you'll need for the sending transactions to in the code.
+
+## 3. Use EthAuthProof to prevent EOA DDoS
 
 Next, install `ethers` and `0xsequence` to get access to sequence APIs in order to perform a proof validation that the request is coming from a trusted source, a sequence wallet.
 
@@ -123,7 +142,7 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext):
 		console.log('ooops! check your wranger.toml config to set your PKEY')
 	}
 
-	// POST reuest
+	// POST request
 	if (request.method === "POST") {
 		// parse the request body as JSON
 		const body = await request.json();
@@ -182,8 +201,9 @@ export default {
 };
 ```
 
-#### Wrangler template has missing window object
-It should be noted, if you try to deploy this you'll get a missing `window` object required by the modules. 
+#### Implement window object in wrangler template
+
+It should be noted, if you try to deploy this you'll get a missing `window` object required by the web3 modules. 
 
 To prevent this, add the following line to your `wrangler.toml` file to make the environment compatible.
 
@@ -217,7 +237,7 @@ success
 
 ```
 
-## 5. Deploy & mint a collectible to wallet
+## 4. Deploy & mint a collectible to wallet
 
 Finally, we install the following packages 
 
@@ -243,6 +263,8 @@ const getBlockNumber = async (request: Request): Promise<number> => {
 }
 
 const callContract = async (request: Request, env: Env, address: string): Promise<ethers.providers.TransactionResponse> => {
+
+    const contractAddress = <deployed_contract_address>
 
     // create EOA from private key
 	const walletEOA = new ethers.Wallet(env.PKEY, provider);
@@ -275,7 +297,7 @@ const callContract = async (request: Request, env: Env, address: string): Promis
 	])
 		
 	const data = collectibleInterface.encodeFunctionData(
-		'mint', [0, address]
+		'mint', [0, address] // minting only the first tokenID
 	)
 
 	const txn = { to: contractAddress, data }
@@ -295,8 +317,10 @@ $ wrangler secret put PKEY
 # follow prompts
 ```
 
-Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/minting-collectible-severless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
+Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/mint-collectible-severless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
 
 If you want to browse the full code, see [here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer)
+
+And if you want to view a live demo of a frontend integration, [see here](https://sequence.app)
 
 Good luck!
