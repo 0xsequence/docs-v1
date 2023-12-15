@@ -31,15 +31,18 @@ yarn add 0xsequence ethers
 
 You can find the source of the `0xsequence` package on [Github](https://github.com/0xsequence/sequence.js).
 
-
 ## Connect your wallet
+
+First, acquire a project `Access Key` from the [Sequence Builder](https://sequence.build/) following [these steps](/getting-started/get-access-key-in-builder) 
+
+and connect to the wallet with the following code:
 
 **Connecting to Ethereum Mainnet:**
 
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = sequence.initWallet({ defaultNetwork: 'mainnet' })
+const wallet = sequence.initWallet({ defaultNetwork: 'mainnet', projectAccessKey: '<access_key>' })
 const connectDetails = await wallet.connect(({ app: 'Your app name' }))
 
 console.log('=> connected?', connectDetails.connected)
@@ -49,7 +52,7 @@ console.log('=> connected?', connectDetails.connected)
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = sequence.initWallet({ defaultNetwork: 'polygon' })
+const wallet = sequence.initWallet({ defaultNetwork: 'polygon', projectAccessKey: '<access_key>' })
 const connectDetails = await wallet.connect(({ app: 'Your app name' }))
 
 console.log('=> connected?', connectDetails.connected)
@@ -57,6 +60,8 @@ console.log('=> connected?', connectDetails.connected)
 
 :::info Required fields
 `defaultNetwork` is optional, the wallet can always be used to interact with any supported network by using the `getProvider('<network>')` and `getSigner(<network>)` methods.
+
+`projectAccessKey` is required, the wallet can always be used to interact with any supported network by using the `getProvider('<network>')` and `getSigner(<network>)` methods.
 
 `app` during connect is **always** required, this is the name of your dapp, and will be shown to the user when they are asked to connect their wallet.
 :::

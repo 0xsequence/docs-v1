@@ -26,7 +26,7 @@ To utilize the core kit wrapper for connecting web3 wallets to your application,
 
 ```jsx
 import MyPage from './components/MyPage'
-import { KitProvider } from '@0xsequence/kit'
+import { KitProvider, KitConfig } from '@0xsequence/kit'
 import { getDefaultConnectors } from '@0xsequence/kit-connectors'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
@@ -40,7 +40,7 @@ function App() {
 
   const connectors = getDefaultConnectors({
     chains,
-    walletConnectProjectId: 'project_id',
+    walletConnectProjectId: '<project_id>',
     defaultChainId: 137
   })
   
@@ -50,6 +50,10 @@ function App() {
     webSocketPublicClient,
     connectors
   })
+
+  const kitConfig: KitConfig = {
+    projectAccessKey: '<access_key>'
+  }
 
   return (
     <WagmiConfig config={config}>
@@ -75,7 +79,7 @@ import { KitWalletProvider } from '@0xsequence/kit-wallet'
 const App = () => {
   return (
     <WagmiConfig config={config}>
-      <KitProvider>
+      <KitProvider config={kitConfig}>
         <KitWalletProvider>
           <Page />
         </KitWalletProvider>
@@ -89,7 +93,7 @@ The complete code will then look like this:
 
 ```jsx
 import MyPage from './components/MyPage'
-import { KitProvider } from '@0xsequence/kit'
+import { KitProvider, KitConfig } from '@0xsequence/kit'
 import { getDefaultConnectors } from '@0xsequence/kit-connectors'
 import { KitWalletProvider } from '@0xsequence/kit-wallet'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
@@ -104,11 +108,10 @@ function App() {
 
   const connectors = getDefaultConnectors({
     chains,
-    walletConnectProjectId: 'project_id',
+    walletConnectProjectId: '<project_id>',
     defaultChainId: 137
   })
 
-  
   const config = createConfig({
     autoConnect: true,
     publicClient,
@@ -116,9 +119,13 @@ function App() {
     connectors
   })
 
+  const kitConfig: KitConfig = {
+    projectAccessKey: '<access_key>'
+  }
+
   return (
     <WagmiConfig config={config}>
-      <KitProvider>
+      <KitProvider config={kitConfig}>
         <KitWalletProvider>
           <MyPage />
         </KitWalletProvider>
