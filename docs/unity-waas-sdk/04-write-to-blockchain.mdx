@@ -1,4 +1,4 @@
-# Write to blockchain
+# Write to Blockchain
 
 The blockchain can be thought of as a general-purpose, publically viewable and verified, database. To write to a blockchain, similar to with a typical database, you must make a <u>transaction</u>.
 
@@ -19,6 +19,7 @@ public void OnWaaSWalletCreatedHander(WaaSWallet wallet) {
     wallet.OnSendTransactionFailed += OnSendTransactionFailedHandler;
 }
 ```
+If you're unfamiliar with working with events in Unity, check out this great [Reddit post](https://www.reddit.com/r/gamedev/comments/u3hz2v/how_to_use_events_a_supersimple_unity_example/)!
 
 ## RawTransaction
 The most basic form of a `Transaction`, a raw transaction is very useful to send ETH or the gas currency of the network you are interacting with to an `Address`.
@@ -124,12 +125,12 @@ _wallet.SendTransaction(new SendTransactionArgs(
     _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
     {
         new DelayedEncode(ContractAddress, "0", new DelayedEncodeData(
-            "transfer(address,uint256)",
+            "mint(address,uint256)",
             new object[]
             {
                 ToAddress, DecimalNormalizer.Normalize(1)
             },
-            "transfer")),
+            "mint")),
     }));
 ```
 
