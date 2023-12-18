@@ -3,6 +3,9 @@ As a WaaS SDK, authentication is extremely important. Authentication works via a
 
 To implement authentication, we recommend using our `LoginPanel` prefab. Locate this prefab under `SequenceExamples > Prefabs` and drag it under a [Canvas](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) in your scene.
 We recommend having the `Canvas Scaler` component attached to your `Canvas` use the "Scale with Screen Size" UI Scale Mode. This will make it so that the LoginPanel (and any other UI elements under this Canvas) are scaled automatically when switching between build targets.
+
+Note: The `LoginPanel` is hidden by default. You can open it with the `Open` method and no arguments. To help with this, the `LoginPanel` GameObject is not disabled, so feel free to use [GetComponentInChildren](https://docs.unity3d.com/ScriptReference/Component.GetComponentInChildren.html), [FindObjectOfType](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html), or similar to obtain a reference to the `LoginPanel` MonoBehaviour.
+
 This will provide you easy access to two authentication methods:
 
 ## 1. Email Sign In
