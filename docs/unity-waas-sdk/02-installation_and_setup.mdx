@@ -1,0 +1,15 @@
+# Installation and Setup
+1. Add [Newtonsoft.json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html) to your project (if it isn't there already) via package manager. Click on the "+" icon in the Package Manager window > "Add package by name..." and add `com.unity.nuget.newtonsoft-json`.
+2. Download [the latest release of the Sequence Unity SDK UnityPackage](https://github.com/0xsequence/sequence-unity/releases)
+3. Drag the `.unitypackage` file into your project and import it
+4. Import `TMP Essentials` (if you haven't already). Note: Unity should prompt you to do this automatically if you attempt to Play or Build with a TextMeshPro object in your scene.
+5. Check for a `SequenceConfig` file at the route of your `Resources` folder.
+
+    a) If you don't have this file, first create a `Resources` folder located at `Assets/Resources`. The SDK uses [Resources.Load](https://docs.unity3d.com/ScriptReference/Resources.Load.html) to load the config `ScriptableObject` we'll create in the next step.
+
+    b) In the top bar, click `Assets > Create > Sequence > SequenceConfig` and place the newly created `ScriptableObject` at the root of your `Resources` folder.
+6. Fill in `SequenceConfig` with the appropriate values for your project.
+
+    a) `Url Scheme` - You must replace this with a string that is unique to your application. This is very important. Failure to do so will cause unexpected behaviour when signing in with social sign in and it will not work.
+
+    b) `Builder API Keys` - These are found in the [Builder](https://sequence.build/) under `Settings > API Access Keys`

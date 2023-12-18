@@ -1,5 +1,5 @@
 # Authentication
-As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an OIDC idToken. For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
+As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an [OIDC idToken](https://auth0.com/docs/secure/tokens/id-tokens/id-token-structure#sample-id-token). For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
 
 To implement authentication, we recommend using our `LoginPanel` prefab. Locate this prefab under `SequenceExamples > Prefabs` and drag it under a [Canvas](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) in your scene.
 We recommend having the `Canvas Scaler` component attached to your `Canvas` use the "Scale with Screen Size" UI Scale Mode. This will make it so that the LoginPanel (and any other UI elements under this Canvas) are scaled automatically when switching between build targets.
@@ -18,17 +18,11 @@ In order to enable deep linking, we must register a custom URL scheme for our ap
 
 ### iOS
 
-1. Open the iOS Player Settings window (menu: Edit > Project Settings > Player Settings, then select iOS).
-2. Select `Other Settings`, then scroll down to `Configuration`.
-3. Expand the `Supported URL schemes` section, and add 1 to the size.
-4. In the new `Element N` field, enter the URL scheme we've configured for Sequence Social login: `sdk-powered-by-sequence`
+No additional steps required. Our SDK will automatically append the `UrlScheme` you set in `Resources/SequenceConfig` to your Plist.
 
 ### MacOS
 
-1. Open the Windows/Mac/Linux Player Settings window (menu: Edit > Project Settings > Player Settings, then select Windows/Mac/Linux).
-2. Select `Other Settings`, then scroll down to `Mac Configuration`.
-3. Expand the `Supported URL schemes` section, and add 1 to the size.
-4. In the new `Element N` field, enter the URL scheme we've configured for Sequence Social login: `sdk-powered-by-sequence`
+No additional steps required. Our SDK will automatically append the `UrlScheme` you set in `Resources/SequenceConfig` to your Plist.
 
 ### PC
 
