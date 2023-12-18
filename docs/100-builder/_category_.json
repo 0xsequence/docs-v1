@@ -1,7 +1,7 @@
 {
-    "label": "Builder",
-    "link": {
-      "type": "doc",
-      "id": "builder/overview"
-    }
+  "label": "Builder",
+  "link": {
+    "type": "doc",
+    "id": "builder/overview"
   }
+}
