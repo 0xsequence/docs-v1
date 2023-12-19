@@ -36,8 +36,10 @@ No additional steps required.
 1. In the Project window, browse to Assets > Plugins > Android.
 
   a) Note: in Unity versions 2021.2 and up this path doesn't exist by default. Please navigate to `Edit > Project Settings > Player` and under the Android Publishing Settings, enable `Custom Main Manifest` in the Build section. See https://docs.unity3d.com/Manual/deep-linking-android.html for more info.
+
 2. If it doesn't already exist, create a new file and name it `AndroidManifest.xml`.
 3. Paste the following XML into the file, or, if you already have one, add the new keys from this XML to it.
+4. Make sure to replace 'sdk-powered-by-sequence' with the Url Scheme you set in `SequenceConfig`
 
 ```xml
    <?xml version="1.0" encoding="utf-8"?>
@@ -58,7 +60,7 @@ No additional steps required.
            <action android:name="android.intent.action.VIEW" />
            <category android:name="android.intent.category.DEFAULT" />
            <category android:name="android.intent.category.BROWSABLE" />
-           <data android:scheme="sdk-powered-by-sequence"/>
+           <data android:scheme="sdk-powered-by-sequence"/> <!-- substitute 'sdk-powered-by-sequence' with the Url Scheme you set in `SequenceConfig` -->
          </intent-filter>
        </activity>
      </application>
@@ -85,7 +87,7 @@ No additional steps required.
                   <action android:name="android.intent.action.VIEW" />
                   <category android:name="android.intent.category.DEFAULT" />
                   <category android:name="android.intent.category.BROWSABLE" />
-                  <data android:scheme="sdk-powered-by-sequence"/>
+                  <data android:scheme="sdk-powered-by-sequence"/> <!-- substitute 'sdk-powered-by-sequence' with the Url Scheme you set in `SequenceConfig` -->
               </intent-filter>
           </activity>
       </application>
