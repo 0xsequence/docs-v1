@@ -30,6 +30,12 @@ export default function NavbarContent() {
           />
         </Link>
       </div>
+      <div className="new-docs-navbar-items">
+        <a href="" className="navbar-item-home">Home</a>
+        <a href="/builder/overview" className="navbar-item-products">Products</a>
+        <a href="/integration-marketplace-api/overview" className="navbar-item-api-and-sdks">API & SDKs</a>
+        <a href="/integration-wallet-sdks/unity-sdk" className="navbar-item-support">Support</a>
+      </div>
       <div className="flex items-center gap-x-4">
         {items.map((item, index) => {
           const children = (

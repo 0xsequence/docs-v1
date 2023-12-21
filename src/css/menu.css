@@ -4,16 +4,48 @@
 }
 
 [data-theme='dark'] {
-  --ifm-menu-color: rgba(255, 255, 255, 0.5);
-  --ifm-menu-color-active: rgba(255, 255, 255, 0.8);
+  --ifm-menu-color: rgba(255, 255, 255, .8);
+  --ifm-menu-color-active: rgba(157, 150, 237, 1.0);
+  --ifm-menu-color-hover: rgba(255, 255, 255, .8) !important;
+  --ifm-menu-color-background-hover: rgba(157, 150, 237, 0.05) !important;
 }
 
+
+
+/*style this for collapsible */
+div.menu__list-item-collapsible {
+  letter-spacing: 1.5px !important;
+  font-weight: 600 !important;
+}
+
+/*style this for non-collapsible */
+.theme-doc-sidebar-item-link-level-1 a.menu__link {
+  letter-spacing: 1.5px !important;
+  font-weight: 600 !important;
+}
+
+/* item spacing */
+.theme-doc-sidebar-item-link-level-2 a.menu__link {
+  letter-spacing: 0px !important;
+  font-weight: 300 !important;
+  margin-left: 1.8em;
+}
+
+
+
+
+
+
+
+
 .menu {
-  @apply font-inter text-sm;
+  font-size: x-small;
+  /*@apply font-inter text-sm;*/
 }
 
 .menu__link--active {
-  @apply font-semibold;
+  font-weight: 600 !important;
+  /*@apply font-semibold;*/
 }
 
 .menu__caret::before,
@@ -24,7 +56,7 @@
 }
 
 /* prevents animations when opening and closing sidebar menus */
-.menu__list-item {
+.menu__list-item--collapsed {
   transition: none !important;
   height: auto !important;
 }
@@ -33,4 +65,17 @@
 }
 .menu__list-item.menu__list-item--collapsed .menu__list {
   height: 0px !important;
+}
+
+.menu__list-item:not(.menu__list-item--collapsed) ul li:last-child {
+  padding-bottom: 1.5em !important;
+}
+
+
+.menu__link--sublist {
+
+}
+
+.menu__link  {
+  margin-left: 0em;
 }

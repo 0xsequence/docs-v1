@@ -3,7 +3,7 @@
 }
 
 .theme-doc-sidebar-container {
-  border-right: 1px solid #222222 !important;
+  border-right: 1px solid #333333 !important;
 }
 
 html[data-theme='light'] .theme-doc-sidebar-container {
@@ -12,7 +12,6 @@ html[data-theme='light'] .theme-doc-sidebar-container {
 
 .navbar-sidebar__brand {
   box-shadow: none;
-  border-bottom: 1px solid #222222;
 }
 
 html[data-theme='light'] .navbar-sidebar__brand {
@@ -26,4 +25,186 @@ html[data-theme='light'] .navbar-sidebar__brand {
 
 html[data-theme='light'] .navbar-sidebar {
   @apply bg-off-white;
+}
+
+
+/* sidebar stuff I've added in sidebar.css */
+
+
+.theme-doc-sidebar-item-link.theme-doc-sidebar-item-link-level-1 {
+  margin-left: .5em;
+  height: 4em !important;
+  padding: .8em 0 1.5em 0 !important;
+}
+
+.theme-doc-sidebar-item-category.theme-doc-sidebar-item-category-level-1.menu__list-item.menu__list-item--collapsed {
+  height: 4em !important;
+  padding: .8em 0 1.5em 0 !important;
+}
+
+.theme-doc-sidebar-item-category.theme-doc-sidebar-item-category-level-1.menu__list-item {
+  padding-top: .8em !important;
+}
+
+
+
+.theme-doc-sidebar-item-link-level-1 {
+  position: relative;
+  border-bottom: 1px solid #272727;
+  margin-top: 10px; 
+  padding-top: 3px;
+  padding-bottom: 6px;
+  width: 100%;
+  margin-left: 2px;
+  z-index: 1;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+.theme-doc-sidebar-item-category-level-1 {
+  position: relative;
+  border-bottom: 1px solid #272727;
+  margin-top: 10px; 
+  padding-top: 3px;
+  padding-bottom: 6px;
+  width: 100%;
+  margin-left: 2px;
+  z-index: 1;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+
+/* style this for space with icon */
+.theme-doc-sidebar-item-link-level-1::before {
+  padding-right: 1em; /* Adjust spacing between image and text */
+  margin-left: 0em !important;
+}
+
+/* style this for space with icon */
+.theme-doc-sidebar-item-category-level-1::before {
+  padding-right: 1.3em !important; /* Adjust spacing between image and text */
+  margin-left: 2px !important;
+}
+
+
+
+.theme-doc-sidebar-item-category-level-1.menu__list {
+  position: relative;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.theme-doc-sidebar-menu {
+  padding-right: 0px;
+  margin-right: none;
+  :hover {
+    color: rgba(255, 255, 255, 1.0) !important;
+  }
+}
+
+
+/* level 2 */
+
+.theme-doc-sidebar-item-link-level-2 {
+  text-transform: none;
+}
+
+
+
+
+
+/* specific styling per category */
+
+.intro_styling::before, 
+.products-styling::before, 
+.overview-styling::before, 
+.wallet-styling::before, 
+.marketplace-styling::before, 
+.minter-styling::before, 
+.payment-styling::before, 
+.auth-styling::before, 
+.node-styling::before, 
+.indexer-styling::before {
+  content: "";
+  display: inline-block;
+  width: 25px !important; /* Adjust the width of the image */
+  height: 25px !important; /* Adjust the height of the image */
+  margin-right: -8px !important; /* Adjust spacing between image and text */
+  float: left;
+  margin-top: 3px !important;
+  margin-left: 10px;
+  z-index: 10;
+}
+
+.intro_styling::before {background: url('../../static/img/icons/platform/sequence.png') center/contain no-repeat !important; /* Adjust the image path */}
+.products-styling::before {background: url('../../static/img/icons/platform/sequence.png') center/contain no-repeat !important; /* Adjust the image path */}
+.overview-styling::before {background: url('../../static/img/icons/platform/sequence.png') center/contain no-repeat !important; /* Adjust the image path */}
+.wallet-styling::before {background: url('../../static/img/icons/platform/wallet.png') center/contain no-repeat !important; /* Adjust the image path */}
+.marketplace-styling::before {background: url('../../static/img/icons/platform/marketplace.png') center/contain no-repeat !important; /* Adjust the image path */}
+.minter-styling::before {background: url('../../static/img/icons/platform/minter.png') center/contain no-repeat !important; /* Adjust the image path */}
+.payment-styling::before {background: url('../../static/img/icons/platform/onramps.png') center/contain no-repeat !important; /* Adjust the image path */}
+.auth-styling::before {background: url('../../static/img/icons/platform/sequence.png') center/contain no-repeat !important; /* Adjust the image path */}
+.node-styling::before {background: url('../../static/img/icons/platform/node-gateway.png') center/contain no-repeat !important; /* Adjust the image path */}
+.indexer-styling::before {background: url('../../static/img/icons/platform/token-and-nft-api.png') center/contain no-repeat !important; /* Adjust the image path */}
+
+.intro_styling, 
+.products-styling, 
+.overview-styling, 
+.wallet-styling, 
+.marketplace-styling, 
+.minter-styling, 
+.payment-styling, 
+.auth-styling, 
+.node-styling, 
+.indexer-styling {
+
+}
+
+
+
+/* styling for black an white icons */
+
+.intro_styling-bw::before, 
+.products-styling-bw::before, 
+.overview-styling-bw::before, 
+.wallet-styling-bw::before, 
+.marketplace-styling-bw::before, 
+.minter-styling-bw::before, 
+.payment-styling-bw::before, 
+.auth-styling-bw::before, 
+.node-styling-bw::before, 
+.indexer-styling-bw::before {
+  content: "";
+  display: inline-block;
+  width: 20px !important; /* Adjust the width of the image */
+  height: 20px !important; /* Adjust the height of the image */
+  margin-right: -8px !important; /* Adjust spacing between image and text */
+  float: left;
+  margin-top: 6px !important;
+  margin-left: 10px;
+  z-index: 10;
+}
+
+.intro_styling-bw::before {background: url('../../static/img/icons/sequence-composite-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.products-styling-bw::before {background: url('../../static/img/icons/sequence-composite-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.overview-styling-bw::before {background: url('../../static/img/icons/faq-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.wallet-styling-bw::before {background: url('../../static/img/icons/wallet-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.marketplace-styling-bw::before {background: url('../../static/img/icons/multi-chain-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.minter-styling-bw::before {background: url('../../static/img/icons/wallet-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.payment-styling-bw::before {background: url('../../static/img/icons/email-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.auth-styling-bw::before {background: url('../../static/img/icons/wallet-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.node-styling-bw::before {background: url('../../static/img/icons/multi-chain-icon-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+.indexer-styling-bw::before {background: url('../../static/img/icons/mag-dark.svg') center/contain no-repeat !important; /* Adjust the image path */}
+
+.intro_styling-bw-bw, 
+.products-styling-bw, 
+.overview-styling-bw, 
+.wallet-styling-bw, 
+.marketplace-styling-bw, 
+.minter-styling-bw, 
+.payment-styling-bw, 
+.auth-styling-bw, 
+.node-styling-bw, 
+.indexer-styling-bw {
+  
 }

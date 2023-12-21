@@ -1,9 +1,73 @@
 .navbar {
-  @apply dark:bg-off-black bg-off-white;
-  border-bottom: 1px solid #222222;
+  background-color: #1D1D1D;
+  /*@apply dark:bg-off-black bg-off-white;*/
+  border-bottom: 1px solid #333333;
+  height: 7em;
   box-shadow: none;
+}
+
+.navbar .items-end {
+  margin-top: -1.05em;
+  border: 1x solid blueviolet;
+}
+
+.navbar .navbar__search {
+  margin-top: -1.05em;
+}
+
+.navbar .items-center {
+  margin-top: -1.05em;
 }
 
 html[data-theme='light'] .navbar {
   border-bottom: 1px solid #e3e1cf;
+}
+
+
+
+/* other stuff i've added */
+
+
+.new-docs-navbar-items {
+  position: fixed;
+  margin-top: 6.2em;
+  height: 2.2em !important;
+  margin-left: -.25em !important;
+}
+
+.new-docs-navbar-items a {
+  font-weight: 900 !important;
+  color: #e5e5e5;
+  padding-bottom: .5em;
+  margin: 0 1em 0 1em;
+  font-size: 14px;
+}
+
+.new-docs-navbar-items a:hover {
+  color: rgba(157, 150, 237, 1.0);
+  border-bottom: 2px solid rgba(157, 150, 237, 1.0);
+  text-decoration: none;
+}
+
+.new-docs-navbar-items a:active {
+  border-bottom: 2px solid rgba(157, 150, 237, 1.0);
+  text-decoration: none;
+}
+
+.navbar-item-home {
+  margin-left: 7px !important;
+}
+
+.navbar-item-products {
+
+}
+
+
+
+.navbar-item-api-and-sdks {
+  
+}
+
+.navbar-item-support {
+
 }
