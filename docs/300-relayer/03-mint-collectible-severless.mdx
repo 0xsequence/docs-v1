@@ -1,26 +1,28 @@
 # Mint a Collectible using a Gasless Serverless Relayer
 
-The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so a game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs.
+Time to complete: 15-30 minutes
+
+The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so a game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs by the relayer, and experience automatic scaling with cloudflare.
 
 The following steps will guide you through how to build your technology in 4 steps:
 
-1. Setup Cloudflare environment with wrangler cli & deploy a test
-2. Write smart contract & deploy / sponsor with Builder
-3. Use EthAuthProof to prevent EOA DDoS
-4. Deploy & mint a collectible to wallet
+1. [Setup Cloudflare environment with wrangler cli & deploy a test](/relayer/mint-collectible-severless#1-setup-cloudflare-environment-with-wrangler-cli--deploy-a-test)
+2. [Write smart contract & deploy / sponsor with Builder](/relayer/mint-collectible-severless#2-write-smart-contract--deploy--sponsor-with-builder)
+3. [Use EthAuthProof to prevent EOA DDoS](relayer/mint-collectible-severless#3-use-ethauthproof-to-prevent-eoa-ddos)
+4. [Deploy & mint a collectible to wallet](relayer/mint-collectible-severless#4-deploy--mint-a-collectible-to-wallet)
 
-The result, an API with the following specs:
+The result, a secure API with the following specs:
 * HTTPS GET: returns blockNumber
 * HTTPS POST(proof, address): mints a collectible & returns transaction hash
 
 ## 1. Setup Cloudflare environment with wrangler cli & deploy a test
 
-In order to create the project from scratch, first create a project with `mkdir`, `cd` into the project, and run `pnpm init` to create a package.json.
+In order to create the project from scratch, first create a project with `mkdir`, `cd` into the project, and run `pnpm init` to create a `package.json`.
 
 Next, make sure wrangler cli is installed in your project and set the `wrangler` keyword as an alias in your local bash session.
 
 ```
-$ ppm install wrangler --save-dev
+$ pnpm install wrangler --save-dev
 $ alias wrangler='./node_modules/.bin/wrangler'
 ```
 
@@ -30,7 +32,7 @@ Create an account on the [Cloudflare site](https://cloudflare.com/) and perform 
 $ wrangler login
 ```
 
-Follow the prompts to create a `"Hello World" Worker` app with a generated name, then once logged in initialize the project in the project directory and follow the prompts to deploy your typescript application.
+Once logged in, initialize the project in the project directory and follow the prompts to deploy your typescript `"Hello World" Worker` application
 
 ```
 $ wrangler init
@@ -223,9 +225,6 @@ You can now redeploy using `wrangler deploy`
 And perform a curl request to test your endpoint like such:
 
 ```
-$ curl -X POST https://your-worker.your-subdomain.workers.dev
-success
-
 $ curl -X POST https://your-worker.your-subdomain.workers.dev \
 -H "Content-Type: application/json" \
 -d '{"proof": "someProof", "address": "someAddress"}'
@@ -234,7 +233,6 @@ $ curl -X POST https://your-worker.your-subdomain.workers.dev \
 
 # and if you replace with actual proof (from a wallet client login) and address on polygon, it should return 
 success
-
 ```
 
 ## 4. Deploy & mint a collectible to wallet
@@ -310,7 +308,7 @@ const callContract = async (request: Request, env: Env, address: string): Promis
 }
 ```
 
-Where in the prior code, an EOA wallet is instantiated from the environment variables uing PKEY, which should be set with the following commands:
+Where in the prior code, an EOA wallet is instantiated from the environment variables uing `PKEY`, which should be set with the following commands:
 
 ```
 $ wrangler secret put PKEY
@@ -319,8 +317,6 @@ $ wrangler secret put PKEY
 
 Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/mint-collectible-severless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
 
-If you want to browse the full code, see [here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer)
-
-And if you want to view a live demo of a frontend integration, [see here](https://sequence.app)
+If you want to browse the full code, see [here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer/tree/simple-erc1155-mint-integration)
 
 Good luck!
