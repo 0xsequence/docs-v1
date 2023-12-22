@@ -1,6 +1,7 @@
 :root {
   --ifm-menu-color: rgba(0, 0, 0, 0.5);
   --ifm-menu-color-active: rgba(0, 0, 0, 0.8);
+  --doc-sidebar-width: 350px !important;
 }
 
 [data-theme='dark'] {
