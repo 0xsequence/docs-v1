@@ -2,87 +2,137 @@
 slug: /guides/managing-settings
 ---
 
-# Settings in Builder
+# Sequence Builder Settings
 
-once you are in setting, you have the options to change your:
-- **General settings** - update your [project name](#) or [avatar](#)
-- **Collaborators** - add [collaborators](#) or create [invite links](#)
-- **Networks** - update the [networks](#) your project is using
-- **API Access Keys** - create [new keys](#) and [configure existing keys](#)
-- **Billing** - update your [project plan](#) or set [overage limits](#)
+There are various actions available for your project in Settings of Sequence Builder.
 
-and finally, you can delete your project from settings as well.
+The Settings section in Sequence Builder is categorized into five smaller sections:
+1. **General**: Update your [project name](#) or [avatar](#).
+2. **Collaborators**: Add [collaborators](#) or create [invite links](#)
+3. **Networks**: Update the [networks](#) your project is using.
+4. **API Access Keys**: Create [new keys](#) and [configure existing keys](#)
+5. **Billing**: Update your [project plan](#) or set [overage limits](#)
+
+The final action you can take in settings is to delete your project.
+
+Settings are configured per-project, so navigate to the settings of a specific project.
+
+
+## 0. Getting to Settings in Builder
 
 #### Select a Project
 
+When you log into Sequence Builder, you will see a list of projects. If you haven't created a project yet, do so now.
+
+Begin by selecting a project.
+
+
+![Builder select Project](/img/builder/select-project.png)
 
 #### Go to Settings
 
+Now that you are in your project dashboard, click on 'Settings' on the left side of the screen.
+
+
+![Builder select Settings](/img/builder/select-settings.png)
+
+Within settings, you will find the five smaller sections covered in this guide.
+
+### Delete a Project
+
+To delete your project, make sure you selected the [correct project](#) and are in [Settings](#).
+
+You will need administrative-level permissions to delete a project. If you are an Admin, you will notice a section labeled 'Danger Zone' under all your settings sections.
+
+:::danger
+The following instructions are destructive and irreversible, so do not follow these steps unless you intend to delete your project.
+:::
+
+In this area, you will also find an option to 'Delete this Project' — click that option.
+
+
+![Builder delete project](/img/builder/delete-project.png)
+
+This action will prompt a modal to confirm that you want to delete your Project.
+
+Enter the name of your project and click the `Delete Permanently` button.
+
+
+![Builder delete project](/img/builder/delete-project-modal.png)
 
 
 
 
-## General Settings
+## 1. General Settings
 
 Open your General settings.
 
-// photo of clicking General settings
+
+![Builder settings select General](/img/builder/settings-select-general.png)
 
 In General you will find a couple of options.
 
 ##### Project Name
-The first option is to change your Project Name. To do so, enter a new project name in the field and hit the `update` button to save.
+The first option is to change your Project Name. To do so, enter a new project name in the field and hit the `Update` button to save.
 
 ##### Avatar
-The second option is to change your Project Avatar - which shows up in the top left corner of your project in the dashboard. Click the Avatar field to select an image and then hit the `update` button to save.
-
-// photo of general settings
+The second option allows you to modify your Project Avatar, visible in the top left corner of your project on the dashboard. Click the Avatar field to choose an image and then press the `Update` button to save your changes.
 
 
----
+![Builder settings General](/img/builder/settings-general.png)
 
 
 
-## Collaborator Settings
+
+## 2. Collaborator Settings
+
 
 Open your Collaborators settings.
 
-// photo of clicking Collaborator settings
 
-In Collaborator you have a couple of ways you can add collaborators to your team, which are to:
-- add a collaborator directly - enter their user address then select their access level.
-- create an invite link - select the access level, then set how long and how many times (optional) the link can be used.
+![Builder settings select Collaborators](/img/builder/settings-select-collaborators.png)
 
-next we'll walk you through how exactly you can do each of these things
+In the Collaborator settings, you have two methods to add collaborators to your project.
 
-// photo of collaborator settings
+The first method is to directly add collaborators by entering their information and selecting their access level.
+
+The second method is to create an invite link. When using this option, you can specify the access level, link duration, and optional usage limits.
+
+Let's walk through each of these processes step by step.
+
+
+![Builder settings Collaborators](/img/builder/settings-collaborators.png)
 
 ### Add a Collaborator 
 
-To add a collaborator - make sure you have selected the [right project](#), navigated [to Settings](#), and are in the [Collaborator Settings](#) section.
+To add a collaborator, be sure you are in the [correct project](#), accessed [Settings](#), and are in the [Collaborator section](#).
+
 
 Start by clicking on the `Add Collaborator` button.
 
-// photo of collaborator selecting Add Collaborator
+
+![Builder settings Collaborators select Add Collaborator](/img/builder/settings-collaborators-select-add-collaborator.png)
 
 Enter a wallet address in the user address field, and then select the access level you want using the role dropdown.
 
 Finish by clicking the `Add new Collaborator` button.
 
-// photo of add collaborator modal
+
+![Builder settings Collaborators Add Collaborator modal](/img/builder/settings-collaborators-add-collaborator-modal.png)
 
 To confirm, you should see your new collaborator in the dashboard, including their wallet address and access level.
 
-// photo of new user added
 
+![Builder settings Collaborators confirm collaborator](/img/builder/settings-collaborators-confirm-collaborator.png)
 
 ### Create an Invite Link
 
-To add a collaborator through sharing an invite link - make sure you have selected the [right project](#), navigated [to Settings](#), and are in the [Collaborator Settings](#) section.
+To create an invite link, be sure you are in the [correct project](#), accessed [Settings](#), and are in the [Collaborator section](#).
 
 Start by click on the the `Create Invite Link` button.
 
-// photo of collaborator selecting Create Invite Link
+
+![Builder settings Collaborators select Create Invite Link](/img/builder/settings-collaborators-select-create-invite-link.png)
 
 Start by selecting the access level you want your invite link to give: Read, Write, or Admin.
 
@@ -92,70 +142,69 @@ Finally, select the amount of time you want this link to be valid: a day, 3 days
 
 Finish by clicking the `Create Link` button.
 
-// photo of create link modal
+
+![Builder settings Collaborators Create Invite Link modal](/img/builder/settings-collaborators-create-invite-link-modal.png)
 
 To confirm, you should see your invite link in the dashboard, including the access level, limit, date created, and time remaining until it expires.
 
-// photo of link created in the dashboard
 
-#### Sharing the Invite Link
+![Builder settings Collaborators confirm invite link](/img/builder/settings-collaborators-confirm-invite-link.png)
+
+#### Sharing an Invite Link
 
 To share an invite link, click the `Copy Link` button.
 
 Go to where you want to share the link, paste it, and send it to your collaborators.
 
-// photo pointing to copy link in the dashboard
+
+![Builder settings Collaborators select copy link](/img/builder/settings-collaborators-select-copy-link.png)
 
 
-#### Deleting the Invite Link
+#### Deleting an Invite Link
 
 To remove an invite link, click the `Delete Link` button.
 
-// photo pointing to copy link in the dashboard
+
+![Builder settings Collaborators select delete link](/img/builder/settings-collaborators-select-delete-link.png)
 
 You will be prompted to confirm the deletion; click `Yes` to delete.
 
-// photo of delete confirmation
+
+![Builder settings Collaborators confirm delete modal](/img/builder/settings-collaborators-confirm-delete-modal.png)
 
 After deleting the link, you'll get a success notification at the bottom right of your dashboard, and the link will no longer be visible.
 
-// maybe photo of success modal
+
+![Builder settings Collaborators confirm invite deleted](/img/builder/settings-collaborators-confirm-invite-deleted.png)
 
 
 
 
-
-
-
-
-
-## Network Settings
+## 3. Network Settings
 
 Open your Network settings.
 
-// photo of clicking Network settings
 
-In your network settings, you'll find a list of networks supported by Sequence. This is where you can decide which networks you can:
-- access in the Node Gateway
-- deploy smart contracts on
+![Builder settings select Networks](/img/builder/settings-select-networks.png)
 
-Toggle the networks you would like to use and click the `Update` button.
+In the network settings, you'll see a list of supported networks in Sequence. Here, you can choose which networks you want to access through the Node Gateway and deploy smart contracts on.
 
-// photo of all the networks listed with toggles
+Toggle the networks you wish to use and then click the `Update` button.
 
 
+![Builder settings Networks](/img/builder/settings-networks.png)
 
 
 
 
-
-## API Access Keys Settings
+## 4. API Access Keys Settings
 
 Open your API Access Keys settings.
 
-// photo of clicking API Access settings
 
-When you open your API access key settings, you will see all the API keys that you have access to
+![Builder settings select API Access Keys](/img/builder/settings-select-api-access-keys.png)
+
+When accessing your API access key settings, you'll see a list of available API keys.
 
 
 Inside API Access Keys you will find a dashboard where you can manage your keys, set default keys, see details on each key, and view credits usage,
@@ -170,115 +219,129 @@ For each there, there is a number of things you may want to do for a specific ke
 - copy or change the credentials of your key
 - configure how and where your key can be used
 
+For each key, there are specific actions you might want to take, such as renaming or deleting, copying or changing credentials, and configuring how and where your key can be used.
 
 
-// some photo somewhere
+
+![Builder settings API Access Keys](/img/builder/settings-api-access-keys.png)
+
+
 ### Create a new API Access Key
 
-To create a new key - make sure you have selected the [right project](#), navigated [to Settings](#), and are in the [API Access Key](#) section.
+To create a new API Access Key, be sure you are in the [correct project](#), accessed [Settings](#), and are in the [API Access Key section](#).
 
-Start by clicking on the `Add API Access Key` button.
+Start by clicking the `Add API Access Key` button.
 
-// photo pointing to the API Access Key
 
-Simply give the key a name, and click the `Add Access Key` button to generate a new key. 
+![Builder settings API Access Keys select add API Access Key](/img/builder/settings-api-access-keys-select-add-api-access-key.png)
 
-If you would like to configure any details of your key, you can do so by selecting and updating it from the dashboard.
+Simply provide a name for the key and click the `Add Access Key` button to generate a new key. 
 
-// photo entering Access Key name
+If you need to configure any details of your key, you can do so by selecting and updating it from the dashboard.
+
+Finish by clicking the `Add Access Key` button.
+
+
+![Builder settings API Access Keys add Api Access Key modal](/img/builder/settings-api-access-keys-add-api-access-key-modal.png)
 
 ### Rename or delete an API Access Key
 
-To rename or delete one of your keys - make sure you have selected the [right project](#), navigated [to Settings](#), and are in the [API Access Key](#) section.
+To rename or delete one of your keys, be sure you are in the [correct project](#), accessed [Settings](#), and are in the [API Access Key section](#).
 
-Start by selecting the key you want to rename or delete to open up its details.
+Start by selecting the key and opening up its details.
 
-// photo clicking on a specific key
+
+![Builder settings API Access Keys select API key for rename](/img/builder/settings-api-access-keys-select-api-key-for-rename.png)
 
 ##### Renaming your key
 
-Find the name field, and enter a new name. 
+In the name field, and enter a new name. 
 
-Then click the `update` button.
+Then click the `Update` button.
 
-// photo pointing to name and pointing to update
+
+![Builder settings API Access Keys rename key](/img/builder/settings-api-access-keys-rename-key.png)
 
 ##### Deleting your key
 
-Click on the `Delete` button in the bottom left. 
+Click the `Delete` button in the bottom left. 
 
-// photo pointing to name and pointing to update
+
+![Builder settings API Access Keys delete key](/img/builder/settings-api-access-keys-delete-key.png)
+
 
 You will be prompted to confirm the deletion; click `Yes` to delete.
 
-// photo of modal for deletion
 
-
+![Builder settings API Access Keys delete key modal](/img/builder/settings-api-access-keys-delete-key-modal.png)
 
 ### Access the credentials of a Key
 
-To access the credentials of a key - make sure you have selected the [right project](#), navigated [to Settings](#), and are in the [API Access Key](#) section.
+To access the credentials of a key, be sure you are in the [correct project](#), accessed [Settings](#), and are in the [API Access Key section](#).
 
-Start by selecting the key you want to access the credentials of.
+Start by selecting the key that you want to access the credentials for.
 
-// photo clicking on a specific key
+
+![Builder settings API Access Keys select api key](/img/builder/settings-api-access-keys-select-api-key.png)
 
 ##### Copy your Key
-You may want to copy your credentials so that you can securly paste them where you need to.
+Your API key is designed to be used in another location or application. To use it, you need to copy it here and paste it into your application.
 
-Click the `Copy` button in the Access Key field.
+To copy your keys credentials, click `Copy` in the Access Key field.
 
-After you click the button, it will transform into a button that says `✓ Copied` for about a second - confirming that you have successfully copied the credentials
+After clicking, you'll get confirmation when the button briefly changes to `✓ Copied`.
 
 Your key credentials are now copied to your clipboard.
 
-// photo pointing to the copy button
+
+![Builder settings API Access Keys copy key](/img/builder/settings-api-access-keys-copy-key.png)
 
 ##### Rotate your Key
-You may want to change the credentials without removing all the usage tracking history for a key you have been using.
+You may want to change your key credentials without losing usage history.
 
-Click the `Rotate` button in the Access Key field.
+To do this, click the `Rotate` button in the Access Key field.
 
-After you click the button, you will see the credentials change into new credentials and a success notification will show up in the bottom right of your screen for a couple of seconds - confirming that you have successfully rotated your key.
+After clicking, you'll see the credentials transform with a success notification in the bottom right.
 
-// photo pointing to the rotate button
+
+![Builder settings API Access Keys rotate key](/img/builder/settings-api-access-keys-rotate-key.png)
 
 ### Update API access settings of a Key
 
-To update API access settings of a key - make sure you have selected the [right project](#), navigated [to Settings](#), and are in the [API Access Key](#) section.
+To update API access settings of a key, be sure you are in the [correct project](#), accessed [Settings](#), and are in the [API Access Key section](#).
 
-Start by selecting the key you want to update the access settings on.
-
-// photo clicking on a specific key
+Start by selecting the key that you want to update the access to.
 
 
+![Builder settings API Access Keys select api key](/img/builder/settings-api-access-keys-select-api-key.png)
 
 ##### Set domain access
-You may want to make sure the services enabled by your API key is being used domains associated with your game or app and not on other domains.
+Make sure your API key's services are only used on domains connected to your game or app. This can be done by setting the specific domains where your keys can be used.
 
-Enter the domain you want to have access to into the domain field.
+To do this, enter the domain you want to enable access to into the domain field.
 
-If you have another domain that you wish to add access to, click the `Add Domain` button. Then enter the other domain you want to have access to into that field.
+If you want to include another domain, click the `Add Domain` button and add it too. You should now have a list of domains your key can be used with.
 
-Continue clicking `Add Domain` and adding domains until you have included all the domains you need.
+Continue adding to this list until you have included all of the domains that you need.
 
-Finish by clicking the `Update button` to save.
+Complete your update by clicking the `Update button` to save.
 
-// photo of clicking add domain.
+
+![Builder settings API Access Keys add domains](/img/builder/settings-api-access-keys-add-domains.png)
 
 ##### Set service access
-You may want to make sure that specific services are enabled by your API key and not other services that we provide.
+You can set your API key to enable only specific services rather than all the services we offer.
 
-Near the bottom right you will find several services listed with checkboxes.
+To do this, look near the bottom right you will find several services listed with checkboxes.
+
+To do this, look for the checkboxes listing several services enabled by our key. Check the services that you want enabled for this key.
 
 Check the box for each service that you want your key to have access to.
 
-Finish by clicking the `Update button` to save.
-
-// photo of checking services.
+Complete your update by clicking the `Update button` to save.
 
 
-
+![Builder settings API Access Keys check services](/img/builder/settings-api-access-keys-check-services.png)
 
 
 ## Billing Settings
