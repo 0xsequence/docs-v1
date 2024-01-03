@@ -10,7 +10,7 @@ If you do chose to go down this route, you will need to provide the entire funct
 
 ## Calling Smart Contract Functions
 
-To call a smart contract, you'll use the `CallFunction` method to create a `CallContractFunctionTransactionCreator` delegate which will determine the appropriate gasPrice, gasLimit, nonce, and data to include in a newly assembled `EthTransaction` when provided with a client and a `ContractCall` object
+To call a smart contract, you'll use the `CallFunction` method to create a `CallContractFunction` object which will determine the appropriate gasPrice, gasLimit, nonce, and data to include in a newly assembled `EthTransaction` when provided with a client and a `ContractCall` object to the `Create` async Task
 An example of calling a smart contract would look like:
 ```
 Contract erc20Contract = new Contract(contractAddress, contractAbi); // We'll use the well-known ERC20 contract as our example case
@@ -21,16 +21,16 @@ Note: if you don't want to wait for the receipt, you can use `SendTransactionMet
 Alternatively, if you want to simply create the `EthTransaction` and send it at a later time, you can use the delegate from `CallFunction` directly.
 ```
 Contract erc20Contract = new Contract(contractAddress, contractAbi); // We'll use the well-known ERC20 contract as our example case
-EthTransaction transaction = await erc20Contract.CallFunction("transfer", toAddress, amountAsBigInteger)(client, new ContractCall(wallet.GetAddress()));
+EthTransaction transaction = await erc20Contract.CallFunction("transfer", toAddress, amountAsBigInteger).Create(client, new ContractCall(wallet.GetAddress()));
 TransactionReceipt receipt = await wallet.SendTransactionAndWaitForReceipt(client, transaction);
 
 // or 
-CallContractFunctionTransactionCreator transactionCreator = erc20Contract.CallFunction("transfer", toAddress, amountAsBigInteger);
-EthTransaction transaction = await transactionCreator(client, new ContractCall(wallet.GetAddress()));
+CallContractFunction transactionCreator = erc20Contract.CallFunction("transfer", toAddress, amountAsBigInteger);
+EthTransaction transaction = await transactionCreator.Create(client, new ContractCall(wallet.GetAddress()));
 TransactionReceipt receipt = await wallet.SendTransactionAndWaitForReceipt(client, transaction);
 
 // or 
-CallContractFunctionTransactionCreator transactionCreator = erc20Contract.CallFunction("transfer", toAddress, amountAsBigInteger);
+CallContractFunction transactionCreator = erc20Contract.CallFunction("transfer", toAddress, amountAsBigInteger);
 TransactionReceipt receipt = await transactionCreator.SendTransactionMethodAndWaitForReceipt(wallet, client);
 ```
 
@@ -80,4 +80,3 @@ If you want to deploy a contract, you can use the `ContractDeployer`
 ContractDeploymentResult deploymentResult = await ContractDeployer.Deploy(client, wallet, contractBytecodeAsString);
 string newlyDeployedContractAddress = deploymentResult.Receipt.contractAddress;
 ```
-<b>Caution</b>: please do not use a `WaaSToWalletAdapter` to deploy your contract; this is not supported. You will not receive a contract address in your receipt and will have no way of finding out where your contract is deployed. We hope to enable this behaviour in the future.
