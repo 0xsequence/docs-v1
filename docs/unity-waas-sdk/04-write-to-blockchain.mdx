@@ -57,6 +57,26 @@ _wallet.SendTransaction(new SendTransactionArgs(
 
 Note: as above, it is recommended to use `DecimalNormalizer.Normalize` to convert the amount from human readable format to EVM format. Please make sure to include the optional "decimals" int parameter if your ERC20 token has a "decimals" value that is not 18. If you're not sure how many "decimals" your ERC20 has, this can be easily read on the Builder using the "decimals" method under "Read Contract".
 
+### Complex ERC20 Interactions
+For interactions with ERC20 tokens outside of basic transfers, you'll want to use our `SequenceEthereum` library provided with the SDK. We've created ERC20 smart contract wrapper functions for your convenience that allow you to create and send `RawTransactions` with WaaS.
+
+First, you'll need to create an `ERC20` object by providing a contract address and optionally, an [ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#json) string, if you are using a custom variation of the ERC20 standard (not recommended).
+
+```
+ERC20 myToken = new ERC20(myTokenAddress);
+```
+
+with this reference, you'll have access to all of the methods implemented by the ERC20 class. Any method that returns a `CallContractFunction`, e.g. `Mint`, can be used when creating a RawTransaction with WaaS. For example:
+
+```
+ERC20 myToken = new ERC20(myTokenAddress);
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new RawTransaction(myToken.Mint(toAddress, amount)),
+    }));
+```
+
 ## sendERC721
 An [ERC721](https://docs.openzeppelin.com/contracts/4.x/erc721) token is the non-fungible standard, you've probably heard of them as NFTs. You can easily deploy an ERC721 contract and mint tokens using our [Builder](https://sequence.build/). Learn how in our [Builder documentation](https://docs.sequence.xyz/builder/overview).
 
@@ -69,6 +89,26 @@ _wallet.SendTransaction(new SendTransactionArgs(
             erc721TokenAddress,
             ToAddress,
             TokenIdAsString),
+    }));
+```
+
+### Complex ERC721 Interactions
+For interactions with ERC721 tokens outside of basic transfers, you'll want to use our `SequenceEthereum` library provided with the SDK. We've created ERC21 smart contract wrapper functions for your convenience that allow you to create and send `RawTransactions` with WaaS.
+
+First, you'll need to create an `ERC721` object by providing a contract address and optionally, an [ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#json) string, if you are using a custom variation of the ERC721 standard (not recommended).
+
+```
+ERC721 myToken = new ERC721(myTokenAddress);
+```
+
+with this reference, you'll have access to all of the methods implemented by the ERC721 class. Any method that returns a `CallContractFunction`, e.g. `Burn`, can be used when creating a RawTransaction with WaaS. For example:
+
+```
+ERC721 myToken = new ERC721(myTokenAddress);
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new RawTransaction(myToken.SafeMint(toAddress)),
     }));
 ```
 
@@ -92,6 +132,26 @@ _wallet.SendTransaction(new SendTransactionArgs(
 ```
 
 Note: you can send multiple token ids from the same ERC1155 contract in a single transaction by including multiple `SendERC1155Values` objects in the transaction
+
+### Complex ERC1155 Interactions
+For interactions with ERC1155 tokens outside of basic transfers, you'll want to use our `SequenceEthereum` library provided with the SDK. We've created ERC1155 smart contract wrapper functions for your convenience that allow you to create and send `RawTransactions` with WaaS.
+
+First, you'll need to create an `ERC1155` object by providing a contract address and optionally, an [ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#json) string, if you are using a custom variation of the ERC1155 standard (not recommended).
+
+```
+ERC1155 myToken = new ERC1155(myTokenAddress);
+```
+
+with this reference, you'll have access to all of the methods implemented by the ERC20 class. Any method that returns a `CallContractFunction`, e.g. `Mint`, can be used when creating a RawTransaction with WaaS. For example:
+
+```
+ERC20 myToken = new ERC20(myTokenAddress);
+_wallet.SendTransaction(new SendTransactionArgs(
+    _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
+    {
+        new RawTransaction(myToken.Mint(toAddress, tokenId, amount)),
+    }));
+```
 
 ## DelayedEncode
 When calling a smart contract on an EVM-based network, the client goes through a complex process known as "ABI encoding" where the function signature you want to call as well as the parameters you're providing are encoded into a binary format. This process is complicated and error-prone so we've abstracted it all away so that you don't have to deal with it. But, if you're curious to learn how it works, please see [this document](https://docs.soliditylang.org/en/develop/abi-spec.html).
@@ -151,6 +211,7 @@ _wallet.SendTransaction(new SendTransactionArgs(
             erc20TokenAddress,
             ToAddress,
             AmountAsString),
+        new RawTransaction(new ERC20(erc20TokenAddress).Burn(amount)),
         new SendERC721(
             erc721TokenAddress,
             ToAddress,
