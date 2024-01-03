@@ -73,7 +73,7 @@ ERC20 myToken = new ERC20(myTokenAddress);
 _wallet.SendTransaction(new SendTransactionArgs(
     _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
     {
-        new RawTransaction(myToken.Mint(toAddress, amount)),
+        new RawTransaction(myToken.Mint(toAddress, DecimalNormalizer.NormalizeAsBigInteger(amount))),
     }));
 ```
 
@@ -211,7 +211,7 @@ _wallet.SendTransaction(new SendTransactionArgs(
             erc20TokenAddress,
             ToAddress,
             AmountAsString),
-        new RawTransaction(new ERC20(erc20TokenAddress).Burn(amount)),
+        new RawTransaction(new ERC20(erc20TokenAddress).Burn(DecimalNormalizer.NormalizeAsBigInteger(amount))),
         new SendERC721(
             erc721TokenAddress,
             ToAddress,

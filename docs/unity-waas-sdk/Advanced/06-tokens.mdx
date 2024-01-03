@@ -16,11 +16,11 @@ BigIntegar balance = await erc20.BalanceOf(client, address);
 
 An example of sending a transaction:
 ```
-TransactionReceipt receipt = await erc20.Mint(toAddress, 1).SendTransactionMethodAndWaitForReceipt(wallet, client);
+TransactionReceipt receipt = await erc20.Mint(toAddress, DecimalNormalizer.NormalizeAsBigInteger(1)).SendTransactionMethodAndWaitForReceipt(wallet, client);
 ```
 As a wrapper of `Contract`, you also have the option to not create the `EthTransaction` and send later on.
 ```
-CallContractFunction transactionCreator = erc20.Transfer(toAddress, 1);
+CallContractFunction transactionCreator = erc20.Transfer(toAddress, DecimalNormalizer.NormalizeAsBigInteger(1));
 EthTransaction transaction = await transactionCreator.Create(client, new ContractCall(wallet.GetAddress()));
 TransactionReceipt receipt = await wallet.SendTransactionAndWaitForReceipt(client, transaction);
 ```
