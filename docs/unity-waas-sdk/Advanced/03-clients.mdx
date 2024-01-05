@@ -1,6 +1,6 @@
 # Clients
 
-In the context of SequenceEthereum, a `Client` is defined by the `IEthClient` interface.
+In the context of SequenceEthereum, a `Client` is defined by the [`IEthClient` interface](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/Ethereum/Provider/IEthClient.cs).
 
 Creating a client requires an RPC url. Public RPC urls can be found at [chainlist.org](https://chainlist.org/); however, we'd highly recommend using the RPC urls obtained from your project in the [Sequence Builder](https://sequence.build/) under Node Gateway for maximal service availability with the fastest response time. Learn more about our industry-leading Node Gateway here: https://docs.sequence.xyz/node-gateway
 
@@ -11,7 +11,7 @@ IEthClient client = new SequenceEthClient(rpcUrlAsString);
 
 ## Methods
 
-As your connection point to Ethereum nodes, there are a number of methods that can be performed by a client, these can be found in the IEthClient interface and are implemented by SequenceEthClient.
+As your connection point to Ethereum nodes, there are a number of methods that can be performed by a client, these can be found in the `IEthClient` interface and are implemented by `SequenceEthClient`.
 
 Note: with the exception of BalanceAt (potentially), most users will not need to make use of these methods, but we have included them in our documentation for completeness. 
 

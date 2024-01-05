@@ -142,7 +142,7 @@ First, you'll need to create an `ERC1155` object by providing a contract address
 ERC1155 myToken = new ERC1155(myTokenAddress);
 ```
 
-with this reference, you'll have access to all of the methods implemented by the ERC20 class. Any method that returns a `CallContractFunction`, e.g. `Mint`, can be used when creating a RawTransaction with WaaS. For example:
+with this reference, you'll have access to all of the methods implemented by the ERC1155 class. Any method that returns a `CallContractFunction`, e.g. `Mint`, can be used when creating a RawTransaction with WaaS. For example:
 
 ```
 ERC20 myToken = new ERC20(myTokenAddress);
@@ -177,9 +177,9 @@ ContractABIAsString: This can either be the entire [ABI](https://docs.solidityla
 
 ParametersAsObjectArray: The parameters you want to provide to the method you wish to call. No need to provide the parameter names, just their values in the order they appear in the ABI. Provide parameters in string format when in doubt.
 
-FunctionNameAsString: The name of the function you want to call as it appears in the ABI (or source code). Exclude parathenses and parameters.
+FunctionNameAsString: The name of the function you want to call as it appears in the ABI (or source code). Exclude parentheses and parameters.
 
-Putting this together, an example of using delayed encode to call the "transfer" function on an ERC20 would look like this:
+Putting this together, an example of using delayed encode to call the "mint" function on an ERC20 would look like this:
 ```
 _wallet.SendTransaction(new SendTransactionArgs(
     _address, Chain.Polygon, new SequenceSDK.WaaS.Transaction[]

@@ -3,7 +3,7 @@ While, in general, we would recommend deploying your smart contracts via the [Bu
 
 Contract deployment involves sending a transaction, which is done via an [asynchronous Task](https://medium.com/@sonusprocks/async-await-in-c-unity-explained-in-easy-words-571ebb6a9369). You can use `await` when calling `WaaSWallet.DeployContract` from within an async Task if you wish to obtain the `ContractDeploymentReturn` object directly. Or, you can take the recommended approach which is to setup handler functions for the `WaaSWallet.OnDeployContractComplete` and `WaaSWallet.OnDeployContractFailed` events and call the `WaaSWallet.DeployContract` method from anywhere (without await).
 
-DeployContract is essentially a wrapper for a very special `WaaSWallet.SendTransaction` call and therefore, you can expect to still receive the `WaaSWallet.OnSendTransactionComplete` or `WaaSWallet.OnSendTransactionFailed` events in addition.
+`WaaSWallet.DeployContract` is essentially a wrapper for a very special `WaaSWallet.SendTransaction` call and therefore, you can expect to still receive the `WaaSWallet.OnSendTransactionComplete` or `WaaSWallet.OnSendTransactionFailed` events in addition.
 
 ```
 public void OnDeployContractCompleteHandler(SuccessfulDeployContractReturn result) {

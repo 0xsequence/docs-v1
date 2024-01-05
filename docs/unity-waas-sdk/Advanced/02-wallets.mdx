@@ -2,7 +2,7 @@
 
 In the context of SequenceEthereum, a `Wallet` is defined by the `IWallet` interface. There are currently 2 implementations of the `IWallet` interface in this SDK.
 
-## 1. EthWallet
+## 1. [EthWallet](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/Ethereum/Wallet/EthWallet.cs)
 
 `EthWallet` is a standard [EOA wallet](https://ethereum.stackexchange.com/questions/5828/what-is-an-eoa-account) for EVM chains.
 
@@ -12,9 +12,9 @@ IWallet eoaWallet = new EthWallet(); // This will generate a cryptographically r
 IWallet eoaWallet = new EthWallet(privateKeyString); // Create a wallet using a previously generated private key
 ```
 
-## 2. WaaSToWalletAdapter
+## 2. [WaaSToWalletAdapter](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/WaaS/WaaSToWalletAdapter.cs)
 
-`WaaSToWalletAdapter` is an adapter that allows you to use a `WaaSWallet` with the same `IWallet` interface as an `EthWallet` so that it may be used interchangeably with EOA wallets throughout the rest of the SequenceEthereum library.
+`WaaSToWalletAdapter` is an adapter that allows you to use a `WaaSWallet` with the same [`IWallet` interface](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/Ethereum/Wallet/IWallet.cs) as an `EthWallet` so that it may be used interchangeably with EOA wallets throughout the rest of the SequenceEthereum library.
 
 A WaaSToWalletAdapter is easily created once you have a WaaSWallet:
 ```
@@ -23,7 +23,7 @@ IWallet waasAdapter = new WaaSToWalletAdapter(waasWallet);
 
 ## Methods
 
-The `IWallet` interface provides a number of methods for you. The most important of which are:
+The [`IWallet` interface](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/Ethereum/Wallet/IWallet.cs) provides a number of methods for you. The most important of which are:
 
 ### GetAddress
 

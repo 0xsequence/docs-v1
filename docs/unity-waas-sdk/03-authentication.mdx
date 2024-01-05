@@ -1,5 +1,5 @@
 # Authentication
-As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an [OIDC idToken](https://auth0.com/docs/secure/tokens/id-tokens/id-token-structure#sample-id-token). For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
+As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of [AWS KMS](https://aws.amazon.com/kms/) encryption and by establishing a session signing wallet through association with an [OIDC idToken](https://auth0.com/docs/secure/tokens/id-tokens/id-token-structure#sample-id-token). For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
 
 To implement authentication, we recommend using our `LoginPanel` prefab. Locate this prefab under `SequenceExamples > Prefabs` and drag it under a [Canvas](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) in your scene.
 We recommend having the `Canvas Scaler` component attached to your `Canvas` use the "Scale with Screen Size" UI Scale Mode. This will make it so that the LoginPanel (and any other UI elements under this Canvas) are scaled automatically when switching between build targets.
@@ -33,7 +33,7 @@ No additional steps required.
 
 ### Android
 
-1. In the Project window, browse to Assets > Plugins > Android.
+1. In the Project window, browse to `Assets > Plugins > Android`.
 
   a) Note: in Unity versions 2021.2 and up this path doesn't exist by default. Please navigate to `Edit > Project Settings > Player` and under the Android Publishing Settings, enable `Custom Main Manifest` in the Build section. See https://docs.unity3d.com/Manual/deep-linking-android.html for more info.
 
@@ -101,7 +101,7 @@ No additional steps required.
 
   ## Connecting with WaaS
 
-  Once we've received the idToken from either email login or social sign in, the SDK will handle connecting with WaaS servers for you. If you're curious how this is done, please see `ConnectToWaaS` in `WaaSLogin.cs`.
+  Once we've received the `idToken` from either email login or social sign in, the SDK will handle connecting with WaaS servers for you. If you're curious how this is done, please see [`ConnectToWaaS` in `WaaSLogin.cs`](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/WaaS/WaaSLogin.cs#L88).
   You'll want to subscribe to the `WaaSWallet.OnWaaSWalletCreated` event. This can be done with the following code snippet:
   ```
   WaaSWallet.OnWaaSWalletCreated += OnWaaSWalletCreatedHandler;
