@@ -12,7 +12,7 @@ public void OnWaaSWalletCreatedHander(WaaSWallet wallet) {
 ```
 
 ```
-_wallet.SignMessage(new SignMessageArgs(_wallet.GetAddress(), Chain.Polygon, "Message to sign"));
+_wallet.SignMessage(Chain.Polygon, "Message to sign");
 ```
 
 If you're unfamiliar with working with events in Unity, check out this great [Reddit post](https://www.reddit.com/r/gamedev/comments/u3hz2v/how_to_use_events_a_supersimple_unity_example/)!
