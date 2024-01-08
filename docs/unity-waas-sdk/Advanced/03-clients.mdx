@@ -2,11 +2,11 @@
 
 In the context of SequenceEthereum, a `Client` is defined by the [`IEthClient` interface](https://github.com/0xsequence/sequence-unity/blob/master/Assets/SequenceSDK/Ethereum/Provider/IEthClient.cs).
 
-Creating a client requires an RPC url. Public RPC urls can be found at [chainlist.org](https://chainlist.org/); however, we'd highly recommend using the RPC urls obtained from your project in the [Sequence Builder](https://sequence.build/) under Node Gateway for maximal service availability with the fastest response time. Learn more about our industry-leading Node Gateway here: https://docs.sequence.xyz/node-gateway
+Creating a client requires a `Chain`. This will use our highly available and responsive Node Gateway service for your RPC requests; accessed using the API key from the Builder you've provided in your `SequenceConfig` scriptable object. If you prefer to use your own RPC URL, you can create a `SequenceEthClient` using a URL string as a parameter instead.
 
 You can create a client using this snippet:
 ```
-IEthClient client = new SequenceEthClient(rpcUrlAsString);
+IEthClient client = new SequenceEthClient(Chain.Polygon);
 ```
 
 ## Methods
