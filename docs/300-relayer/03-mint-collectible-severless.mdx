@@ -32,34 +32,70 @@ Create an account on the [Cloudflare site](https://cloudflare.com/) and perform 
 $ wrangler login
 ```
 
-Once logged in, initialize the project in the project directory and follow the prompts to deploy your typescript `"Hello World" Worker` application
+Once logged in, initialize the project in the directory by accepting one of the randomly generated project folder names provided that you like, and follow the prompts to initialize your git tracked typescript `"Hello World" Worker` application. 
 
 ```
 $ wrangler init
 ```
 
+To complete this step, you should press enter 4 times after `wrangler init` with the last step answered as `No` to decline deployment.
+
 This will clone down a starter repository that can be used to deploy code to the cloud.
 
-Once initialized the last step before deployment is to register a sub-domain.
+#### Deploy Test
 
-#### Register your cloudflare sub-domain
+Finally, `cd` into the randomly generated project folder, and perform a `wrangler deploy` command. 
 
-On the [Cloudflare site](https://cloudflare.com/) create the workers.dev subdomain in Workers & Pages > select your Worker > Your subdomain > Change.
+This should print a URL, which you can enter in the browser the URL `https://<app>.<account>.workers.dev` to view the `Hello World!` result.
 
-And if you haven't already deployed your code, you can do so after you've `cd`'ed into the generated app folder (should be some random name from the `wrangler init` step) and:
+## 2. Write a smart contract with Foundry & deploy / sponsor with Builder
+
+Next, install Foundry with the following command so you can use the `forge` cli tool
 
 ```
-$ wrangler deploy
+$ curl -L https://foundry.paradigm.xyz | bash
 ```
 
-Finally, enter the generated `https://<app>.workers.dev` link in the browser and view response.
+Then, go up a directory from the perspective of the cloudflare worker files and create a new folder called `contracts` with `mkdir contracts` and enter the directory with `cd contracts`. Generate a template project and install the dependencies with the following command:
 
-## 2. Write smart contract & deploy / sponsor with Builder
+```
+$ forge init && pnpm init && pnpm install @openzeppelin/contracts
+```
 
-Write your smart contract with the necessary features, for example, here is the recommended contract that adds a few features like: only being able to mint from the relayer, the ability to turn on and off the mint, and a contract owner with certain privileges.
+So your project structure should look something like this:
+
+```
+.
+├── cloudflare
+│   ├── <project_name>
+│   ├── node_modules
+│   ├── package.json
+│   └── pnpm-lock.yaml
+└── contracts
+    ├── foundry.toml
+    ├── lib
+    ├── node_modules
+    ├── package.json
+    ├── pnpm-lock.yaml
+    ├── README.md
+    ├── script
+    ├── src
+    └── test
+
+```
+
+Update the `foundry.toml` file to include the `node_modules` folder, so it looks like this:
+
+```
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib", "node_modules"]
+```
+
+And now you're ready to write your contract. Here is a recommended contract that adds a few features like: only being able to mint using the relayer, the ability to turn on and off the mint, and an allowable contract owner with certain privileges.
 
 ```sol
-
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
 contract Demo is ERC1155 {
@@ -94,9 +130,13 @@ contract Demo is ERC1155 {
 }
 ```
 
-Compile your code with one of the popular frameworks (like forge, hardhat, etc.) and follow the steps below to upload and deploy your contract in the [Sequence Builder](https://sequence.build).
+Rename the contract file to your choosing, for example: `mv src/Counter.sol src/Demo.sol` and delete the tests folder for now with `rm -rf test`
 
-Then, access the contract page once you've [created a project](https://www.youtube.com/watch?v=UAHxmO27KrA&list=PLN_CsIpJBRiiJ7MAKrWSXj1oxWTJfiEir&index=1) and select `+ View more contracts`
+Then compile your code with the command `forge build` and follow the steps below to upload and deploy your contract in the [Sequence Builder](https://sequence.build).
+
+#### Upload contract ABI to Builder
+
+Access the contracts page once you've [created a project](https://www.youtube.com/watch?v=UAHxmO27KrA&list=PLN_CsIpJBRiiJ7MAKrWSXj1oxWTJfiEir&index=1) and select `+ View more contracts`
 
 ![contract page in builder](/img/relayer/contracts_page.png)
 
@@ -104,15 +144,57 @@ And select `+ Upload Source`
 
 ![view more options](/img/relayer/view_more_options.png)
 
-Finally, name your contract and upload your abi file generated locally before deploying your contract with `Upload Contract Source` and completing the onchain transaction to deploy to your selected network.
+Finally, name your contract and upload your ABI file generated locally before deploying your contract with `Upload Contract Source` and completing the onchain transaction to deploy to your selected network.
+
+The ABI for upload should be located in: `your_project/contracts/out/Demo.sol/Demo.json`
 
 ![contract source](/img/relayer/contract_source.png)
 
-Once you've completed the steps, you'll find in the contracts page your contract address you'll need for the sending transactions to in the code.
+Once you've completed the steps to upload, you'll be asked to input the `contract name` and `_relayerAddress` in the constructor.
+
+![deploy contract with relayer address](/img/relayer/deploy_contract_with_relayer.png)
+
+In order to know what the relayer address you are working with is, one must first print locally the account address produced from an EOA wallet private key using the following code snippet:
+
+```ts
+import { Session } from '@0xsequence/auth'
+import { ethers } from 'ethers';
+
+(() => {
+
+	// Generate a new EOA
+	// const wallet = ethers.Wallet.createRandom()
+  	// const privateKey = wallet.privateKey
+
+	// Or, use an existing EOA private key
+	const privateKey = ''
+	const provider = new ethers.providers.JsonRpcProvider('https://nodes.sequence.app/arbitrum-nova')
+
+	// Create your server EOA
+	const walletEOA = new ethers.Wallet(privateKey, provider)
+
+	// Open a Sequence session, this will find or create
+	// a Sequence wallet controlled by your server EOA
+	const session = await Session.singleSigner({
+		signer: walletEOA
+	})
+
+	const signer = session.account.getSigner(42170)
+
+	console.log(`Your wallet address: ${signer.account.address}`)
+
+})()
+```
+
+Finally, once you have your relayer address, input it into the contructor, sign the transaction and deploy. You'll find in the contracts page your contract address you'll need in order to send transactions to in the code, and, setup gas sponsorship of transactions using the following [video](https://www.youtube.com/watch?v=tDn4nd9Mi-c).
+
+:::info Helpful tip when deploying using a Sequence Wallet
+If you don't have any coin in your sequence wallet to pay for your transaction, you can sponsor your wallet address with a credit card in the [Sequence Builder](https://sequence.build). This allows all transactions from your wallet on a specific network to be free.
+:::
 
 ## 3. Use EthAuthProof to prevent EOA DDoS
 
-Next, install `ethers` and `0xsequence` to get access to sequence APIs in order to perform a proof validation that the request is coming from a trusted source, a sequence wallet.
+Now that we have a contract deployed, we can return to the cloudflare worker directory and project, and install `ethers` and `0xsequence` to get access to sequence APIs in order to perform a proof validation that the request is coming from a trusted source, a sequence wallet.
 
 ```
 $ pnpm install 0xsequence ethers@5.7.2
@@ -120,7 +202,7 @@ $ pnpm install 0xsequence ethers@5.7.2
 
 Then, we have to add a type of middleware, after we check if it's a POST or GET request. If it's a POST request, verify that the passed in `proofString` and `address` are valid.  
 
-The code scaffold would look like this, with `callContract` and `getBlockNumber` mocked out.
+The code scaffold placed into `src/index.ts` would look like this, with `callContract` and `getBlockNumber` mocked out, using the mentioned verification step of calling `verify` before any contract call.
 
 ```ts
 import { sequence } from '0xsequence'
@@ -148,13 +230,13 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext):
 	if (request.method === "POST") {
 		// parse the request body as JSON
 		const body = await request.json();
-		const { proof, address }: any = body;
+		const { proof, address, tokenId }: any = body;
 		try {
 			// check that the proof is valid
 			if(await verify('polygon', address, proof)){
 				try{
 					// mocked call
-					const res = await callContract(request, env, address)
+					const res = await callContract(request, env, address, tokenId)
 					return new Response(`${res.hash}`, { status: 200 })
 				} catch (err: any) {
 					console.log(err)
@@ -183,7 +265,7 @@ const getBlockNumber = async (request: Request): Promise<number> => {
 	return 0
 }
 
-const callContract = async (request: Request, env: Env, address: string): Promise<ethers.providers.TransactionResponse> => {
+const callContract = async (request: Request, env: Env, address: string, tokenId: number): Promise<ethers.providers.TransactionResponse> => {
 	return { hash: "0x" } as any
 }
 
@@ -227,7 +309,7 @@ And perform a curl request to test your endpoint like such:
 ```
 $ curl -X POST https://your-worker.your-subdomain.workers.dev \
 -H "Content-Type: application/json" \
--d '{"proof": "someProof", "address": "someAddress"}'
+-d '{"proof": "someProof", "address": "someAddress", "tokenId": 0 }'
 
 ... invalid proof string ... 
 
@@ -237,7 +319,7 @@ success
 
 ## 4. Deploy & mint a collectible to wallet
 
-Finally, we install the following packages 
+Finally, to deploy and mint a collectible from the sponsored contract address, we install the following packages 
 
 ```
 $ pnpm install @0xsequence/auth @0xsequence/network 
@@ -250,17 +332,17 @@ import { Session, SessionSettings } from '@0xsequence/auth'
 import { networks, ChainId } from '@0xsequence/network'
 ...
 
-const nodeUrl = 'https://nodes.sequence.app/polygon'
-const relayerUrl = 'https://polygon-relayer.sequence.app'
-const chainId = ChainId.POLYGON
-
+const nodeUrl = 'https://nodes.sequence.app/arbitrum-nova'
+const relayerUrl = 'https://arbitrum-nova-relayer.sequence.app'
+const chainId = ChainId.ARBITRUM_NOVA
+const provider = new ethers.providers.JsonRpcProvider(nodeUrl)
 ...
 
 const getBlockNumber = async (request: Request): Promise<number> => {
 	return await provider.getBlockNumber()
 }
 
-const callContract = async (request: Request, env: Env, address: string): Promise<ethers.providers.TransactionResponse> => {
+const callContract = async (request: Request, env: Env, address: string, tokenId: number): Promise<ethers.providers.TransactionResponse> => {
 
     const contractAddress = <deployed_contract_address>
 
@@ -270,7 +352,7 @@ const callContract = async (request: Request, env: Env, address: string): Promis
 	// instantiate settings
 	const settings: Partial<SessionSettings> = {
 		networks: [{
-			...networks[ChainId.POLYGON],
+			...networks[chainId],
 			rpcUrl: nodeUrl,
 			provider: provider, // NOTE: must pass the provider here
 			relayer: {
@@ -286,6 +368,7 @@ const callContract = async (request: Request, env: Env, address: string): Promis
 	const session = await Session.singleSigner({
 		settings: settings,
 		signer: walletEOA,
+		projectAccessKey: '<access_key>'
 	})
 
 	const signer = session.account.getSigner(chainId)
@@ -295,7 +378,7 @@ const callContract = async (request: Request, env: Env, address: string): Promis
 	])
 		
 	const data = collectibleInterface.encodeFunctionData(
-		'mint', [0, address] // minting only the first tokenID
+		'mint', [tokenId, address] // minting only the first tokenID
 	)
 
 	const txn = { to: contractAddress, data }
