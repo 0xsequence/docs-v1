@@ -6,13 +6,13 @@ Contract deployment involves sending a transaction, which is done via an [asynch
 `WaaSWallet.DeployContract` is essentially a wrapper for a very special `WaaSWallet.SendTransaction` call and therefore, you can expect to still receive the `WaaSWallet.OnSendTransactionComplete` or `WaaSWallet.OnSendTransactionFailed` events in addition.
 
 ```
-public void OnDeployContractCompleteHandler(SuccessfulDeployContractReturn result) {
+public void OnDeployContractCompleteHandler(SuccessfulContractDeploymentReturn result) {
     Address newlyDeployedContractAddress = result.DeployedContractAddress;
 
     // Do something
 }
 
-public void OnDeployContractFailedHandler(FailedDeployContractReturn result) {
+public void OnDeployContractFailedHandler(FailedContractDeploymentReturn result) {
     // Do something
 }
 

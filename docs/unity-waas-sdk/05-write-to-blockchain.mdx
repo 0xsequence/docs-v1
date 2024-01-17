@@ -97,7 +97,7 @@ First, you'll need to create an `ERC721` object by providing a contract address 
 ERC721 myToken = new ERC721(myTokenAddress);
 ```
 
-with this reference, you'll have access to all of the methods implemented by the ERC721 class. Any method that returns a `CallContractFunction`, e.g. `Burn`, can be used when creating a RawTransaction with WaaS. For example:
+with this reference, you'll have access to all of the methods implemented by the ERC721 class. Any method that returns a `CallContractFunction`, e.g. `SafeMint`, can be used when creating a RawTransaction with WaaS. For example:
 
 ```
 ERC721 myToken = new ERC721(myTokenAddress);
@@ -139,7 +139,7 @@ ERC1155 myToken = new ERC1155(myTokenAddress);
 with this reference, you'll have access to all of the methods implemented by the ERC1155 class. Any method that returns a `CallContractFunction`, e.g. `Mint`, can be used when creating a RawTransaction with WaaS. For example:
 
 ```
-ERC20 myToken = new ERC20(myTokenAddress);
+ERC1155 myToken = new ERC1155(myTokenAddress);
 _wallet.SendTransaction(Chain.Polygon, new SequenceSDK.WaaS.Transaction[]
     {
         new RawTransaction(myToken.Mint(toAddress, tokenId, amount)),
