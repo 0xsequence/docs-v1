@@ -7,7 +7,7 @@ The Sequence Relayer can be implemented on a severless [Cloudflare](https://clou
 The following steps will guide you through how to build your technology in 4 steps:
 
 1. [Setup Cloudflare environment with wrangler cli & deploy a test](/relayer/mint-collectible-severless#1-setup-cloudflare-environment-with-wrangler-cli--deploy-a-test)
-2. [Deploy & Sponsor an ERC1155 Contract with Builder](/relayer/mint-collectible-severless#2-deploy--sponsor-an-erc1155-contract-with-builder)
+2. [Deploy, Sponsor and Update Metadata for an ERC1155 Contract with Builder](/relayer/mint-collectible-severless#2-deploy-sponsor-and-update-metadata-for-an-erc1155-contract-with-builder)
 3. [Use EthAuthProof to prevent EOA DDoS](relayer/mint-collectible-severless#3-use-ethauthproof-to-prevent-eoa-ddos)
 4. [Mint a collectible to wallet](relayer/mint-collectible-severless#4-mint-a-collectible-to-wallet)
 
@@ -56,11 +56,9 @@ Finally, `cd` into the randomly generated project folder, and perform a `wrangle
 
 This should print a URL, which you can enter in the browser the URL `https://<app>.<account>.workers.dev` to view the `Hello World!` result.
 
-## 2. Deploy & Sponsor an ERC1155 Contract with Builder
+## 2. Deploy, Sponsor and Update Metadata for an ERC1155 Contract with Builder
 
 First, follow [this guide](/guides/deploy-an-item-collection-contract) to deploy a contract.
-
-And [this guide](/guides/sponsor-contract-gas-tank) in order to sponsor a contract.
 
 Then, one must update the role access of the contract in the Builder to only receive requests from the minter wallet address, which can be done in 2 steps.
 
@@ -106,13 +104,23 @@ Complete with the following details:
 
 `bytes32 role`: `0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6`
 
-`address account`: `Generated Sequence Relayer Wallet Address`
+`address account`: `<Generated Sequence Relayer Wallet Address>`
 
 <img src='/img/relayer/grant_role.png' />
 
 Where the `role` string inputted is the result of `keccak256("MINTER_ROLE")` in solidity or `ethers.utils.keccak256(ethers.utils.toUtf8Bytes("MINTER_ROLE"))` in javascript
 
-Finish by clicking `write` and sign the sponsored transaction.
+This makes it so that only your specific address can mint from the contract, it will error otherwise.
+
+Complete the role update by clicking `write` and sign the sponsored transaction.
+
+#### Update metadata
+
+Next, you'll need to update the metadata with your media or assets for your contract, which can be done by following this [guide](https://hackmd.io/@taylanpince/rJGCaDs4a).
+
+#### Contract sponsoring
+
+Finally, in order to sponsor the contract follow [this guide](/guides/sponsor-contract-gas-tank) to sponsor a contract. 
 
 ## 3. Use EthAuthProof to prevent EOA DDoS
 
