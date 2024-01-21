@@ -42,7 +42,9 @@ and connect to the wallet with the following code:
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = sequence.initWallet({ defaultNetwork: 'mainnet', projectAccessKey: '<access_key>' })
+const projectAccessKey = '<access_key>'
+
+const wallet = sequence.initWallet(projectAccessKey, { defaultNetwork: 'mainnet' })
 const connectDetails = await wallet.connect(({ app: 'Your app name' }))
 
 console.log('=> connected?', connectDetails.connected)
@@ -52,16 +54,18 @@ console.log('=> connected?', connectDetails.connected)
 ```ts
 import { sequence } from '0xsequence'
 
-const wallet = sequence.initWallet({ defaultNetwork: 'polygon', projectAccessKey: '<access_key>' })
+const projectAccessKey = '<access_key>'
+
+const wallet = sequence.initWallet(projectAccessKey, { defaultNetwork: 'polygon' })
 const connectDetails = await wallet.connect(({ app: 'Your app name' }))
 
 console.log('=> connected?', connectDetails.connected)
 ```
 
-:::info Required fields
-`defaultNetwork` is optional, the wallet can always be used to interact with any supported network by using the `getProvider('<network>')` and `getSigner(<network>)` methods.
+:::info Required parameters and fields
+`projectAccessKey` (as first parameter of initWallet) is required which can be generated in the [Sequence Builder](https://sequence.build) by creating a project and accesssing Settings to retrieve API Access Keys.
 
-`projectAccessKey` is required which can be generated in the [Sequence Builder](https://sequence.build) by creating a project and accesssing Settings to retrieve API Access Keys.
+`defaultNetwork` is optional, the wallet can always be used to interact with any supported network by using the `getProvider('<network>')` and `getSigner(<network>)` methods.
 
 `app` during connect is **always** required, this is the name of your dapp, and will be shown to the user when they are asked to connect their wallet.
 :::
