@@ -39,7 +39,7 @@ Now, gather all your JSON metadata files into a single folder on your computer. 
 ![Upload Metadata](/img/guides/manage-contract-metadata-builder/2.jpeg)
 
 ## Step 4: Get the Folder URL
-Click on "Content Preview" next to the folder you created on Pinata. This will open a new tab showing all your uploaded JSON files. Copy the URL of this folder.
+Click on name of the folder you created on Pinata. This will open a new tab showing all your uploaded JSON files. Copy the URL of this folder.
 
 ![Get Folder URL from Pinata](/img/guides/manage-contract-metadata-builder/3.jpeg)
 
@@ -61,13 +61,13 @@ Once you sign the transaction, your contract is ready! Click on it to view the d
 ## Step 8: Update Contract Attributes
 Navigate to the “Write Contract” section. This is where you can modify attributes of your freshly deployed ERC-1155 contract. Two methods are what you should focus on for now:
 - `setBaseMetadataURI` allows the creator to set the base metadata URL for this contract. You want this to point to the JSON files you’ve created, depending on NFT ID.
-- `mint` does what it says on the tin. It mints one of your tokens and sends it to an address of your choosing.
+- `mint` mints one of your tokens and sends it to an address of your choosing.
 
 ## Step 9: Set the Base Metadata URI
 Scroll to `setBaseMetadataURI`, expand it, and under `tokenBaseURI` paste the URL for the JSON folder preview you got from Pinata earlier. It should look something like this:
 
 ```
-`https://azure-wooden-lemur-911.mypinata.cloud/ipfs/QmW5gvYGWb98GsN8VjTRWu4pLn6jryEXNxZKNWpPhVwtDm/
+https://azure-wooden-lemur-911.mypinata.cloud/ipfs/QmW5gvYGWb98GsN8VjTRWu4pLn6jryEXNxZKNWpPhVwtDm/
 ```
 
 Click “Write” and you will be prompted to sign again. This will modify the contract on chain to set the metadata base. Essentially any token ID you provide will be appended to this URL, along with the `.json` suffix. So if you mint token ID 123, it will look for `tokenBaseURI + 123.json`.
