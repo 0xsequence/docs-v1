@@ -10,7 +10,8 @@ Any transaction that is successfully included in a block will return a `SentTran
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
 const waas = new Sequence({
-  key: '${process.env.SEQUENCE_API_KEY}',
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 });
 
 await waas.signIn({ idToken }, "Session name")
@@ -83,7 +84,8 @@ To view the full response object, see the [Transaction Receipt Response](/waas/i
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
 const waas = new Sequence({
-  key: '${process.env.SEQUENCE_API_KEY}',
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 });
 
 await waas.signIn({ idToken }, "Session name")

@@ -5,50 +5,27 @@
 We provide a TypeScript SDK for the Auth + WaaS system. You can install it with:
 
 ```bash
-pnpm install @0xsequence/waas@0.0.0-20231108174744
+pnpm install @0xsequence/waas@0.0.0-20240119113726
 ```
 
 ## Project Setup
 
-To start interacting with the Auth + WaaS system, you'll need to create a new project on Sequence Builder.
+Sequence WaaS is currently only available as a closed beta. To start using the WaaS SDKs, you'll need to contact the Sequence team and acquire API credentials. Once this is done, you will be provided with two keys:
 
-TODO: Explain how to create a project on the builder.
-
-Once you've created a project, you'll obtain API credentials that you can use to authenticate with the Auth + WaaS system.
+- Project access key
+- WaaS configuration key
 
 ## Library Setup
 
-To start using the Auth + WaaS SDK, you'll need to create a new instance of the `Waas` class:
+To start using Sequence WaaS SDK, you'll need to create a new instance of the `waas` class:
 
 ```typescript
 import { Sequence } from '@0xsequence/waas'
 
 const waas = new Sequence({
-  key: `${process.env.SEQUENCE_API_KEY}`,
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 })
 ```
 
 Note that the library is operational, but it can't be used to interact with any wallet until you have authenticated **as a user**.
-
-## Sample credentials
-
-The following configuration can be used as a development preview, **notice that we do not guarantee the availability or security of any wallets created with these credentials**.
-
-```typescript
-import { Sequence } from '@0xsequence/waas'
-
-export const sequence = new Sequence({
-  network: 'polygon',
-  key: 'eyJzZWNyZXQiOiJ0YmQiLCJ0ZW5hbnQiOjksImlkZW50aXR5UG9vbElkIjoidXMtZWFzdC0yOjQyYzlmMzlkLWM5MzUtNGQ1Yy1hODQ1LTVjODgxNWM3OWVlMyIsImVtYWlsQ2xpZW50SWQiOiI1Zmw3ZGc3bXZ1NTM0bzl2ZmpiYzZoajMxcCIsImlkcFJlZ2lvbiI6InVzLWVhc3QtMjo0MmM5ZjM5ZC1jOTM1LTRkNWMtYTg0NS01Yzg4MTVjNzllZTMifQ==',
-}, defaults.TEMPLATE_NEXT)
-```
-
-Notice that only two oauth providers are available for this configuration: `google` (only available on `localhost`) and `email`. For `google` it is possible to use the following credentials:
-
-```
-GOOGLE_CLIENT_ID=970987756660-35a6tc48hvi8cev9cnknp0iugv9poa23.apps.googleusercontent.com
-```
-
-:::warning
-All the sample credentials are strictly for development purposes and should not be used in production. They are subject to change at any time.
-:::

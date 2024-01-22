@@ -16,7 +16,8 @@ Signing in and signing up are the same operation; the account is automatically c
 import { Sequence } from '@0xsequence/waas'
 
 const waas = new Sequence({
-  key: `${process.env.SEQUENCE_API_KEY}`,
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 })
 
 // Get an idToken using the social auth provider of your choice
@@ -58,7 +59,8 @@ import { Sequence } from '@0xsequence/waas'
 const email = "user@example.com"
 
 const waas = new Sequence({
-  key: `${process.env.SEQUENCE_API_KEY}`,
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 })
 
 // This will send an email to the user with an OTP
@@ -86,7 +88,8 @@ This function returns a list of sessions for the current user and only includes 
 import { Sequence } from '@0xsequence/waas'
 
 const waas = new Sequence({
-  key: `${process.env.SEQUENCE_API_KEY}`,
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 })
 
 await waas.signIn({ idToken }, "MacBook Pro - Chrome")
@@ -134,7 +137,8 @@ A session can be closed using the `id` of the session. Any session can be closed
 import { Sequence } from '@0xsequence/waas'
 
 const waas = new Sequence({
-  key: `${process.env.SEQUENCE_API_KEY}`,
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
 })
 
 await waas.signIn({ idToken }, "MacBook Pro - Chrome")
