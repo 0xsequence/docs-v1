@@ -26,7 +26,8 @@ const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 // Open a Sequence session, this will find or create
 // a Sequence wallet controlled by your server EOA
 const session = await Session.singleSigner({
-  signer: walletEOA
+  signer: walletEOA,
+  projectAccessKey: '<access_key>'
 })
 
 // Get the Sequence wallet address
@@ -77,6 +78,7 @@ const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 // a Sequence wallet controlled by your server EOA
 const session = await Session.singleSigner({
   signer: walletEOA,
+  projectAccessKey: '<access_key>'
   // OPTIONAL: Multiple wallets could be found for the same EOA
   // to enforce a specific wallet you can use the following callback
   selectWallet: async (wallets: string[]) => {
@@ -172,7 +174,8 @@ const walletEOA = new ethers.Wallet(serverPrivateKey, provider)
 // Open a Sequence session, this will find or create
 // a Sequence wallet controlled by your server EOA
 const session = await Session.singleSigner({
-  signer: walletEOA
+  signer: walletEOA,
+  projectAccessKey: '<access_key>'
 })
 
 // Get the Sequence wallet address
