@@ -1,15 +1,19 @@
-# Mint a Collectible using a Gasless Serverless Relayer
+---
+slug: /mint-collectibles-serverless
+---
+
+# Mint Collectibles Using a Gasless Serverless Relayer
 
 Time to complete: 20-30 minutes
 
-The Sequence Relayer can be implemented on a severless [Cloudflare](https://cloudflare.com/) worker so a game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs by the relayer, and experience automatic scaling with cloudflare.
+The Sequence Relayer can be implemented on a serverless [Cloudflare](https://cloudflare.com/) worker so a game or app user interaction is seamless without a confirmation signature or gas payment. You'll also benefit from not having to be worried about transaction speed, throughput and re-orgs by the relayer, and experience automatic scaling with Cloudflare.
 
-The following steps will guide you through how to build your technology in 4 steps:
+The following steps will guide you through how to build your self-hosted minter API in 4 steps:
 
-1. [Setup Cloudflare environment with wrangler cli & deploy a test](/relayer/mint-collectible-severless#1-setup-cloudflare-environment-with-wrangler-cli--deploy-a-test)
-2. [Deploy, Sponsor and Update Metadata for an ERC1155 Contract with Builder](/relayer/mint-collectible-severless#2-deploy-sponsor-and-update-metadata-for-an-erc1155-contract-with-builder)
-3. [Use EthAuthProof to prevent EOA DDoS](relayer/mint-collectible-severless#3-use-ethauthproof-to-prevent-eoa-ddos)
-4. [Mint a collectible to wallet](relayer/mint-collectible-severless#4-mint-a-collectible-to-wallet)
+1. [Setup Cloudflare environment with wrangler cli and deploy a test](/relayer/mint-collectibles-serverless#1-setup-cloudflare-environment-with-wrangler-cli--deploy-a-test)
+2. [Deploy, sponsor and update Metadata for an ERC1155 contract with Builder](/relayer/mint-collectibles-serverless#2-deploy-sponsor-and-update-metadata-for-an-erc1155-contract-with-builder)
+3. [Use EthAuthProof to prevent EOA DDoS](mint-collectibles-serverless#3-use-ethauthproof-to-prevent-eoa-ddos)
+4. [Mint a collectible to wallet](mint-collectibles-serverless#4-mint-a-collectible-to-wallet)
 
 The result, a secure API with the following specs:
 * HTTPS GET: returns blockNumber
@@ -19,7 +23,7 @@ The result, a secure API with the following specs:
 If you have knowledge of the cli, npm, and Sequence Builder, this guide is possible to complete.
 :::
 
-## 1. Setup Cloudflare environment with wrangler cli & deploy a test
+## 1. Setup Cloudflare environment with wrangler cli and deploy a test
 
 In order to create the project from scratch, first create a project with `mkdir`, `cd` into the project, and run `pnpm init` to create a `package.json`.
 
@@ -30,7 +34,7 @@ pnpm install wrangler --save-dev
 alias wrangler='./node_modules/.bin/wrangler'
 ```
 
-Create an account on the [Cloudflare site](https://cloudflare.com/) and perform a login step to login to your cloudflare dashboard to connect the Cloudflare platform to your local development environment.
+Create an account on the [Cloudflare site](https://cloudflare.com/) and perform a login step to login to your Cloudflare dashboard to connect the Cloudflare platform to your local development environment.
 
 ```
 wrangler login
@@ -116,7 +120,7 @@ Complete the role update by clicking `write` and sign the sponsored transaction.
 
 #### Update metadata
 
-Next, you'll need to update the metadata with your media or assets for your contract, which can be done by following this [guide](https://hackmd.io/@taylanpince/rJGCaDs4a).
+Next, you'll need to update the metadata with your media or assets for your contract, which can be done by [following this guide](/guides/manage-contract-metadata-builder).
 
 #### Contract sponsoring
 
@@ -356,8 +360,8 @@ const callContract = async (request: Request, env: Env, address: string, tokenId
 }
 ```
 
-Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/mint-collectible-severless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
+Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/mint-collectibles-serverless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
 
-If you want to browse the full code, see [here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer/tree/simple-erc1155-mint-integration)
+If you want to browse the full code, see [an example implementation here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer/tree/simple-erc1155-mint-integration)
 
 Good luck!
