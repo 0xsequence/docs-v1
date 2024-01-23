@@ -20,7 +20,7 @@ The result, a secure API with the following specs:
 * HTTPS POST(proof, address): mints a collectible & returns transaction hash
 
 :::info Difficulty
-If you have knowledge of the cli, npm, and Sequence Builder, this guide is possible to complete.
+You need basic knowledge of wrangler cli, npm, and Sequence Builder in order to complete this implementation.
 :::
 
 ## 1. Setup Cloudflare environment with wrangler cli and deploy a test
@@ -362,6 +362,4 @@ const callContract = async (request: Request, env: Env, address: string, tokenId
 
 Once these steps are complete, you can redeploy and test with the steps outlined in this [prior step](/relayer/mint-collectibles-serverless#testing), and this time the POST request should return a transaction hash for the completed mint and the GET request would return a block number.
 
-If you want to browse the full code, see [an example implementation here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer/tree/simple-erc1155-mint-integration)
-
-Good luck!
+If you want to browse the full code, see [an example implementation here](https://github.com/0xsequence-demos/cloudflare-worker-sequence-relayer)
