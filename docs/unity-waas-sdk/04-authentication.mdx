@@ -1,5 +1,5 @@
 # Authentication
-As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of [AWS KMS](https://aws.amazon.com/kms/) encryption and by establishing a session signing wallet through association with an [OIDC idToken](https://auth0.com/docs/secure/tokens/id-tokens/id-token-structure#sample-id-token). For more on how WaaS works, please see: https://docs.sequence.xyz/waas/intro/
+As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of [AWS KMS](https://aws.amazon.com/kms/) encryption and by establishing a session signing wallet through association with an [OIDC idToken](https://auth0.com/docs/secure/tokens/id-tokens/id-token-structure#sample-id-token). For more on how WaaS works, please [see WaaS docs](/waas/intro/).
 
 To implement authentication, we recommend using our `LoginPanel` prefab. Locate this prefab under `SequenceExamples > Prefabs` and drag it under a [Canvas](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) in your scene.
 We recommend having the `Canvas Scaler` component attached to your `Canvas` use the "Scale with Screen Size" UI Scale Mode. This will make it so that the LoginPanel (and any other UI elements under this Canvas) are scaled automatically when switching between build targets.
