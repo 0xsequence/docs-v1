@@ -12,6 +12,8 @@ This document explains how to migrate to sequence.js v1.1.0 from earlier version
 
 The `initWallet` function's `network` parameter has been replaced. Now, it accepts a configuration object that *may* include a `defaultNetwork` parameter.
 
+Note: with v1.7.0, projectAccessKey is now passed as first parameter of initWallet and is required.
+
 Before:
 
 ```ts
@@ -21,7 +23,8 @@ const wallet = sequence.initWallet('mainnet')
 After:
 
 ```ts
-const wallet = sequence.initWallet({ defaultNetwork: 'mainnet' })
+const projectAccessKey = '<access_key>'
+const wallet = sequence.initWallet(projectAccessKey, { defaultNetwork: 'mainnet' })
 ```
 
 The parameter remains optional. If not provided, the default network will be `mainnet`.
@@ -43,7 +46,8 @@ const signer = wallet.getSigner()
 After:
 
 ```ts
-const provider = sequence.initWallet({ defaultNetwork: 'mainnet' })
+const projectAccessKey = '<access_key>'
+const provider = sequence.initWallet(projectAccessKey, { defaultNetwork: 'mainnet' })
 const signer = provider.getSigner()
 ```
 
