@@ -12,7 +12,8 @@ import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-});
+  network: 'mumbai'
+}, defaults.TEST);
 
 await waas.signIn({ idToken }, "Session name")
 
@@ -86,7 +87,8 @@ import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-});
+  network: 'mumbai'
+}, defaults.TEST);
 
 await waas.signIn({ idToken }, "Session name")
 

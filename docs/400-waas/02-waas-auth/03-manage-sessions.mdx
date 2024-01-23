@@ -18,7 +18,8 @@ import { Sequence } from '@0xsequence/waas'
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-})
+  network: 'mumbai'
+}, defaults.TEST)
 
 // Get an idToken using the social auth provider of your choice
 // (e.g., Google, Facebook, Twitter, etc.)
@@ -61,7 +62,8 @@ const email = "user@example.com"
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-})
+  network: 'mumbai'
+}, defaults.TEST)
 
 // This will send an email to the user with an OTP
 const { instance } = await waas.email.initiateAuth({ email })
@@ -90,7 +92,8 @@ import { Sequence } from '@0xsequence/waas'
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-})
+  network: 'mumbai'
+}, defaults.TEST)
 
 await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 
@@ -139,7 +142,8 @@ import { Sequence } from '@0xsequence/waas'
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-})
+  network: 'mumbai'
+}, defaults.TEST)
 
 await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 

@@ -25,7 +25,8 @@ import { Sequence } from '@0xsequence/waas'
 const waas = new Sequence({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-})
+  network: 'mumbai'
+}, defaults.TEST)
 ```
 
 Note that the library is operational, but it can't be used to interact with any wallet until you have authenticated **as a user**.
