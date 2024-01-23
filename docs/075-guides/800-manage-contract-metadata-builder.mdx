@@ -75,7 +75,7 @@ Click “Write” and you will be prompted to sign again. This will modify the c
 ![Base Metadata Setup](/img/guides/manage-contract-metadata-builder/7.jpeg)
 
 ## Step 10: Minting Time
-Finally, it’s time to mint! Scroll up to `mint`, expand it, and fill in the details:
+Finally, it's time to mint! Scroll up to `mint`, expand it, and fill in the details:
 
 - `to (address)`: This is the address that the token will be sent to. Use your Sequence wallet address or any other valid address.
 - `tokenId (uint256)`: This is your token ID. As long as you have a `tokenId.json` file already uploaded to pinata.cloud under the folder, it will work.
@@ -96,7 +96,6 @@ If you make mistakes with the token metadata, you can always update it and then 
 curl -X GET "https://metadata.sequence.app/tokens/mumbai/0xb392c99d9f8e3e0b248e5c283818be5bf5cecca7/1/refresh"
 ```
 
-This is in the format: `https://dev-metadata.sequence.app/tokens/<chain-name>/<contract-address>/<token-id>/refresh`
+This is in the format: `https://metadata.sequence.app/tokens/<chain-name>/<contract-address>/<token-id>/refresh`
 
-## Conclusion
-You've successfully minted your own ERC1155 game tokens using Sequence Builder.
+Now that you are ready to mint, you might want to read about [how you can launch your own serverless endpoint for securely minting tokens](/relayer/mint-collectibles-serverless).
