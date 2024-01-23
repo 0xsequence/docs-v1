@@ -1,0 +1,46 @@
+# Installation 
+
+## Package Manager - Recommended
+
+1. Ensure you have Git 2.14.0 or above installed on your machine
+2. Open Package Manager (Window > Package Manager)
+3. Click the "+" icon in the Package Manager window > "Add package from git URL..."
+4. Paste this url and click Add or press Enter on your keyboard `https://github.com/0xsequence/sequence-unity/tree/v2.0.0/Assets`
+5. From Package Manager, click on "Samples"
+6. Import "Setup" from Samples
+![Setup](/img/unity/unity-import-setup.png)
+
+a) This will import a Resources folder with the SequenceConfig scriptable object (more on this in Setup).
+
+b) This will also import an Editor folder with a Post Process Build script that will setup social sign in for you automatically on MacOS and iOS.
+
+7. Import `TMP Essentials` (if you haven't already). Note: Unity should prompt you to do this automatically if you attempt to Play or Build with a TextMeshPro object in your scene.
+
+![Import TMPro](/img/unity/unity-import-tmpro.png)
+
+### Samples 
+
+In addition to this documentation, we've also provided you with a few samples to help with using our SDK.
+
+These can be found by:
+1. Opening Package Manager
+2. Finding our SDK "Sequence WaaS SDK"
+3. Click on "Samples"
+4. Click "Import" next to any sample you wish to install. This will create a Samples folder under Assets and import the sample there. The sample will be completely mutable as it lives within your Assets folder.
+
+![Samples](/img/unity/unity-package-manager-samples.png)
+
+The second sample "Demo Scene" is sample scene that showcases some of the features of our SDK. It serves as a useful supplement to the documentation.
+
+## Manual
+
+Installing via Package Manager will put the SDK in a read-only state - note: you will still be able to modify the UI when using Package Manager. 
+
+For most use cases, this is ideal. However, we recognize that some advanced users will want the flexibility to edit the SDK as they see fit.
+
+Please note that if you do chose this route that updating the SDK will become more challenging because any changes you make will be overwritten and these changes can easily go unnoticed in a version control system. In general, we feel it is safer to import the SDK in read-only mode via Package Manager and write wrappers to extend as needed, but we empower you to work with our SDK how you see fit.
+
+1. Add [Newtonsoft.json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html) to your project (if it isn't there already) via package manager. Click on the "+" icon in the Package Manager window > "Add package by name..." and add `com.unity.nuget.newtonsoft-json`.
+2. Download [the latest release of the Sequence Unity SDK UnityPackage](https://github.com/0xsequence/sequence-unity/releases)
+3. Drag the `.unitypackage` file into your project window and import it
+4. Import `TMP Essentials` (if you haven't already). Note: Unity should prompt you to do this automatically if you attempt to Play or Build with a TextMeshPro object in your scene.
