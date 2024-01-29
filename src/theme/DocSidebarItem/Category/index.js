@@ -118,7 +118,7 @@ export default function DocSidebarItemCategory({
   return (
     <>
     {
-      label != "WaaS" ?
+      label != "WaaS" && label != "Unity WaaS SDK" ?
       <li
       className={clsx(
         ThemeClassNames.docs.docSidebarItemCategory,
