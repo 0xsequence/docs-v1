@@ -70,7 +70,7 @@ You can do this in Sequence Builder by providing `minter permission` to your `Se
 
 In order to know what the relayer address you are working with is, one must first either:
 
-1. Have one generated for you using this [dapp](https://73eql-hyaaa-aaaad-qf5bq-cai.ic.fleek.co/) 
+1. Have one generated for you using this [dapp](https://73eql-hyaaa-aaaad-qf5bq-cai.ic.fleek.co/) by selecting your network, and generating a wallet keypair with the `generate local wallet` button
 2. Or, you can print locally the account address produced from an EOA wallet private key using the following code snippet:
 
 ```ts
@@ -272,7 +272,7 @@ And perform a curl request to test your endpoint like such:
 ```
 curl -X POST https://your-worker.your-subdomain.workers.dev \
 -H "Content-Type: application/json" \
--d '{"proof": "someProof", "address": "someAddress", "tokenId": 0 }'
+-d '{"proof": "<some_proof>", "address": "<some_address>", "tokenId": 0 }'
 
 ... invalid proof string ... 
 
@@ -280,7 +280,29 @@ curl -X POST https://your-worker.your-subdomain.workers.dev \
 success
 ```
 
-You can acquire your wallet address proof by using this [dapp](https://73eql-hyaaa-aaaad-qf5bq-cai.ic.fleek.co/).
+You can acquire your wallet address proof by using this [dapp](https://73eql-hyaaa-aaaad-qf5bq-cai.ic.fleek.co/) and follow the below steps.
+
+#### Using the ETHAuthProof Viewer dapp
+
+When you arrive on the page, the first thing you should do is select a network.
+
+Then you have an option to either connect and generate the Proof, or, generate a local wallet
+
+![ETHAuthProof Viewer](/img/relayer/ethauthproof_viewer_connect.png)
+
+Press the `connect` button and then `copy to clipboard`. 
+
+![ETHAuthProof Viewer copy to clipboard](/img/relayer/ethauthproof_viewer_copy.png)
+
+It should be noted, it is best not to share this `ETHAuthProof` with anyone as this means someone can prove ownership of your wallet and interact with specific APIs.
+
+Finally, replace the `url` with your app from [this step](/relayer/mint-collectibles-serverless#deploy-test), the `<some_proof>` with the generated value copied from the viewer dapp, and `<some_address>` with your wallet address and it should return just the mocked `0x` string.
+
+```
+curl -X POST https://your-worker.your-subdomain.workers.dev \
+-H "Content-Type: application/json" \
+-d '{"proof": "<some_proof>", "address": "<some_address>", "tokenId": 0 }'
+```
 
 ## 4. Mint a collectible to wallet
 
