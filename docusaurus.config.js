@@ -90,6 +90,10 @@ module.exports = {
         },
         items: [
           {
+            href: 'https://github.com/0xsequence',
+            label: 'github',
+          },
+          {
             href: 'https://discord.gg/sequence',
             label: 'discord',
             position: 'right',
@@ -100,8 +104,9 @@ module.exports = {
             position: 'right',
           },
           {
-            href: 'https://github.com/0xsequence',
-            label: 'github',
+            href: 'https://sequence.xyz',
+            position: 'right',
+            label: 'wallet'
           },
           {
             href: 'mailto:hello@horizon.io',
