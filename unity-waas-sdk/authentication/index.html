@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.0.0">
 <title data-rh="true">Authentication | Sequence</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://docs.sequence.xyz/img/sequence-banner.png"><meta data-rh="true" name="twitter:image" content="https://docs.sequence.xyz/img/sequence-banner.png"><meta data-rh="true" property="og:url" content="https://docs.sequence.xyz/unity-waas-sdk/authentication"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Authentication | Sequence"><meta data-rh="true" name="description" content="As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an OIDC idToken. For more on how WaaS works, please see WaaS docs."><meta data-rh="true" property="og:description" content="As a WaaS SDK, authentication is extremely important. Authentication works via a unique combination of AWS KMS encryption and by establishing a session signing wallet through association with an OIDC idToken. For more on how WaaS works, please see WaaS docs."><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://docs.sequence.xyz/unity-waas-sdk/authentication"><link data-rh="true" rel="alternate" href="https://docs.sequence.xyz/unity-waas-sdk/authentication" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.sequence.xyz/unity-waas-sdk/authentication" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.c929ab75.css">
-<script src="/assets/js/runtime~main.d8545888.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9dceffed.js" defer="defer"></script>
 <script src="/assets/js/main.85429b4c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -23,9 +23,21 @@ Once the user successfully signs in, an idToken is returned via deep link to the
 In order to enable deep linking, we must register a custom URL scheme for our application. There are some platform specific requirements to set this up.</p>
 <b>Note: social sign in does not work in the Editor as we cannot register a custom URL scheme.</b>
 <h3 class="anchor anchorWithStickyNavbar_haBG" id="ios">iOS<a href="#ios" class="hash-link" aria-label="Direct link to iOS" title="Direct link to iOS">​</a></h3>
-<p>No additional steps required. Our SDK will automatically append the <code>UrlScheme</code> you set in <code>SequenceConfig</code> to your Plist.</p>
+<ol>
+<li>Open the iOS Player Settings window (menu: Edit &gt; Project Settings &gt; Player Settings, then select iOS).</li>
+<li>Select <code>Other Settings</code>, then scroll down to <code>Configuration</code>.</li>
+<li>Expand the <code>Supported URL schemes</code> section, and add 1 to the size.</li>
+<li>In the new <code>Element N</code> field, enter the URL scheme you&#x27;ve configured in <code>SequenceConfig</code>.</li>
+</ol>
+<p><img loading="lazy" alt="iOS URL Scheme" src="/assets/images/unity-url-scheme-ios-af767556d99f00d1004e4f0a9938ce40.png" width="1144" height="593" class="img_iLZZ"></p>
 <h3 class="anchor anchorWithStickyNavbar_haBG" id="macos">MacOS<a href="#macos" class="hash-link" aria-label="Direct link to MacOS" title="Direct link to MacOS">​</a></h3>
-<p>No additional steps required. Our SDK will automatically append the <code>UrlScheme</code> you set in <code>SequenceConfig</code> to your Plist.</p>
+<ol>
+<li>Open the Windows/Mac/Linux Player Settings window (menu: Edit &gt; Project Settings &gt; Player Settings, then select Windows/Mac/Linux).</li>
+<li>Select <code>Other Settings</code>, then scroll down to <code>Mac Configuration</code>.</li>
+<li>Expand the <code>Supported URL schemes</code> section, and add 1 to the size.</li>
+<li>In the new <code>Element N</code> field, enter the URL scheme you&#x27;ve configured in <code>SequenceConfig</code>.</li>
+</ol>
+<p><img loading="lazy" alt="Mac URL Scheme" src="/assets/images/unity-url-scheme-mac-36b788df7dc1552022ce72df3e3bb9ea.png" width="1147" height="599" class="img_iLZZ"></p>
 <h3 class="anchor anchorWithStickyNavbar_haBG" id="pc">PC<a href="#pc" class="hash-link" aria-label="Direct link to PC" title="Direct link to PC">​</a></h3>
 <p>No additional steps required.</p>
 <h3 class="anchor anchorWithStickyNavbar_haBG" id="android">Android<a href="#android" class="hash-link" aria-label="Direct link to Android" title="Direct link to Android">​</a></h3>
