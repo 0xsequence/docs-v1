@@ -21,11 +21,21 @@ In order to enable deep linking, we must register a custom URL scheme for our ap
 
 ### iOS
 
-No additional steps required. Our SDK will automatically append the `UrlScheme` you set in `SequenceConfig` to your Plist.
+1. Open the iOS Player Settings window (menu: Edit > Project Settings > Player Settings, then select iOS).
+2. Select `Other Settings`, then scroll down to `Configuration`.
+3. Expand the `Supported URL schemes` section, and add 1 to the size.
+4. In the new `Element N` field, enter the URL scheme you've configured in `SequenceConfig`.
+
+![iOS URL Scheme](/img/unity/unity-url-scheme-ios.png)
 
 ### MacOS
 
-No additional steps required. Our SDK will automatically append the `UrlScheme` you set in `SequenceConfig` to your Plist.
+1. Open the Windows/Mac/Linux Player Settings window (menu: Edit > Project Settings > Player Settings, then select Windows/Mac/Linux).
+2. Select `Other Settings`, then scroll down to `Mac Configuration`.
+3. Expand the `Supported URL schemes` section, and add 1 to the size.
+4. In the new `Element N` field, enter the URL scheme you've configured in `SequenceConfig`.
+
+![Mac URL Scheme](/img/unity/unity-url-scheme-mac.png)
 
 ### PC
 
