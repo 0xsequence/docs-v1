@@ -78,7 +78,7 @@ module.exports = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/sequence-banner.png',
+      image: 'img/sequence-banner.jpeg',
       announcementBar: {
         id: 'announcementBar', // Increment on change
         content: `❤️ To follow Sequence product updates, follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/0xsequence" >Twitter</a>`
