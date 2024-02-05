@@ -1,0 +1,242 @@
+---
+slug: /guides/setup-a-computer
+---
+
+# Setup a Computer for Development
+
+Time to complete: 15-20 minutes
+
+In order to run code on your computer with Sequence, or, most other software SDKs, you'll need a few minimal programs at your disposal.
+
+Whether you're a beginner just looking to have some fun, actually looking to take a leap into software development, or you've just gotten a fresh computer - this guide will break down the neccessary installation steps to get you running with the right tools. 
+
+The following tools are required when building code with Sequence:
+
+1. [A Personal Terminal](/guides/setup-a-computer#a-personal-terminal)
+2. [Node Version Manager](/guides/setup-a-computer#node-version-manager)
+3. [A Node Package Manager (optional)](/guides/setup-a-computer#a-node-package-manager-optional)
+4. [Typescript (optional)](/guides/setup-a-computer#typescript-optional)
+5. [A Code Editor (e.g. VSCode)](/guides/setup-a-computer#a-code-editor)
+6. [Git (optional)](/guides/setup-a-computer#git)
+
+:::info Use of # in examples:
+The use of # in the code snippets for the command line interface (cli) is to display a comment
+:::
+
+## A Personal Terminal
+Depending on your machine, you either have a Unix based terminal (if your computer is Linux or Apple) or you have Windows.
+
+* [Apple](/guides/setup-a-computer#apple)
+* [Linux](/guides/setup-a-computer#linux)
+* [Windows](/guides/setup-a-computer#windows)
+
+Below are some recommended terminals to install for the specific machine targets:
+
+#### Apple
+A terminal app: [Oh my zsh](https://ohmyz.sh/)
+
+##### Example Screenshot
+![Oh my zsh terminal](https://ohmyz.sh/img/themes/omz-half-life.png)
+
+##### Installation
+Open the application called `Terminal` (which you can also just use if you prefer the default)
+
+And you should see a `$` sign. Copy the below command and paste after the `$` sign to install the desktop app. Once it's installed it will be available to your machine.
+
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+#### Linux
+A terminal app: [Terminator](https://gnome-terminator.org/)
+
+##### Example Screenshot
+![Terminator](https://gnome-terminator.org/assets/images/terminator-vim-shells-dark-1.png)
+
+##### Installation
+Open the application called `Terminal` (which you can also just use if you prefer the default)
+
+And you should see a `$` sign. Copy the below command and paste after the `$` sign to install the desktop app. Once it's installed it will be available to your machine.
+
+```sh
+sudo apt-get update
+sudo apt-get install terminator
+```
+
+#### Windows
+A terminal app: [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/)
+
+##### Example Screenshot
+![Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/media/distro.png)
+
+##### Installation
+You can install everything you need to run WSL with a single command. 
+
+Open `PowerShell` or `Windows Command Prompt` in `administrator` mode by right-clicking and selecting "Run as administrator", enter the below command, then restart your machine.
+
+```sh
+wsl --install
+```
+
+## Node Version Manager
+
+Next, install Node Version Manager (NVM). [Nodejs](https://nodejs.org/en) is a javascript runtime engine for running programs, and `nvm` manages the correct versions of Node on your machine.
+
+If there's ever a discrepenacy with the code you want to run's recommended version target, and the one you have, you can easily install the new version and set the package globally on your computer.
+
+First start with installation.
+
+##### Installation
+```sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+Next, install the version you're looking for
+
+```sh
+nvm install latest
+# or
+nvm install v18.17
+```
+
+##### Use version number
+Now that the Node version is installed on your machine, point `nvm` to use the specific version number with one of the following commands:
+
+```
+nvm use latest
+# or
+nvm use v18.17
+```
+
+##### Testing
+You can test Node is correctly setup by getting the version number with:
+```
+node --version
+```
+
+## A Node Package Manager (optional)
+Next, because you installed `nvm` it comes with `npm` that you can use to install packages in a project, but most developers prefer one of the below package managers due to speed and `cli` word preference.
+
+Recommended packages include [Performant Node Package Manager](https://pnpm.io/) as `pnpm` or [Yarn](https://classic.yarnpkg.com/) as `yarn`.
+
+##### Install `pnpm` 
+```
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
+
+##### Install `yarn` 
+```
+npm install --global yarn
+```
+
+## Typescript (optional)
+
+TypeScript is a strongly typed programming language that builds on JavaScript, adding static type definitions to help developers catch errors and write more maintainable code.
+
+You don't necessarily need it, but it is recommended. 
+
+To install the latest version of typescript run the following command with the package manager you chose.
+
+```
+npm install -g typescript
+```
+
+## A Code Editor
+
+Setting up your code editor can be a fun and personal way to read your code, search through files, and program software.
+
+##### vscode
+
+The recommended code editor is [VSCode](https://code.visualstudio.com/) by Microsoft for any level of developer.
+
+Follow the path on [this website](https://code.visualstudio.com/download), in order to setup the app on your target machine in order to write your programs.
+
+#### Opening code from the cli
+
+Once installed, it's easy to open program repositories right from the command line. You can use the command `cd <target_directory>` to shift folders,
+
+Then, with the below command use `code .` to view code in `VSCode`
+
+```sh
+code .
+```
+
+## Git
+Now that you have a terminal you can write commands to, you'll need to make sure git is installed on your machine. 
+
+Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency, allowing multiple developers to track changes, collaborate on code, and manage their work across different branches and versions.
+
+You can check this by running:
+```
+git --version
+```
+If it produces a verison number, you have it installed and just need to try cloning a repo. Skip to [this step](/guides/setup-a-computer#clone-and-open-repository-locally).
+
+If you need to install git however, first choose between Apple and Linux (for Windows users this is the same flow)
+
+* [Apple git installation](/guides/setup-a-computer#apple-git-installation)
+* [Linux git installation](/guides/setup-a-computer#linux-git-installation)
+
+##### Apple git installation
+First install homebrew
+
+Homebrew is a free and open-source software package management system that simplifies the installation of software on Apple's operating system, macOS, as well as Linux.
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Then install git
+```
+brew install git
+```
+
+Confirm everything has been installed by checking the version number by running:
+```
+git --version
+```
+
+##### Linux git installation
+
+```
+sudo apt-get update
+sudo apt-get install git
+```
+
+Confirm everything has been installed by checking the version number by running:
+```
+git --version
+```
+
+##### Clone and open repository locally
+Finally, try cloning down (which basically means downloading) a repo with the following commands by `cd`'ing into a suitable directory and opening the code:
+
+```
+git clone https://github.com/0xsequence/demo-dapp       # clones repo
+cd demo-dapp                                            # changes directory
+code .                                                  # opens in vscode
+```
+
+Then install the packages from the `package.json` folder in the root of the repo, by simply running one of the commands:
+
+```
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+And run the demo with:
+
+```
+npm start
+# or
+pnpm start
+# or
+yarn start
+```
+
+Then, navigate to [http://localhost:4000/demo-dapp](http://localhost:4000/demo-dapp) to see the app in action
+
+## Conclusion
+Congrats! Your computer has been setup to build with the Sequence SDKs, have fun 🪩
