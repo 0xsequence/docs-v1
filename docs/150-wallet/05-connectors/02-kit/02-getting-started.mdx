@@ -11,11 +11,11 @@ In this guide, we will walk you through installing Sequence Kit, triggering the 
 Sequence Kit is modular, allowing you to install only the necessary packages. To get started, install the `kit` core package, the `connectors` package for interfacing with various wallet providers, and the `wallet` for the embedded wallet. Additionally, install other dependencies such as wagmi, viem, and 0xsequence.
 
 ```bash
-npm install @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
+npm install @0xsequence/kit @0xsequence/kit-connectors wagmi ethers@5.7.2 viem 0xsequence @tanstack/react-query
 # or
-pnpm install @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
+pnpm install @0xsequence/kit @0xsequence/kit-connectors wagmi ethers@5.7.2 viem 0xsequence @tanstack/react-query
 # or
-yarn add @0xsequence/kit @0xsequence/kit-connectors @0xsequence/kit-wallet wagmi ethers@5.7.2 viem 0xsequence
+yarn add @0xsequence/kit @0xsequence/kit-connectors wagmi ethers@5.7.2 viem 0xsequence @tanstack/react-query
 ```
 
 # Setting Up the Kit Wrapper
@@ -26,40 +26,45 @@ To utilize the core kit wrapper for connecting web3 wallets to your application,
 
 ```jsx
 import MyPage from './components/MyPage'
-import { KitProvider, KitConfig } from '@0xsequence/kit'
+import { KitProvider } from '@0xsequence/kit'
 import { getDefaultConnectors } from '@0xsequence/kit-connectors'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import { publicProvider } from 'wagmi/providers/public'
-import { mainnet, polygon } from 'wagmi/chains'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { createConfig, http, WagmiProvider } from 'wagmi'
+import { mainnet, polygon, Chain } from 'wagmi/chains'
+
+const queryClient = new QueryClient() 
 
 function App() {
-  const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [polygon, mainnet],
-    [publicProvider()],
-  )
+  const chains = [mainnet, polygon] as [Chain, ...Chain[]]
+  
+  const projectAccessKey = '<access-key>'
 
   const connectors = getDefaultConnectors({
-    chains,
-    walletConnectProjectId: '<project_id>',
-    defaultChainId: 137
+    walletConnectProjectId: 'wallet-connect-id',
+    defaultChainId: 137,
+    appName: 'demo app',
+    projectAccessKey
+  })
+
+  const transports = {}
+
+  chains.forEach(chain => {
+    transports[chain.id] = http()
   })
   
   const config = createConfig({
-    autoConnect: true,
-    publicClient,
-    webSocketPublicClient,
-    connectors
+    transports,
+    connectors,
+    chains
   })
-
-  const kitConfig: KitConfig = {
-    projectAccessKey: '<access_key>'
-  }
 
   return (
     <WagmiConfig config={config}>
-      <KitProvider>
-        <MyPage />
-      </KitProvider>
+      <QueryClientProvider client={queryClient}> 
+        <KitProvider>
+          <MyPage />
+        </KitProvider>
+      </QueryClientProvider>
     </WagmiConfig>
   );
 }
@@ -79,11 +84,13 @@ import { KitWalletProvider } from '@0xsequence/kit-wallet'
 const App = () => {
   return (
     <WagmiConfig config={config}>
-      <KitProvider config={kitConfig}>
-        <KitWalletProvider>
-          <Page />
-        </KitWalletProvider>
-      </KitProvider>
+      <QueryClientProvider client={queryClient}> 
+        <KitProvider config={kitConfig}>
+          <KitWalletProvider>
+            <Page />
+          </KitWalletProvider>
+        </KitProvider>
+      </QueryClientProvider>
     </WagmiConfig>
   )
 }
@@ -93,43 +100,48 @@ The complete code will then look like this:
 
 ```jsx
 import MyPage from './components/MyPage'
-import { KitProvider, KitConfig } from '@0xsequence/kit'
+import { KitProvider } from '@0xsequence/kit'
 import { getDefaultConnectors } from '@0xsequence/kit-connectors'
 import { KitWalletProvider } from '@0xsequence/kit-wallet'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import { publicProvider } from 'wagmi/providers/public'
-import { mainnet, polygon } from 'wagmi/chains'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { createConfig, http, WagmiProvider } from 'wagmi'
+import { mainnet, polygon, Chain } from 'wagmi/chains'
+
+const queryClient = new QueryClient() 
 
 function App() {
-  const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [polygon, mainnet],
-    [publicProvider()],
-  )
+  const chains = [mainnet, polygon] as [Chain, ...Chain[]]
+  
+  const projectAccessKey = '<access-key>'
 
   const connectors = getDefaultConnectors({
-    chains,
-    walletConnectProjectId: '<project_id>',
-    defaultChainId: 137
+    walletConnectProjectId: 'wallet-connect-id',
+    defaultChainId: 137,
+    appName: 'demo app',
+    projectAccessKey
   })
 
+  const transports = {}
+
+  chains.forEach(chain => {
+    transports[chain.id] = http()
+  })
+  
   const config = createConfig({
-    autoConnect: true,
-    publicClient,
-    webSocketPublicClient,
-    connectors
+    transports,
+    connectors,
+    chains
   })
-
-  const kitConfig: KitConfig = {
-    projectAccessKey: '<access_key>'
-  }
 
   return (
     <WagmiConfig config={config}>
-      <KitProvider config={kitConfig}>
-        <KitWalletProvider>
-          <MyPage />
-        </KitWalletProvider>
-      </KitProvider>
+      <QueryClientProvider client={queryClient}> 
+        <KitProvider>
+          <KitWalletProvider>
+            <MyPage />
+          </KitWalletProvider>
+        </KitProvider>
+      </QueryClientProvider>
     </WagmiConfig>
   );
 }
