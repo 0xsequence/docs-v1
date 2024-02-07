@@ -11,16 +11,13 @@ Sequence Kit provides official connectors via the [@0xsequence/kit-connectors](h
 To create a custom connector, you can use an existing connector as a basis. For example, the [Metamask Connector](https://github.com/0xsequence/kit/blob/master/packages/connectors/src/connectors/metamask/metamask.ts) is a good starting point. Here's an example of how to create a custom connector:
 
 ```tsx
-export const myCustomConnector = ({ chains }: MyCustomConnectorOptions) => ({
+export const myCustomConnector = (options: MyCustomConnectorOptions) => ({
   id: 'my-custom-connector',
   name: 'My Custom Connector',
   logoDark: MyCustomLogoDark,
   logoLight: MyCustomLogoLight,
   createConnector: () => {
-    const connector = new MyCustomConnector({
-      chains,
-      // Customize connector options here
-    });
+    const connector = myCustomConnector(options);
     return connector;
   },
 });
@@ -42,21 +39,21 @@ import { getKitConnectWallets } from '@0xsequence/kit';
 
 const connectors = getKitConnectWallets([
   google({
-    chains,
-    options: {
-      defaultNetwork: 137,
-    },
+    defaultNetwork: 137,
+    connect: {
+      app: 'my-app',
+      projectAccessKey: '<access-key>'
+    }
   }),
   // ... other connectors
-  myCustomConnector({ chains }),
+  myCustomConnector({ appName: 'my-app' }),
 ]);
 
 const config = createConfig({
-  autoConnect: true,
-  publicClient,
-  webSocketPublicClient,
+  transports,
   connectors,
-});
+  chains
+})
 ```
 
 Next, use your custom connector by specifying its `id` in either the `socialAuthOptions` or `walletAuthOptions` field of the Sequence Kit configuration:
@@ -71,9 +68,11 @@ const kitConfig = {
 
 return (
   <WagmiConfig config={wagmiConfig}>
-    <KitProvider config={kitConfig}>
-      <App />
-    </KitProvider>
+    <QueryClientProvider client={queryClient}>
+      <KitProvider config={kitConfig}>
+        <App />
+      </KitProvider>
+    </QueryClientProvider>
   </WagmiConfig>
 );
 ```
