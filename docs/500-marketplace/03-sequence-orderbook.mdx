@@ -1,0 +1,298 @@
+---
+slug: /marketplace/sequence-orderbook
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Sequence Orderbook
+
+Our marketplace provides a series of RPC endpoints that you can use to interact with the Sequence Orderbook - a protocol for custom orders - and user activities within the stack.
+
+## GetTopOrder
+Query the order book for the top order based on various filters.
+
+Fetch the top orders from the order book, optionally excluding those created by a specific user.
+
+* Request: POST /rpc/Marketplace/GetTopOrders
+* Content-Type: application/json
+* Body (in JSON):
+    * `orderbookContractAddress` (string) -- the address of the order book contract
+    * `collectionAddress` (string) -- the address of the NFT collection
+    * `currencyAddresses` (string[]) -- an array of currency contract addresses
+    * `tokenIDs` (string[]) -- an array of token IDs to filter the orders by
+    * `isListing` (bool) -- whether to fetch listing orders (true) or offer orders (false)
+    * `priceSort` (SortOrder) -- the direction to sort the orders by price as an enum of `"DESC"` or `"ASC"`
+    * `excludeUser?` (string) -- the address of a user whose orders to exclude
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl --request POST \
+  --url https://dev-marketplace-api.sequence.app/polygon/rpc/Marketplace/GetTopOrders \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collectionAddress": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+    "currencyAddresses": [
+        "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", 
+        "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
+    ],
+    "orderbookContractAddress": "0xB537a160472183f2150d42EB1c3DD6684A55f74c",
+    "tokenIDs": [
+        "65545"
+    ],
+    "isListing": true,
+    "priceSort": "DESC"
+}'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import fetch from 'cross-fetch';
+
+(async () => {
+
+    const res = await fetch('https://dev-marketplace-api.sequence.app/polygon/rpc/Marketplace/GetTopOrders', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "collectionAddress": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+            "currencyAddresses": ["0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"],
+            "orderbookContractAddress": "0xB537a160472183f2150d42EB1c3DD6684A55f74c",
+            "tokenIDs": [
+                "65545"
+            ],
+            "isListing": true,
+            "priceSort": "DESC"
+        })
+    });
+
+    console.log('res', await res.json())
+
+})()
+```
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+### Example implementation
+
+With the use of the `GetTopOrders` api developers can build bots to retrieve best orders to execute on, or, just simple notifiers to track the best orders to take action.
+
+## GetOrderbookOrders
+
+Query the order book for orders based on various filters.
+
+*Sequence Orderbook `GetOrderbookOrders` Method:*
+
+* Request: POST /rpc/Marketplace/GetOrderbookOrders
+* Content-Type: application/json
+* Body (in JSON):
+    * `orderbookContractAddress` (string) -- the address of the order book contract
+    * `collectionAddress` (string) -- the address of the NFT collection
+    * `currencyAddresses` (string[]) -- an array of currency contract addresses
+    * `filters` (OrderbookOrderFilter) -- filters to apply to the query
+        * `tokenIds` (string[]) -- the token ids of the assets you're looking at
+        * `isListing?` (bool) -- `true` if it is an order, `false` if it's an offer
+        * `userAddress?` (string) -- the address of the user
+    * `orderStatuses` (OrderStatus[]) (optional) -- filter orders by their statuses as `OPEN`, `CLOSED`, `CANCELLED` strings
+    * `metadataFilter` (Filter) (optional) -- filter orders by metadata
+        * `text?` (string) -- text to search
+        * `properties?` (PropertyFilter[]) -- 
+            * `name` (string) -- name of the property, eg: hero
+            * `type`: (PropertyType) -- type of the values of the property as an enum from: `"INT"`,`"STRING"`,`"ARRAY"`, or `"GENERIC"`
+            * `min?`: (int64) -- used if type is int, gives range of values for filtering
+            * `max?`: (int64) -- used if type is int, gives range of values for filtering
+            * `values?`: []any -- if string then array of values, eg: ["Ada", "Ari", "Axel", "Banjo" ...]
+    * `beforeExpiryTimestamp` (int64) -- filter orders expiring before the given timestamp
+    * `page?` -- page object to sort by
+        * `sort` (Sort[]) -- with an object of keys `"column"` and `"order"` with example `"createdAt"` and `"ASC"`, respectively
+
+**Example: `GetOrderbookOrders` of token ids from a collection address on Polygon**
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl --request POST \
+  --url https://dev-marketplace-api.sequence.app/polygon/rpc/Marketplace/GetOrderbookOrders \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collectionAddress": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+    "currencyAddresses": [
+        "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+        "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
+    ],
+    "filters": {
+        "isListing": true,
+        "tokenIds": [
+            "65545"
+        ]
+    },
+    "orderStatuses": [
+        "OPEN","CANCELLED"
+    ],
+    "metadataFilter": {
+        "text": "",
+        "properties": []
+    },
+    "page": {
+        "sort": [
+            {
+                "column": "createdAt",
+                "order": "ASC"
+            }
+        ]
+    },
+    "orderbookContractAddress": "0xB537a160472183f2150d42EB1c3DD6684A55f74c"
+}'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import fetch from 'cross-fetch';
+
+(async () => {
+
+    const res = await fetch('https://dev-marketplace-api.sequence.app/polygon/rpc/Marketplace/GetOrderbookOrders', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "collectionAddress": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+            "currencyAddresses": [
+                "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+                "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
+            ],
+            "filters": {
+                "isListing": true,
+                "tokenIds": [
+                    "65545"
+                ]
+            },
+            "orderStatuses": [
+                "OPEN","CANCELLED"
+            ],
+            "metadataFilter": {
+                "text": "",
+                "properties": []
+            },
+            "page": {
+                "sort": [
+                    {
+                        "column": "createdAt",
+                        "order": "ASC"
+                    }
+                ]
+            },
+            "orderbookContractAddress": "0xB537a160472183f2150d42EB1c3DD6684A55f74c"
+        })
+    });
+
+    console.log('res', await res.json())
+
+})()
+```
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+### Example implementation
+
+With the use of the `GetOrderbookOrders` api developers can build custom marketplaces around the api, as an example one can implement a frontend similiar to the Sequence Market 
+
+![GetOrderbookOrders](/img/marketplace/listings.png)
+
+## GetUserActivities
+
+Retrieve activity data for a specific user, including orders and trades.
+
+* Request: POST /api/Marketplace/GetUserActivities
+* Content-Type: application/json
+* Body (in JSON):
+    * `orderbookContractAddress` (string) -- the address of the order book contract.
+    * `collectionAddress` (string) -- the address of the NFT collection.
+    * `currencyAddresses` (string[]) -- an array of currency contract addresses.
+    * `userAddress` (string) -- the address of the user whose activities are being queried.
+    * `tokenIDs` (string[]) -- an array of token IDs to filter the activities by.
+
+**Example: `GetUserActivities` for a user with specific token IDs**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+
+curl -X POST -H "Content-Type: application/json" https://dev-marketplace-api.sequence.app/polygon/rpc/Marketplace/GetUserActivities -d '{
+  "orderbookContractAddress": "0xB537a160472183f2150d42EB1c3DD6684A55f74c",
+  "collectionAddress": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+  "currencyAddresses": [
+        "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+        "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
+   ],
+  "userAddress": "0x424ad5aa549e90ad5578d143b457a5e744e01c59",
+  "tokenIDs": ["65545"]
+}'
+
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import fetch from 'cross-fetch';
+
+(async () => {
+
+    const res = await fetch('https://dev-marketplace-api.sequence.app/polygon/rpc/Marketplace/GetUserActivities', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "orderbookContractAddress": "0xB537a160472183f2150d42EB1c3DD6684A55f74c",
+            "collectionAddress": "0x631998e91476da5b870d741192fc5cbc55f5a52e",
+            "currencyAddresses": [
+                            "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+                            "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
+            ],
+            "userAddress": "0x424ad5aa549e90ad5578d143b457a5e744e01c59",
+            "tokenIDs": ["65545"]
+            })
+    });
+
+    console.log('res', await res.json())
+
+})()
+```
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+### Example implementation
+
+With the use of the `GetUserActivities` api developers can build custom and personalized social or tracking experiences to follow certain users in various interfaces.
+
+![GetUserActivities](/img/marketplace/activities.png)

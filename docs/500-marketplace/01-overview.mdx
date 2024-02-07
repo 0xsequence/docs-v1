@@ -5,80 +5,12 @@ slug: /marketplace
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# Niftyswap Marketplace
+# Sequence Market
 
-Niftyswap is a Semi-Fungible Token (SFT) AMM protocol for fully automated collectible marketplace that runs on every EVM network.
+Sequence Market is a p2p marketplace powered by the Sequence Orderbook and Niftyswap protocol, a Semi-Fungible Token (SFT) AMM protocol for fully automated collectible marketplace that runs on every EVM network.
 
 While Uniswap is for trading coins (ERC-20 tokens), Niftyswap is a protocol dedicated to trading SFTs (ERC-1155 tokens). Both are designed to favor ease of use and provide access to liquidity on-chain.
 
 :::tip Niftyswap
 Niftyswap is a Horizon product that's powered by Sequence. Reach out on our discord with any questions or feedback! https://discord.gg/sequence
 :::
-
-## Market API
-
-Our marketplace is equipped with an REST endpoint that you can use to query for market information
-
-*Sequence Metadata `GetNiftyswapUnitPricesWithQuantities` Method:*
-
-* Request: POST /rpc/Indexer/GetNiftyswapUnitPricesWithQuantities
-* Content-Type: application/json
-* Body (in JSON):
-  * `chainId` (string) -- the string of the network (e.g. 'polygon')
-  * `contractAddress` (string) -- the contract address
-  * `req` (Object) -- the request as a json
-    * `swapType` (string) -- the swap type (e.g. 'BUY' or 'SELL')
-    * `ids` (string[]) -- the token ids of the assets you're looking at
-    * `amounts` (string[]) -- the amount of tokens you're looking to trade
-    * `fresh` (boolean) -- set this to true to get the latest non-cached price data at the current block
-
-**Example: `GetNiftyswapUnitPricesWithQuantities` of token ids with amounts from a contract address on Polygon**
-
-<Tabs>
-<TabItem value="curl" label="curl">
-
-```bash class=wrap
-curl -X POST -H "Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetNiftyswapUnitPricesWithQuantities -d '{"chainID":"137","contractAddress":"0x8bb759bb68995343ff1e9d57ac85ff5c5fb79334","req":{"swapType":"BUY","ids":["65537"],"amounts":["100"]},"fresh":true}'
-```
-
-</TabItem>
-<TabItem value="js" label="Javascript / Typescript">
-
-```ts
-// Works in both a Webapp (browser) or Node.js:
-import fetch from 'cross-fetch';
-
-(async () => {
-
-    const res = await fetch('https://metadata.sequence.app/rpc/Metadata/GetNiftyswapUnitPricesWithQuantities', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'chainID': '137',
-            'contractAddress': '0x8bb759bb68995343ff1e9d57ac85ff5c5fb79334',
-            'req': {
-                'swapType': 'BUY',
-                'ids': [
-                    '65537'
-                ],
-                'amounts': [
-                    '100'
-                ]
-            },
-            'fresh': true
-        })
-    });
-
-    console.log('res', await res.json())
-
-})()
-```
-</TabItem>
-<TabItem value="other" label="Other">
-
-Please [contact our team](/support) for assistance with integrations to another target.
-
-</TabItem>
-</Tabs>
