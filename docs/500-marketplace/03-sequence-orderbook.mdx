@@ -24,7 +24,27 @@ Fetch the top orders from the order book, optionally excluding those created by 
     * `isListing` (bool) -- whether to fetch listing orders (true) or offer orders (false)
     * `priceSort` (SortOrder) -- the direction to sort the orders by price as an enum of `"DESC"` or `"ASC"`
     * `excludeUser?` (string) -- the address of a user whose orders to exclude
-
+* Response (in JSON):
+    * `page` 
+        * `page` (i32) -- number of the page
+        * `pageSize` (i32) -- number of orders on the page
+        * `more` (bool) -- if there are more orders
+    * `orders` (OrderbookOrder[]) 
+        [
+            * `orderId` (string) -- order id
+            * `tokenContract` (string) -- the collection contract 
+            * `tokenId` (string) -- the tokenId of the collection in the order
+            * `isListing` (bool) -- is true if it's a listing for sale, or false if it's an offer
+            * `quantity` (string) -- the number of tokens the order is for
+            * `quantityRemaining` (string) -- the number of tokens after the order
+            * `currencyAddress` (string) -- the currency the token is trading in
+            * `pricePerToken` (string) -- the price per token
+            * `expiry` (string) -- the expiry of when the order is no longer valid
+            * `orderStatus` (OrderStatus) -- the status of the order as an enum fom `"OPEN"`, `"CLOSED"`, `"CANCELLED"`
+            * `createdBy` (string) -- the address the order was created by
+            * `createdAt` (uint64) -- the time the order was created
+            * `orderbookContractAddress` (string) -- the orderbook contract address
+        ]
 <Tabs>
 <TabItem value="curl" label="curl">
 
@@ -117,6 +137,27 @@ Query the order book for orders based on various filters.
     * `beforeExpiryTimestamp` (int64) -- filter orders expiring before the given timestamp
     * `page?` -- page object to sort by
         * `sort` (Sort[]) -- with an object of keys `"column"` and `"order"` with example `"createdAt"` and `"ASC"`, respectively
+* Response (in JSON):
+    * `page` 
+        * `page` (i32) -- number of the page
+        * `pageSize` (i32) -- number of orders on the page
+        * `more` (bool) -- if there are more orders
+    * `orders` (OrderbookOrder[]) 
+        [
+            * `orderId` (string) -- order id
+            * `tokenContract` (string) -- the collection contract 
+            * `tokenId` (string) -- the tokenId of the collection in the order
+            * `isListing` (bool) -- is true if it's a listing for sale, or false if it's an offer
+            * `quantity` (string) -- the number of tokens the order is for
+            * `quantityRemaining` (string) -- the number of tokens after the order
+            * `currencyAddress` (string) -- the currency the token is trading in
+            * `pricePerToken` (string) -- the price per token
+            * `expiry` (string) -- the expiry of when the order is no longer valid
+            * `orderStatus` (OrderStatus) -- the status of the order as an enum fom `"OPEN"`, `"CLOSED"`, `"CANCELLED"`
+            * `createdBy` (string) -- the address the order was created by
+            * `createdAt` (uint64) -- the time the order was created
+            * `orderbookContractAddress` (string) -- the orderbook contract address
+        ]
 
 **Example: `GetOrderbookOrders` of token ids from a collection address on Polygon**
 <Tabs>
@@ -232,7 +273,28 @@ Retrieve activity data for a specific user, including orders and trades.
     * `currencyAddresses` (string[]) -- an array of currency contract addresses.
     * `userAddress` (string) -- the address of the user whose activities are being queried.
     * `tokenIDs` (string[]) -- an array of token IDs to filter the activities by.
-
+* Response (in JSON):
+    * `page` 
+        * `page` (i32) -- number of the page
+        * `pageSize` (i32) -- number of orders on the page
+        * `more` (bool) -- if there are more orders
+    * `orders` (OrderbookOrder[]) 
+        [
+            * `orderId` (string) -- order id
+            * `tokenContract` (string) -- the collection contract 
+            * `tokenId` (string) -- the tokenId of the collection in the order
+            * `isListing` (bool) -- is true if it's a listing for sale, or false if it's an offer
+            * `quantity` (string) -- the number of tokens the order is for
+            * `quantityRemaining` (string) -- the number of tokens after the order
+            * `currencyAddress` (string) -- the currency the token is trading in
+            * `pricePerToken` (string) -- the price per token
+            * `expiry` (string) -- the expiry of when the order is no longer valid
+            * `orderStatus` (OrderStatus) -- the status of the order as an enum fom `"OPEN"`, `"CLOSED"`, `"CANCELLED"`
+            * `createdBy` (string) -- the address the order was created by
+            * `createdAt` (uint64) -- the time the order was created
+            * `orderbookContractAddress` (string) -- the orderbook contract address
+        ]
+        
 **Example: `GetUserActivities` for a user with specific token IDs**
 
 <Tabs>
