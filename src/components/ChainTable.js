@@ -1,19 +1,36 @@
 import React from 'react'
-import Table from './Table'
+import LargeTable from './LargeTable'
 
-export default function ChainTable({ items }) {
+export default function ChainTable({ items, columns }) {
+  const cellRenderer = (item, columnIndex) => {
+    switch (columnIndex) {
+      case 0:
+        return (
+          <div className="flex items-center">
+            <img src={item.logo} className="w-6 mr-2" />
+            <span>{item.network}</span>
+          </div>
+        )
+      case 1:
+        return (
+          <span>{item.chainHandle}</span>
+        )
+      case 2:
+        return (
+          <span>https://{item.chainHandle}-indexer.sequence.app</span>
+        )
+      default:
+        return null
+    }
+  }
+
   return (
-    <Table
-      items={items}
-      leftHeading="Network"
-      rightHeading="Chain Handle"
-      renderLeftItem={item => (
-        <div className="flex items-center">
-          <img src={item.logo} className="w-6 mr-2" />
-          <span>{item.network}</span>
-        </div>
+    <LargeTable 
+      columns={columns} 
+      items={items} 
+      renderCell={(item, columnIndex) => (
+        cellRenderer(item, columnIndex)
       )}
-      renderRightItem={item => <span>{item.chainHandle}</span>}
     />
   )
 }
