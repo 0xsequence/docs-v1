@@ -1,7 +1,7 @@
 import { Location } from 'history'
 import { Databeat } from '@databeat/tracker'
 import './js/index'
-export const analytics = new Databeat('https://databeat.sequence.app', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJzZXEtZG9jcyIsImV4cCI6MTcxMjIxNDYzNn0.qWxTAvdiD1mWUZaEMFwp3_Xq-aFmMzzoIU8h4a8xG9c')
+export const analytics = new Databeat('https://databeat.sequence.app', { jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJzZXEtZG9jcyIsImV4cCI6MTcxMjIxNDYzNn0.qWxTAvdiD1mWUZaEMFwp3_Xq-aFmMzzoIU8h4a8xG9c' })
 import { videoFunctions } from '/src/js/index'
 
 export function onRouteDidUpdate({ location, previousLocation }) {
