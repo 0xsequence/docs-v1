@@ -61,9 +61,6 @@ const txn = {
 // Send the transaction
 const txnResponse = await signer.sendTransaction(txn)
 
-// Wait for transaction to be mined
-const txnReceipt = await txnResponse.wait()
-
 // Check if transaction was successful 
 if (txnReceipt.status != 1) {
   console.log(`Unexpected status: ${txnReceipt.status}`)
@@ -117,9 +114,6 @@ const usdc = new ethers.Contract(
 
 // Send the transaction
 const txnResponse = await usdc.transfer(recipient, 1)
-
-// Wait for transaction to be mined
-const txnReceipt = await txnResponse.wait()
 
 // Check if transaction was successful 
 if (txnReceipt.status != 1) {
@@ -217,9 +211,6 @@ const txn = {
 
 // Send the transaction
 const txnResponse = await signer.sendTransaction(txn)
-
-// Wait for transaction to be mined
-const txnReceipt = await txnResponse.wait()
 
 // Check if transaction was successful 
 if (txnReceipt.status != 1) {

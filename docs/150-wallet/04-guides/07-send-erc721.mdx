@@ -23,8 +23,6 @@ const signer = wallet.getSigner()
 const txnResponse = await signer.sendTransaction(transaction)
 console.log(txnResponse)
 
-// wait for the transaction to be mined
-await txnResponse.wait()
 ```
 
 With batching functionality, you can send multiple token transfers in a single native transaction:
@@ -57,6 +55,4 @@ const signer = wallet.getSigner()
 const txnResponse = await signer.sendTransactionBatch([transaction1, transaction2])
 console.log(txnResponse)
 
-// Wait for the batched transaction to be mined
-await txnResponse.wait()
 ```
