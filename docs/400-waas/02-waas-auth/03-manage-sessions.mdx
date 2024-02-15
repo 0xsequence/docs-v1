@@ -13,9 +13,9 @@ This means you don't need to implement an account system yourself; instead, you 
 Signing in and signing up are the same operation; the account is automatically created if it doesn't already exist.
 
 ```ts
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -54,12 +54,12 @@ To open a session using an email, you will need to provide an email for the user
 Once the `idToken` is obtained, the session can be opened as usual.
 
 ```ts
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
 // Define the user's email address
 const email = "user@example.com"
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -77,19 +77,120 @@ const { idToken } = await waas.email.finalizeAuth({ instance, answer, email })
 await waas.signIn({ idToken }, "Apple Vision Pro - Chrome")
 ```
 
-### Phone Sign In / Sign Up
+### Google / Apple Auth
 
-Phone sign-in is still in development. Stay tuned!
-Contact us if you need this feature.
+Google and Apple auth are directly supported by the SDK. The `idToken` is obtained from the social auth provider and used to open a session. You can see a sample React application using Google auth below. To see a complete application, see the [demo-waas-auth](https://github.com/0xsequence/demo-waas-auth) repository. A functional demo [is also available here](https://0xsequence.github.io/demo-waas-auth/).
+
+Begin with a simple `main.tsx` file that sets up the WaaS SDK, the router, and the Google OAuth provider.
+
+```ts
+import { SequenceWaaS } from '@0xsequence/waas'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+
+const waas = new SequenceWaaS({
+  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
+  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
+  network: 'mumbai'
+}, defaults.TEST)
+
+export const router = createHashRouter([
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '/',
+    element: <App />
+  }
+])
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+        <RouterProvider router={router} />
+      </GoogleOAuthProvider>
+  </React.StrictMode>
+)
+```
+
+The `useSessionHash` hook is used to obtain a session hash that is used to prevent replay attacks. The `sequence.getSessionHash` function is used to obtain the session hash, and the `sequence.onSessionStateChanged` function is used to update the session hash when the session state changes.
+
+```ts
+import { sequence } from './main'
+import { useEffect, useState } from "react";
+
+export function useSessionHash() {
+    const [sessionHash, setSessionHash] = useState("")
+    const [error, setError] = useState<any>(undefined)
+
+    useEffect(() => {
+        const handler = async () => {
+            try {
+                setSessionHash(await sequence.getSessionHash())
+            } catch (error) {
+                console.error(error)
+                setError(error)
+            }
+        }
+        handler()
+        return sequence.onSessionStateChanged(handler)
+    }, [setSessionHash, setError])
+
+    return {
+        sessionHash,
+        error,
+        loading: !!sessionHash,
+    }
+}
+```
+
+To handle the Google login, you can use the `GoogleLogin` component from the `@react-oauth/google` package. The `handleGoogleLogin` function is called when the user successfully logs in.
+
+```ts
+import { router, sequence } from './main'
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
+import { useSessionHash } from "./useSessionHash.ts";
+
+function Login() {
+  const { sessionHash } = useSessionHash()
+  const [signingIn, setSigningIn] = useState(false)
+
+  useEffect(() => {
+    (async () => {
+      if (await sequence.isSignedIn()) {
+        router.navigate('/')
+      }
+    })()
+  }, [])
+
+  const handleGoogleLogin = async (tokenResponse: CredentialResponse) => {
+    const walletAddress = await sequence.signIn({
+      idToken: tokenResponse.credential!
+    }, "MacBook Pro - Chrome")
+
+    console.log(`Wallet address: ${walletAddress}`)
+    router.navigate('/')
+  }
+
+  return (
+    {!!sessionHash && (<>
+      <GoogleLogin onSuccess={handleGoogleLogin} shape="circle" width={230} nonce={sessionHash} />
+    </>)}
+ )
+}
+
+export default Login
+```
 
 ## List Sessions
 
 This function returns a list of sessions for the current user and only includes sessions that are still valid.
 
 ```ts
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -137,9 +238,9 @@ console.log(sessions)
 A session can be closed using the `id` of the session. Any session can be closed from any device with an active session.
 
 ```ts
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
