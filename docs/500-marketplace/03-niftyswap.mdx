@@ -1,0 +1,83 @@
+---
+slug: /marketplace/niftyswap-amm
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Niftyswap
+
+:::tip Contracts
+Niftyswap contract is fully audited and can be found at https://github.com/0xsequence/niftyswap
+
+
+The officially maintained contract address is `0x9196b852437D9Ed92d95715dCbdA4533ffC479E0`, and is available with the same address on all networks supported by the sequence stack.
+:::
+
+##  Niftyswap Price API
+
+Our marketplace is equipped with an REST endpoint that you can use to query for market information
+
+*Sequence Metadata `GetNiftyswapUnitPricesWithQuantities` Method:*
+
+* Request: POST /rpc/Indexer/GetNiftyswapUnitPricesWithQuantities
+* Content-Type: application/json
+* Body (in JSON):
+  * `chainId` (string) -- the string of the network (e.g. 'polygon')
+  * `contractAddress` (string) -- the contract address
+  * `req` (Object) -- the request as a json
+    * `swapType` (string) -- the swap type (e.g. 'BUY' or 'SELL')
+    * `ids` (string[]) -- the token ids of the assets you're looking at
+    * `amounts` (string[]) -- the amount of tokens you're looking to trade, taking into consideration of decmials (e.g. `100` is the amount for `2` decimals with quantity of `"1"`)
+    * `fresh` (boolean) -- set this to true to get the latest non-cached price data at the current block
+
+**Example: `GetNiftyswapUnitPricesWithQuantities` of token ids with amounts from a contract address on Polygon**
+
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```bash class=wrap
+curl -X POST -H "Content-Type: application/json" https://metadata.sequence.app/rpc/Metadata/GetNiftyswapUnitPricesWithQuantities -d '{"chainID":"137","contractAddress":"0x8bb759bb68995343ff1e9d57ac85ff5c5fb79334","req":{"swapType":"BUY","ids":["65537"],"amounts":["100"]},"fresh":true}'
+```
+
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import fetch from 'cross-fetch';
+
+(async () => {
+
+    const res = await fetch('https://metadata.sequence.app/rpc/Metadata/GetNiftyswapUnitPricesWithQuantities', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'chainID': '137',
+            'contractAddress': '0x8bb759bb68995343ff1e9d57ac85ff5c5fb79334',
+            'req': {
+                'swapType': 'BUY',
+                'ids': [
+                    '65537'
+                ],
+                'amounts': [
+                    '100'
+                ]
+            },
+            'fresh': true
+        })
+    });
+
+    console.log('res', await res.json())
+
+})()
+```
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
