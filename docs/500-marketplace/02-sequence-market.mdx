@@ -5,19 +5,24 @@ slug: /marketplace/sequence-orderbook
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# Sequence Orderbook
+# Sequence Market
 
-Our marketplace provides a series of RPC endpoints that you can use to interact with the Sequence Orderbook - a protocol for custom orders - and user activities within the stack.
+:::tip Contracts
+Sequence Market contract is fully audited and can be found at https://github.com/0xsequence/marketplace-contracts
 
-## GetTopOrders
-Query the order book for the top order based on various filters.
 
-Fetch the top orders from the order book, optionally excluding those created by a specific user.
+The officially maintained contract address is `0xB537a160472183f2150d42EB1c3DD6684A55f74c`, and is available with the same address on all networks supported by the sequence stack.
+:::
+
+## GetTopOrder
+Query the protocol for the top order based on various filters.
+
+Fetch the top orders from the protocol, optionally excluding those created by a specific user.
 
 * Request: POST /rpc/Marketplace/GetTopOrders
 * Content-Type: application/json
 * Body (in JSON):
-    * `orderbookContractAddress` (string) -- the address of the order book contract
+    * `orderbookContractAddress` (string) -- the address of the protocol contract
     * `collectionAddress` (string) -- the address of the NFT collection
     * `currencyAddresses` (string[]) -- an array of currency contract addresses
     * `tokenIDs` (string[]) -- an array of token IDs to filter the orders by
@@ -111,14 +116,14 @@ With the use of the `GetTopOrders` api developers can build bots to retrieve bes
 
 ## GetOrderbookOrders
 
-Query the order book for orders based on various filters.
+Query the protocol for orders based on various filters.
 
 *Sequence Orderbook `GetOrderbookOrders` Method:*
 
 * Request: POST /rpc/Marketplace/GetOrderbookOrders
 * Content-Type: application/json
 * Body (in JSON):
-    * `orderbookContractAddress` (string) -- the address of the order book contract
+    * `orderbookContractAddress` (string) -- the address of the protocol contract
     * `collectionAddress` (string) -- the address of the NFT collection
     * `currencyAddresses` (string[]) -- an array of currency contract addresses
     * `filters` (OrderbookOrderFilter) -- filters to apply to the query
@@ -268,7 +273,7 @@ Retrieve activity data for a specific user, including orders and trades.
 * Request: POST /api/Marketplace/GetUserActivities
 * Content-Type: application/json
 * Body (in JSON):
-    * `orderbookContractAddress` (string) -- the address of the order book contract.
+    * `orderbookContractAddress` (string) -- the address of the protocol contract.
     * `collectionAddress` (string) -- the address of the NFT collection.
     * `currencyAddresses` (string[]) -- an array of currency contract addresses.
     * `userAddress` (string) -- the address of the user whose activities are being queried.
