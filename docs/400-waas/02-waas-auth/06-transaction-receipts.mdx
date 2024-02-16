@@ -9,7 +9,7 @@ Any transaction that is successfully included in a block will return a `SentTran
 ```ts
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -84,7 +84,7 @@ To view the full response object, see the [Transaction Receipt Response](/waas/i
 ```ts
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'

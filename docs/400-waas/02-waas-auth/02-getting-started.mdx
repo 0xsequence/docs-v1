@@ -5,7 +5,7 @@
 We provide a TypeScript SDK for the Auth + WaaS system. You can install it with:
 
 ```bash
-pnpm install @0xsequence/waas@0.0.0-20240119113726
+pnpm install @0xsequence/waas@0.0.0-20240215191225
 ```
 
 ## Project Setup
@@ -20,9 +20,9 @@ Sequence WaaS is currently only available as a closed beta. To start using the W
 To start using Sequence WaaS SDK, you'll need to create a new instance of the `waas` class:
 
 ```typescript
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'

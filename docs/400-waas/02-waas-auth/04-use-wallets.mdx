@@ -7,9 +7,9 @@ Once the SDK is initialized and the user has been authenticated, you can access 
 The wallet address is unique to each user, can't be changed, and is used to identify the user's account. It is a string of 42 characters starting with `0x`.
 
 ```ts
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -28,9 +28,9 @@ const address = await waas.getAddress()
 The wallet can be used to sign messages. The signatures can later be validated onchain or offchain.
 
 ```ts
-import { Sequence } from '@0xsequence/waas'
+import { SequenceWaaS } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -76,7 +76,7 @@ See more in [transaction receipts](#transaction-receipts).
 ```ts
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -118,7 +118,7 @@ Helper methods are available for common operations, such as sending ERC20 tokens
 ```ts
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -158,7 +158,7 @@ Sending ERC721 tokens also has a helper method. This automatically handles the `
 ```ts
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
@@ -198,7 +198,7 @@ Sending ERC1155 tokens is also supported.
 ```ts
 import { Sequence, isSentTransactionResponse } from '@0xsequence/waas'
 
-const waas = new Sequence({
+const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
