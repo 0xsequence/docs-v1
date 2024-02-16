@@ -21,8 +21,14 @@ const waas = new SequenceWaaS({
   network: 'mumbai'
 }, defaults.TEST)
 
+// Get a sessionHash
+const sessionHash = await waas.getSessionHash()
+
 // Get an idToken using the social auth provider of your choice
-// (e.g., Google, Facebook, Twitter, etc.)
+// (Google, Facebook, Twitter, etc.)
+// Note: remember to pass the sessionHash as a nonce!
+
+// Then sign in with Sequence WaaS
 const res = await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 
 console.log(res)
@@ -34,10 +40,6 @@ console.log(res)
   "wallet": "0xd6043fe6f06d90ec2cB36cA5CD1B193A8515f350",
 }
 ```
-
-:::warning **Session ID**
-Even though the `sessionId` looks like an Ethereum address, it is not. It is a unique identifier for the session and must never be used as a recipient of funds. Any funds sent to a `sessionId` will be lost forever.
-:::
 
 :::note
 Sessions opened with some providers might require a second step in order to be usable for sending transactions.
