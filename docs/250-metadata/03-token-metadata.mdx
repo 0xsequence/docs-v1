@@ -91,9 +91,9 @@ Please [contact our team](/support) for assistance with integrations to another 
 
 When deploying new contracts or metadata updates the refresh token metadata url should be called with an access key from (the Sequence Builder) via a HTTPS POST request by command line or via metadata SDK in a program for data to indexeable in the Sequence Indexer metadata service.
 
-*Sequence Metadata `refreshTokenMetadata` Method:*
+*Sequence Metadata `enqueueTokensForRefresh` Method:*
 
-* Request: POST /rpc/Metadata/RefreshTokenMetadata
+* Request: POST /rpc/Metadata/EnqueueTokensForRefresh
 * Content-Type: application/json
 * Body (in JSON):
   * `chainID` (string) -- the chain id, as a name or number (ie. "1" or "mainnet", "137" or "polygon", etc.)
@@ -103,7 +103,7 @@ When deploying new contracts or metadata updates the refresh token metadata url 
 <Tabs>
 <TabItem value="curl" label="curl">
 ```bash
-curl -v -X POST -H "Content-type: application/json" -H "X-Access-Key: wuELppeX0pttvJABl8bIuxPAAAAAAAAAA" https://metadata.sequence.app/rpc/Metadata/RefreshTokenMetadata -d '{"chainID":"polygon", "contractAddress":"0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["1","2"]}'
+curl -v -X POST -H "Content-type: application/json" -H "X-Access-Key: wuELppeX0pttvJABl8bIuxPAAAAAAAAAA" https://metadata.sequence.app/rpc/Metadata/EnqueueTokensForRefresh -d '{"chainID":"polygon", "contractAddress":"0x631998e91476DA5B870D741192fc5Cbc55F5a52E", "tokenIDs": ["1","2"]}'
 ```
 </TabItem>
 <TabItem value="js" label="Javascript / Typescript">
@@ -113,13 +113,13 @@ import { SequenceMetadata } from '@0xsequence/metadata'
 
 const metadataClient = new SequenceMetadata("https://metadata.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
-const tokenMetadata = await metadataClient.refreshTokenMetadata({
+const jobID = await metadataClient.enqueueTokensForRefresh({
     chainID: 'polygon',
     contractAddress: '0x631998e91476DA5B870D741192fc5Cbc55F5a52E',
     tokenIDs: ['65537', '65538', '65539']
 })
 
-console.log('token metadata: ', tokenMetadata)
+console.log('refresh job id: ', tokenMetadata)
 ```
 </TabItem>
 <TabItem value="go" label="Go">
@@ -130,7 +130,53 @@ import (
 
 seqMetadata := metadata.NewMetadata("c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
 
-refreshInfo, err := seqMetadata.RefreshTokenMetadata(context.Background(), "polygon", "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", []string{"1", "2"})
+refreshJob, err := seqMetadata.EnqueueTokensForRefresh(context.Background(), "polygon", "0x631998e91476DA5B870D741192fc5Cbc55F5a52E", []string{"1", "2"}, nil)
+```
+</TabItem>
+<TabItem value="other" label="Other">
+
+Please [contact our team](/support) for assistance with integrations to another target.
+
+</TabItem>
+</Tabs>
+
+
+*Sequence Metadata `getTokenRefreshStatus` Method:*
+
+* Request: POST /rpc/Metadata/GetTokenRefreshStatus
+* Content-Type: application/json
+* Body (in JSON):
+  * `taskId` (uint) -- the task id returned from `enqueueTokensForRefresh`
+
+<Tabs>
+<TabItem value="curl" label="curl">
+```bash
+curl -v -X POST -H "Content-type: application/json" -H "X-Access-Key: wuELppeX0pttvJABl8bIuxPAAAAAAAAAA" https://metadata.sequence.app/rpc/Metadata/GetTokenRefreshStatus -d '{"taskId": 1234}'
+```
+</TabItem>
+<TabItem value="js" label="Javascript / Typescript">
+```ts
+// Works in both a Webapp (browser) or Node.js:
+import { SequenceMetadata } from '@0xsequence/metadata'
+
+const metadataClient = new SequenceMetadata("https://metadata.sequence.app", "c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
+
+const refreshJobStatus = await metadataClient.getTokenRefreshStatus({
+    taskId: 1234
+})
+
+console.log('refresh job status: ', refreshJobStatus)
+```
+</TabItem>
+<TabItem value="go" label="Go">
+```go
+import (
+	"github.com/0xsequence/go-sequence/metadata"
+)
+
+seqMetadata := metadata.NewMetadata("c3bgcU3LkFR9Bp9jFssLenPAAAAAAAAAA")
+
+refreshJobStatus, err := seqMetadata.GetTokenRefreshStatus(context.Background(), uint64(1234))
 ```
 </TabItem>
 <TabItem value="other" label="Other">
