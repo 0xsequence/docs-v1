@@ -24,6 +24,9 @@ export default function DocSidebarItemLink({
   console.log(label)
 
   return (
+    <>
+    {
+      label != "Games SDK" && label != "Unity SDK" ?
     <li
       className={clsx(
         ThemeClassNames.docs.docSidebarItemLink,
@@ -54,5 +57,8 @@ export default function DocSidebarItemLink({
         {!isInternalLink && <IconExternalLink />}
       </Link>
     </li>
+      : null
+    }
+    </>
   )
 }
