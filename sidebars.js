@@ -18,7 +18,7 @@ module.exports = {
   //   {
   //     type: 'category',
   //     label: 'Introduction',
-  //     items: ['wallet/wallet-contracts/why'],
+  //     items: ['intro/overview'],
   //   },
   // ],
    

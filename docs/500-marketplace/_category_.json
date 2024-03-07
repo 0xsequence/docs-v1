@@ -1,5 +1,6 @@
 {
   "label": "Marketplace",
+  "position": 12,
   "link": {
     "type": "doc",
     "id": "marketplace/overview"

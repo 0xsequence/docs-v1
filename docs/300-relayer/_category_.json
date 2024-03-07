@@ -1,5 +1,6 @@
 {
   "label": "Relayer",
+  "position": 10,
   "link": {
     "type": "doc",
     "id": "relayer/overview"
