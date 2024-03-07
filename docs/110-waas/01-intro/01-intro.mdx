@@ -1,12 +1,12 @@
-# Sequence - Wallet as a service
+# Sequence Embedded Wallet
 
-Sequence WaaS (wallet as a service) enables the creation, management and usage of fully functional EVM compatible wallets. These wallets can be created on-demand for each user and allow you to integrate an application with an Ethereum compatible blockchain, while using familiar constructions like RPC APIs.
+Sequence Embedded Wallet (or Wallet as a Service) enables the creation, management and usage of fully functional EVM compatible wallets. These wallets can be created on-demand for each user and allow you to integrate an application with an Ethereum compatible blockchain, while using familiar constructions like RPC APIs.
 
-Sequence WaaS offers real non-custodial wallets, and the system guarantees that each created wallet can only be accessed with the consent of the owner of the wallet.
+Sequence Embedded Wallet offers real non-custodial wallets and the system guarantees that each created wallet can only be accessed with the consent of the owner of the wallet.
 
 ## Architecture overview
 
-Sequence WaaS wallets are native smart contract multisigs, the configuration of the multisig can be seen as a 2/2, both of which are required to sign in order to operate them; each one of the signers protects the wallet from a different facet of possible threats.
+Sequence Embedded Wallets are native smart contract multisigs, the configuration of the multisig can be seen as a 2/2, both of which are required to sign in order to operate them; each one of the signers protects the wallet from a different facet of possible threats.
 
 ### Signer 1: Sequence Auth
 

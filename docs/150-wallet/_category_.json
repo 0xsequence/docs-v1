@@ -1,5 +1,6 @@
 {
-  "label": "Wallet",
+  "label": "Universal Wallet",
+  "position": 7,
   "link": {
     "type": "doc",
     "id": "wallet"

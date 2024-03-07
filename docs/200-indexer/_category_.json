@@ -1,5 +1,6 @@
 {
   "label": "Indexer",
+  "position": 8,
   "link": {
     "type": "doc",
     "id": "indexer/overview"

@@ -1,5 +1,6 @@
 {
   "label": "Builder",
+  "position": 4,
   "link": {
     "type": "doc",
     "id": "builder/overview"

@@ -1,5 +1,6 @@
 {
   "label": "Node-Gateway",
+  "position": 11,
   "link": {
     "type": "doc",
     "id": "node-gateway/overview"

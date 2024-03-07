@@ -1,5 +1,6 @@
 {
   "label": "Community & Support",
+  "position": 13,
   "link": {
     "type": "doc",
     "id": "support/contact"

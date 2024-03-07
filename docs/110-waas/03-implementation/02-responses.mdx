@@ -1,6 +1,6 @@
 # Response Payloads
 
-When interacting with the WaaS API, each intent payload will trigger a corresponding response payload. This could be either a successful response or a prompt for a different action.
+When interacting with the Sequence Embedded Wallet API, each intent payload will trigger a corresponding response payload. This could be either a successful response or a prompt for a different action.
 
 ## General Response Structure
 
@@ -199,7 +199,7 @@ The `data` field contains:
 ```ts
 import { payloads } from '@0xsequence/waas';
 
-const res = ... // response from WaaS API
+const res = ... // response from the Embedded Wallet API
 
 if (payloads.responses.isSentTransactionResponse(res)) {
   // It's a transaction receipt
@@ -270,7 +270,7 @@ The `data` field contains:
 ```ts
 import { payloads } from '@0xsequence/waas';
 
-const res = ... // response from WaaS API
+const res = ... // response from the Embedded Wallet API
 
 if (payloads.responses.isFailedTransactionResponse(res)) {
   // It's a failed transaction
@@ -305,7 +305,7 @@ The `data` field contains:
 ```ts
 import { payloads } from '@0xsequence/waas';
 
-const res = ... // response from WaaS API
+const res = ... // response from the Embedded Wallet API
 
 if (payloads.responses.isSignedMessageResponse(res)) {
   // It's a signed message
@@ -340,7 +340,7 @@ The `data` field contains:
 ```ts
 import { payloads } from '@0xsequence/waas';
 
-const res = ... // response from WaaS API
+const res = ... // response from the Embedded Wallet API
 
 if (payloads.responses.isOpenSessionResponse(res)) {
   // It's a session opened
@@ -362,7 +362,7 @@ The `data` field contains:
 ```ts
 import { payloads } from '@0xsequence/waas';
 
-const res = ... // response from WaaS API
+const res = ... // response from the Embedded Wallet API
 
 if (payloads.responses.isValidationRequiredResponse(res)) {
   // Validation is required
@@ -376,7 +376,7 @@ Both `sendTransaction` and `signMessage` intents could require validation. Alway
 ```ts
 import { payloads } from '@0xsequence/waas';
 
-const res = ... // response from WaaS API
+const res = ... // response from the Embedded Wallet API
 
 if (payloads.responses.isValidationRequiredResponse(res)) {
   // Handle validation
