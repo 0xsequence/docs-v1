@@ -73,7 +73,8 @@ const { instance } = await waas.email.initiateAuth({ email })
 // Obtain the OTP from the user
 const answer = "123456"
 
-const { idToken } = await waas.email.finalizeAuth({ instance, answer, email })
+const sessionHash = await sequence.getSessionHash()
+const { idToken } = await waas.email.finalizeAuth({ instance, answer, email, sessionHash })
 
 // Log in using the idToken, as usual
 await waas.signIn({ idToken }, "Apple Vision Pro - Chrome")
