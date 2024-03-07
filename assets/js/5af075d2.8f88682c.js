@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_0xsequence_docs=self.webpackChunk_0xsequence_docs||[]).push([[3732],{1090:e=>{e.exports=JSON.parse('{"title":"Getting Started","slug":"/getting-started","permalink":"/getting-started","navigation":{"previous":{"title":"Indexer SDK","permalink":"/unity-sdk/indexer/guides"},"next":{"title":"Quick Start","permalink":"/quickstart"}}}')}}]);

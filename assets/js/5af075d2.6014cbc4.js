@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_0xsequence_docs=self.webpackChunk_0xsequence_docs||[]).push([[3732],{1090:t=>{t.exports=JSON.parse('{"title":"Getting Started","slug":"/getting-started","permalink":"/getting-started","navigation":{"previous":{"title":"Installation","permalink":"/intro/installation"},"next":{"title":"Quick Start","permalink":"/quickstart"}}}')}}]);
