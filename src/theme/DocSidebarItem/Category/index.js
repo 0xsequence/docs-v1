@@ -118,7 +118,7 @@ export default function DocSidebarItemCategory({
   return (
     <>
     {
-      label != "Games SDK" && label != "Unity SDK" ?
+      label != "Games SDK" && label != "Unity SDK" && label != "Unreal Embedded Wallet SDK" ?
       <li
       className={clsx(
         ThemeClassNames.docs.docSidebarItemCategory,

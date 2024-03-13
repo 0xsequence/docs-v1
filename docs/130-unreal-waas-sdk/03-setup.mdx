@@ -1,0 +1,16 @@
+# Setup
+
+1. Navigate to the Resources folder imported via the `Setup` sample and locate the `SequenceConfig` ScriptableObject
+    
+    a) If you imported the SDK manually, you will need to create a Resources folder and SequenceConfig
+
+    b) Create a `Resources` folder located at `Assets/Resources`. The SDK uses [Resources.Load](https://docs.unity3d.com/ScriptReference/Resources.Load.html) to load the config `ScriptableObject` we'll create in the next step.
+    
+    c) On the top bar, click `Assets > Create > Sequence > SequenceConfig` and place the newly created `ScriptableObject` at the root of your `Resources` folder.
+2. Fill in `SequenceConfig` with the appropriate values for your project.
+
+    a) `Url Scheme` - You must replace this with a string that is unique to your application. This is very important. Failure to do so will cause unexpected behaviour when signing in with social sign in and it will not work.
+
+    b) `Builder API Keys` - These are found in the [Builder](https://sequence.build/) under `Settings > API Access Keys`
+
+    c) `WaaS Config Key` - This will be given to you by the Sequence team during WaaS onboarding
