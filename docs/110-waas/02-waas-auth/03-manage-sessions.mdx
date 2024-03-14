@@ -19,7 +19,7 @@ const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
-}, defaults.TEST)
+})
 
 // Get a sessionHash
 const sessionHash = await waas.getSessionHash()
@@ -58,26 +58,21 @@ Once the `idToken` is obtained, the session can be opened as usual.
 ```ts
 import { SequenceWaaS } from '@0xsequence/waas'
 
-// Define the user's email address
-const email = "user@example.com"
-
 const waas = new SequenceWaaS({
-  projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
-  waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-  network: 'mumbai'
-}, defaults.TEST)
+  projectAccessKey: 'PROJECT_ACCESS_KEY',
+  waasConfigKey: 'WAAS_CONFIG_KEY',
+  network: 'arbitrum-nova'
+})
 
-// This will send an email to the user with an OTP
+// Send validation email to the user with an OTP code
 const { instance } = await waas.email.initiateAuth({ email })
-
-// Obtain the OTP from the user
-const answer = "123456"
-
 const sessionHash = await sequence.getSessionHash()
+
+// Obtain OTP code from user and pass to finalizeAuth for validation
 const { idToken } = await waas.email.finalizeAuth({ instance, answer, email, sessionHash })
 
 // Log in using the idToken, as usual
-await waas.signIn({ idToken }, "Apple Vision Pro - Chrome")
+await waas.signIn({ idToken })
 ```
 
 ### Google / Apple Auth
@@ -94,8 +89,8 @@ import { createHashRouter, RouterProvider } from 'react-router-dom'
 const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-  network: 'mumbai'
-}, defaults.TEST)
+  network: 'arbitrum-nova'
+})
 
 export const router = createHashRouter([
   {
@@ -196,8 +191,8 @@ import { SequenceWaaS } from '@0xsequence/waas'
 const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-  network: 'mumbai'
-}, defaults.TEST)
+  network: 'arbitrum-nova'
+})
 
 await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 
@@ -246,8 +241,8 @@ import { SequenceWaaS } from '@0xsequence/waas'
 const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
-  network: 'mumbai'
-}, defaults.TEST)
+  network: 'arbitrum-nova'
+})
 
 await waas.signIn({ idToken }, "MacBook Pro - Chrome")
 
