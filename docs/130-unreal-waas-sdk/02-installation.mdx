@@ -12,17 +12,3 @@ You can then add these credentials in the `[Config.h]` file under `SequencePlugi
 ## Security
 
 You must provide an encryption key implementation at `[SequenceEncryptor.cpp]` function `[GetStoredKey]`. This function must be implemented to provide a securely stored private key that will be used to encrypt and decrypt client information. Failure to do so will result in NO information being stored or in the event you do not use a securely stored key, can result in client information being stored insecurely on their systems.
-
-## Getting Started
-
-1) Once you have the the `SequencePlugin` folder, you'll need to go to your project directory and create a `Plugins` folder in it, then copy over the `SequencePlugin` folder into the `Plugins` folder. If a `Plugins` folder already exists just copy the `SequencePlugin` folder into it.
-
-2) Launch your project, then allow it to update the UProject Settings.
-
-3) To find the `SequencePlugin` content folder in your content drawer enable view plugin content
-
-4) If you wish to use the in built sequence UI for login
-    a) Create an `[Actor]` you wish to be responsible for the SequenceUI then attach the `[Sequence_Pawn_Component_BP]` to it
-    b) Setup your `[Actor]` Blueprint similar to how it's setup in `[Custom_Spectator_Pawn]` being sure to bind to the delegate that gives you Credentials `[Auth_Success_Forwarder]`
-
-5) Once you have those credentials you'll need to forward them to your own C++ backend in order to use the Sequence API, an example of this can be found in the `[Custom_Spectator_Pawn]`. This Pawn inherits from a C++ class `[Sqnc_Spec_Pawn]`, which implements a blueprint Callable function `[SetupCredentials(FCredentials_BE CredentialsIn)]`. This is callable within the child class `[Custom_Spectator_Pawn]`. Calling this function will forward the credentials to a C++ backend.
