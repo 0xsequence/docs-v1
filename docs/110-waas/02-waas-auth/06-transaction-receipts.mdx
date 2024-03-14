@@ -13,7 +13,7 @@ const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
-}, defaults.TEST)
+})
 
 await waas.signIn({ idToken }, "Session name")
 
@@ -88,7 +88,7 @@ const waas = new SequenceWaaS({
   projectAccessKey: `${process.env.PROJECT_ACCESS_KEY}`,
   waasConfigKey: `${process.env.WAAS_CONFIG_KEY}`,
   network: 'mumbai'
-}, defaults.TEST)
+})
 
 await waas.signIn({ idToken }, "Session name")
 
