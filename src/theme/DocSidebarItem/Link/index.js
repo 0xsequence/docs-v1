@@ -26,7 +26,7 @@ export default function DocSidebarItemLink({
   return (
     <>
     {
-      label != "Games SDK" && label != "Unity SDK" && label != "Embedded Wallet" ?
+      label != "Games SDK" && label != "Unity SDK" ?
     <li
       className={clsx(
         ThemeClassNames.docs.docSidebarItemLink,
