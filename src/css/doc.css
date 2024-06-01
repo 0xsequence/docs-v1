@@ -18,3 +18,7 @@
   @apply dark:fill-white-80 fill-black-80;
   width: 16px;
 }
+
+.col {
+  width: 80%
+}
