@@ -2,8 +2,7 @@
 slug: /multi-chain-support
 ---
 
-import ChainTable from '/src/components/ChainTable'
-
+import ChainTable from "/src/components/ChainTable";
 
 # Multi-Chain Support
 
@@ -14,116 +13,139 @@ Sequence Relayer and all Sequence SDKs:
 
 ## Networks
 
-<ChainTable items={[
-  {
-    network: 'Ethereum',
-    logo: '/img/networks/1.png',
-    chainId: 1,
-    chainHandle: 'mainnet',
-  },
-  {
-    network: 'Arbitrum One',
-    logo: '/img/networks/42161.png',
-    chainId: 42161,
-    chainHandle: 'arbitrum',
-  },
-  {
-    network: 'Arbitrum Nova',
-    logo: '/img/networks/42170.png',
-    chainId: 42170,
-    chainHandle: 'arbitrum-nova',
-  },
-  {
-    network: 'Polygon',
-    logo: '/img/networks/137.png',
-    chainId: 137,
-    chainHandle: 'polygon',
-  },
-  {
-    network: 'Polygon zkEVM',
-    logo: '/img/networks/1101.png',
-    chainId: 1101,
-    chainHandle: 'polygon-zkevm',
-  },
-  {
-    network: 'Base',
-    logo: '/img/networks/8453.png',
-    chainId: 8453,
-    chainHandle: 'base',
-  },
-  {
-    network: 'Optimism',
-    logo: '/img/networks/10.png',
-    chainId: 10,
-    chainHandle: 'optimism',
-  },
-  {
-    network: 'Avalanche',
-    logo: '/img/networks/43114.png',
-    chainId: 43114,
-    chainHandle: 'avalanche',
-  },
-  {
-    network: 'HOME Verse',
-    logo: '/img/networks/19011.png',
-    chainId: 19011,
-    chainHandle: 'homeverse',
-  },
-  {
-    network: 'BSC',
-    logo: '/img/networks/56.png',
-    chainId: 56,
-    chainHandle: 'bsc',
-  },
-  {
-    network: 'Gnosis',
-    logo: '/img/networks/100.png',
-    chainId: 100,
-    chainHandle: 'gnosis',
-  }
-]} columns={["Network", "Chain Handle", "Indexer Endpoint"]} />
+<ChainTable
+  items={[
+    {
+      network: "Ethereum",
+      logo: "/img/networks/1.png",
+      chainId: 1,
+      chainHandle: "mainnet",
+    },
+    {
+      network: "Arbitrum One",
+      logo: "/img/networks/42161.png",
+      chainId: 42161,
+      chainHandle: "arbitrum",
+    },
+    {
+      network: "Arbitrum Nova",
+      logo: "/img/networks/42170.png",
+      chainId: 42170,
+      chainHandle: "arbitrum-nova",
+    },
+    {
+      network: "Polygon",
+      logo: "/img/networks/137.png",
+      chainId: 137,
+      chainHandle: "polygon",
+    },
+    {
+      network: "Polygon zkEVM",
+      logo: "/img/networks/1101.png",
+      chainId: 1101,
+      chainHandle: "polygon-zkevm",
+    },
+    {
+      network: "Astar zkEVM",
+      logo: "https://assets.sequence.info/images/networks/medium/3776.webp?v3",
+      chainId: 3776,
+      chainHandle: "astar-zkevm",
+    },
+    {
+      network: "Base",
+      logo: "/img/networks/8453.png",
+      chainId: 8453,
+      chainHandle: "base",
+    },
+    {
+      network: "Optimism",
+      logo: "/img/networks/10.png",
+      chainId: 10,
+      chainHandle: "optimism",
+    },
+    {
+      network: "Avalanche",
+      logo: "/img/networks/43114.png",
+      chainId: 43114,
+      chainHandle: "avalanche",
+    },
+    {
+      network: "HOME Verse",
+      logo: "/img/networks/19011.png",
+      chainId: 19011,
+      chainHandle: "homeverse",
+    },
+    {
+      network: "BSC",
+      logo: "/img/networks/56.png",
+      chainId: 56,
+      chainHandle: "bsc",
+    },
+    {
+      network: "Gnosis",
+      logo: "/img/networks/100.png",
+      chainId: 100,
+      chainHandle: "gnosis",
+    },
+  ]}
+  columns={["Network", "Chain Handle", "Indexer Endpoint"]}
+/>
 
 ## Testnets
 
-<ChainTable items={[
-  {
-    network: 'Ethereum Sepolia',
-    logo: '/img/networks/1.png',
-    chainId: 11155111,
-    chainHandle: 'sepolia',
-  },
-  {
-    network: 'Arbitrum Sepolia',
-    logo: '/img/networks/42161.png',
-    chainId: 421614,
-    chainHandle: 'arbitrum-sepolia',
-  },
-  {
-    network: 'Base Sepolia',
-    logo: '/img/networks/8453.png',
-    chainId: 84532,
-    chainHandle: 'base-sepolia',
-  },
-  {
-    network: 'Optimism Sepolia',
-    logo: '/img/networks/10.png',
-    chainId: 11155420,
-    chainHandle: 'optimism-sepolia',
-  },
-  {
-    network: 'Polygon Mumbai',
-    logo: '/img/networks/137.png',
-    chainId: 80001,
-    chainHandle: 'mumbai',
-  },
-  {
-    network: 'BSC Testnet',
-    logo: '/img/networks/56.png',
-    chainId: 97,
-    chainHandle: 'bsc-testnet',
-  }
-]} columns={["Network", "Chain Handle", "Indexer Endpoint"]} />
-
+<ChainTable
+  items={[
+    {
+      network: "Ethereum Sepolia",
+      logo: "/img/networks/1.png",
+      chainId: 11155111,
+      chainHandle: "sepolia",
+    },
+    {
+      network: "Arbitrum Sepolia",
+      logo: "/img/networks/42161.png",
+      chainId: 421614,
+      chainHandle: "arbitrum-sepolia",
+    },
+    {
+      network: "Base Sepolia",
+      logo: "/img/networks/8453.png",
+      chainId: 84532,
+      chainHandle: "base-sepolia",
+    },
+    {
+      network: "Astar zkATANA Testnet",
+      logo: "https://assets.sequence.info/images/networks/medium/3776.webp",
+      chainId: 1261120,
+      chainHandle: "astar-zkatana",
+    },
+    {
+      network: "Optimism Sepolia",
+      logo: "/img/networks/10.png",
+      chainId: 11155420,
+      chainHandle: "optimism-sepolia",
+    },
+    {
+      network: "HOME Verse Testnet",
+      logo: "/img/networks/19011.png",
+      chainId: 40875,
+      chainHandle: "homeverse-testnet",
+    },
+    {
+      network: "BSC Testnet",
+      logo: "/img/networks/56.png",
+      chainId: 97,
+      chainHandle: "bsc-testnet",
+    },
+    {
+      network: "Xai Sepolia",
+      logo: "https://assets.sequence.info/images/networks/medium/37714555429.webp?v3",
+      chainId: 37714555429,
+      chainHandle: "xai-sepolia",
+    },
+  ]}
+  columns={["Network", "Chain Handle", "Indexer Endpoint"]}
+/>
 
 ## Layer-3 Support
 

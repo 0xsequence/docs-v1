@@ -7,7 +7,7 @@ export default function ChainTable({ items, columns }) {
       case 0:
         return (
           <div className="flex items-center">
-            <img src={item.logo} className="w-6 mr-2" />
+            <img src={item.logo} className="w-6 mr-2 chain-logo" />
             <span>{item.network}</span>
           </div>
         )
